@@ -1,0 +1,22 @@
+{
+  "name": "@sc/auth-identity",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/handler.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "lint": "echo 'lint: TODO(owner) wire eslint'"
+  },
+  "dependencies": {
+    "@aws-sdk/lib-dynamodb": "^3.620.0",
+    "@sc/config": "workspace:*",
+    "@sc/shared": "workspace:*",
+    "hono": "^4.5.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.140"
+  }
+}

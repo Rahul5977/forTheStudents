@@ -4,11 +4,15 @@
 
 ---
 
-## 🔴 Current status: **PLANNING — awaiting owner approval**
+## 🟡 Current status: **Phase 0 + Phase 1 scaffolded (boilerplate)** — owner to fill logic
 
-Nothing is built yet. `architecture.md` is drafted with HLD + per-service LLD, data model, caching, scaling, security, cost, tech stack, phase plan, and API surface. **No boilerplate will be written until the owner approves the architecture and resolves the open decisions (§15).**
+Architecture **approved with defaults** (2026-07-14). Phase 0 (Foundations) and Phase 1
+(Auth & Identity) are scaffolded as boilerplate with `// TODO(owner)` markers. Not yet
+deployed (needs AWS creds + `cdk bootstrap` + the Google OAuth / SMS TODOs filled).
 
-**Next action (blocked on approval):** once approved → scaffold **Phase 0 (Foundations)**, then **Phase 1 (Auth & Identity)**, boilerplate-only with `// TODO(owner)` markers.
+**Next actions:**
+1. Owner: fill `// TODO(owner)` blocks in `services/auth-identity` + `infra/lib/*` (Google OAuth secret, SMS/SNS for OTP, CORS/callback URLs), run `pnpm install && pnpm typecheck && pnpm test`, then `pnpm deploy:dev`.
+2. Then start **Phase 2 (Catalog + Predictor)** — the CORE hook.
 
 ---
 
@@ -27,9 +31,9 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 
 | Phase | Name | Status | Notes |
 |---|---|---|---|
-| 0 | Foundations (monorepo, CDK, CI/CD, shared libs, obs) | ⬜ | blocked on approval |
-| 1 | Auth & Identity (Cognito, JWT, profile, roles) | ⬜ | |
-| 2 | Catalog + Predictor *(CORE)* | ⬜ | the hook; caching-heavy |
+| 0 | Foundations (monorepo, CDK, CI/CD, shared libs, obs) | 🟡 | scaffolded; deploy pending AWS creds |
+| 1 | Auth & Identity (Cognito, JWT, profile, roles) | 🟡 | scaffolded; owner fills logic + Google/SMS TODOs |
+| 2 | Catalog + Predictor *(CORE)* | ⬜ | the hook; caching-heavy — **next** |
 | 3 | Planner *(CORE)* | ⬜ | choice list + List Doctor |
 | 4 | Marketplace & Mentors | ⬜ | verification workflow |
 | 5 | Booking, Payments & Sessions *(CORE)* | ⬜ | booking↔payment saga; video |
@@ -39,13 +43,23 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 | 9 | Hardening & Scale | ⬜ | load test to 5k rps, runbooks |
 | 10 | Go-live & Seasonal Ops | ⬜ | canary, ramp automation |
 
-### Current phase task checklist
-_(Populated when Phase 0 starts. Example shape:)_
-- [ ] `infra/` CDK app + per-env config
-- [ ] `packages/shared` (logger, errors, DDB/Redis clients, auth util)
-- [ ] CI/CD pipeline (lint, test, `cdk diff`, deploy dev)
-- [ ] Hello-world service behind API GW + Cognito authorizer stub
-- [ ] Observability baseline (structured logs, X-Ray, dashboards)
+### Phase 0 — Foundations
+- [x] Monorepo (pnpm + turbo), `tsconfig.base`, `.nvmrc`, `.gitignore`, `.env.example`
+- [x] `packages/shared` — logger, observability, errors, http (Hono factory), auth (JWT claims), ddb, ids, types
+- [x] `packages/config` — validated env (zod)
+- [x] `infra/` CDK app + per-stage config + Foundation stack (HTTP API + JWT authorizer + WAF) + Data stack (Users table)
+- [x] CI workflow (typecheck, test, `cdk synth`)
+- [x] LocalStack/DynamoDB-Local docker-compose
+- [ ] Deploy to `dev` (owner — needs AWS creds + `cdk bootstrap`)
+- [ ] Provisioned-concurrency scheduled scaling (deferred to Phase 9)
+
+### Phase 1 — Auth & Identity
+- [x] Cognito user pool (email + phone OTP), web client, Google IdP (guarded on secret), hosted UI
+- [x] `services/auth-identity` lambdalith — routes: `/auth/bootstrap`, `GET/PATCH /me`, `PATCH /me/rank-prefs`, `POST /me/role`
+- [x] handlers → domain (`// TODO(owner)`) → repo (Users DynamoDB) layers + DTOs (zod)
+- [x] CDK service stack wiring routes behind the authorizer + table grants
+- [ ] Owner: fill `// TODO(owner)` (name sourcing, role→Cognito attr, mentor gating, SMS role, Google secret)
+- [ ] e2e auth test (login → JWT → `/me`)
 
 ---
 
@@ -53,13 +67,15 @@ _(Populated when Phase 0 starts. Example shape:)_
 
 | # | Decision | Default (recommended) | Owner choice |
 |---|---|---|---|
-| 1 | DB path | **A: DynamoDB-only + Athena** | _pending_ |
-| 2 | Video provider | **100ms** | _pending_ |
-| 3 | IaC | **AWS CDK (TS)** | _pending_ |
-| 4 | API composition | **Lambdalith per service (Hono)** | _pending_ |
-| 5 | Payments gateway | **Razorpay** | _pending_ |
-| 6 | Auth | **Cognito** | _pending_ |
-| 7 | Monorepo home | **Same repo as frontend** | _pending_ |
+| 1 | DB path | **A: DynamoDB-only + Athena** | ✅ approved |
+| 2 | Video provider | **100ms** | ✅ approved |
+| 3 | IaC | **AWS CDK (TS)** | ✅ approved |
+| 4 | API composition | **Lambdalith per service (Hono)** | ✅ approved |
+| 5 | Payments gateway | **Razorpay** | ✅ approved |
+| 6 | Auth | **Cognito** | ✅ approved |
+| 7 | Monorepo home | **Same repo as frontend** | ✅ approved (`backend/` sibling of `student-counselor/`) |
+
+_All decisions approved 2026-07-14 ("go with the defaults")._
 
 ---
 
@@ -68,12 +84,16 @@ _(Populated when Phase 0 starts. Example shape:)_
 > Short, append-only. One entry per real decision. Format: date · decision · why · alternatives.
 
 - **2026-07-14 · ADR-000 · Docs-driven workflow.** `architecture.md` = target, `progress.md` = status; update both on every change. *Why:* keep design and code from drifting across sessions.
-- **2026-07-14 · ADR-001 (proposed) · Serverless-first, cache-hard, compute-not-query.** Lambda + DynamoDB + multi-layer cache; managed SFU for video; optional SQL off hot path. *Why:* seasonal scale-to-zero + read-dominated shareable load. *Alternatives:* ECS Fargate (pays while idle), Aurora-primary (idle cost + conn mgmt). *Status:* proposed — awaiting approval.
+- **2026-07-14 · ADR-001 · Serverless-first, cache-hard, compute-not-query.** Lambda + DynamoDB + multi-layer cache; managed SFU for video; optional SQL off hot path. *Why:* seasonal scale-to-zero + read-dominated shareable load. *Alternatives:* ECS Fargate (pays while idle), Aurora-primary (idle cost + conn mgmt). *Status:* **accepted.**
+- **2026-07-14 · ADR-002 · Approved stack defaults.** DynamoDB-only(+Athena), 100ms video, AWS CDK, lambdalith-per-service (Hono), Razorpay, Cognito, same-repo monorepo. *Why:* owner approved the recommended defaults.
+- **2026-07-14 · ADR-003 · Per-service DynamoDB tables (not one single-table).** Clear ownership + independent scaling; streams per table. *Alternative:* one single-table design (harder to hand off per service).
+- **2026-07-14 · ADR-004 · ARM64 (Graviton) + esbuild-bundled CJS Lambdas, extensionless internal imports.** Cheaper/faster cold start; avoids the ESM `.js`-extension vs bundler resolution friction.
 
 ---
 
 ## Changelog
 
+- **2026-07-14** — **Phase 0 + Phase 1 scaffolded.** Monorepo (pnpm+turbo), `packages/shared` + `packages/config`, `infra` CDK (data/auth/foundation/auth-service stacks), `services/auth-identity` lambdalith. Verified: `pnpm typecheck` (4/4 ✓), `pnpm test` (3 ✓), `cdk synth --context stage=dev` (4 stacks synth, Lambda bundled ✓). Deploy pending AWS creds + owner TODOs.
 - **2026-07-14** — Exported HLD + LLD as an editable Excalidraw board: <https://excalidraw.com/#json=qxTGcHGRxwob_1rYeg1G5,ItJzbPT2eFo8gyY2I5psXg> (HLD layered architecture, caching ladder, Predictor cache-path, Booking/Payment saga).
 - **2026-07-14** — Drafted `architecture.md` (HLD, per-service LLD, data model, caching, scaling, security, cost, tech stack, phase plan, API surface) and this `progress.md`. Status: awaiting approval.
 

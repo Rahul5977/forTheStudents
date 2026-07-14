@@ -1,0 +1,32 @@
+name: backend-ci
+
+on:
+  push:
+    paths: ["backend/**"]
+  pull_request:
+    paths: ["backend/**"]
+
+defaults:
+  run:
+    working-directory: backend
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: backend/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm --filter @sc/infra run synth -- --context stage=dev
+
+  # TODO(owner): add a deploy job gated on the main branch with OIDC-assumed AWS
+  # role (no long-lived keys). Steps: pnpm install -> cdk deploy --all --context stage=<env>.
+  # Promote dev -> staging -> prod. Canary + rollback-on-alarm (Phase 10).

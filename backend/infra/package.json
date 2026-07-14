@@ -1,0 +1,25 @@
+{
+  "name": "@sc/infra",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "synth": "cdk synth",
+    "diff": "cdk diff",
+    "deploy": "cdk deploy --all --require-approval never",
+    "destroy": "cdk destroy --all",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "lint": "echo 'lint: TODO(owner) wire eslint'"
+  },
+  "dependencies": {
+    "@sc/config": "workspace:*",
+    "aws-cdk-lib": "^2.150.0",
+    "constructs": "^10.3.0"
+  },
+  "devDependencies": {
+    "aws-cdk": "^2.150.0",
+    "esbuild": "^0.23.0",
+    "tsx": "^4.16.0"
+  }
+}

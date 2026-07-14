@@ -1,0 +1,25 @@
+{
+  "name": "student-counselor-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Serverless backend for Student-Counselor (JEE/JoSAA counselling). Seasonal, scale-to-lakhs. See docs/architecture.md.",
+  "packageManager": "pnpm@9.7.0",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev:db": "docker compose up -d dynamodb-local",
+    "cdk": "pnpm --filter @sc/infra exec cdk",
+    "deploy:dev": "pnpm --filter @sc/infra run deploy -- --context stage=dev",
+    "diff:dev": "pnpm --filter @sc/infra run diff -- --context stage=dev"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.16.0",
+    "turbo": "^2.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}
