@@ -18,6 +18,12 @@ export interface Principal {
   userId: string;
   email?: string;
   phone?: string;
+  /**
+   * Display name from the OIDC `name` claim. Present for Google sign-in
+   * (Cognito maps the Google profile name); ABSENT for phone-OTP / email
+   * sign-up, where the user supplies it later during onboarding (PATCH /me).
+   */
+  name?: string;
   /** App role. Sourced from a custom claim (see auth-stack) or defaults to student. */
   role: Role;
   /** Raw verified claims, if a handler needs more. */
@@ -43,6 +49,7 @@ export function getPrincipal<E extends { Bindings: LambdaBindings }>(c: HonoCont
     userId,
     email: claims.email as string | undefined,
     phone: claims.phone_number as string | undefined,
+    name: claims.name as string | undefined, // standard OIDC claim; only set for Google sign-in
     role,
     claims,
   };

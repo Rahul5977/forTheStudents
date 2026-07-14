@@ -58,8 +58,8 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] `services/auth-identity` lambdalith — routes: `/auth/bootstrap`, `GET/PATCH /me`, `PATCH /me/rank-prefs`, `POST /me/role`
 - [x] handlers → domain (`// TODO(owner)`) → repo (Users DynamoDB) layers + DTOs (zod)
 - [x] CDK service stack wiring routes behind the authorizer + table grants
-- [ ] Owner: fill `// TODO(owner)` (name sourcing, role→Cognito attr, mentor gating, SMS role, Google secret)
-- [ ] e2e auth test (login → JWT → `/me`)
+- [ ] Owner: fill `// TODO(owner)` — ✅ name sourcing (OIDC `name` claim → profile); pending: role→Cognito attr, mentor gating, SMS role, Google secret
+- [ ] e2e auth test — 🟡 local integration harness green (bootstrap · idempotency · name sourcing · /me · 404); real-Cognito login e2e pending Phase-1 infra
 
 ---
 
@@ -93,6 +93,7 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 
 ## Changelog
 
+- **2026-07-14** — **Phase 1 (local dev): feedback loop + first TODO filled (owner, guided).** Added a local integration harness in `services/auth-identity` (`vitest.config.ts` points the SDK at DynamoDB Local via `DDB_ENDPOINT`; `test/helpers.ts` creates the table + fakes verified JWT claims; `test/auth.e2e.test.ts` drives the whole app in-process via `app.request()`). Filled the **display-name sourcing** TODO: added `name?` to `Principal` (`shared/src/auth.ts`, from the OIDC `name` claim) and wired it into `bootstrap` (`domain/profile.ts`). Added `@aws-sdk/client-dynamodb` as a test-only devDep. Verified: `pnpm --filter @sc/auth-identity test` (4 ✓), `pnpm typecheck` (4/4 ✓). No AWS used.
 - **2026-07-14** — **Phase 0 + Phase 1 scaffolded.** Monorepo (pnpm+turbo), `packages/shared` + `packages/config`, `infra` CDK (data/auth/foundation/auth-service stacks), `services/auth-identity` lambdalith. Verified: `pnpm typecheck` (4/4 ✓), `pnpm test` (3 ✓), `cdk synth --context stage=dev` (4 stacks synth, Lambda bundled ✓). Deploy pending AWS creds + owner TODOs.
 - **2026-07-14** — Exported HLD + LLD as an editable Excalidraw board: <https://excalidraw.com/#json=qxTGcHGRxwob_1rYeg1G5,ItJzbPT2eFo8gyY2I5psXg> (HLD layered architecture, caching ladder, Predictor cache-path, Booking/Payment saga).
 - **2026-07-14** — Drafted `architecture.md` (HLD, per-service LLD, data model, caching, scaling, security, cost, tech stack, phase plan, API surface) and this `progress.md`. Status: awaiting approval.

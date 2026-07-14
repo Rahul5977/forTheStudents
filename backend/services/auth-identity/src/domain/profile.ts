@@ -20,7 +20,10 @@ export async function bootstrap(p: Principal): Promise<UserProfile> {
     role: p.role,
     email: p.email,
     phone: p.phone,
-    // name: TODO(owner): source display name (Google `name` claim, or ask in onboarding)
+    // From the OIDC `name` claim: set for Google sign-in, undefined for phone/OTP
+    // sign-up (those users add their name later via PATCH /me during onboarding).
+    // The repo drops undefined values, so a missing name simply isn't written.
+    name: p.name,
     now: nowIso(),
   });
   const profile = await usersRepo.get(p.userId);
