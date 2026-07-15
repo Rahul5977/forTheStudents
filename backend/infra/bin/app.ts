@@ -5,6 +5,7 @@ import { DataStack } from '../lib/data-stack';
 import { AuthStack } from '../lib/auth-stack';
 import { FoundationStack } from '../lib/foundation-stack';
 import { AuthServiceStack } from '../lib/auth-service-stack';
+import { ObservabilityStack } from '../lib/observability-stack';
 
 const app = new App();
 const stage = (app.node.tryGetContext('stage') as string) ?? 'dev';
@@ -29,5 +30,8 @@ new AuthServiceStack(app, `sc-${stage}-svc-auth`, {
   usersTable: data.usersTable,
   userPool: auth.userPool,
 });
+
+// Ops dashboard + spend guardrail.
+new ObservabilityStack(app, `sc-${stage}-observability`, { env, cfg, httpApi: foundation.httpApi });
 
 app.synth();
