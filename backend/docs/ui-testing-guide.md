@@ -1,25 +1,36 @@
 # Test Everything From Your Browser — a friendly, step-by-step guide (Phases 0–10)
 
-Hey! 👋 This guide walks you through testing the **entire** Student-Counselor backend by
-clicking around a real browser — no code needed for most of it. Everything you touch here is
+Hey! 👋 The **full designed app now runs against the real backend** at
+**https://counsellor.kodexa.in** — all ~70 screens (landing, predictor, planner, marketplace,
+booking, sessions, mentor console, admin console), not just a test page. Everything you touch is
 the **real deployed backend** (Cognito + API Gateway + Lambda + DynamoDB in `ap-south-1`), not a
-mock. Where a button doesn't exist yet, I've given you a copy-paste `curl`/`aws` command so you
-can still exercise the feature.
+mock. Where no backend exists yet, you'll see a graceful placeholder marked `// TODO(owner)`.
 
-Take it one phase at a time. Each section says **what to click** and **what you should see**. If
-something doesn't match, that's a finding worth noting. Let's go. 🚀
+**The golden path (do this first):** Sign up → Onboarding (enter your rank) → Predictor
+(Safe/Target/Reach) → ＋Add to list → Choice-list (reorder, List Doctor) → Marketplace → pick a
+mentor → Book a slot → Pay → the shared **🎥 Google Meet link** appears → Join → Rate → the 🔔
+bell shows notifications. Then flip to the **mentor** and **admin** consoles.
+
+> There's also a single-page diagnostic at **/live** that exercises every API in one screen — handy
+> if you want to see raw requests/responses. The real app pages below are the product.
 
 ---
 
-## The two URLs you'll live in
+## The URLs you'll live in
 
 | What | URL |
 |---|---|
-| **Frontend (Amplify)** | **https://main.dy6751tudpsop.amplifyapp.com** |
-| **The test page** (everything below happens here) | **https://main.dy6751tudpsop.amplifyapp.com/live** |
-| Custom domain (once DNS is live) | `https://counsellor.kodexa.in` → same app |
+| **The app (real product)** | **https://counsellor.kodexa.in** |
+| Same app on Amplify | `https://main.dy6751tudpsop.amplifyapp.com` |
+| One-screen API diagnostic | `https://counsellor.kodexa.in/live/` |
 | API base (for curl) | `https://7zumjbvms0.execute-api.ap-south-1.amazonaws.com` |
 | Cognito Hosted UI | `https://sc-dev-058264128057.auth.ap-south-1.amazoncognito.com` |
+
+**Real app routes:** `/` landing · `/signup` `/login` `/onboarding` · `/predictor` `/filters`
+`/college-detail` `/shortlist` `/choice-builder` `/choice-export` · `/marketplace` `/mentor-profile`
+`/booking` `/payment` `/sessions` `/rate-session` `/notifications` `/profile` `/settings` ·
+`/m-dashboard` `/m-availability` `/m-verification` `/m-bookings` `/m-earnings` · `/a-dashboard`
+`/a-verify-queue` `/a-mentors` `/a-broadcast` (admin needs `custom:role=admin`).
 
 **Reference values** (dev stack, account `058264128057`, `ap-south-1`):
 - User Pool: `ap-south-1_OQv6ssgbO` · App client: `5f22b9n70k3bolqppvvrast0en`
