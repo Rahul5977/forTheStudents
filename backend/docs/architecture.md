@@ -434,7 +434,7 @@ For **financial reconciliation + admin analytics**, ad-hoc SQL is nicer than Dyn
 Three layers, each with a clear invalidation story:
 
 1. **CloudFront (edge)** — static assets; **College Analysis JSON/HTML** (long TTL, per college-branch, identical for all); **predictor result slices** (`s-maxage` + `stale-while-revalidate`, keyed by normalized inputs). Invalidated **only** on `cutoffs.publish` (per round, a handful of times a season).
-2. **Redis / DAX (regional)** — the **cutoff snapshot** (the dataset the predictor computes over); computed hot slices; the mentor search index. Warmed at publish time.
+2. **Redis / DAX (regional)** — the **cutoff snapshot** (the dataset the predictor computes over); computed hot slices; the mentor search index. Warmed at publish time. **⚠ COST NOTE (ADR-008):** ElastiCache/Redis is NOT free (~$12+/mo minimum node). **Deferred.** The dataset is small (thousands of rows), so we start with **Lambda module-memory caching** (load the active snapshot from DynamoDB on cold start, reuse across warm invocations) + CloudFront for shared slices. Add Redis only if profiling at real scale shows the cold-start dataset load hurts. Same "compute-not-query" outcome, $0 extra.
 3. **Lambda memory (in-process)** — snapshot kept across warm invocations → zero network on the common path.
 
 **Cache keys & normalization:** predictor inputs are normalized (rank→bucket where safe, sorted filter set → stable hash) so **many students collapse onto one cache entry** → very high hit ratio. **Personalization stays cacheable** because "your chance %" is a pure function of inputs, not identity.

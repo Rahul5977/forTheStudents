@@ -5,6 +5,7 @@ import { DataStack } from '../lib/data-stack';
 import { AuthStack } from '../lib/auth-stack';
 import { FoundationStack } from '../lib/foundation-stack';
 import { AuthServiceStack } from '../lib/auth-service-stack';
+import { CatalogServiceStack } from '../lib/catalog-service-stack';
 import { ObservabilityStack } from '../lib/observability-stack';
 
 const app = new App();
@@ -29,6 +30,14 @@ new AuthServiceStack(app, `sc-${stage}-svc-auth`, {
   authorizer: foundation.authorizer,
   usersTable: data.usersTable,
   userPool: auth.userPool,
+});
+
+// Phase 2 — catalog + predictor (public, reads the Catalog table).
+new CatalogServiceStack(app, `sc-${stage}-svc-catalog`, {
+  env,
+  cfg,
+  httpApi: foundation.httpApi,
+  catalogTable: data.catalogTable,
 });
 
 // Ops dashboard + spend guardrail.

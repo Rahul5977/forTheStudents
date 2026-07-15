@@ -33,7 +33,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 |---|---|---|---|
 | 0 | Foundations (monorepo, CDK, CI/CD, shared libs, obs) | 🟡 | scaffolded; deploy pending AWS creds |
 | 1 | Auth & Identity (Cognito, JWT, profile, roles) | 🟡 | scaffolded; owner fills logic + Google/SMS TODOs |
-| 2 | Catalog + Predictor *(CORE)* | ⬜ | the hook; caching-heavy — **next** |
+| 2 | Catalog + Predictor *(CORE)* | 🟡 | predictor+catalog built, seeded, deployed, wired to `/live`, tested e2e. Deferred: CloudFront-in-front-of-API, admin ingest UI, split predictor into own service |
 | 3 | Planner *(CORE)* | ⬜ | choice list + List Doctor |
 | 4 | Marketplace & Mentors | ⬜ | verification workflow |
 | 5 | Booking, Payments & Sessions *(CORE)* | ⬜ | booking↔payment saga; video |
@@ -52,6 +52,15 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] LocalStack/DynamoDB-Local docker-compose
 - [x] Deploy to `dev` (bootstrapped + deployed 2026-07-15)
 - [ ] Provisioned-concurrency scheduled scaling (deferred to Phase 9)
+
+### Phase 2 — Catalog + Predictor (CORE)
+- [x] `@sc/catalog-core` — dataset (26 offerings) + predictor logic (chance/decorate/predict/chart), ported from frontend; 4 tests lock the math (rank 850 → 12/3/3)
+- [x] Catalog DynamoDB table (`sc-dev-catalog`, versioned: `CATALOG#<v>` offerings + `CONFIG/ACTIVE` pointer)
+- [x] `@sc/catalog` lambdalith — public routes `GET /predict`, `/predict/summary`, `/colleges`, `/colleges/:id`; **in-memory snapshot cache** (ADR-008, no Redis); CDN cache-control headers
+- [x] Seed script (local + cloud); deployed to AWS dev; cloud table seeded (v2025.1)
+- [x] Frontend `/live` "Live predictor" section → calls the real public `/predict`, shows Safe/Target/Reach from the cloud DB; redeployed to Amplify
+- [x] e2e verified: local HTTP (12/3/3), deployed `/predict` (12/3/3, cache-control set), CORS from Amplify origin, predictor code in deployed bundle
+- [ ] Deferred: CloudFront in front of the API (edge cache), admin cutoff-ingest UI, split `predictor` into its own Lambda (hottest-path scaling)
 
 ### Phase 1 — Auth & Identity
 - [x] Cognito user pool (email + phone OTP), web client, Google IdP (guarded on secret), hosted UI
@@ -95,12 +104,16 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 - **2026-07-14 · ADR-004 · ARM64 (Graviton) + esbuild-bundled CJS Lambdas, extensionless internal imports.** Cheaper/faster cold start; avoids the ESM `.js`-extension vs bundler resolution friction.
 - **2026-07-14 · ADR-005 · App role travels as Cognito `custom:role`.** Written by `switchRole`; read in `getPrincipal`. *Alternative:* `cognito:groups` (better for coarse RBAC — revisit if role logic grows).
 - **2026-07-15 · ADR-006 · Dev-only auth conveniences.** Pre-sign-up auto-confirm trigger + `USER_PASSWORD_AUTH` + Hosted-UI implicit grant, gated to non-prod, so first cloud e2e needs no Google/SMS setup. Prod uses SRP/PKCE + real verification.
+- **2026-07-15 · ADR-008 · Defer Redis; cache in Lambda memory.** ElastiCache isn't free (~$12+/mo). The cutoff dataset is small → load it from DynamoDB into Lambda module-scope on cold start, reuse across warm invocations (+ CloudFront for shared slices). Same compute-not-query outcome, $0. Revisit Redis only if profiling demands it.
+- **2026-07-15 · ADR-009 · Phase 2 as one `catalog` lambdalith (v1).** Serves both college reads and the predictor from one service reading the Catalog table (in-memory snapshot). Architecture keeps predictor as its own service long-term (hottest path, independent scaling) — split when load justifies it. Predict/analysis routes are **public** (no auth): predictions are shared + cacheable.
 - **2026-07-15 · ADR-007 · Cost target: near-free.** Keep it ~$0 in build/off-season and low-tens-$/mo at full peak. Levers: (1) auth cost = 0 by planning a **Cognito → Firebase Auth (or Google-direct JWT)** migration before high MAU; (2) **WAF off** until Phase 9 (`cfg.enableWaf=false`) — removed from dev; (3) **video is Phase-5 + revenue-funded** (₹~17 cost vs ₹100), deferrable, free-tier providers; (4) DynamoDB on-demand + no idle Aurora/EC2 + CloudFront always-free 1 TB. Details in architecture.md §11. *Cognito stays for now (free at current scale, working); swap when we approach the MAU threshold or on request.*
 
 ---
 
 ## Changelog
 
+- **2026-07-15** — **Phase 2 (Catalog + Predictor) built end-to-end + deployed + tested.** New `@sc/catalog-core` (dataset + predictor logic, 4 tests) and `@sc/catalog` lambdalith (public `/predict`, `/predict/summary`, `/colleges`, `/colleges/:id`; Lambda-memory snapshot cache per ADR-008; CDN cache-control). Added versioned `sc-dev-catalog` table + seed script. Deployed to AWS dev + seeded cloud (v2025.1). Wired frontend `/live` "Live predictor" → real public `/predict`, redeployed to Amplify. Verified: local + deployed `/predict` = 12 Safe / 3 Target / 3 Reach, `/colleges/:id` analysis + chart, CORS from Amplify origin, predictor in deployed bundle. typecheck 6/6 ✓, catalog-core tests 4 ✓.
+- **2026-07-15** — **Phase 0/1 security review + hardening.** Reviewed all backend/infra/frontend: no secrets in code, least-privilege IAM, zod-validated inputs, parameterized DynamoDB, no error leakage, explicit CORS, no PII in logs, dev-only code isolated/gated. **Fixed:** gated `USER_PASSWORD_AUTH` + OAuth implicit grant to non-prod, added `preventUserExistenceErrors` (anti-enumeration). Deferred to Phase 9: API-GW per-route throttling, stronger prod password policy, WAF-on. Typecheck 4/4 ✓.
 - **2026-07-15** — **Observability + spend guardrail (CDK).** New `sc-dev-observability` stack: CloudWatch dashboard `sc-dev` (API GW requests/errors/latency, Lambda invocations/errors/throttles/duration/concurrency, DynamoDB capacity + request latency, at-a-glance error tiles) and an AWS **Budget** `sc-dev-monthly` ($10/mo) emailing `rahul.raj9237@gmail.com` at 50%/80% actual + 100% forecast (`cfg.alertEmail`/`cfg.monthlyBudgetUsd`). Deployed ✓.
 - **2026-07-15** — **Frontend hosted on AWS Amplify (all-AWS, CloudFront-backed).** Static-exported the Next.js app (`output:'export'` + `trailingSlash` + `images.unoptimized`; split catch-all into a Server page with `generateStaticParams` over all screens + a client `ScreenRouter`; store/idToPath trailing-slash aware; Cognito redirect now uses `window.origin`). Created Amplify app `dy6751tudpsop`, `main` branch, manual-deployed the `out/` build (job 1 SUCCEED) → live at `main.dy6751tudpsop.amplifyapp.com`. Started `counsellor.kodexa.in` domain association (records emitted for Hostinger). Added Amplify URL + custom domain to `cfg.corsOrigins` → Cognito callbacks + API CORS updated (verified 6 callback URLs) and backend redeployed. **Pending: owner adds 2 CNAMEs at Hostinger → cert validates → custom domain goes live.**
 - **2026-07-15** — **Cost rework + fixes.** Fixed Cognito Hosted-UI domain bug (`amazonaws.com` → `amazoncognito.com`) in output + frontend `.env.local` (was causing `DNS_PROBE_FINISHED_NXDOMAIN` on Sign in with Cognito). Made WAF optional (`cfg.enableWaf`, default off) and **removed it from dev** (redeployed; DELETE_COMPLETE) → dev ≈ $0/mo. Rewrote architecture.md §11 as a **near-free cost model** (ADR-007) + added §3.5 frontend-hosting/DNS for `counsellor.kodexa.in`. Corrected the earlier "thousands" estimate: that was Cognito-at-3-lakh-MAU + gross video; real target is ≈$0 build/off-season, ~$20–100/mo full peak if cost-optimized.
@@ -122,6 +135,8 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 | User Pool Client | `5f22b9n70k3bolqppvvrast0en` |
 | Hosted UI domain | `https://sc-dev-058264128057.auth.ap-south-1.amazonaws.com` |
 | Users table | `sc-dev-users` |
+| Catalog table | `sc-dev-catalog` (seeded v2025.1, 26 offerings) |
+| Predictor (public) | `GET {API}/predict` · `/predict/summary` · `/colleges` · `/colleges/:id` |
 | **Frontend (Amplify)** | app `dy6751tudpsop` · **https://main.dy6751tudpsop.amplifyapp.com** |
 | **Custom domain** | `counsellor.kodexa.in` (Amplify → CloudFront `d1m73c1l14jkpt.cloudfront.net`) — PENDING owner DNS at Hostinger |
 

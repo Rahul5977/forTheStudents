@@ -24,6 +24,8 @@ export default function LivePage() {
   const [editName, setEditName] = useState('');
   const [rp, setRp] = useState({ advRank: 850, mainRank: 4200, category: 'Open', home: 'Maharashtra', gender: 'Male', pwd: false, branches: 'CSE, ECE', priority: 'branch' });
   const [showRaw, setShowRaw] = useState(false);
+  const [pred, setPred] = useState(null);
+  const [predBusy, setPredBusy] = useState(false);
 
   const flash = (m) => { setNote(m); setTimeout(() => setNote(null), 2200); };
 
@@ -80,9 +82,23 @@ export default function LivePage() {
     catch (e) { setErr(e.message); } finally { setBusy(false); }
   };
 
+  // Phase 2: call the real public predictor with the current rank inputs.
+  const runPredict = async () => {
+    setPredBusy(true); setErr(null);
+    try {
+      const data = await liveApi.predict({ advRank: rp.advRank, mainRank: rp.mainRank, category: rp.category, home: rp.home });
+      setPred(data);
+    } catch (e) { setErr(e.message); } finally { setPredBusy(false); }
+  };
+
   const claims = token ? decodeToken(token) : null;
   const card = { background: 'var(--color-surface)', marginBottom: 14 };
   const lbl = { fontSize: 11, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--color-neutral-600)' };
+  const bucketStyle = (b) => b === 'safe'
+    ? { background: 'var(--color-accent-2-100)', color: 'var(--color-accent-2-800)' }
+    : b === 'target'
+      ? { background: 'var(--color-accent-100)', color: 'var(--color-accent-800)' }
+      : { background: '#f7e2db', color: '#7a2d1a' };
 
   return (
     <section style={{ maxWidth: 760, margin: '0 auto', padding: '32px 22px 80px' }}>
@@ -153,6 +169,34 @@ export default function LivePage() {
               <div className="field" style={{ gridColumn: '1 / -1' }}><label>Branches (comma-separated)</label><input className="input" value={rp.branches} onChange={(e) => setRp({ ...rp, branches: e.target.value })} /></div>
             </div>
             <button className="sc-btn pri" onClick={saveRankPrefs} disabled={busy} style={{ alignSelf: 'flex-start' }}>Save rank &amp; prefs</button>
+          </div>
+
+          <div className="card elev-sm" style={{ ...card, background: 'var(--color-accent-100)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="card-kicker">Live predictor — Phase 2 (GET /predict)</div>
+              <button className="sc-btn pri" onClick={runPredict} disabled={predBusy}>{predBusy ? 'Predicting…' : 'Predict my colleges'}</button>
+            </div>
+            <p className="text-muted" style={{ fontSize: 12, margin: 0 }}>Uses the rank inputs above. Computed by the <strong>catalog Lambda</strong> from the <strong>cloud DynamoDB</strong> dataset — the real backend, not dummy data.</p>
+            {pred && (
+              <>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 4 }}>
+                  <span className="tag" style={bucketStyle('safe')}>Safe {pred.safeCount}</span>
+                  <span className="tag" style={bucketStyle('target')}>Target {pred.targetCount}</span>
+                  <span className="tag" style={bucketStyle('reach')}>Reach {pred.reachCount}</span>
+                  <span className="tag tag-neutral">{pred.resultCount} matches · dataset v{pred.version}</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
+                  {pred.results.slice(0, 8).map((c) => (
+                    <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, background: 'var(--color-bg)', borderRadius: 10, padding: '7px 10px' }}>
+                      <span className="tag tag-neutral" style={{ padding: '1px 7px' }}>{c.type}</span>
+                      <span style={{ fontFamily: 'var(--font-heading)', flex: 1 }}>{c.college} · {c.branch}</span>
+                      {c.homeQuota && <span className="tag tag-accent-2" style={{ padding: '1px 7px' }}>🏠</span>}
+                      <span className="tag" style={bucketStyle(c.bucket)}>{c.label} {c.pct}%</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           <div className="card elev-sm" style={card}>
