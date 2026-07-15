@@ -47,24 +47,29 @@ predict(rank inputs, category, home, gender, filters):
 
   # (d) CHANCE
       ratio = rank / close
-      bucket = ratio <= 0.90 -> Safe               # you'd have cleared it comfortably
-               ratio <= 1.15 -> Target             # around the line — realistic
-               else          -> Reach              # above the line — a stretch
-      pct = clamp( round(102 - (ratio - 0.55) * 62), 8, 97 )   # a friendly 8..97% confidence
+      bucket = ratio <= 0.80 -> Safe               # you clear the cutoff by ≥20% — dependable
+               ratio <= 1.10 -> Target             # around the line — a fair shot
+               else          -> Reach              # your rank is worse than the cutoff — a stretch
+      pct = clamp( round(100 - (ratio - 0.30) * 60), 6, 98 )   # a friendly 6..98% confidence
 
-  # (e) TRIM, SEARCH, SORT
-  keep rows with ratio <= 1.6                       # hide the truly-unrealistic
+  # (e) REALISTIC WINDOW, SEARCH, SORT
+  keep rows with 0.2 <= ratio <= 1.6                # hide hopeless reaches AND pointless over-safe
+                                                    #   (closing > 5× your rank = far below your level)
   if q: keep rows whose institute/program contains q
-  sort: 'chance'  -> pct desc, then close asc
-        'closing' -> close asc
-        'location'-> name asc
+  sort: 'best' (DEFAULT) -> close asc, then NIRF asc (nulls last), then pct desc   # BEST colleges first
+        'chance'/'safest'-> pct desc, then close asc                               # safest first (opt-in)
+        'closing'        -> close asc
+        'location'       -> name asc
 
   return { results, safeCount, targetCount, reachCount }
 ```
 
 ### Why these numbers
-- **Thresholds 0.90 / 1.15** map the rank-vs-cutoff ratio to intuitive buckets: comfortably-in, near-the-line, above-the-line. **≤ 1.6** is the "don't bother showing" ceiling.
-- **`pct = 102 − (ratio − 0.55)·62`** is a smooth, monotonically-decreasing map from ratio to an 8–97% band: at ratio ≈ 0.55 → ~97%, at ratio = 1.0 (exactly the cutoff) → ~74%, at ratio = 1.6 → ~37%. It's a **communication aid**, not a calibrated probability.
+- **Ordering is the whole point.** JoSAA allots you the *highest choice you clear*, so you must list the **best college you can plausibly get first**. The default `'best'` sort is therefore **closing rank ascending** (most-competitive first), NIRF as tiebreaker. Sorting by chance% (the old default) floated the *weakest* colleges — the ones you're trivially safe for — to the top; a rank-6000 student saw a closing-9000 backup as their #1. Now the #1 is the strongest reachable college and safe backups sit lower.
+- **Thresholds 0.80 / 1.10** map the rank-vs-cutoff ratio to buckets: clear-it-comfortably, near-the-line, above-the-line.
+- **Window `0.2 ≤ ratio ≤ 1.6`**: above 1.6 is realistically unattainable; below 0.2 (closing > 5× your rank) is a college so far beneath your level that nobody choice-fills it. Genuine safe backups (ratio 0.2–0.8) always survive.
+- **`pct = 100 − (ratio − 0.30)·60`** is a smooth, monotonically-decreasing map to a 6–98% band (0.2→98%, 1.0→58%, 1.6→22%). A **communication aid**, not a calibrated probability.
+- **Home-state matching is normalized** (case/whitespace/punctuation-insensitive, `&`↔`and`) so "Tamil Nadu" / "tamil nadu" / "Jammu & Kashmir" all match the institute's state → the HS (home-state) closing rank is used for that student.
 
 ## 3. Worked example
 Student: JEE-Adv rank **850**, Open, home **Maharashtra**.

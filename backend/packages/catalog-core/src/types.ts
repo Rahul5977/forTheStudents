@@ -5,7 +5,10 @@ export type CollegeType = 'IIT' | 'NIT' | 'IIIT' | 'GFTI';
 export type Exam = 'adv' | 'main'; // IITs via JEE Advanced; the rest via JEE Main
 export type Category = 'Open' | 'OBC-NCL' | 'SC' | 'ST' | 'EWS';
 export type Bucket = 'safe' | 'target' | 'reach';
-export type Sort = 'chance' | 'closing' | 'location';
+// 'best'   → default: best reachable colleges first (closing ASC, NIRF asc, chance desc)
+// 'chance' / 'safest' → old behavior: highest chance % first (floats safe backups up)
+// 'closing' → closing rank ascending; 'location' → by display name
+export type Sort = 'best' | 'chance' | 'safest' | 'closing' | 'location';
 
 export interface Cutoff {
   id: number;
