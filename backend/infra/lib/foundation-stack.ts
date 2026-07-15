@@ -28,7 +28,7 @@ export class FoundationStack extends Stack {
       apiName: `sc-${cfg.stage}-api`,
       corsPreflight: {
         allowOrigins: cfg.corsOrigins,
-        allowMethods: [apigw.CorsHttpMethod.GET, apigw.CorsHttpMethod.POST, apigw.CorsHttpMethod.PATCH, apigw.CorsHttpMethod.DELETE, apigw.CorsHttpMethod.OPTIONS],
+        allowMethods: [apigw.CorsHttpMethod.GET, apigw.CorsHttpMethod.POST, apigw.CorsHttpMethod.PUT, apigw.CorsHttpMethod.PATCH, apigw.CorsHttpMethod.DELETE, apigw.CorsHttpMethod.OPTIONS],
         allowHeaders: ['authorization', 'content-type', 'x-request-id', 'idempotency-key'],
         allowCredentials: false,
       },
