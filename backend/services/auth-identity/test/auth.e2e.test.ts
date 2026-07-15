@@ -6,10 +6,12 @@
 //          pnpm --filter @sc/auth-identity test
 import { beforeAll, describe, expect, it } from 'vitest';
 import { app } from '../src/app';
-import { authAs, ensureUsersTable } from './helpers';
+import { authAs, ensureUsersTable, resetUsers } from './helpers';
 
 beforeAll(async () => {
   await ensureUsersTable();
+  // Deterministic clean start — clear any profiles a prior run left behind.
+  await resetUsers(['stu_1', 'stu_2', 'ghost_1']);
 });
 
 // A stand-in for "a student who just signed in with Cognito".

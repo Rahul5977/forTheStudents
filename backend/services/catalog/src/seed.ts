@@ -4,7 +4,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { parseAll, DATASET_VERSION } from '@sc/catalog-core';
+import { parseCutoffs, DATASET_VERSION } from '@sc/catalog-core';
 import { isLocal } from '@sc/config';
 import { seed } from './repo/catalog.repo';
 import { ensureCatalogTable } from './dev/local-table';
@@ -12,9 +12,8 @@ import { ensureCatalogTable } from './dev/local-table';
 const dataDir = join(dirname(fileURLToPath(import.meta.url)), '../data');
 
 async function main() {
-  const orcr = readFileSync(join(dataDir, 'ORCR.csv'), 'utf8'); // IITs
-  const josaa = readFileSync(join(dataDir, 'josaa24.csv'), 'utf8'); // NIT/IIIT/GFTI
-  const cutoffs = parseAll(orcr, josaa);
+  // josaa24.csv covers ALL institutes (IITs + NITs + IIITs + GFTIs).
+  const cutoffs = parseCutoffs(readFileSync(join(dataDir, 'josaa24.csv'), 'utf8'));
   if (isLocal()) await ensureCatalogTable();
   await seed(DATASET_VERSION, cutoffs);
   // eslint-disable-next-line no-console

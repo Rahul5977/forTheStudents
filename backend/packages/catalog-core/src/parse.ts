@@ -1,9 +1,10 @@
-// Parse the two official JoSAA 2024 CSVs into a unified Cutoff[].
-//   ORCR.csv    (IITs)          : institute, program, seatType, gender, open, close   (quota = AI)
-//   josaa24.csv (NIT/IIIT/GFTI) : institute, program, quota, seatType, gender, open, close  (has header)
+// Parse the official JoSAA 2024 cutoffs (josaa24.csv) into a unified Cutoff[].
+// josaa24.csv covers ALL institutes (IITs + NITs + IIITs + GFTIs) with columns:
+//   Institute, Academic Program Name, Quota, Seat Type, Gender, Opening Rank, Closing Rank
+// (ORCR.csv is a duplicate IIT-only source and is intentionally NOT used.)
 import type { Cutoff, CollegeType, Exam } from './types';
+import { enrich } from './enrich';
 
-/** Minimal CSV row splitter that respects double-quoted fields. */
 function splitCsvLine(line: string): string[] {
   const out: string[] = [];
   let cur = '';
@@ -17,60 +18,43 @@ function splitCsvLine(line: string): string[] {
   return out.map((s) => s.trim());
 }
 
+/** Classify by name. IIIT is checked BEFORE IIT ("Information Technology" ⊃ "Technology"). */
 export function deriveType(institute: string): CollegeType {
-  if (/^IIT\b/.test(institute)) return 'IIT';
-  if (/National Institute of Technology|^NIT\b|^[MSV]?NIT\b|^MNNIT\b|Malaviya|Motilal|Sardar Vallabhbhai National|Visvesvaraya National/.test(institute)) return 'NIT';
-  if (/Indian Institute of Information Technology|IIIT/.test(institute)) return 'IIIT';
+  if (/Indian Institute of Information Technology|IIIT/i.test(institute)) return 'IIIT';
+  if (/Indian Institute of Technology|^IIT\b/i.test(institute)) return 'IIT';
+  if (/National Institute of Technology|^[MSV]?NIT\b|^MN?NIT\b/i.test(institute)) return 'NIT';
   return 'GFTI';
 }
 const examFor = (t: CollegeType): Exam => (t === 'IIT' ? 'adv' : 'main');
 const shortBranch = (program: string) =>
-  program
-    .split(/\s*\(/)[0]!
-    .replace(/([a-z])([A-Z])/g, '$1 $2') // fix source concatenations e.g. "CommunicationEngineering"
-    .replace(/\s+/g, ' ')
-    .trim();
+  program.split(/\s*\(/)[0]!.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\s+/g, ' ').trim();
 const num = (s: string): number | null => {
   const n = Number(String(s).replace(/[^\d.]/g, '')); // strips "P" (prep ranks) etc.
   return Number.isFinite(n) && n > 0 ? Math.round(n) : null;
 };
 
-/** IIT ORCR file (no header, no quota column). */
-function parseOrcr(text: string, start: number): Cutoff[] {
+/** Parse josaa24.csv (has header) → enriched Cutoff[]. */
+export function parseCutoffs(text: string): Cutoff[] {
   const out: Cutoff[] = [];
-  let id = start;
-  for (const line of text.split(/\r?\n/)) {
-    if (!line.trim()) continue;
-    const c = splitCsvLine(line);
-    if (c.length < 6) continue;
-    const open = num(c[4]!); const close = num(c[5]!);
-    if (open == null || close == null) continue;
-    const type: CollegeType = 'IIT';
-    out.push({ id: id++, institute: c[0]!, program: c[1]!, branch: shortBranch(c[1]!), type, exam: examFor(type), quota: 'AI', seatType: c[2]!, gender: c[3]!, open, close });
-  }
-  return out;
-}
-
-/** JoSAA scrape (has header + quota column). */
-function parseJosaa(text: string, start: number): Cutoff[] {
-  const out: Cutoff[] = [];
-  let id = start;
+  let id = 1;
   const lines = text.split(/\r?\n/);
-  for (let i = 1; i < lines.length; i++) { // skip header
+  for (let i = 1; i < lines.length; i++) {
     if (!lines[i]!.trim()) continue;
     const c = splitCsvLine(lines[i]!);
     if (c.length < 7) continue;
     const open = num(c[5]!); const close = num(c[6]!);
     if (open == null || close == null) continue;
-    const type = deriveType(c[0]!);
-    out.push({ id: id++, institute: c[0]!, program: c[1]!, branch: shortBranch(c[1]!), type, exam: examFor(type), quota: c[2]!, seatType: c[3]!, gender: c[4]!, open, close });
+    const institute = c[0]!;
+    const type = deriveType(institute);
+    const e = enrich(institute, type);
+    out.push({
+      id: id++, institute, short: e.short, program: c[1]!, branch: shortBranch(c[1]!), type, exam: examFor(type),
+      quota: c[2]!, seatType: c[3]!, gender: c[4]!, open, close,
+      city: e.city, state: e.state, nirf: e.nirf, feesLakh: e.feesLakh,
+    });
   }
   return out;
 }
 
-/** Combine both official files into one dataset (IITs + NITs + IIITs + GFTIs). */
-export function parseAll(orcrText: string, josaaText: string): Cutoff[] {
-  const iits = parseOrcr(orcrText, 1);
-  const rest = parseJosaa(josaaText, iits.length + 1);
-  return [...iits, ...rest];
-}
+/** Back-compat name used by the seed. */
+export const parseAll = (_orcrUnused: string, josaaText: string): Cutoff[] => parseCutoffs(josaaText);

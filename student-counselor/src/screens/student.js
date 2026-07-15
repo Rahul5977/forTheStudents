@@ -213,7 +213,7 @@ export function Predictor() {
                         <span style={{ fontFamily: 'var(--font-heading)', fontSize: 18 }}>{c.college}</span>
                         {c.homeQuota && <Tag tone="accent-2">🏠 Home state</Tag>}
                       </div>
-                      <div className="text-muted" style={{ fontSize: 13, marginTop: 2 }}>{live ? `${c.branch} · ${c.type} · ${c.quota === 'AI' ? 'All-India' : c.quota} quota` : `${c.branch} · ${c.city}, ${c.state} · NIRF #${c.nirf}`}</div>
+                      <div className="text-muted" style={{ fontSize: 13, marginTop: 2 }}>{live ? `${c.branch}${c.city ? ` · ${c.city}, ${c.state}` : ''}${c.nirf ? ` · NIRF #${c.nirf}` : ''} · ${c.quota === 'AI' ? 'All-India' : c.quota} quota` : `${c.branch} · ${c.city}, ${c.state} · NIRF #${c.nirf}`}</div>
                     </div>
                     <div style={{ textAlign: 'right', flex: 'none' }}>
                       <ChanceChip bucket={c.bucket} label={c.label} pct={c.pct} withDot />
@@ -224,6 +224,7 @@ export function Predictor() {
                       <>
                         <div><span className="text-muted">Closing rank ({c.examLabel})</span> <strong>{c.close}</strong></div>
                         <div><span className="text-muted">Opening rank</span> <strong>{c.open}</strong></div>
+                        <div><span className="text-muted">Fees</span> <strong>{c.feesTxt}</strong></div>
                         <div><span className="text-muted">Seat</span> <strong>{c.seatType}</strong></div>
                       </>
                     ) : (
@@ -235,7 +236,10 @@ export function Predictor() {
                     )}
                   </div>
                   {live ? (
-                    <div className="text-muted" style={{ fontSize: 12, borderTop: '1px solid var(--color-divider)', paddingTop: 8 }}>Official JoSAA 2024 cutoff · add-to-list &amp; 1:1 talk arrive with Phase 3/4</div>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', borderTop: '1px solid var(--color-divider)', paddingTop: 10, alignItems: 'center' }}>
+                      <Btn variant="sec" act="viewDetail" id={c.id}>View analysis</Btn>
+                      <span className="text-muted" style={{ fontSize: 12, marginLeft: 'auto' }}>Official JoSAA 2024 · add-to-list arrives with Phase 3</span>
+                    </div>
                   ) : (
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', borderTop: '1px solid var(--color-divider)', paddingTop: 10 }}>
                       <Btn variant="pri" act="addList" id={c.id}>+ Add to list</Btn>
@@ -295,6 +299,57 @@ export function Filters() {
 // ── College Detail & Analysis [CORE] ─────────────────────────────────────────
 export function CollegeDetail() {
   const { profile, selected } = useApp();
+  const [liveCol, setLiveCol] = useState(null);
+
+  useEffect(() => {
+    if (!PREDICTOR_API) return;
+    let cancelled = false;
+    const params = new URLSearchParams({ advRank: String(profile.advRank), mainRank: String(profile.mainRank), category: profile.category, home: profile.home });
+    fetch(`${API_URL}/colleges/${selected}?${params}`).then((r) => r.json()).then((d) => { if (!cancelled) setLiveCol(d); }).catch(() => {});
+    return () => { cancelled = true; };
+  }, [selected, profile.advRank, profile.mainRank, profile.category, profile.home]);
+
+  // Live analysis (real JoSAA cutoff for the selected offering).
+  if (PREDICTOR_API) {
+    if (!liveCol) return <section style={{ maxWidth: 820, margin: '0 auto', padding: '40px 22px' }}><Btn variant="ghost" go="predictor" style={{ paddingLeft: 0 }}>← Back to predictor</Btn><p className="text-muted" style={{ marginTop: 12 }}>Loading analysis…</p></section>;
+    const col = liveCol.college;
+    const rank = liveCol.chart.rank;
+    const max = Math.max(col.close, rank) * 1.1;
+    const bar = (v, color) => <div style={{ height: 14, borderRadius: 7, background: color, width: `${Math.max(4, Math.min(100, (v / max) * 100))}%` }} />;
+    return (
+      <section style={{ maxWidth: 820, margin: '0 auto', padding: '24px 22px 60px' }}>
+        <Btn variant="ghost" go="predictor" style={{ paddingLeft: 0, marginBottom: 6 }}>← Back to predictor</Btn>
+        <div className="card elev-sm" style={{ background: 'var(--color-surface)', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <TypeBadge type={col.type} />
+            <span className="tag" style={chipStyle(col.bucket)}>{col.label} · {col.pct}% for you</span>
+            {col.homeQuota && <Tag tone="accent-2">🏠 Home state</Tag>}
+          </div>
+          <h1 style={{ margin: '4px 0 2px', fontSize: 32 }}>{col.college}</h1>
+          <div className="text-muted" style={{ fontSize: 14 }}>{col.branch}{col.city ? ` · ${col.city}, ${col.state}` : ''}{col.nirf ? ` · NIRF #${col.nirf}` : ''} · {col.quota === 'AI' ? 'All-India' : col.quota} quota</div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16, marginTop: 16 }}>
+          <div className="card" style={{ background: 'var(--color-surface)' }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Your rank vs 2024 cutoff</div>
+            <div style={{ fontSize: 12 }} className="text-muted">Closing rank ({col.seatType}, {col.examLabel})</div>{bar(col.close, 'var(--color-accent)')}<div style={{ fontSize: 12 }}>{col.close}</div>
+            <div style={{ fontSize: 12, marginTop: 6 }} className="text-muted">Your rank</div>{bar(rank, '#a8442e')}<div style={{ fontSize: 12 }}>{rank}</div>
+            <p className="text-muted" style={{ fontSize: 12, margin: '6px 0 0' }}>Opening {col.open} · closing {col.close}. {rank <= col.close ? 'You’re within last year’s closing rank — a strong sign.' : 'You’re beyond last year’s closing — this is a reach.'}</p>
+          </div>
+          <div className="card" style={{ background: 'var(--color-surface)' }}>
+            <div className="card-kicker">Fees &amp; ranking</div>
+            <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
+              <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{col.feesTxt}</div><div className="text-muted" style={{ fontSize: 12 }}>approx total fees</div></div>
+              <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{col.nirf ? `#${col.nirf}` : '—'}</div><div className="text-muted" style={{ fontSize: 12 }}>NIRF 2024</div></div>
+            </div>
+            <div className="card-kicker" style={{ marginTop: 8 }}>Seat</div>
+            <div style={{ fontSize: 13 }}>{col.seatType} · {col.quota === 'AI' ? 'All-India' : col.quota} quota</div>
+          </div>
+        </div>
+        <div className="card" style={{ background: '#f7e2db', marginTop: 16 }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>⚠ Official JoSAA 2024 data</div><p style={{ fontSize: 13, margin: 0 }}>Opening/closing ranks are official JoSAA 2024 figures — an estimate for the coming season, not a guarantee. Always verify on josaa.nic.in.</p></div>
+      </section>
+    );
+  }
+
   const c = byId(selected, profile);
   const chart = chartData(c, profile);
   return (

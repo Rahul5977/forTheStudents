@@ -3,6 +3,7 @@
 // cloud gives us for free: (1) the Users table, (2) a verified JWT's claims.
 import {
   CreateTableCommand,
+  DeleteItemCommand,
   DescribeTableCommand,
   DynamoDBClient,
 } from '@aws-sdk/client-dynamodb';
@@ -57,6 +58,24 @@ export async function ensureUsersTable(): Promise<void> {
   }
   // Local tables go ACTIVE effectively instantly; this confirms it's reachable.
   await client.send(new DescribeTableCommand({ TableName: TABLE }));
+}
+
+/**
+ * Delete the given users' profiles so each run starts from a known-clean state.
+ * Without this, a prior run's switch-role test can leave e.g. `stu_1` as `mentor`,
+ * and the idempotent bootstrap would then read that stale role — a flaky failure.
+ */
+export async function resetUsers(userIds: string[]): Promise<void> {
+  await Promise.all(
+    userIds.map((id) =>
+      client.send(
+        new DeleteItemCommand({
+          TableName: TABLE,
+          Key: { PK: { S: `USER#${id}` }, SK: { S: 'PROFILE' } },
+        }),
+      ),
+    ),
+  );
 }
 
 /**

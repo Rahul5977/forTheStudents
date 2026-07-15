@@ -33,7 +33,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 |---|---|---|---|
 | 0 | Foundations (monorepo, CDK, CI/CD, shared libs, obs) | 🟡 | scaffolded; deploy pending AWS creds |
 | 1 | Auth & Identity (Cognito, JWT, profile, roles) | 🟡 | scaffolded; owner fills logic + Google/SMS TODOs |
-| 2 | Catalog + Predictor *(CORE)* | 🟡 | predictor+catalog built, seeded, deployed, wired to `/live`, tested e2e. Deferred: CloudFront-in-front-of-API, admin ingest UI, split predictor into own service |
+| 2 | Catalog + Predictor *(CORE)* | ✅ | predictor+catalog built, real JoSAA data (enriched + HS quota), seeded, deployed, wired to main predictor screen, docs + tests + alarms, e2e green (18/18). Deferred: CloudFront-in-front-of-API, admin ingest UI, split predictor into own service |
 | 3 | Planner *(CORE)* | ⬜ | choice list + List Doctor |
 | 4 | Marketplace & Mentors | ⬜ | verification workflow |
 | 5 | Booking, Payments & Sessions *(CORE)* | ⬜ | booking↔payment saga; video |
@@ -60,9 +60,15 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] Seed script (local + cloud); deployed to AWS dev; cloud table seeded (v2025.1)
 - [x] Frontend `/live` "Live predictor" section → calls the real public `/predict`, shows Safe/Target/Reach from the cloud DB; redeployed to Amplify
 - [x] e2e verified: local HTTP (12/3/3), deployed `/predict` (12/3/3, cache-control set), CORS from Amplify origin, predictor code in deployed bundle
-- [x] **Real official JoSAA 2024 data** — 14,023 cutoffs (23 IITs + 121 NITs/IIITs/GFTIs = 144 institutes), opening + closing ranks per category/quota/gender. Source: JoSAA + JIC ORCR via Quantum-Codes/JoSAA_2024. Unified importer (`ORCR.csv` for IITs + `josaa24.csv` for the rest) → `sc-dev-catalog` v`josaa-2024`
-- [x] **Main predictor screen wired to the API** (`NEXT_PUBLIC_PREDICTOR_API=on`) — real Safe/Target/Reach + "Live · official JoSAA" badge; dummy fallback preserved
-- [ ] Deferred: Home-State (HS) quota (needs institute→state map), per-round history, college enrichment (city/NIRF/fees/placements — separate content source), add-to-list/analysis for live results (Phase 3/4), CloudFront-in-front-of-API, admin ingest UI, split predictor Lambda
+- [x] **Real official JoSAA 2024 data** — **11,261 cutoffs across 121 institutes (23 IITs + 31 NITs + IIITs + GFTIs)**, opening + closing ranks per category/quota/gender. **Single source `josaa24.csv`** (has every institute; the earlier dual-source `ORCR.csv` merge was dropped after it caused IIT duplicates + GFTI mistyping — see Changelog). Version `josaa-2024.2`
+- [x] **Institute enrichment** (`@sc/catalog-core/enrich.ts`) — `{ short, city, state, nirf, feesLakh }` for all 23 IITs + 31 NITs + major IIITs (curated), with city/state fallback + fee-by-type approximations for the tail. Fills the analysis page (city, NIRF, fees) and drives HS quota
+- [x] **Home-State (HS) quota** — `pickByQuota` picks AI if present, else **HS when `institute.state == home`** (the home-state advantage, flagged `homeQuota:true`), else OS. Verified on real data: VNIT/NIT-Calicut surface HS rows only to their home-state students
+- [x] **Main predictor screen wired to the API** (`NEXT_PUBLIC_PREDICTOR_API=on`) — real Safe/Target/Reach + enriched cards (city, NIRF, fees, quota) + "Live · official JoSAA" badge; dummy fallback preserved
+- [x] **Prediction algorithm documented** — `docs/prediction-algorithm.md` (inputs, dataset, quota selection, exam mapping, ratio→bucket→pct math, worked example, limits)
+- [x] **Integration tests** — `@sc/catalog` service test (5 ✓, isolated `sc-test-catalog` table): predict buckets + enrichment, HS quota via API, `/colleges`, `/colleges/:id`, 404. `@sc/catalog-core` (3 ✓). Full suite 20 ✓
+- [x] **Prod observability** — CloudWatch alarms → SNS email (`sc-dev-alerts`): API 5xx, auth+catalog Lambda errors, throttles, p95 latency; dashboard extended with a Catalog-Lambda row
+- [x] **Deployed e2e green (18/18)** against live API — version, enrichment fields, HS quota (matching-state only), category/type filters, `/colleges` + `/colleges/:id` + 404, cache-control
+- [ ] Deferred: per-round history, college placements/median-package (separate content source), PwD/special (GO/JK/LA) quotas, add-to-list/analysis for live results (Phase 3/4), CloudFront-in-front-of-API, admin ingest UI, split predictor Lambda
 
 ### Phase 1 — Auth & Identity
 - [x] Cognito user pool (email + phone OTP), web client, Google IdP (guarded on secret), hosted UI
@@ -76,6 +82,34 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] Local dev server (`pnpm --filter @sc/auth-identity dev`) with dev-auth shim → real frontend `/live` drives real backend + DynamoDB Local
 - [x] e2e: `pnpm --filter @sc/auth-identity test` (9 ✓) + full HTTP loop (login → token → bootstrap → /me → rank-prefs → role) + frontend `/live` page live
 - [ ] Real-Cognito login e2e on AWS — **blocked on owner AWS credentials** (Task 14)
+
+---
+
+## Production-readiness checklist (through Phase 2)
+
+What "production-ready till Phase 2" means here — the auth + predictor slice a real student can use.
+
+**Green (done & verified)**
+- ✅ **Correctness** — prediction math + HS quota locked by unit + integration tests (20 ✓); deployed e2e 18/18.
+- ✅ **Real data** — 11,261 official JoSAA 2024 cutoffs, 121 institutes, enriched (city/state/NIRF/fees); immutable versioned dataset (`josaa-2024.2`), atomic active-pointer swap.
+- ✅ **Input validation** — every route zod-validates query/body; bad input → 400, never a 500.
+- ✅ **AuthZ** — predictor routes public (shared, cacheable); profile routes behind the Cognito JWT authorizer; role read from a verified `custom:role` claim.
+- ✅ **Least privilege** — per-service IAM, table-scoped grants; no secrets in code (env-driven).
+- ✅ **Performance** — in-memory snapshot cache (no per-request DB scan); CDN cache-control on public reads; ARM64 Lambda.
+- ✅ **Observability** — dashboard (API/Lambda/DDB) + **alarms → email** (5xx, Lambda errors, throttles, p95) + **budget** guardrail.
+- ✅ **Resilience** — DynamoDB on-demand + PITR; scale-to-zero; alarms treat missing data as *not breaching* (quiet ≠ alarm).
+- ✅ **Test isolation** — integration tests run on dedicated `sc-test-*` tables; deterministic setup.
+- ✅ **Honest UX** — every prediction says "estimate, verify on josaa.nic.in"; algorithm documented.
+
+**Owner actions (one-time)**
+- [ ] Click **"Confirm subscription"** in the SNS email so alarms actually reach you.
+- [ ] Add the 2 Hostinger CNAMEs so `counsellor.kodexa.in` goes live (records in the outputs section).
+
+**Deferred to Phase 9 (hardening & scale) — not blockers for a Phase-2 launch**
+- [ ] API-Gateway per-route throttling / usage plans; WAF-on for prod; stronger prod Cognito password policy.
+- [ ] Provisioned concurrency pre-warm on the June–July ramp (cold-start smoothing).
+- [ ] Load test to target rps; runbooks; canary deploy.
+- [ ] CloudFront in front of the API for edge caching of `/predict`.
 
 ---
 
@@ -114,6 +148,7 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 
 ## Changelog
 
+- **2026-07-15** — **Phase 2 finalized: enrichment + HS quota + docs + tests + alarms + prod-ready.** Added institute **enrichment** (`enrich.ts`: short/city/state/NIRF/fees for all IITs+NITs+major IIITs, with fallbacks) so the analysis page fills in, and **Home-State quota** (`pickByQuota`: AI → HS-if-home → OS, `homeQuota` flag). **Deduped the dataset** to a single source (`josaa24.csv`, **11,261 cutoffs / 121 institutes**, `josaa-2024.2`) after the ORCR merge caused IIT duplicates + GFTI mistyping; `deriveType` now checks IIIT before IIT. Wrote **`docs/prediction-algorithm.md`**. Added **integration tests** on isolated tables (`@sc/catalog` 5 ✓ incl. HS quota via API; auth e2e made deterministic with `resetUsers` + `sc-test-users`) — full suite **20 ✓**, typecheck **6/6**. Added **CloudWatch alarms → SNS email** (`sc-dev-alerts`: API 5xx, auth+catalog Lambda errors, throttles, p95 latency) + a Catalog-Lambda dashboard row (deployed ✓). Restored root `esbuild` devDep (bundling regression). **Deployed e2e 18/18 green** against the live API (enrichment, HS-quota-by-state, filters, `/colleges(/:id)`, 404, cache-control). Frontend unchanged this pass (already wired in the prior entry).
 - **2026-07-15** — **Real official JoSAA data + main predictor wired.** Replaced the 26-row dummy dataset with **14,023 real JoSAA 2024 cutoffs** (all 144 institutes: IITs/NITs/IIITs/GFTIs; opening+closing per category/quota/gender). Rebuilt `@sc/catalog-core` (types/parse/predict over real cutoffs, quota = AI|OS, IIT→adv / rest→main), unified CSV importer, re-seeded local+cloud (v`josaa-2024`), redeployed catalog Lambda. Wired the **main `/predictor` screen** to the real API (env-gated, dummy fallback) with a live badge + adapted result card (real institute/branch/open/close/quota). Verified: catalog-core tests, deployed `/predict` = 1087 results for adv850/Open (top: IIT Indore CSE Safe), deployed predictor bundle calls the API, CORS from Amplify. **Attribution:** data via Quantum-Codes/JoSAA_2024 (JoSAA site + JIC report) — always verify on josaa.nic.in.
 - **2026-07-15** — **Phase 2 (Catalog + Predictor) built end-to-end + deployed + tested.** New `@sc/catalog-core` (dataset + predictor logic, 4 tests) and `@sc/catalog` lambdalith (public `/predict`, `/predict/summary`, `/colleges`, `/colleges/:id`; Lambda-memory snapshot cache per ADR-008; CDN cache-control). Added versioned `sc-dev-catalog` table + seed script. Deployed to AWS dev + seeded cloud (v2025.1). Wired frontend `/live` "Live predictor" → real public `/predict`, redeployed to Amplify. Verified: local + deployed `/predict` = 12 Safe / 3 Target / 3 Reach, `/colleges/:id` analysis + chart, CORS from Amplify origin, predictor in deployed bundle. typecheck 6/6 ✓, catalog-core tests 4 ✓.
 - **2026-07-15** — **Phase 0/1 security review + hardening.** Reviewed all backend/infra/frontend: no secrets in code, least-privilege IAM, zod-validated inputs, parameterized DynamoDB, no error leakage, explicit CORS, no PII in logs, dev-only code isolated/gated. **Fixed:** gated `USER_PASSWORD_AUTH` + OAuth implicit grant to non-prod, added `preventUserExistenceErrors` (anti-enumeration). Deferred to Phase 9: API-GW per-route throttling, stronger prod password policy, WAF-on. Typecheck 4/4 ✓.
@@ -136,10 +171,11 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 | API base URL | `https://7zumjbvms0.execute-api.ap-south-1.amazonaws.com` |
 | Cognito User Pool | `ap-south-1_OQv6ssgbO` |
 | User Pool Client | `5f22b9n70k3bolqppvvrast0en` |
-| Hosted UI domain | `https://sc-dev-058264128057.auth.ap-south-1.amazonaws.com` |
+| Hosted UI domain | `https://sc-dev-058264128057.auth.ap-south-1.amazoncognito.com` |
 | Users table | `sc-dev-users` |
-| Catalog table | `sc-dev-catalog` (seeded v2025.1, 26 offerings) |
+| Catalog table | `sc-dev-catalog` (seeded `josaa-2024.2` — 11,261 cutoffs, 121 institutes) |
 | Predictor (public) | `GET {API}/predict` · `/predict/summary` · `/colleges` · `/colleges/:id` |
+| Alerts topic | `sc-dev-alerts` (SNS → email; **owner must click "Confirm subscription"**) |
 | **Frontend (Amplify)** | app `dy6751tudpsop` · **https://main.dy6751tudpsop.amplifyapp.com** |
 | **Custom domain** | `counsellor.kodexa.in` (Amplify → CloudFront `d1m73c1l14jkpt.cloudfront.net`) — PENDING owner DNS at Hostinger |
 

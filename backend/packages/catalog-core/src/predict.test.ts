@@ -1,45 +1,52 @@
 import { describe, it, expect } from 'vitest';
-import { parseAll } from './parse';
+import { parseCutoffs } from './parse';
 import { predict, normalizeInput } from './predict';
+import { deriveType } from './parse';
 
-// Tiny fixtures shaped exactly like the real files.
-const ORCR = [
-  'IIT Bombay,Computer Science (4 Years Bachelor ofTechnology),OPEN,Gender-Neutral,1,67',
-  'IIT Indore,Computer Science (4 Years Bachelor ofTechnology),OPEN,Gender-Neutral,1000,1567',
-].join('\n');
-const JOSAA = [
+// Fixture shaped like josaa24.csv (header + rows), incl. HS/OS/AI quotas.
+const CSV = [
   'Institute,Academic Program Name,Quota,Seat Type,Gender,Opening Rank,Closing Rank',
-  '"NIT Trichy","Computer Science (4 Years, Bachelor of Technology)",OS,OPEN,Gender-Neutral,500,1198.0',
-  '"NIT Trichy","Computer Science (4 Years, Bachelor of Technology)",HS,OPEN,Gender-Neutral,50,300.0',
+  '"Indian Institute of Technology Indore","Computer Science and Engineering (4 Years, Bachelor of Technology)",AI,OPEN,Gender-Neutral,900,1567',
+  '"National Institute of Technology Karnataka, Surathkal","Computer Science and Engineering (4 Years, Bachelor of Technology)",OS,OPEN,Gender-Neutral,800,2134',
+  '"National Institute of Technology Karnataka, Surathkal","Computer Science and Engineering (4 Years, Bachelor of Technology)",HS,OPEN,Gender-Neutral,200,900',
+  '"Indian Institute of Information Technology, Allahabad","Information Technology (4 Years, Bachelor of Technology)",AI,OPEN,Gender-Neutral,3000,4987',
 ].join('\n');
 
-const cutoffs = parseAll(ORCR, JOSAA);
+const cutoffs = parseCutoffs(CSV);
 
-describe('parse (real JoSAA CSV shape)', () => {
-  it('parses both files, derives type + short branch + exam', () => {
-    expect(cutoffs).toHaveLength(4);
-    const bombay = cutoffs.find((c) => c.institute === 'IIT Bombay')!;
-    expect(bombay.type).toBe('IIT');
-    expect(bombay.exam).toBe('adv');
-    expect(bombay.branch).toBe('Computer Science');
-    expect(bombay.quota).toBe('AI');
-    const trichy = cutoffs.find((c) => c.institute === 'NIT Trichy')!;
-    expect(trichy.type).toBe('NIT');
-    expect(trichy.exam).toBe('main');
+describe('deriveType (IIIT before IIT)', () => {
+  it('classifies IIT / IIIT / NIT correctly', () => {
+    expect(deriveType('Indian Institute of Technology Bombay')).toBe('IIT');
+    expect(deriveType('Indian Institute of Information Technology, Allahabad')).toBe('IIIT');
+    expect(deriveType('National Institute of Technology Calicut')).toBe('NIT');
   });
 });
 
-describe('predict (real cutoffs)', () => {
-  const input = normalizeInput({ advRank: '850', mainRank: '4200', category: 'Open' });
+describe('parse + enrich', () => {
+  it('enriches with short/city/state/nirf and derives type', () => {
+    const indore = cutoffs.find((c) => c.institute.includes('Indore'))!;
+    expect(indore.type).toBe('IIT');
+    expect(indore.short).toBe('IIT Indore');
+    expect(indore.state).toBe('Madhya Pradesh');
+    expect(indore.nirf).toBe(16);
+    const nitk = cutoffs.find((c) => c.institute.includes('Surathkal') && c.quota === 'OS')!;
+    expect(nitk.short).toBe('NIT Surathkal');
+    expect(nitk.state).toBe('Karnataka');
+  });
+});
 
-  it('buckets by real closing rank and drops HS-quota rows', () => {
-    const r = predict(cutoffs, input);
-    // IIT Bombay (close 67) is way out of reach (ratio>1.6 → dropped);
-    // IIT Indore (close 1567) is Safe for adv rank 850; NIT Trichy OS (close 1198)
-    // vs main rank 4200 is out of reach (dropped); HS row never counts.
-    expect(r.results.every((c) => c.quota !== 'HS')).toBe(true);
-    expect(r.resultCount).toBe(1);
-    expect(r.results[0]!.institute).toBe('IIT Indore');
-    expect(r.results[0]!.bucket).toBe('safe');
+describe('Home-State quota', () => {
+  it('uses the easier HS closing rank when home state matches', () => {
+    const away = predict(cutoffs, normalizeInput({ mainRank: '1000', category: 'Open', home: 'Delhi' }));
+    const nitkAway = away.results.find((r) => r.college === 'NIT Surathkal');
+    // Away applicant → OS cutoff (close 2134) → main rank 1000 is Safe, not home quota.
+    expect(nitkAway?.close).toBe(2134);
+    expect(nitkAway?.homeQuota).toBe(false);
+
+    const home = predict(cutoffs, normalizeInput({ mainRank: '1000', category: 'Open', home: 'Karnataka' }));
+    const nitkHome = home.results.find((r) => r.college === 'NIT Surathkal');
+    // Home applicant → HS cutoff (close 900) is used + flagged.
+    expect(nitkHome?.close).toBe(900);
+    expect(nitkHome?.homeQuota).toBe(true);
   });
 });

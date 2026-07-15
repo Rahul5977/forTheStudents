@@ -13,7 +13,8 @@ export default defineConfig({
       STAGE: 'dev',
       AWS_REGION: 'ap-south-1',
       DDB_ENDPOINT: 'http://localhost:8000',
-      TABLE_USERS: 'sc-dev-users',
+      // Isolated table so tests never mutate the dev data you inspect in the console.
+      TABLE_USERS: 'sc-test-users',
     },
   },
 });

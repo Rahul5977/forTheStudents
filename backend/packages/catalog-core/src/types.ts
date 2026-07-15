@@ -10,6 +10,7 @@ export type Sort = 'chance' | 'closing' | 'location';
 export interface Cutoff {
   id: number;
   institute: string; // full official name
+  short: string; // display name, e.g. "IIT Bombay"
   program: string; // full program name
   branch: string; // short program (before " (")
   type: CollegeType;
@@ -19,6 +20,11 @@ export interface Cutoff {
   gender: string; // Gender-Neutral | Female-only...
   open: number; // opening rank
   close: number; // closing rank
+  city: string;
+  state: string; // drives Home-State quota
+  nirf: number | null; // NIRF 2024 rank where officially ranked
+  feesLakh: number; // approx total B.Tech fees (₹ lakh)
 }
 
-export const DATASET_VERSION = 'josaa-2024';
+// Bump on each re-ingest (immutable versions; the predictor reads the active one).
+export const DATASET_VERSION = 'josaa-2024.2';
