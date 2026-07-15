@@ -39,7 +39,8 @@ export function AppProvider({ children }) {
   const [state, setState] = useState(INITIAL);
   const toastTimer = useRef(null);
 
-  const screen = slugToId(pathname === '/' ? '' : pathname.replace(/^\//, ''));
+  // Strip leading + trailing slashes (trailingSlash export → e.g. "/predictor/").
+  const screen = slugToId(pathname.replace(/^\/+|\/+$/g, ''));
 
   const update = useCallback((patch) => {
     setState((s) => ({ ...s, ...(typeof patch === 'function' ? patch(s) : patch) }));

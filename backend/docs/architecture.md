@@ -188,6 +188,14 @@ Client ─▶ CloudFront (edge cache)         ← ~90%+ of Analysis & popular pr
 - **Deploys:** trunk-based; canary/blue-green on API Gateway + Lambda aliases; automatic rollback on alarm.
 - **Regions:** primary `ap-south-1`; DynamoDB **Point-in-Time Recovery** + optional global table to `ap-south-2` for DR; S3 cross-region replication for recordings/exports.
 
+### 3.5 Frontend hosting & DNS (`counsellor.kodexa.in`) — all-AWS
+The **backend is serverless** (Lambda + API Gateway) — there is no server to host the frontend on. The **Next.js frontend is hosted separately.** Decision: **all-AWS** (domain from Hostinger; no third-party host name involved). Two AWS paths, both CloudFront-backed:
+- **AWS Amplify Hosting** *(easiest)* — native Next.js (no code changes), auto SSL + custom domain, CloudFront under the hood. ~free tier.
+- **S3 + CloudFront** *(cheapest / most control)* — requires the app be **static-exported** (`next.config output:'export'` + `generateStaticParams` for the catch-all); ACM cert in **us-east-1**; ~$0 (CloudFront always-free 1 TB).
+- **DNS (Hostinger):** hPanel → Domains → DNS zone. Add a **CNAME** `counsellor` → the CloudFront/Amplify target, plus the **ACM validation CNAME** the cert gives you. (No Route 53 needed → $0 DNS.)
+- **API domain (optional):** `api.counsellor.kodexa.in` via an **API Gateway custom domain** + ACM cert (`ap-south-1`) + a CNAME → stable, branded API URL instead of the auto-generated `execute-api` id. Not required.
+- **Wiring:** once the frontend is at `https://counsellor.kodexa.in`, add that origin to (1) `cfg.corsOrigins` and (2) Cognito **callback/logout URLs**, then redeploy backend.
+
 ---
 
 ## 4. Core services (bounded contexts)
@@ -482,11 +490,41 @@ k6/Artillery replaying a **round-result spike** to 5k rps predictor + realistic 
 
 ---
 
-## 11. Cost model (seasonal, scale-to-zero)
+## 11. Cost model — **built to run cheap / near-free** (ADR-007)
 
-- **Off-season (~10 mo):** Lambda idle = ₹0; DynamoDB on-demand idle ≈ storage only; no EC2/idle Aurora (if we choose path A). CloudFront/S3 minimal. → **near-zero fixed cost**, the whole point.
-- **In-season:** dominated by (a) CloudFront egress, (b) provisioned concurrency, (c) DynamoDB requests, (d) **video minutes** (the biggest variable — model per-minute SFU cost × concurrent minutes), (e) SMS/WhatsApp. Track **cost per 100k predictor requests** and **cost per paid session** as unit economics.
-- **Guardrails:** budgets + anomaly alerts; per-service cost allocation tags; kill-switches on runaway async.
+> **Headline:** during build / MVP / small launch this runs at **≈ $0** (free tiers). At *full* lakhs-scale peak season it is **low tens of dollars/month** if cost-optimized — **not thousands**. The only ways it becomes "thousands" are (a) staying on Cognito at 3-lakh MAU and (b) counting video *gross* instead of *net* — both addressed below. Off-season is **≈ $0** (scale-to-zero).
+
+### 11.1 What actually costs money (and how we keep it ~free)
+| Service | Free allowance | Cost at real scale | Keep it near-zero by |
+|---|---|---|---|
+| **Lambda** | 1M req + 400k GB-s/mo *always free* | ~$0.20/M req + tiny GB-s | ARM64, small bundles — usually within/near free tier |
+| **DynamoDB** (on-demand) | 25 GB storage *always free* | ~$1.25/M writes, $0.25/M reads | tiny per-user data; reads mostly cached (never hit DDB) |
+| **API Gateway** (HTTP API) | — (12-mo: 1M/mo) | $1.00/M req | most reads stop at CDN, never reach API GW |
+| **CloudFront (CDN)** | **1 TB egress + 10M req/mo *always free*** | $0.085–0.11/GB after | responses are small JSON (KB) → usually within free 1 TB |
+| **S3** | 5 GB (12-mo) | pennies/GB | tiny (uploads/exports) |
+| **Cognito** | Lite tier free at low MAU | **~$1k+/mo at 3-lakh MAU** ⚠ | **see §11.2 — swap to free auth to zero this out** |
+| **WAF** | none | **~$6/mo per WebACL (fixed)** | **OFF** (`cfg.enableWaf=false`) until Phase 9; use API GW throttling + free CloudFront/Shield-Standard meanwhile |
+| **Video SFU** (Phase 5) | provider free tiers | **~₹15–20 per 25-min call** | **revenue-funded** (₹100/session) + deferrable — see §11.2 |
+| **SMS OTP** | none | ~₹0.10–0.30/SMS | **avoid** — prefer Google/email login, not phone |
+
+### 11.2 The three levers that kill the big numbers
+1. **Auth — make it $0 at any scale.** Cognito is free at low MAU but ~$1k/mo at 3-lakh MAU. Two free alternatives:
+   - **Firebase Authentication** — Google + email/password sign-in is **free with no MAU cap** (only phone/SMS auth costs). Our backend just verifies the Firebase ID token (a JWT) in the API GW authorizer / Lambda. **Recommended for scale.**
+   - **Self-managed Google Sign-In → our own JWT** — verify Google's `id_token` in a Lambda, mint a short-lived JWT signed via KMS. Zero third-party auth cost.
+   - *Current state:* we run Cognito (free at our scale, already working). **Migration is a contained change to `auth-identity` + the authorizer** — do it when we approach the MAU threshold, or sooner if we want a guaranteed-free posture. The frontend already leads with "Continue with Google", so Google-first fits.
+2. **Video — it pays for itself, and it's optional.** A 25-min 1:1 call ≈ 50 participant-minutes ≈ **₹15–20** of SFU cost, against **₹100** revenue (₹20 platform fee ≈ covers video; ₹80 to mentor). So video scales *with* revenue, not ahead of it. It's **Phase 5** — the free core (Predict + Plan) needs **no video at all**. Cheap/free providers: **Daily.co** (10k free participant-min/mo), **8x8 JaaS** (free tier), self-hosted **Jitsi**. Launch Predict+Plan free; add paid video once there's demand.
+3. **Fixed costs — keep them at zero.** DynamoDB on-demand (no idle cost) not provisioned; **no Aurora/EC2** (Path A: DynamoDB-only + Athena); **WAF off** until it's actually protecting something; provisioned concurrency only scheduled for the peak weeks.
+
+### 11.3 Realistic monthly estimate
+| Scenario | Monthly cost |
+|---|---|
+| **Now / build / MVP / small launch** (Cognito free tier, WAF off, no video) | **≈ $0** |
+| **Off-season** (10 months) | **≈ $0** (scale-to-zero) |
+| **Full peak season, cost-optimized** (Firebase auth, video revenue-funded, CDN-cached reads) | **~$20–100/mo** for the ~2 peak months |
+| **Full peak season, if left on Cognito at 3-lakh MAU** | add **~$1k/mo** (the avoidable line) |
+
+### 11.4 Guardrails
+AWS Budgets + Cost Anomaly Detection with email alerts (set a low threshold now); per-service cost-allocation tags; kill-switches on runaway async; watch **cost per 100k predictor requests** and **cost per paid session** as unit economics.
 
 ---
 

@@ -15,7 +15,8 @@ export function slugToId(slug) {
 }
 export function idToPath(id) {
   const slug = idToSlug(id);
-  return slug ? '/' + slug : '/';
+  // Trailing slash to match next.config `trailingSlash: true` (static export URLs).
+  return slug ? '/' + slug + '/' : '/';
 }
 
 // Every screen id in the product.
