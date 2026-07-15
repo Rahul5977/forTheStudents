@@ -2,10 +2,12 @@
 // ══════════════════════════════════════════════════════════════════════════
 // Student app — the core experience (22 screens).
 // ══════════════════════════════════════════════════════════════════════════
+import { useState, useEffect } from 'react';
 import { useApp } from '@/lib/store';
 import { Btn, Tile, Tag, ChanceChip, TypeBadge, Avatar, Field, Input, Select, SegOpt } from '@/components/ui';
 import { results as computeResults, byId, decorate, listDoctor, chartData, chipStyle, typeStyle } from '@/lib/logic';
 import { COLLEGES, MENTORS, ROUNDS, NOTIFS, FAQS, SETTING_GROUPS, TXNS, SLOT_LIST, SESSION_MAP } from '@/lib/data';
+import { API_URL, PREDICTOR_API } from '@/lib/liveConfig';
 
 const REACH_BG = '#f7e2db';
 const REACH_FG = '#7a2d1a';
@@ -118,11 +120,35 @@ export function Profile() {
 
 // ── College Predictor — Results [CORE] ───────────────────────────────────────
 export function Predictor() {
-  const { profile, filters, setFilters, toggleType, navigate, runAct } = useApp();
-  const res = useResults();
-  const safe = res.filter((r) => r.bucket === 'safe').length;
-  const target = res.filter((r) => r.bucket === 'target').length;
-  const reach = res.filter((r) => r.bucket === 'reach').length;
+  const { profile, filters, setFilters, toggleType } = useApp();
+  const localRes = useResults();
+  const [apiRes, setApiRes] = useState(null);
+  const [apiBusy, setApiBusy] = useState(false);
+
+  // In API mode, fetch REAL results from the catalog service whenever inputs change.
+  useEffect(() => {
+    if (!PREDICTOR_API) return;
+    let cancelled = false;
+    setApiBusy(true);
+    const params = new URLSearchParams({
+      advRank: String(profile.advRank), mainRank: String(profile.mainRank), category: profile.category,
+      types: filters.types.join(','), q: filters.q || '',
+      sort: filters.sort === 'ranking' ? 'closing' : filters.sort, // API has no NIRF
+    });
+    fetch(`${API_URL}/predict?${params}`)
+      .then((r) => r.json())
+      .then((d) => { if (!cancelled) setApiRes(d); })
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setApiBusy(false); });
+    return () => { cancelled = true; };
+  }, [profile.advRank, profile.mainRank, profile.category, filters.types, filters.q, filters.sort]);
+
+  const live = PREDICTOR_API && !!apiRes;
+  const res = live ? apiRes.results : localRes;
+  const safe = live ? apiRes.safeCount : localRes.filter((r) => r.bucket === 'safe').length;
+  const target = live ? apiRes.targetCount : localRes.filter((r) => r.bucket === 'target').length;
+  const reach = live ? apiRes.reachCount : localRes.filter((r) => r.bucket === 'reach').length;
+  const count = live ? apiRes.resultCount : localRes.length;
   const TYPES = ['IIT', 'NIT', 'IIIT', 'GFTI'];
   return (
     <section style={{ maxWidth: 1180, margin: '0 auto', padding: '24px 22px 40px' }}>
@@ -168,7 +194,11 @@ export function Predictor() {
 
         <div style={{ flex: 1, minWidth: 300 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 10 }}>
-            <div style={{ fontSize: 14 }}><strong>{res.length}</strong> <span className="text-muted">options match your rank &amp; filters</span></div>
+            <div style={{ fontSize: 14 }}>
+              <strong>{count}</strong> <span className="text-muted">options match your rank &amp; filters</span>
+              {live && <span className="tag tag-accent-2" style={{ marginLeft: 8, padding: '1px 8px' }}>● Live · official JoSAA {apiRes.version.replace('josaa-', '')}</span>}
+              {PREDICTOR_API && apiBusy && <span className="text-muted" style={{ marginLeft: 8, fontSize: 12 }}>updating…</span>}
+            </div>
             <div className="field" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}><label style={{ margin: 0 }}>Sort</label><Select style={{ width: 'auto' }} value={filters.sort} onChange={(e) => setFilters({ sort: e.target.value })}><option value="chance">By chance</option><option value="ranking">By NIRF ranking</option><option value="closing">By closing rank</option><option value="location">By location</option></Select></div>
           </div>
 
@@ -183,23 +213,37 @@ export function Predictor() {
                         <span style={{ fontFamily: 'var(--font-heading)', fontSize: 18 }}>{c.college}</span>
                         {c.homeQuota && <Tag tone="accent-2">🏠 Home state</Tag>}
                       </div>
-                      <div className="text-muted" style={{ fontSize: 13, marginTop: 2 }}>{c.branch} · {c.city}, {c.state} · NIRF #{c.nirf}</div>
+                      <div className="text-muted" style={{ fontSize: 13, marginTop: 2 }}>{live ? `${c.branch} · ${c.type} · ${c.quota === 'AI' ? 'All-India' : c.quota} quota` : `${c.branch} · ${c.city}, ${c.state} · NIRF #${c.nirf}`}</div>
                     </div>
                     <div style={{ textAlign: 'right', flex: 'none' }}>
                       <ChanceChip bucket={c.bucket} label={c.label} pct={c.pct} withDot />
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 22, fontSize: 13, flexWrap: 'wrap' }}>
-                    <div><span className="text-muted">Last {c.examLabel} close</span> <strong>{c.close}</strong></div>
-                    <div><span className="text-muted">Avg package</span> <strong>{c.avgTxt}</strong></div>
-                    <div><span className="text-muted">Fees</span> <strong>{c.feesTxt}</strong></div>
+                    {live ? (
+                      <>
+                        <div><span className="text-muted">Closing rank ({c.examLabel})</span> <strong>{c.close}</strong></div>
+                        <div><span className="text-muted">Opening rank</span> <strong>{c.open}</strong></div>
+                        <div><span className="text-muted">Seat</span> <strong>{c.seatType}</strong></div>
+                      </>
+                    ) : (
+                      <>
+                        <div><span className="text-muted">Last {c.examLabel} close</span> <strong>{c.close}</strong></div>
+                        <div><span className="text-muted">Avg package</span> <strong>{c.avgTxt}</strong></div>
+                        <div><span className="text-muted">Fees</span> <strong>{c.feesTxt}</strong></div>
+                      </>
+                    )}
                   </div>
-                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', borderTop: '1px solid var(--color-divider)', paddingTop: 10 }}>
-                    <Btn variant="pri" act="addList" id={c.id}>+ Add to list</Btn>
-                    <Btn variant="sec" act="viewDetail" id={c.id}>View analysis</Btn>
-                    <Btn variant="sec" act="talkHere" id={c.id}>💬 Talk to a student here</Btn>
-                    <Btn variant="ghost" act="shortlist" id={c.id} style={{ marginLeft: 'auto' }}>♡ Save</Btn>
-                  </div>
+                  {live ? (
+                    <div className="text-muted" style={{ fontSize: 12, borderTop: '1px solid var(--color-divider)', paddingTop: 8 }}>Official JoSAA 2024 cutoff · add-to-list &amp; 1:1 talk arrive with Phase 3/4</div>
+                  ) : (
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', borderTop: '1px solid var(--color-divider)', paddingTop: 10 }}>
+                      <Btn variant="pri" act="addList" id={c.id}>+ Add to list</Btn>
+                      <Btn variant="sec" act="viewDetail" id={c.id}>View analysis</Btn>
+                      <Btn variant="sec" act="talkHere" id={c.id}>💬 Talk to a student here</Btn>
+                      <Btn variant="ghost" act="shortlist" id={c.id} style={{ marginLeft: 'auto' }}>♡ Save</Btn>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

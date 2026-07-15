@@ -1,38 +1,39 @@
 // Business logic for catalog + predictor. Pure functions from @sc/catalog-core;
-// this layer just supplies the snapshot and shapes responses.
-import { predict as computePredict, decorate, chartData, normalizeInput, type PredictInput } from '@sc/catalog-core';
+// this layer supplies the snapshot and shapes responses.
+import { predict as computePredict, analyze, normalizeInput } from '@sc/catalog-core';
 import { NotFoundError } from '@sc/shared';
-import { loadSnapshot, getOffering } from '../repo/catalog.repo';
+import { loadSnapshot } from '../repo/catalog.repo';
 
-/** GET /predict — filtered Safe/Target/Reach results over the active snapshot. */
+/** GET /predict — real Safe/Target/Reach over the active JoSAA snapshot. */
 export async function predict(query: Record<string, string | undefined>) {
   const input = normalizeInput(query);
   const snap = await loadSnapshot();
-  const out = computePredict(snap.offerings, input);
+  const out = computePredict(snap.cutoffs, input);
   return { version: snap.version, ...out };
 }
 
-/** GET /predict/summary — just the bucket counts (cheap, for the dashboard). */
+/** GET /predict/summary — bucket counts only. */
 export async function predictSummary(query: Record<string, string | undefined>) {
   const { version, resultCount, safeCount, targetCount, reachCount } = await predict(query);
   return { version, resultCount, safeCount, targetCount, reachCount };
 }
 
-/** GET /colleges — the full offering list (no personalization). */
+/** GET /colleges — distinct institutes (a browse directory), not every cutoff. */
 export async function listColleges() {
   const snap = await loadSnapshot();
-  return { version: snap.version, colleges: snap.offerings };
+  const byInst = new Map<string, { institute: string; type: string; programs: number }>();
+  for (const c of snap.cutoffs) {
+    const e = byInst.get(c.institute) ?? { institute: c.institute, type: c.type, programs: 0 };
+    e.programs++;
+    byInst.set(c.institute, e);
+  }
+  return { version: snap.version, count: byInst.size, institutes: [...byInst.values()].sort((a, b) => a.institute.localeCompare(b.institute)) };
 }
 
-/**
- * GET /colleges/:id — one offering + (if a rank is given) the caller's chance and
- * the cutoff-trend chart with their rank marked. This is the College Analysis data.
- */
+/** GET /colleges/:id — one cutoff + the caller's chance + a (single-year) chart. */
 export async function getCollege(id: number, query: Record<string, string | undefined>) {
-  const offering = await getOffering(id);
-  if (!offering) throw NotFoundError('College offering not found');
-  const input: PredictInput = normalizeInput(query);
-  const decorated = decorate(offering, input);
-  const chart = chartData(offering, input);
-  return { college: decorated, chart };
+  const snap = await loadSnapshot();
+  const res = analyze(snap.cutoffs, id, normalizeInput(query));
+  if (!res) throw NotFoundError('Cutoff not found');
+  return res;
 }
