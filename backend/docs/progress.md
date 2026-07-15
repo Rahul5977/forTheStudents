@@ -37,7 +37,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 | 3 | Planner *(CORE)* | ✅ | shortlist + ordered choice list + List Doctor + optimistic concurrency; **deployed + authed e2e 12/12**; **frontend wired into `/live`** (add-from-predictor, reorder, remove, server-side doctor, export) + redeployed to Amplify. Deferred: PDF render (TODO owner); persisting the dummy main screens |
 | 4 | Marketplace & Mentors | ✅ | mentor apply → verify (.ac.in OTP + ID stub) → PENDING_REVIEW → admin approve → public search; availability + optimistic concurrency; events emitted. **Deployed + authed e2e 12/12**; wired into `/live` (become-a-mentor + browse) + Amplify. Deferred: real S3 ID upload + SES/SNS OTP (owner); admin console = Phase 7 |
 | 5 | Booking, Payments & Sessions *(CORE)* | ✅ | booking↔payment **saga** (atomic slot-hold, idempotency, exactly-once ledger) + session lifecycle (join/end/rate) + cancel/refund. **Deployed + cross-service e2e 12/12**; wired into `/live`. Razorpay + SFU video = boilerplate/TODO(owner) per architecture |
-| 6 | Notifications & Timeline | ⬜ | event-driven |
+| 6 | Notifications & Timeline | ✅ | event-driven: EventBridge → SQS(+DLQ) → consumer → in-app feed; feed API + prefs. **Deployed + e2e green** (approval notif arrived in ~3s); wired into `/live`. Channels SES/FCM/WhatsApp = TODO(owner) behind prefs. Cost: all pay-per-use |
 | 7 | Admin & Ops | ⬜ | verification queue, moderation |
 | 8 | Analytics & Reporting | ⬜ | streams → Athena |
 | 9 | Hardening & Scale | ⬜ | load test to 5k rps, runbooks |
@@ -112,6 +112,19 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] **Frontend wired into `/live`** — "Book s1" on browsed mentors + a "My sessions" card driving the lifecycle (Pay-dev → Join → End → Rate → Cancel); `liveApi` booking methods; redeployed to Amplify (job 7)
 - [ ] Deferred (owner): Razorpay orders/webhook-signature/refund, SFU room tokens + recording→S3, payout batches (₹80/₹100), mentor-rating rollup consumer; a slot-picker booking UI
 
+### Phase 6 — Notifications & Timeline
+- [x] **`@sc/notifications`** — two Lambdas share one table: a **feed API** (authed) + an **SQS consumer**
+- [x] **Event pipeline** — one EventBridge rule (`source` prefix `sc.`) fans every domain event → **SQS** (buffer) with a **DLQ** (maxReceiveCount 3, partial-batch-response) → consumer → per-user in-app feed. Cost: SQS + rule + Lambdas all pay-per-use → ₹0 idle
+- [x] **Fanout mapping** (`domain/notifications.ts`, pure + tested): `booking.confirmed` → student + mentor (with the Meet link), `mentor.approved`/`rejected` → mentor, `session.rated` → mentor, `refund.issued` → student; unmapped events ignored safely
+- [x] Notifications table (`sc-<stage>-notifications`, `PK=USER#<id>` `SK=NOTIF#<ulid>|PREFS`, **TTL** 90d) — feed bounded, cheap
+- [x] **API** — `GET /notifications` (feed + unread count), `POST /notifications/:id/read`, `/read-all`, `GET/PUT /notifications/prefs`; prefs gate delivery (in-app on by default)
+- [x] **Channel adapters** = `// TODO(owner)` behind prefs — SES (email), FCM (push), WhatsApp BSP; in-app is the free default
+- [x] Infra: `NotificationsServiceStack` (feed Lambda + consumer Lambda + SQS + DLQ + EventBridge rule) + table + observability (consumer row, **DLQ-depth widget + alarm**, consumer-errors alarm). **Deployed to AWS dev** (5 routes)
+- [x] Tests: `@sc/notifications` integration **6 ✓** (fanout, ingest→feed, mark-read, prefs-suppress, read-all); full suite **61 ✓**, typecheck **10/10**
+- [x] **Deployed e2e 5/5** — approved a mentor → `mentor.approved` flowed EventBridge→SQS→consumer→feed in **~3s** ("You're a verified mentor ✅"); mark-read + prefs verified
+- [x] **Frontend wired into `/live`** — a 🔔 notifications card (unread badge, mark-all-read, Meet-link deep-link); `liveApi` methods; redeployed to Amplify (job 9)
+- [ ] Deferred (owner): SES/FCM/WhatsApp adapters; EventBridge Scheduler deadline reminders (`round.deadline.T-24h`); admin broadcasts (Phase 7)
+
 ### Phase 1 — Auth & Identity
 - [x] Cognito user pool (email + phone OTP), web client, Google IdP (guarded on secret), hosted UI
 - [x] `services/auth-identity` lambdalith — routes: `/auth/bootstrap`, `GET/PATCH /me`, `PATCH /me/rank-prefs`, `POST /me/role`
@@ -155,6 +168,40 @@ What "production-ready till Phase 2" means here — the auth + predictor slice a
 
 ---
 
+## Roadmap: Phases 6-10 — detailed build plan (cost-safe)
+
+**Cost guardrails applied to every phase below** (so nothing spikes off-season):
+- Everything **scale-to-zero**: Lambda, DynamoDB **on-demand**, SQS, EventBridge — all pay-per-use, ₹0 at idle.
+- **No always-on infra**: no NAT gateway, no Aurora/RDS, no ElastiCache, no provisioned concurrency off-season, WAF stays **off** until Phase 9 (and then season-gated).
+- **External channels + heavy features behind flags** (`cfg.*` / `SEASON`): in-app + email default; SMS/WhatsApp/push opt-in. Analytics uses **Streams→S3→Athena** (pay-per-query), not always-on pipelines.
+- Each new table: on-demand + PITR; TTL on ephemeral rows. Budget alarm ($10) already guards the account.
+
+### Phase 6 — Notifications & Timeline  *(building now)*
+- **`@sc/notifications`** consumer: EventBridge rule → **SQS** (buffer + DLQ) → Lambda. Folds domain events (`booking.confirmed`, `mentor.approved`, `session.rated`, `payment.succeeded`…) into a per-user **in-app feed** (`sc-<stage>-notifications`, `PK=USER#<id>` `SK=NOTIF#<ts>`, `gsi1: unread`, TTL).
+- **API**: `GET /notifications` (feed, unread count), `POST /notifications/:id/read`, `POST /notifications/read-all`, per-user `GET/PUT /notifications/prefs`.
+- **Channel adapters** = `// TODO(owner)`: SES (email), FCM (push), WhatsApp BSP — behind `cfg.channels`. In-app is the always-free default.
+- **Deadline reminders**: EventBridge **Scheduler** off the JoSAA calendar (`round.deadline.T-24h`) → same consumer. Cost: scheduler + Lambda = negligible.
+- Deliver: service + table + SQS/DLQ + rule + tests + deploy + `/live` feed + commit.
+
+### Phase 7 — Admin & Ops
+- **`@sc/admin`** (role=admin): verification-queue actions already exist in marketplace; add **audit log** (`sc-<stage>-audit`, append-only, `PK=ADMIN#<id>` `SK=ACT#<ts>`), **platform metrics** (counts folded from Streams, not live scans), moderation actions (suspend mentor / hide review), broadcast trigger (→ notifications). RBAC via the `admin` group + per-action scopes.
+- **Materialized rollups**: DynamoDB **Streams → Lambda → a `Stats` item** (counters), so dashboards never scan live tables (cost + latency).
+- Every admin action **audited**. A minimal Next.js `/admin` surface (behind admin role).
+
+### Phase 8 — Analytics & Reporting
+- **Streams → S3 (Parquet) → Athena** (+ Glue catalog). A small **Firehose-free** path: Streams → Lambda batches to S3 by day/table; Athena queries on demand (pay-per-scan, partitioned by date to keep scans tiny). Dashboards read pre-aggregated rollups from Phase 7; Athena is for ad-hoc/financial reconciliation only.
+- **Ledger reconciliation** job (daily EventBridge Scheduler): fold `sc-*-bookings` ledger vs. the (owner-provided) Razorpay settlement report → flag mismatches. Cost: one scheduled Lambda/day.
+
+### Phase 9 — Hardening & Scale
+- **API Gateway throttling / usage plans** (free), **WAF on** (season-gated, `cfg.enableWaf`), stronger prod Cognito password policy, per-route rate limits.
+- **Provisioned concurrency** on the hot Lambdas (predictor, auth) **scheduled ON only for Jun–Jul** via Application Auto Scaling + `SEASON` (the biggest cost lever — kept off otherwise).
+- **Load test** to target rps (Artillery/k6) → right-size memory + concurrency floors; **runbooks**; DLQ replay drills; alarm coverage review.
+
+### Phase 10 — Go-live & Seasonal Ops
+- **Canary / staged rollout** (Lambda alias + weighted deploy), **ramp automation** (pre-warm schedule keyed to JoSAA round dates), synthetic canaries (CloudWatch Synthetics — season-gated), on-call + escalation, cost review, DR/restore drill (PITR), and a go/no-go checklist.
+
+---
+
 ## Open decisions — awaiting owner (mirrors architecture.md §15)
 
 | # | Decision | Default (recommended) | Owner choice |
@@ -190,6 +237,7 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 
 ## Changelog
 
+- **2026-07-15** — **Phase 6 (Notifications) built end-to-end + deployed + tested + wired.** New `@sc/notifications` = a feed API Lambda + an SQS **consumer** Lambda over one table. One EventBridge rule (source prefix `sc.`) fans **every domain event** → SQS (buffer) + **DLQ** (partial-batch-response) → consumer → per-user in-app feed. Pure, tested **fanout** maps `booking.confirmed`/`mentor.approved`/`session.rated`/`refund.issued` → the right users (with the Meet link). API: feed + unread + mark-read/read-all + prefs (delivery gated per-channel; in-app free default; SES/FCM/WhatsApp = TODO owner). Infra: `NotificationsServiceStack` + table (TTL 90d) + observability (DLQ-depth widget + alarm, consumer-errors alarm) — all **pay-per-use, ₹0 idle**. Deployed (5 routes). Tests: integration **6 ✓** (suite **61 ✓**, typecheck **10/10**); **deployed e2e 5/5** — approval notification flowed EventBridge→SQS→consumer→feed in ~3s. Frontend: `liveApi` methods + a `/live` 🔔 card, Amplify job 9. Also detailed **Phases 6-10 build plan** added above (cost-safe).
 - **2026-07-15** — **Google Meet link after payment (both sides) + full Phase 0-5 e2e re-verified.** On `payment.captured` the saga now mints a **shared meeting link** (stored on the booking, returned to BOTH student + mentor in `/sessions`, `/bookings/:id`, `/join`) — see `services/booking/src/domain/meeting.ts`. Real Google Meet via the **Google Calendar API is `// TODO(owner)`** (service account + `events.insert` with `conferenceData` → `hangoutLink`; Calendar API is free, no cost impact); until then a clearly-labelled placeholder (`provider:'stub'`, `/lookup/` form so a click never joins a random room) keeps the flow demoable, shown as "🎥 Meet (placeholder)" in `/live`. Booking integration tests **11 ✓**; redeployed booking Lambda + Amplify (job 8). **Full Phase 0-5 e2e green:** local **55 ✓**; deployed — predictor **18/0**, planner **12/0**, marketplace **12/0**, booking+Meet **15/0** (both sides confirmed to see the same link).
 - **2026-07-15** — **Phase 5 (Booking, Payments & Sessions) built end-to-end + deployed + tested + wired.** New `@sc/booking` lambdalith implementing the **booking↔payment saga**: `POST /bookings` holds a mentor's slot with an **atomic TransactWrite** (booking + `attribute_not_exists` slot-hold → no double-booking) + **Idempotency-Key** dedupe + TTL on unpaid holds; the **public payment webhook** completes it via an **exactly-once append-only ledger** (keyed by provider payment id) → `CONFIRMED`, then session lifecycle join(→video-token stub)/end/rate and cancel/refund. Razorpay + the SFU are **boilerplate/interfaces only** (`// TODO(owner)`; secrets never touch us). New `sc-dev-bookings` table (gsi1-student + gsi2-mentor, TTL, stream). Infra: `BookingServiceStack` (RW bookings, read-only mentors, PutEvents) + observability (row + alarm), **deployed** (8 routes). Tests: integration **10 ✓** (suite **54 ✓**, typecheck **9/9**); **deployed cross-service e2e 12/12** (mentor approve → book → idempotency → double-book 409 → webhook confirm → replay no-op → join/end/rate → refund). Frontend: `liveApi` methods + a `/live` "My sessions" card driving the saga, redeployed to Amplify (job 7).
 - **2026-07-15** — **Phase 4 (Marketplace & Mentors) built end-to-end + deployed + tested + wired.** New `@sc/marketplace` lambdalith: mentor **apply → verify (.ac.in email OTP + ID-stub) → PENDING_REVIEW → admin approve → APPROVED**, editable profile, availability (optimistic concurrency), and a **public `GET /mentors`** search (filters + sort, projection hides email/OTP). New `sc-dev-mentors` table with one sparse GSI (`gsi1-status`) doing double duty for the approved-search and the admin pending-queue. Events emitted via `publish()`. Infra: `MarketplaceServiceStack` (+ PutEvents grant) + mentors table + observability (row + alarm), **deployed to AWS dev** (10 routes). Tests: integration **12 ✓** (suite **44 ✓**, typecheck **8/8**); **deployed authed e2e 12/12** via throwaway mentor + admin Cognito users. Frontend: `liveApi` methods + a `/live` "Mentors" section (become-a-mentor flow + public browse), redeployed to Amplify (job 6). Deferred to owner/Phase 7: real S3 ID upload, SES/SNS OTP, admin console.
@@ -230,6 +278,9 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 | Bookings table | `sc-dev-bookings` (`BOOKING#<id>` · gsi1-student · gsi2-mentor · TTL · stream) |
 | Booking (authed) | `POST {API}/bookings` (Idempotency-Key) · `GET /bookings/:id` · `POST /bookings/:id/cancel` · `GET /sessions` · `POST /sessions/:id/join\|end\|rate` |
 | Payments (public) | `POST {API}/payments/webhook` (Razorpay-style; sig-verified in prod) |
+| Notifications table | `sc-dev-notifications` (`USER#<id>` · `NOTIF#`/`PREFS` · TTL 90d) |
+| Notifications (authed) | `GET {API}/notifications` · `POST /notifications/:id/read` · `/read-all` · `GET/PUT /notifications/prefs` |
+| Event pipeline | EventBridge rule `sc-dev-domain-events` → SQS `sc-dev-notifications` (+ DLQ) → consumer `sc-dev-notifications-consumer` |
 | Alerts topic | `sc-dev-alerts` (SNS → email; **owner must click "Confirm subscription"**) |
 | **Frontend (Amplify)** | app `dy6751tudpsop` · **https://main.dy6751tudpsop.amplifyapp.com** |
 | **Custom domain** | `counsellor.kodexa.in` (Amplify → CloudFront `d1m73c1l14jkpt.cloudfront.net`) — PENDING owner DNS at Hostinger |

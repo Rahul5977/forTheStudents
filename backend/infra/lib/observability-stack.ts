@@ -27,6 +27,8 @@ export class ObservabilityStack extends Stack {
     const plannerFn = `sc-${cfg.stage}-planner`;
     const marketplaceFn = `sc-${cfg.stage}-marketplace`;
     const bookingFn = `sc-${cfg.stage}-booking`;
+    const notifConsumerFn = `sc-${cfg.stage}-notifications-consumer`;
+    const dlqName = `sc-${cfg.stage}-notifications-dlq`;
     const tableName = `sc-${cfg.stage}-users`;
     const apiId = httpApi.apiId;
 
@@ -40,6 +42,8 @@ export class ObservabilityStack extends Stack {
     const plan = lamFor(plannerFn);
     const mkt = lamFor(marketplaceFn);
     const bkg = lamFor(bookingFn);
+    const ntf = lamFor(notifConsumerFn);
+    const dlqDepth = new cw.Metric({ namespace: 'AWS/SQS', metricName: 'ApproximateNumberOfMessagesVisible', dimensionsMap: { QueueName: dlqName }, statistic: 'Maximum', period });
     const ddb = (metricName: string, statistic: string, dims: Record<string, string> = {}, label?: string) =>
       new cw.Metric({ namespace: 'AWS/DynamoDB', metricName, dimensionsMap: { TableName: tableName, ...dims }, statistic, period, label });
 
@@ -80,6 +84,10 @@ export class ObservabilityStack extends Stack {
       new cw.GraphWidget({ title: 'Marketplace — invocations / errors / throttles', left: [mkt('Invocations', 'Sum'), mkt('Errors', 'Sum'), mkt('Throttles', 'Sum')], width: 8, height: 6 }),
       new cw.GraphWidget({ title: 'Booking — invocations / errors / throttles', left: [bkg('Invocations', 'Sum'), bkg('Errors', 'Sum'), bkg('Throttles', 'Sum')], width: 8, height: 6 }),
     );
+    dashboard.addWidgets(
+      new cw.GraphWidget({ title: 'Notifications consumer — invocations / errors', left: [ntf('Invocations', 'Sum'), ntf('Errors', 'Sum')], width: 12, height: 6 }),
+      new cw.GraphWidget({ title: 'Notifications DLQ depth (should be 0)', left: [dlqDepth], width: 12, height: 6 }),
+    );
 
     // Row 4 — DynamoDB (Users).
     dashboard.addWidgets(
@@ -119,6 +127,8 @@ export class ObservabilityStack extends Stack {
     alarm('planner-errors', plan('Errors', 'Sum'), 3, 1, 'planner Lambda errored ≥3 times in 5 min');
     alarm('marketplace-errors', mkt('Errors', 'Sum'), 3, 1, 'marketplace Lambda errored ≥3 times in 5 min');
     alarm('booking-errors', bkg('Errors', 'Sum'), 3, 1, 'booking Lambda errored ≥3 times in 5 min');
+    alarm('notif-consumer-errors', ntf('Errors', 'Sum'), 3, 1, 'notifications consumer errored ≥3 times in 5 min');
+    alarm('notif-dlq', dlqDepth, 1, 1, 'a domain event landed in the notifications DLQ (failed 3x) — investigate');
     alarm('lambda-throttle', lam('Throttles', 'Sum'), 1, 1, 'auth-identity Lambda was throttled (concurrency ceiling)');
     alarm('api-latency', api('Latency', 'p95'), 3000, 2, 'API p95 latency ≥3s for 10 min');
 

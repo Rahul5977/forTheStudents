@@ -13,6 +13,7 @@ const Schema = z.object({
   TABLE_PLANNER: z.string().default('sc-dev-planner'),
   TABLE_MENTORS: z.string().default('sc-dev-mentors'),
   TABLE_BOOKINGS: z.string().default('sc-dev-bookings'),
+  TABLE_NOTIFICATIONS: z.string().default('sc-dev-notifications'),
 
   // Cognito (populated from CDK outputs / SSM in real deploys)
   COGNITO_USER_POOL_ID: z.string().optional(),

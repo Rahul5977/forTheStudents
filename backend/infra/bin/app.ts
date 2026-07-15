@@ -9,6 +9,7 @@ import { CatalogServiceStack } from '../lib/catalog-service-stack';
 import { PlannerServiceStack } from '../lib/planner-service-stack';
 import { MarketplaceServiceStack } from '../lib/marketplace-service-stack';
 import { BookingServiceStack } from '../lib/booking-service-stack';
+import { NotificationsServiceStack } from '../lib/notifications-service-stack';
 import { ObservabilityStack } from '../lib/observability-stack';
 
 const app = new App();
@@ -70,6 +71,15 @@ new BookingServiceStack(app, `sc-${stage}-svc-booking`, {
   authorizer: foundation.authorizer,
   bookingsTable: data.bookingsTable,
   mentorsTable: data.mentorsTable,
+});
+
+// Phase 6 — notifications (feed API + EventBridge→SQS→consumer, event-driven).
+new NotificationsServiceStack(app, `sc-${stage}-svc-notifications`, {
+  env,
+  cfg,
+  httpApi: foundation.httpApi,
+  authorizer: foundation.authorizer,
+  notificationsTable: data.notificationsTable,
 });
 
 // Ops dashboard + spend guardrail.

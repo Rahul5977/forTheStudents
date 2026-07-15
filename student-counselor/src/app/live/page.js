@@ -34,6 +34,7 @@ export default function LivePage() {
   const [mForm, setMForm] = useState({ college: 'IIT Bombay', branch: 'Computer Science', year: 3, priceINR: 100, topics: 'CSE vs ECE, Placements', acEmail: '', otp: '', devOtp: '' });
   const [sessions, setSessions] = useState(null); // my booking sessions
   const [sBusy, setSBusy] = useState(false);
+  const [notifs, setNotifs] = useState(null); // { unread, notifications }
 
   const flash = (m) => { setNote(m); setTimeout(() => setNote(null), 2200); };
 
@@ -58,7 +59,7 @@ export default function LivePage() {
 
   // Load the saved choice list + mentor data once we have a token.
   useEffect(() => {
-    if (token) { loadChoice(); loadMentors(); loadMyMentor(); loadSessions(); }
+    if (token) { loadChoice(); loadMentors(); loadMyMentor(); loadSessions(); loadNotifs(); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -190,6 +191,12 @@ export default function LivePage() {
     catch (e) { setErr(e.message); } finally { setSBusy(false); }
   };
 
+  // Phase 6: notifications feed.
+  const loadNotifs = useCallback(async () => {
+    try { setNotifs(await liveApi.notifications()); } catch (e) { setErr(e.message); }
+  }, []);
+  const markAllRead = async () => { try { await liveApi.markAllNotifsRead(); await loadNotifs(); } catch (e) { setErr(e.message); } };
+
   const claims = token ? decodeToken(token) : null;
   const card = { background: 'var(--color-surface)', marginBottom: 14 };
   const lbl = { fontSize: 11, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--color-neutral-600)' };
@@ -248,6 +255,31 @@ export default function LivePage() {
               </div>
             ) : <p className="text-muted" style={{ fontSize: 13 }}>Loading…</p>}
           </div>
+
+          {notifs && (
+            <div className="card elev-sm" style={{ ...card, background: 'var(--color-surface)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="card-kicker">🔔 Notifications — Phase 6 {notifs.unread > 0 && <span className="tag tag-accent" style={{ marginLeft: 6 }}>{notifs.unread} new</span>}</div>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button className="sc-btn ghost" onClick={loadNotifs}>Refresh</button>
+                  {notifs.unread > 0 && <button className="sc-btn sec" onClick={markAllRead}>Mark all read</button>}
+                </div>
+              </div>
+              <p className="text-muted" style={{ fontSize: 12, margin: 0 }}>Event-driven: domain events (booking confirmed, mentor approved, session rated…) → EventBridge → SQS → consumer → this in-app feed.</p>
+              {notifs.notifications.length === 0 ? <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>No notifications yet — approve a mentor or confirm a booking to see one arrive.</p>
+                : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {notifs.notifications.slice(0, 8).map((n) => (
+                      <div key={n.id} style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13, background: n.read ? 'var(--color-bg)' : 'var(--color-accent-2-100)', borderRadius: 10, padding: '7px 10px' }}>
+                        <span style={{ width: 7, height: 7, borderRadius: '50%', background: n.read ? 'transparent' : 'var(--color-accent)', flexShrink: 0 }} />
+                        <div style={{ flex: 1 }}><strong style={{ fontFamily: 'var(--font-heading)' }}>{n.title}</strong><div className="text-muted" style={{ fontSize: 12 }}>{n.body}</div></div>
+                        {n.link && <a href={n.link} target="_blank" rel="noreferrer" style={{ fontSize: 12 }}>🎥</a>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+            </div>
+          )}
 
           <div className="card elev-sm" style={card}>
             <div className="card-kicker">Edit name (PATCH /me)</div>

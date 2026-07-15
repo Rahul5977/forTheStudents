@@ -66,4 +66,9 @@ export const liveApi = {
   rateSession: (id, rating, comment) => call(`/sessions/${id}/rate`, { method: 'POST', body: { rating, comment } }),
   // Dev-only: stand in for the Razorpay webhook so the saga can be driven from the UI.
   simulatePayment: (bookingId) => call('/payments/webhook', { method: 'POST', body: { bookingId, providerPaymentId: `dev-${bookingId}`, event: 'payment.captured' } }),
+
+  // Phase 6 — notifications (in-app feed).
+  notifications: () => call('/notifications'),
+  markNotifRead: (id) => call(`/notifications/${id}/read`, { method: 'POST' }),
+  markAllNotifsRead: () => call('/notifications/read-all', { method: 'POST' }),
 };

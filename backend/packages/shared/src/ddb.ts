@@ -28,4 +28,7 @@ export const key = {
   booking: (id: string) => ({ PK: `BOOKING#${id}`, SK: 'META' as const }),
   slotHold: (mentorId: string, slotId: string) => ({ PK: `SLOT#${mentorId}#${slotId}`, SK: 'HOLD' as const }),
   idempotency: (userId: string, k: string) => ({ PK: `IDEMP#${userId}#${k}`, SK: 'META' as const }),
+  // Notifications (Phase 6).
+  notification: (userId: string, ts: string) => ({ PK: `USER#${userId}`, SK: `NOTIF#${ts}` }),
+  notificationPrefs: (userId: string) => ({ PK: `USER#${userId}`, SK: 'PREFS' as const }),
 };

@@ -16,6 +16,7 @@ export class DataStack extends Stack {
   readonly plannerTable: ddb.Table;
   readonly mentorsTable: ddb.Table;
   readonly bookingsTable: ddb.Table;
+  readonly notificationsTable: ddb.Table;
 
   constructor(scope: Construct, id: string, props: DataStackProps) {
     super(scope, id, props);
@@ -89,6 +90,18 @@ export class DataStack extends Stack {
       partitionKey: { name: 'gsi2pk', type: ddb.AttributeType.STRING },
       sortKey: { name: 'gsi2sk', type: ddb.AttributeType.STRING },
       projectionType: ddb.ProjectionType.ALL,
+    });
+
+    // Notifications (Phase 6): PK=USER#<id> SK=NOTIF#<ulid> | PREFS. In-app feed.
+    // TTL expires old items (bounded storage). On-demand → ₹0 at idle.
+    this.notificationsTable = new ddb.Table(this, 'Notifications', {
+      tableName: `sc-${cfg.stage}-notifications`,
+      partitionKey: { name: 'PK', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'SK', type: ddb.AttributeType.STRING },
+      billingMode: ddb.BillingMode.PAY_PER_REQUEST,
+      pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
+      removalPolicy: cfg.removalPolicy,
+      timeToLiveAttribute: 'ttl',
     });
 
     // Users: PK=USER#<id>, SK=PROFILE. Sparse GSIs for email/phone lookup.
