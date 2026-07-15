@@ -20,4 +20,8 @@ export const key = {
   // Planner (Phase 3): two per-user singleton rows under the same partition.
   shortlist: (userId: string) => ({ PK: `USER#${userId}`, SK: 'SHORTLIST' as const }),
   choiceList: (userId: string) => ({ PK: `USER#${userId}`, SK: 'CHOICELIST' as const }),
+  // Marketplace (Phase 4): mentor rows share a MENTOR#<userId> partition.
+  mentor: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'PROFILE' as const }),
+  mentorAvailability: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'AVAILABILITY' as const }),
+  mentorEmailOtp: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'EMAILOTP' as const }),
 };

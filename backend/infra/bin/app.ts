@@ -7,6 +7,7 @@ import { FoundationStack } from '../lib/foundation-stack';
 import { AuthServiceStack } from '../lib/auth-service-stack';
 import { CatalogServiceStack } from '../lib/catalog-service-stack';
 import { PlannerServiceStack } from '../lib/planner-service-stack';
+import { MarketplaceServiceStack } from '../lib/marketplace-service-stack';
 import { ObservabilityStack } from '../lib/observability-stack';
 
 const app = new App();
@@ -49,6 +50,15 @@ new PlannerServiceStack(app, `sc-${stage}-svc-planner`, {
   authorizer: foundation.authorizer,
   plannerTable: data.plannerTable,
   catalogTable: data.catalogTable,
+});
+
+// Phase 4 — marketplace & mentors (mentor/admin authed + public GET /mentors).
+new MarketplaceServiceStack(app, `sc-${stage}-svc-marketplace`, {
+  env,
+  cfg,
+  httpApi: foundation.httpApi,
+  authorizer: foundation.authorizer,
+  mentorsTable: data.mentorsTable,
 });
 
 // Ops dashboard + spend guardrail.

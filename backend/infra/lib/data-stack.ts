@@ -14,6 +14,7 @@ export class DataStack extends Stack {
   readonly usersTable: ddb.Table;
   readonly catalogTable: ddb.Table;
   readonly plannerTable: ddb.Table;
+  readonly mentorsTable: ddb.Table;
 
   constructor(scope: Construct, id: string, props: DataStackProps) {
     super(scope, id, props);
@@ -42,6 +43,25 @@ export class DataStack extends Stack {
       billingMode: ddb.BillingMode.PAY_PER_REQUEST,
       pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
       removalPolicy: cfg.removalPolicy,
+    });
+
+    // Mentors (Phase 4): PK=MENTOR#<id> SK=PROFILE|AVAILABILITY|EMAILOTP.
+    //   gsi1-status (sparse): gsi1pk=`MENTOR#<STATUS>` → approved search + admin queue.
+    // OTP rows expire via TTL. On-demand + PITR like the rest.
+    this.mentorsTable = new ddb.Table(this, 'Mentors', {
+      tableName: `sc-${cfg.stage}-mentors`,
+      partitionKey: { name: 'PK', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'SK', type: ddb.AttributeType.STRING },
+      billingMode: ddb.BillingMode.PAY_PER_REQUEST,
+      pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
+      removalPolicy: cfg.removalPolicy,
+      timeToLiveAttribute: 'ttl', // ephemeral email-OTP rows
+    });
+    this.mentorsTable.addGlobalSecondaryIndex({
+      indexName: 'gsi1-status',
+      partitionKey: { name: 'gsi1pk', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'gsi1sk', type: ddb.AttributeType.STRING },
+      projectionType: ddb.ProjectionType.ALL,
     });
 
     // Users: PK=USER#<id>, SK=PROFILE. Sparse GSIs for email/phone lookup.

@@ -1,0 +1,26 @@
+{
+  "name": "@sc/marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/handler.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "dev": "STAGE=dev AWS_REGION=ap-south-1 DDB_ENDPOINT=http://localhost:8000 TABLE_MENTORS=sc-dev-mentors PORT=8790 tsx watch src/dev/server.ts",
+    "lint": "echo 'lint: TODO(owner) wire eslint'"
+  },
+  "dependencies": {
+    "@aws-sdk/lib-dynamodb": "^3.620.0",
+    "@sc/config": "workspace:*",
+    "@sc/shared": "workspace:*",
+    "hono": "^4.5.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.620.0",
+    "@hono/node-server": "^1.12.0",
+    "@types/aws-lambda": "^8.10.140",
+    "tsx": "^4.16.0"
+  }
+}

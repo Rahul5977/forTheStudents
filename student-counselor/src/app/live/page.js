@@ -28,6 +28,10 @@ export default function LivePage() {
   const [predBusy, setPredBusy] = useState(false);
   const [choice, setChoice] = useState(null); // { items, warnings, summary, choiceVersion }
   const [choiceBusy, setChoiceBusy] = useState(false);
+  const [mentor, setMentor] = useState(null); // my mentor profile (or null)
+  const [mentorList, setMentorList] = useState(null); // approved mentors (public)
+  const [mBusy, setMBusy] = useState(false);
+  const [mForm, setMForm] = useState({ college: 'IIT Bombay', branch: 'Computer Science', year: 3, priceINR: 100, topics: 'CSE vs ECE, Placements', acEmail: '', otp: '', devOtp: '' });
 
   const flash = (m) => { setNote(m); setTimeout(() => setNote(null), 2200); };
 
@@ -50,9 +54,9 @@ export default function LivePage() {
     if (t) { setTok(t); loadProfile(); }
   }, [loadProfile]);
 
-  // Load the saved choice list once we have a token (buckets refresh on Predict/Refresh).
+  // Load the saved choice list + mentor data once we have a token.
   useEffect(() => {
-    if (token) loadChoice();
+    if (token) { loadChoice(); loadMentors(); loadMyMentor(); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -132,6 +136,41 @@ export default function LivePage() {
   const doExport = async () => {
     try { const r = await liveApi.exportChoiceList(); flash(r?.message || 'Exported'); }
     catch { flash('PDF export is coming soon — for now copy the list into josaa.nic.in in this order.'); }
+  };
+
+  // Phase 4: marketplace. Browse (public) + the mentor apply → verify flow.
+  const loadMentors = useCallback(async () => {
+    try { setMentorList((await liveApi.mentors()).mentors); } catch (e) { setErr(e.message); }
+  }, []);
+  const loadMyMentor = useCallback(async () => {
+    try { setMentor(await liveApi.mentorProfile()); } catch { setMentor(null); } // 404 = not a mentor yet
+  }, []);
+
+  const applyMentor = async () => {
+    setMBusy(true); setErr(null);
+    try {
+      const m = await liveApi.mentorApply({
+        name: profile?.name || 'Mentor', college: mForm.college, branch: mForm.branch,
+        year: Number(mForm.year), priceINR: Number(mForm.priceINR),
+        topics: mForm.topics.split(',').map((s) => s.trim()).filter(Boolean),
+      });
+      setMentor(m); flash('Applied — verify your .ac.in email next');
+    } catch (e) { setErr(e.message); } finally { setMBusy(false); }
+  };
+  const requestOtp = async () => {
+    setMBusy(true); setErr(null);
+    try { const r = await liveApi.mentorVerifyEmail(mForm.acEmail); setMForm((f) => ({ ...f, devOtp: r.devOtp || '' })); flash(r.devOtp ? `Dev OTP: ${r.devOtp}` : 'OTP sent'); }
+    catch (e) { setErr(e.message); } finally { setMBusy(false); }
+  };
+  const confirmOtp = async () => {
+    setMBusy(true); setErr(null);
+    try { const r = await liveApi.mentorVerifyEmail(mForm.acEmail, mForm.otp); setMentor(r.mentor); flash('Email verified'); }
+    catch (e) { setErr(e.message); } finally { setMBusy(false); }
+  };
+  const verifyIdStub = async () => {
+    setMBusy(true); setErr(null);
+    try { const r = await liveApi.mentorVerifyId('id-proof-stub'); setMentor(r.mentor); flash('ID step done'); await loadMentors(); }
+    catch (e) { setErr(e.message); } finally { setMBusy(false); }
   };
 
   const claims = token ? decodeToken(token) : null;
@@ -284,6 +323,70 @@ export default function LivePage() {
                 </div>
               </>
             )}
+          </div>
+
+          <div className="card elev-sm" style={{ ...card, background: 'var(--color-accent-100)' }}>
+            <div className="card-kicker">Mentors — Phase 4 (marketplace API)</div>
+
+            {/* Become a mentor: apply → verify email (.ac.in OTP) → verify ID → review */}
+            <div style={{ background: 'var(--color-bg)', borderRadius: 12, padding: 12 }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 15, marginBottom: 6 }}>Become a mentor</div>
+              {!mentor ? (
+                <>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(130px,1fr))', gap: 8 }}>
+                    <div className="field"><label>College</label><input className="input" value={mForm.college} onChange={(e) => setMForm({ ...mForm, college: e.target.value })} /></div>
+                    <div className="field"><label>Branch</label><input className="input" value={mForm.branch} onChange={(e) => setMForm({ ...mForm, branch: e.target.value })} /></div>
+                    <div className="field"><label>Year</label><input className="input" value={mForm.year} onChange={(e) => setMForm({ ...mForm, year: e.target.value })} /></div>
+                    <div className="field"><label>Price ₹</label><input className="input" value={mForm.priceINR} onChange={(e) => setMForm({ ...mForm, priceINR: e.target.value })} /></div>
+                    <div className="field" style={{ gridColumn: '1 / -1' }}><label>Topics (comma-separated)</label><input className="input" value={mForm.topics} onChange={(e) => setMForm({ ...mForm, topics: e.target.value })} /></div>
+                  </div>
+                  <button className="sc-btn pri" onClick={applyMentor} disabled={mBusy} style={{ marginTop: 8 }}>Apply as mentor</button>
+                </>
+              ) : (
+                <>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, flexWrap: 'wrap' }}>
+                    <span>{mentor.college} · {mentor.branch} · Year {mentor.year} · ₹{mentor.priceINR}</span>
+                    <span className="tag" style={mentor.status === 'APPROVED' ? bucketStyle('safe') : mentor.status === 'PENDING_REVIEW' ? bucketStyle('target') : bucketStyle('reach')}>{mentor.status}</span>
+                    <span className="tag tag-neutral">{mentor.emailVerified ? '✓ email' : 'email ✗'}</span>
+                    <span className="tag tag-neutral">{mentor.idVerified ? '✓ ID' : 'ID ✗'}</span>
+                  </div>
+                  {mentor.status === 'DRAFT' && !mentor.emailVerified && (
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8, alignItems: 'flex-end' }}>
+                      <div className="field" style={{ flex: 1, minWidth: 160 }}><label>College .ac.in email</label><input className="input" placeholder="you@iitb.ac.in" value={mForm.acEmail} onChange={(e) => setMForm({ ...mForm, acEmail: e.target.value })} /></div>
+                      <button className="sc-btn sec" onClick={requestOtp} disabled={mBusy}>Send OTP</button>
+                      <div className="field" style={{ width: 110 }}><label>OTP{mForm.devOtp ? ` (${mForm.devOtp})` : ''}</label><input className="input" value={mForm.otp} onChange={(e) => setMForm({ ...mForm, otp: e.target.value })} /></div>
+                      <button className="sc-btn pri" onClick={confirmOtp} disabled={mBusy}>Verify</button>
+                    </div>
+                  )}
+                  {mentor.status === 'DRAFT' && mentor.emailVerified && !mentor.idVerified && (
+                    <button className="sc-btn pri" onClick={verifyIdStub} disabled={mBusy} style={{ marginTop: 8 }}>Verify student ID (stub)</button>
+                  )}
+                  {mentor.status === 'PENDING_REVIEW' && <p className="text-muted" style={{ fontSize: 12.5, margin: '8px 0 0' }}>⏳ Submitted — an admin will review your verification. (Admin console = Phase 7.)</p>}
+                  {mentor.status === 'APPROVED' && <p style={{ fontSize: 13, margin: '8px 0 0' }}>🎉 You&apos;re a verified mentor — you now appear in the browse list below.</p>}
+                </>
+              )}
+            </div>
+
+            {/* Browse approved mentors (public GET /mentors) */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 15 }}>Browse mentors</div>
+              <button className="sc-btn ghost" onClick={loadMentors} disabled={mBusy}>Refresh</button>
+            </div>
+            {!mentorList ? <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>Loading…</p>
+              : mentorList.length === 0 ? <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>No approved mentors yet — apply above, then verify.</p>
+                : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {mentorList.map((m) => (
+                      <div key={m.userId} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, background: 'var(--color-bg)', borderRadius: 10, padding: '7px 10px' }}>
+                        <span className="tag tag-accent-2" style={{ padding: '1px 7px' }}>✔</span>
+                        <span style={{ fontFamily: 'var(--font-heading)', flex: 1 }}>{m.name} · {m.college}</span>
+                        <span className="text-muted">{m.branch} · Y{m.year}</span>
+                        <span>⭐ {m.ratingAvg?.toFixed?.(1) ?? m.ratingAvg}</span>
+                        <span style={{ fontFamily: 'var(--font-heading)' }}>₹{m.priceINR}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
           </div>
 
           <div className="card elev-sm" style={card}>

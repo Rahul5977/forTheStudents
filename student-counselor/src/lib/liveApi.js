@@ -45,4 +45,13 @@ export const liveApi = {
   reorderChoice: (from, to, version) => call('/choice-list/reorder', { method: 'POST', body: { from, to, version } }),
   choiceDoctor: (params) => call(`/choice-list/doctor?${new URLSearchParams(params).toString()}`),
   exportChoiceList: () => call('/choice-list/export', { method: 'POST' }),
+
+  // Phase 4 — marketplace & mentors.
+  mentors: (params = {}) => call(`/mentors?${new URLSearchParams(params).toString()}`), // public
+  mentorApply: (body) => call('/mentor/apply', { method: 'POST', body }),
+  mentorVerifyEmail: (email, code) => call('/mentor/verify/email', { method: 'POST', body: code ? { email, code } : { email } }),
+  mentorVerifyId: (docRef) => call('/mentor/verify/id', { method: 'POST', body: { docRef } }),
+  mentorProfile: () => call('/mentor/profile'),
+  mentorPending: () => call('/admin/mentors/pending'), // admin
+  mentorReview: (id, decision, note) => call(`/admin/mentors/${id}/review`, { method: 'POST', body: { decision, note } }),
 };
