@@ -288,7 +288,7 @@ export function Predictor() {
               {data?.version && <span className="tag tag-accent-2" style={{ marginLeft: 8, padding: '1px 8px' }}>● Live · official JoSAA {String(data.version).replace('josaa-', '')}</span>}
               {busy && <span className="text-muted" style={{ marginLeft: 8, fontSize: 12 }}>updating…</span>}
             </div>
-            <div className="field" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}><label style={{ margin: 0 }}>Sort</label><Select style={{ width: 'auto' }} value={filters.sort} onChange={(e) => setFilters({ sort: e.target.value })}><option value="chance">By chance</option><option value="ranking">By NIRF ranking</option><option value="closing">By closing rank</option><option value="location">By location</option></Select></div>
+            <div className="field" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}><label style={{ margin: 0 }}>Sort</label><Select style={{ width: 'auto' }} value={filters.sort} onChange={(e) => setFilters({ sort: e.target.value })}><option value="best">Recommended (best first)</option><option value="chance">By chance</option><option value="ranking">By NIRF ranking</option><option value="closing">By closing rank</option><option value="location">By location</option></Select></div>
           </div>
 
           {err && !data ? (
@@ -351,7 +351,7 @@ export function Predictor() {
 export function Filters() {
   const { filters, setFilters, toggleType, showToast } = useApp();
   const TYPES = ['IIT', 'NIT', 'IIIT', 'GFTI'];
-  const reset = () => { setFilters({ types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'chance' }); showToast('Filters reset'); };
+  const reset = () => { setFilters({ types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'best' }); showToast('Filters reset'); };
   return (
     <section style={{ maxWidth: 720, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 2px', fontSize: 30 }}>Advanced filters &amp; search</h1>

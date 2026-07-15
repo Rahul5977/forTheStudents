@@ -36,7 +36,7 @@ const INITIAL = {
   authReady: false,
   // ── profile / predictor inputs (flattened rankPrefs live here) ─────────
   profile: DEFAULT_PROFILE,
-  filters: { types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'chance', grouped: true },
+  filters: { types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'best', grouped: true },
   // ── planner: ids the screens read + the decorated/versioned server data ─
   shortlist: [3, 7],
   shortlistVersion: null,
