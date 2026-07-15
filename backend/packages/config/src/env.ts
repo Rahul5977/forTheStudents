@@ -15,6 +15,9 @@ const Schema = z.object({
   COGNITO_CLIENT_ID: z.string().optional(),
   COGNITO_ISSUER: z.string().optional(),
 
+  // Eventing — default bus unless a dedicated bus is provisioned later.
+  EVENT_BUS_NAME: z.string().default('default'),
+
   // Feature flags
   SEASON: z.enum(['on', 'off']).default('on'),
 });
@@ -27,12 +30,20 @@ export function getEnv(): Env {
   if (cached) return cached;
   const parsed = Schema.safeParse(process.env);
   if (!parsed.success) {
-    // TODO(owner): route this to your alerting; a bad env should page in-season.
-    throw new Error(`Invalid environment:\n${parsed.error.toString()}`);
+    // A bad env is a deploy/config error — fail closed and make it loud.
+    // Structured line so CloudWatch Logs Insights / a metric filter can page on it
+    // (metric filter pattern: { $.event = "config.invalid" }). See Phase 9 alarms.
+    const issues = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`);
+    // eslint-disable-next-line no-console
+    console.error(JSON.stringify({ level: 'ERROR', event: 'config.invalid', issues }));
+    throw new Error(`Invalid environment:\n- ${issues.join('\n- ')}`);
   }
   cached = parsed.data;
   return cached;
 }
+
+/** True when running against DynamoDB Local (dev laptop) rather than AWS. */
+export const isLocal = (): boolean => Boolean(process.env.DDB_ENDPOINT);
 
 /** Convenience singleton (lazy). */
 export const env: Env = new Proxy({} as Env, {

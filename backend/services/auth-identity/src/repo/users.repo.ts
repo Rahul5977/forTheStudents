@@ -26,6 +26,31 @@ function toProfile(item: UserItem): UserProfile {
   return rest;
 }
 
+/** Fields the profile PATCH is allowed to touch. Add here to widen it. */
+type EditableField = 'name';
+
+/**
+ * Build a DynamoDB `SET` UpdateExpression from a patch object, skipping undefined
+ * values and always bumping `updatedAt`. Names are aliased (#f0, #f1…) so reserved
+ * words (e.g. `name`, `role`) are safe.
+ */
+function buildSet(patch: Record<string, unknown>, now: string) {
+  const names: Record<string, string> = { '#updatedAt': 'updatedAt' };
+  const values: Record<string, unknown> = { ':updatedAt': now };
+  const sets = ['#updatedAt = :updatedAt'];
+  let i = 0;
+  for (const [k, v] of Object.entries(patch)) {
+    if (v === undefined) continue;
+    const nk = `#f${i}`;
+    const vk = `:v${i}`;
+    names[nk] = k;
+    values[vk] = v;
+    sets.push(`${nk} = ${vk}`);
+    i++;
+  }
+  return { UpdateExpression: `SET ${sets.join(', ')}`, ExpressionAttributeNames: names, ExpressionAttributeValues: values };
+}
+
 export const usersRepo = {
   /**
    * Fetch a user profile by id.
@@ -71,18 +96,17 @@ export const usersRepo = {
     });
   },
 
-  /** Patch mutable profile fields. */
-  async updateProfile(userId: string, patch: Partial<Pick<UserProfile, 'name'>>, now: string): Promise<UserProfile> {
-    // TODO(owner): build the UpdateExpression from `patch` keys generically, or
-    // hand-write per field. Below is a minimal name-only example.
+  /** Patch mutable profile fields (only the whitelisted `EditableField`s). */
+  async updateProfile(userId: string, patch: Partial<Record<EditableField, unknown>>, now: string): Promise<UserProfile> {
+    const { UpdateExpression, ExpressionAttributeNames, ExpressionAttributeValues } = buildSet(patch, now);
     const res = await ddb.send(
       new UpdateCommand({
         TableName: TABLE(),
         Key: key.user(userId),
-        UpdateExpression: 'SET #name = :name, updatedAt = :now',
-        ExpressionAttributeNames: { '#name': 'name' },
-        ExpressionAttributeValues: { ':name': patch.name, ':now': now },
-        ConditionExpression: 'attribute_exists(PK)',
+        UpdateExpression,
+        ExpressionAttributeNames,
+        ExpressionAttributeValues,
+        ConditionExpression: 'attribute_exists(PK)', // user must have bootstrapped
         ReturnValues: 'ALL_NEW',
       }),
     );

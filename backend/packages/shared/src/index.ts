@@ -4,5 +4,6 @@ export * from './errors';
 export * from './auth';
 export * from './http';
 export * from './ddb';
+export * from './events';
 export * from './ids';
 export * from './types';

@@ -27,6 +27,7 @@ new AuthServiceStack(app, `sc-${stage}-svc-auth`, {
   httpApi: foundation.httpApi,
   authorizer: foundation.authorizer,
   usersTable: data.usersTable,
+  userPool: auth.userPool,
 });
 
 app.synth();

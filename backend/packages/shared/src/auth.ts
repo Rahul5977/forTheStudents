@@ -39,10 +39,9 @@ export function getPrincipal<E extends { Bindings: LambdaBindings }>(c: HonoCont
   const userId = (claims.sub as string | undefined) ?? undefined;
   if (!userId) throw UnauthorizedError();
 
-  // TODO(owner): confirm which claim carries the app role.
-  //   Option A: a Cognito custom attribute -> claim "custom:role".
-  //   Option B: Cognito group -> claim "cognito:groups" (array).
-  // Default below reads "custom:role" and falls back to "student".
+  // DECIDED (ADR-005): the app role travels as the Cognito custom attribute
+  // `custom:role` (written by auth-identity's switchRole -> setUserRoleAttribute).
+  // New users have no attribute yet -> default 'student'.
   const role = ((claims['custom:role'] as Role | undefined) ?? 'student') as Role;
 
   return {

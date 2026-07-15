@@ -50,16 +50,21 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] `infra/` CDK app + per-stage config + Foundation stack (HTTP API + JWT authorizer + WAF) + Data stack (Users table)
 - [x] CI workflow (typecheck, test, `cdk synth`)
 - [x] LocalStack/DynamoDB-Local docker-compose
-- [ ] Deploy to `dev` (owner — needs AWS creds + `cdk bootstrap`)
+- [x] Deploy to `dev` (bootstrapped + deployed 2026-07-15)
 - [ ] Provisioned-concurrency scheduled scaling (deferred to Phase 9)
 
 ### Phase 1 — Auth & Identity
 - [x] Cognito user pool (email + phone OTP), web client, Google IdP (guarded on secret), hosted UI
 - [x] `services/auth-identity` lambdalith — routes: `/auth/bootstrap`, `GET/PATCH /me`, `PATCH /me/rank-prefs`, `POST /me/role`
-- [x] handlers → domain (`// TODO(owner)`) → repo (Users DynamoDB) layers + DTOs (zod)
+- [x] handlers → domain → repo (Users DynamoDB) layers + DTOs (zod)
 - [x] CDK service stack wiring routes behind the authorizer + table grants
-- [ ] Owner: fill `// TODO(owner)` — ✅ name sourcing (OIDC `name` claim → profile); pending: role→Cognito attr, mentor gating, SMS role, Google secret
-- [ ] e2e auth test — 🟡 local integration harness green (bootstrap · idempotency · name sourcing · /me · 404); real-Cognito login e2e pending Phase-1 infra
+- [x] **Deployed to AWS `dev`** (account 058264128057, ap-south-1) — Cognito + API GW + Lambda + DynamoDB + WAF
+- [x] **Real cloud e2e green:** Cognito sign-up → real JWT (verified by API GW) → `/auth/bootstrap` → `/me` → `/me/rank-prefs` → item confirmed in cloud `sc-dev-users`
+- [x] Frontend `.env.local` → Cognito mode (Hosted-UI redirect) against the deployed API
+- [x] Fill `// TODO(owner)` — name sourcing, role→Cognito `custom:role` sync (+IAM), `user.bootstrapped`/`user.role_changed` events (+IAM), editable-vs-locked fields + normalize, generic UpdateExpression builder, rank-prefs cross-field rules, env bad-config alerting, role-claim decided (ADR-005). Remaining infra TODOs = Google OAuth secret + SMS/SNS (only needed for those login methods).
+- [x] Local dev server (`pnpm --filter @sc/auth-identity dev`) with dev-auth shim → real frontend `/live` drives real backend + DynamoDB Local
+- [x] e2e: `pnpm --filter @sc/auth-identity test` (9 ✓) + full HTTP loop (login → token → bootstrap → /me → rank-prefs → role) + frontend `/live` page live
+- [ ] Real-Cognito login e2e on AWS — **blocked on owner AWS credentials** (Task 14)
 
 ---
 
@@ -88,17 +93,35 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 - **2026-07-14 · ADR-002 · Approved stack defaults.** DynamoDB-only(+Athena), 100ms video, AWS CDK, lambdalith-per-service (Hono), Razorpay, Cognito, same-repo monorepo. *Why:* owner approved the recommended defaults.
 - **2026-07-14 · ADR-003 · Per-service DynamoDB tables (not one single-table).** Clear ownership + independent scaling; streams per table. *Alternative:* one single-table design (harder to hand off per service).
 - **2026-07-14 · ADR-004 · ARM64 (Graviton) + esbuild-bundled CJS Lambdas, extensionless internal imports.** Cheaper/faster cold start; avoids the ESM `.js`-extension vs bundler resolution friction.
+- **2026-07-14 · ADR-005 · App role travels as Cognito `custom:role`.** Written by `switchRole`; read in `getPrincipal`. *Alternative:* `cognito:groups` (better for coarse RBAC — revisit if role logic grows).
+- **2026-07-15 · ADR-006 · Dev-only auth conveniences.** Pre-sign-up auto-confirm trigger + `USER_PASSWORD_AUTH` + Hosted-UI implicit grant, gated to non-prod, so first cloud e2e needs no Google/SMS setup. Prod uses SRP/PKCE + real verification.
 
 ---
 
 ## Changelog
 
+- **2026-07-15** — **Phase 1 deployed to AWS `dev` + real cloud e2e green.** `cdk bootstrap` + `deploy:dev` (4 stacks). Added (dev/staging only) a pre-sign-up auto-confirm Lambda trigger, `USER_PASSWORD_AUTH`, Hosted-UI implicit grant + `/live` callback, account-suffixed unique domain (ADR-006). Verified real flow: Cognito sign-up → JWT → deployed `/auth/bootstrap`+`/me`+`/me/rank-prefs` → item present in cloud `sc-dev-users`. Frontend `.env.local` → Cognito mode. Outputs recorded above. **Owner action pending: rotate the AWS access key exposed in chat; consider removing dev WAF (~$6/mo).**
+- **2026-07-14** — **Phase 1 complete locally, end-to-end (frontend + backend + DB).** Filled all remaining backend TODOs (role→Cognito `custom:role` sync via `AdminUpdateUserAttributes` +IAM; `user.bootstrapped`/`user.role_changed` → EventBridge default bus +IAM; editable/locked fields + name normalize; generic `buildSet` UpdateExpression builder; rank-prefs cross-field rules + normalize; env bad-config structured alerting; role-claim ADR-005). Added local dev server (`@hono/node-server` + dev-auth shim, `POST /dev/login`) so the real frontend drives the real backend on DynamoDB Local. Added frontend `/live` page (dev + Cognito Hosted-UI modes) + `liveConfig/liveAuth/liveApi`. Verified: auth-identity tests **9 ✓**, `pnpm typecheck` 4/4 ✓, frontend `next build` ✓ (`/live` route), full HTTP loop login→token→bootstrap→/me→rank-prefs→role ✓, 3 rows in DynamoDB Local. **Still local only — AWS deploy (real Cognito JWT) blocked on owner creds.**
 - **2026-07-14** — **Phase 1 (local dev): feedback loop + first TODO filled (owner, guided).** Added a local integration harness in `services/auth-identity` (`vitest.config.ts` points the SDK at DynamoDB Local via `DDB_ENDPOINT`; `test/helpers.ts` creates the table + fakes verified JWT claims; `test/auth.e2e.test.ts` drives the whole app in-process via `app.request()`). Filled the **display-name sourcing** TODO: added `name?` to `Principal` (`shared/src/auth.ts`, from the OIDC `name` claim) and wired it into `bootstrap` (`domain/profile.ts`). Added `@aws-sdk/client-dynamodb` as a test-only devDep. Verified: `pnpm --filter @sc/auth-identity test` (4 ✓), `pnpm typecheck` (4/4 ✓). No AWS used.
 - **2026-07-14** — **Phase 0 + Phase 1 scaffolded.** Monorepo (pnpm+turbo), `packages/shared` + `packages/config`, `infra` CDK (data/auth/foundation/auth-service stacks), `services/auth-identity` lambdalith. Verified: `pnpm typecheck` (4/4 ✓), `pnpm test` (3 ✓), `cdk synth --context stage=dev` (4 stacks synth, Lambda bundled ✓). Deploy pending AWS creds + owner TODOs.
 - **2026-07-14** — Exported HLD + LLD as an editable Excalidraw board: <https://excalidraw.com/#json=qxTGcHGRxwob_1rYeg1G5,ItJzbPT2eFo8gyY2I5psXg> (HLD layered architecture, caching ladder, Predictor cache-path, Booking/Payment saga).
 - **2026-07-14** — Drafted `architecture.md` (HLD, per-service LLD, data model, caching, scaling, security, cost, tech stack, phase plan, API surface) and this `progress.md`. Status: awaiting approval.
 
 ---
+
+## Deployed dev-stack outputs (2026-07-15 · ap-south-1 · acct 058264128057)
+
+| Key | Value |
+|---|---|
+| API base URL | `https://7zumjbvms0.execute-api.ap-south-1.amazonaws.com` |
+| Cognito User Pool | `ap-south-1_OQv6ssgbO` |
+| User Pool Client | `5f22b9n70k3bolqppvvrast0en` |
+| Hosted UI domain | `https://sc-dev-058264128057.auth.ap-south-1.amazonaws.com` |
+| Users table | `sc-dev-users` |
+
+Frontend `.env.local` points at these in Cognito mode. Tear down: `pnpm --filter @sc/infra run destroy -- --context stage=dev`.
+
+**Cost note:** the only real fixed cost in this dev stack is the **WAF WebACL (~$5–6/mo)** — and it isn't associated with the API yet (association is a Phase 9 task). Consider removing WAF from the dev stack until Phase 9 to make dev ≈ $0. Everything else (Cognito Lite, DynamoDB on-demand, Lambda, HTTP API) is free-tier at dev volume.
 
 ## Notes / parking lot
 - Confirm real peak numbers with owner (registered/concurrent) to size provisioned concurrency + DynamoDB floors.

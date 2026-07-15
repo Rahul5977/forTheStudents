@@ -57,4 +57,55 @@ describe('auth-identity (local DynamoDB)', () => {
     const res = await app.request('/me', { method: 'GET' }, stranger);
     expect(res.status).toBe(404);
   });
+
+  const json = (method: string, body: unknown) => ({
+    method,
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+
+  it('PATCH /me updates and normalizes the name; persists to the DB', async () => {
+    const res = await app.request('/me', json('PATCH', { name: '  Aarav   Kumar  ' }), student);
+    expect(res.status).toBe(200);
+    expect((await res.json()).name).toBe('Aarav Kumar'); // trimmed + collapsed
+
+    const me = await (await app.request('/me', { method: 'GET' }, student)).json();
+    expect(me.name).toBe('Aarav Kumar'); // read-back from DynamoDB Local
+  });
+
+  it('PATCH /me rejects a blank name (400)', async () => {
+    const res = await app.request('/me', json('PATCH', { name: '   ' }), student);
+    expect(res.status).toBe(400);
+  });
+
+  it('PATCH /me/rank-prefs stores the predictor inputs; GET /me reflects them', async () => {
+    const rankPrefs = {
+      advRank: 850, mainRank: 4200, category: 'Open', home: ' Maharashtra ',
+      gender: 'Male', pwd: false, branches: ['CSE', 'CSE', ' ECE '], priority: 'branch',
+    };
+    const res = await app.request('/me/rank-prefs', json('PATCH', rankPrefs), student);
+    expect(res.status).toBe(200);
+    const p = await res.json();
+    expect(p.rankPrefs.advRank).toBe(850);
+    expect(p.rankPrefs.home).toBe('Maharashtra'); // trimmed
+    expect(p.rankPrefs.branches).toEqual(['CSE', 'ECE']); // trimmed + de-duped
+  });
+
+  it('PATCH /me/rank-prefs rejects an out-of-range rank (400)', async () => {
+    const bad = {
+      advRank: 9_999_999, mainRank: 4200, category: 'Open', home: 'Delhi',
+      gender: 'Male', pwd: false, branches: ['CSE'], priority: 'branch',
+    };
+    const res = await app.request('/me/rank-prefs', json('PATCH', bad), student);
+    expect(res.status).toBe(400);
+  });
+
+  it('POST /me/role switches student -> mentor (Cognito sync is a no-op locally)', async () => {
+    const res = await app.request('/me/role', json('POST', { role: 'mentor' }), student);
+    expect(res.status).toBe(200);
+    expect((await res.json()).role).toBe('mentor');
+
+    const me = await (await app.request('/me', { method: 'GET' }, student)).json();
+    expect(me.role).toBe('mentor');
+  });
 });
