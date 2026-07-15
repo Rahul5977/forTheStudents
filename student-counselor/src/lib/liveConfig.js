@@ -13,6 +13,8 @@ export const COGNITO = {
   // e.g. https://sc-dev-auth.auth.ap-south-1.amazoncognito.com
   domain: (process.env.NEXT_PUBLIC_COGNITO_DOMAIN || '').replace(/\/$/, ''),
   clientId: process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID || '',
+  // User pool id — needed for the direct (non-Hosted-UI) email/password SDK flow.
+  userPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID || '',
   // Where the Hosted UI sends the user back. Must be in the client's callback URLs.
   redirectUri: process.env.NEXT_PUBLIC_COGNITO_REDIRECT || '',
 };

@@ -12,6 +12,13 @@ const MKT_LINKS = [
   ['howItWorks', 'How it works'], ['features', 'Features'], ['pricing', 'Pricing'], ['becomeMentor', 'Become a mentor'], ['guides', 'Guides'],
 ];
 
+// The signed-in landing screen for each role (used by role-aware nav links).
+const HOME_FOR = { student: 'dashboard', mentor: 'mDashboard', admin: 'aDashboard' };
+const homeFor = (role) => HOME_FOR[role] || 'dashboard';
+
+// First initial for the avatar chip (falls back to 'A' pre-hydration).
+const initialOf = (name) => (String(name || '').trim().charAt(0) || 'A').toUpperCase();
+
 function Brand({ size = 19, title }) {
   const { navigate } = useApp();
   return (
@@ -26,7 +33,7 @@ function Brand({ size = 19, title }) {
 }
 
 function TopNav() {
-  const { ctx, screen, navigate, profile } = useApp();
+  const { ctx, screen, navigate, profile, loggedIn, role, unreadCount } = useApp();
   const marketing = ctx === 'marketing';
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 40, display: 'flex', alignItems: 'center', gap: 18, padding: '12px 22px', background: 'color-mix(in srgb, var(--color-bg) 88%, transparent)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', borderBottom: '1px solid var(--color-divider)' }}>
@@ -38,18 +45,30 @@ function TopNav() {
               <span key={id} className={['sc-navlink', screen === id ? 'on' : ''].filter(Boolean).join(' ')} onClick={() => navigate(id)}>{label}</span>
             ))}
           </nav>
-          <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
-            <Btn variant="sec" go="login">Log in</Btn>
-            <Btn variant="pri" go="predictor">Predict my colleges</Btn>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
+            {loggedIn ? (
+              <>
+                <span className="sc-btn ghost" onClick={() => navigate('notifications')} style={{ position: 'relative' }}>
+                  🔔{unreadCount > 0 && <span style={{ position: 'absolute', top: -2, right: -2, minWidth: 15, height: 15, padding: '0 4px', background: 'var(--color-accent)', color: 'var(--color-bg)', borderRadius: 999, fontSize: 10, lineHeight: '15px', textAlign: 'center', fontFamily: 'var(--font-body)' }}>{unreadCount > 9 ? '9+' : unreadCount}</span>}
+                </span>
+                <Btn variant="sec" go={homeFor(role)}>Dashboard</Btn>
+                <Btn variant="pri" act="logout">Log out</Btn>
+              </>
+            ) : (
+              <>
+                <Btn variant="sec" go="login">Log in</Btn>
+                <Btn variant="pri" go="predictor">Predict my colleges</Btn>
+              </>
+            )}
           </div>
         </>
       ) : (
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 14 }}>
           <span style={{ fontSize: 13 }} className="text-muted">Rank <strong style={{ color: 'var(--color-text)' }}>{profile.advRank}</strong> · {profile.category}</span>
-          <span className="sc-btn ghost" onClick={() => navigate('notifications')} style={{ position: 'relative' }}>
-            🔔<span style={{ position: 'absolute', top: 2, right: 4, width: 7, height: 7, background: 'var(--color-accent)', borderRadius: '50%' }} />
+          <span className="sc-btn ghost" onClick={() => navigate('notifications')} style={{ position: 'relative' }} title={unreadCount > 0 ? `${unreadCount} unread` : 'Notifications'}>
+            🔔{unreadCount > 0 && <span style={{ position: 'absolute', top: -2, right: -2, minWidth: 15, height: 15, padding: '0 4px', background: 'var(--color-accent)', color: 'var(--color-bg)', borderRadius: 999, fontSize: 10, lineHeight: '15px', textAlign: 'center', fontFamily: 'var(--font-body)' }}>{unreadCount > 9 ? '9+' : unreadCount}</span>}
           </span>
-          <span onClick={() => navigate('profile')} style={{ width: 34, height: 34, borderRadius: '50%', background: 'var(--color-accent-2-500)', color: 'var(--color-bg)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', cursor: 'pointer' }}>A</span>
+          <span onClick={() => navigate('profile')} title={profile.name || 'Profile'} style={{ width: 34, height: 34, borderRadius: '50%', background: 'var(--color-accent-2-500)', color: 'var(--color-bg)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', cursor: 'pointer' }}>{initialOf(profile.name)}</span>
         </div>
       )}
     </header>
@@ -71,6 +90,7 @@ function Sidebar() {
         </span>
       ))}
       <Btn variant="sec" go="gallery" style={{ marginTop: 'auto' }}>← All screens</Btn>
+      <Btn variant="ghost" act="logout">Log out</Btn>
     </aside>
   );
 }

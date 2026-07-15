@@ -71,4 +71,17 @@ export const liveApi = {
   notifications: () => call('/notifications'),
   markNotifRead: (id) => call(`/notifications/${id}/read`, { method: 'POST' }),
   markAllNotifsRead: () => call('/notifications/read-all', { method: 'POST' }),
+
+  // Mentor availability (per-mentor weekly slots). GET reads the mentor's own
+  // schedule; PUT replaces it. Shape: { slots: [{ id, day, time, ... }] }.
+  mentorAvailability: () => call('/mentor/availability'),
+  putMentorAvailability: (slots) => call('/mentor/availability', { method: 'PUT', body: { slots } }),
+
+  // Phase 7 — admin console. All require role==='admin'.
+  adminStats: () => call('/admin/stats'),
+  adminAudit: (params = {}) => call(`/admin/audit?${new URLSearchParams(params).toString()}`),
+  // Moderation acts on a MENTOR id (drops/restores them from the public search).
+  adminSuspendMentor: (id, reason) => call(`/admin/mentors/${id}/suspend`, { method: 'POST', body: { reason } }),
+  adminReinstateMentor: (id) => call(`/admin/mentors/${id}/reinstate`, { method: 'POST' }),
+  adminBroadcast: (body) => call('/admin/broadcast', { method: 'POST', body }),
 };

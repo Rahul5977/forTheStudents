@@ -2,6 +2,7 @@
 // ══════════════════════════════════════════════════════════════════════════
 // Public & Marketing pages (10 screens).
 // ══════════════════════════════════════════════════════════════════════════
+import { useState } from 'react';
 import { useApp } from '@/lib/store';
 import { Btn, Tile, Tag, Avatar } from '@/components/ui';
 import { MENTORS, PILLARS, JOURNEY, FEATURE_CARDS, GUIDES, TEAM, FAQS } from '@/lib/data';

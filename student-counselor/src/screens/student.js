@@ -1,64 +1,146 @@
 'use client';
 // ══════════════════════════════════════════════════════════════════════════
-// Student app — the core experience (22 screens).
+// Student app — the core experience (23 screens) — WIRED to the live backend.
+//   • profile               → greeting, ranks, category, branches, priority
+//   • liveApi.predict()     → real Safe/Target/Reach predictor results
+//   • resolveCollege(id)    → real college analysis + cutoff chart + chance
+//   • shortlist / choiceItems / choiceWarnings / choiceSummary → the planner
+//   • liveApi.mentors()     → marketplace of approved mentors
+//   • book/pay/join/end/rate/cancel → the booking↔payment↔session saga
+//   • notifications + unreadCount → the in-app feed
+// Visual design (organic cream/terracotta/sage, ui.js primitives) is preserved —
+// only data sources + action handlers changed. Owner TODOs mark missing surfaces.
 // ══════════════════════════════════════════════════════════════════════════
 import { useState, useEffect } from 'react';
 import { useApp } from '@/lib/store';
 import { Btn, Tile, Tag, ChanceChip, TypeBadge, Avatar, Field, Input, Select, SegOpt } from '@/components/ui';
-import { results as computeResults, byId, decorate, listDoctor, chartData, chipStyle, typeStyle } from '@/lib/logic';
-import { COLLEGES, MENTORS, ROUNDS, NOTIFS, FAQS, SETTING_GROUPS, TXNS, SLOT_LIST, SESSION_MAP } from '@/lib/data';
-import { API_URL, PREDICTOR_API } from '@/lib/liveConfig';
+import { chipStyle } from '@/lib/logic';
+import { ROUNDS, FAQS, SETTING_GROUPS, SLOT_LIST } from '@/lib/data';
+import { liveApi } from '@/lib/liveApi';
 
 const REACH_BG = '#f7e2db';
 const REACH_FG = '#7a2d1a';
+const MENTOR_COLORS = ['#c67139', '#7a8a5e', '#b2622d', '#728157', '#8c491a', '#56633f'];
+const BRANCH_OPTIONS = ['Computer Science', 'Electronics', 'Electrical', 'Mechanical'];
 
-// Small helpers used across student screens.
-function useResults() {
-  const { profile, filters } = useApp();
-  return computeResults(profile, filters);
-}
+// ── small display helpers ────────────────────────────────────────────────────
 function fmtTime(t) {
   return String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
+}
+const bucketLabel = (b) => (b === 'safe' ? 'Safe' : b === 'target' ? 'Target' : 'Reach');
+const initialsOf = (name = '') =>
+  name.split(' ').map((w) => w[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || 'M';
+const colorFor = (str = '') => {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+  return MENTOR_COLORS[h % MENTOR_COLORS.length];
+};
+const fmtDate = (iso) => (iso ? new Date(iso).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' }) : '—');
+const fmtWhen = (iso) =>
+  iso ? new Date(iso).toLocaleString('en-IN', { weekday: 'short', hour: 'numeric', minute: '2-digit' }) : 'Time TBD';
+const feesTxtOf = (col) => (col?.feesTxt ? col.feesTxt : col?.feesLakh != null ? `₹${col.feesLakh}L total` : '—');
+const quotaTxt = (q) => (q === 'AI' ? 'All-India' : q || 'All-India');
+
+// Session-status → Safe/Target/Reach chip colours.
+function statusStyle(status) {
+  if (status === 'CONFIRMED' || status === 'LIVE') return { background: 'var(--color-accent-2-100)', color: 'var(--color-accent-2-800)' };
+  if (status === 'PENDING_PAYMENT') return { background: 'var(--color-accent-100)', color: 'var(--color-accent-800)' };
+  return { background: REACH_BG, color: REACH_FG };
+}
+
+// Build CutoffChart geometry from the backend chart payload { years, vals, rank }.
+function chartGeomFromLive(chart) {
+  const years = chart?.years || [];
+  const vals = chart?.vals || [];
+  const rank = chart?.rank || 0;
+  const W = 520, H = 200, pad = 34;
+  const max = Math.max(...vals, rank, 1) * 1.1;
+  const n = Math.max(1, years.length - 1);
+  const x = (i) => pad + i * ((W - pad * 2) / n);
+  const y = (v) => H - pad - (v / max) * (H - pad * 2);
+  const points = vals.map((v, i) => x(i) + ',' + y(v)).join(' ');
+  return {
+    W, H, pad, years, vals, points,
+    dots: vals.map((v, i) => ({ cx: x(i), cy: y(v), v, tx: x(i), ty: y(v) - 11 })),
+    yearLabels: years.map((yr, i) => ({ x: x(i), y: H - pad + 16, yr })),
+    rankY: y(rank), rank,
+  };
+}
+
+// Resolve the mentor the student is viewing/booking. Reads the store cache first
+// (populated by the marketplace), otherwise fetches the public mentor list.
+function useSelectedMentor() {
+  const { mentorSel, mentorsById, update } = useApp();
+  const cached = mentorsById[mentorSel];
+  const [mentor, setMentor] = useState(cached || null);
+  const [loading, setLoading] = useState(!cached);
+  useEffect(() => {
+    if (cached) { setMentor(cached); setLoading(false); return; }
+    let cancelled = false;
+    setLoading(true);
+    liveApi.mentors()
+      .then((r) => {
+        if (cancelled) return;
+        const list = r?.mentors || [];
+        const found = list.find((m) => String(m.userId) === String(mentorSel)) || list[0] || null;
+        setMentor(found);
+        if (found) update((s) => ({ mentorsById: { ...s.mentorsById, [found.userId]: found } }));
+      })
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mentorSel, cached]);
+  return [mentor, loading];
 }
 
 // ── Dashboard / Home ───────────────────────────────────────────────────────
 export function Dashboard() {
-  const { navigate, profile, choiceList } = useApp();
-  const res = useResults();
-  const safe = res.filter((r) => r.bucket === 'safe').length;
-  const target = res.filter((r) => r.bucket === 'target').length;
-  const reach = res.filter((r) => r.bucket === 'reach').length;
-  const choiceItems = choiceList.map((id) => byId(id, profile));
-  const clSafe = choiceItems.filter((c) => c.bucket === 'safe').length;
+  const { navigate, profile, choiceItems, choiceSummary, sessions, unreadCount } = useApp();
+  const summary = choiceSummary || { safe: 0, target: 0, reach: 0, total: choiceItems.length };
+  const preview = choiceItems.slice(0, 3);
+  const upcoming = sessions.find((s) => s.status === 'CONFIRMED' || s.status === 'LIVE');
+  const firstName = (profile?.name || 'there').split(' ')[0];
   return (
     <section style={{ maxWidth: 1080, margin: '0 auto', padding: '24px 22px 40px' }}>
-      <h1 style={{ margin: '0 0 2px', fontSize: 32 }}>Hi Aditya 👋</h1>
-      <p className="text-muted" style={{ fontSize: 14, marginBottom: 18 }}>JoSAA Round 2 choice-filling closes in <strong style={{ color: 'var(--color-accent-700)' }}>3 days</strong>. Let&apos;s keep your list sharp.</p>
+      <h1 style={{ margin: '0 0 2px', fontSize: 32 }}>Hi {firstName} 👋</h1>
+      <p className="text-muted" style={{ fontSize: 14, marginBottom: 18 }}>JoSAA choice-filling is on — let&apos;s keep your list sharp.{unreadCount > 0 && <> You have <strong style={{ color: 'var(--color-accent-700)' }}>{unreadCount} new</strong> notification{unreadCount > 1 ? 's' : ''}.</>}</p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 14 }}>
         <Tile go="predictor" className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
-          <div className="card-kicker">Your colleges at a glance</div>
+          <div className="card-kicker">Your list at a glance</div>
           <div style={{ display: 'flex', gap: 14 }}>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: 'var(--color-accent-2-800)' }}>{safe}</div><div style={{ fontSize: 11 }}>Safe</div></div>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: 'var(--color-accent-800)' }}>{target}</div><div style={{ fontSize: 11 }}>Target</div></div>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: REACH_FG }}>{reach}</div><div style={{ fontSize: 11 }}>Reach</div></div>
+            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: 'var(--color-accent-2-800)' }}>{summary.safe}</div><div style={{ fontSize: 11 }}>Safe</div></div>
+            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: 'var(--color-accent-800)' }}>{summary.target}</div><div style={{ fontSize: 11 }}>Target</div></div>
+            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: REACH_FG }}>{summary.reach}</div><div style={{ fontSize: 11 }}>Reach</div></div>
           </div>
           <span className="sc-btn ghost" style={{ alignSelf: 'flex-start', paddingLeft: 0 }}>Open predictor →</span>
         </Tile>
         <Tile go="choiceBuilder" className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
           <div className="card-kicker">My choice list · {choiceItems.length} choices</div>
           <div style={{ fontSize: 13, lineHeight: 1.9 }}>
-            <div>1. IIT Indore — CSE</div><div>2. IIT (BHU) — CSE</div><div>3. IIT Guwahati — CSE</div>
+            {preview.length > 0 ? preview.map((c, i) => (
+              <div key={c.id}>{i + 1}. {c.college} — {c.branch}</div>
+            )) : <div className="text-muted">Your list is empty — add colleges from the predictor.</div>}
           </div>
           <span className="sc-btn ghost" style={{ alignSelf: 'flex-start', paddingLeft: 0 }}>Open builder →</span>
         </Tile>
         <div className="card elev-sm" style={{ background: 'var(--color-accent-100)' }}>
           <div className="card-kicker">Upcoming session</div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Avatar initials="AS" size={40} />
-            <div><div style={{ fontWeight: 700, fontSize: 14 }}>Aarav Sharma</div><div className="text-muted" style={{ fontSize: 12 }}>Today · 6:30 PM · 25 min</div></div>
-          </div>
-          <div style={{ display: 'flex', gap: 6 }}><Btn variant="pri" go="sessionRoom">Join</Btn><Btn variant="sec" go="sessions">Reschedule</Btn></div>
+          {upcoming ? (
+            <>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <Avatar initials={initialsOf(upcoming.mentorName)} size={40} />
+                <div><div style={{ fontWeight: 700, fontSize: 14 }}>{upcoming.mentorName || 'Your mentor'}</div><div className="text-muted" style={{ fontSize: 12 }}>{fmtWhen(upcoming.startsAt)} · {upcoming.durationMin || 25} min</div></div>
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}><Btn variant="pri" go="sessionRoom">Join</Btn><Btn variant="sec" go="sessions">Manage</Btn></div>
+            </>
+          ) : (
+            <>
+              <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>No upcoming sessions. Book a 1:1 with a verified senior for honest advice.</p>
+              <Btn variant="pri" go="marketplace" style={{ alignSelf: 'flex-start' }}>Find a senior →</Btn>
+            </>
+          )}
         </div>
       </div>
 
@@ -66,8 +148,8 @@ export function Dashboard() {
         <div className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 18 }}>Smart nudges</div><Tag tone="accent-2">Personalised</Tag></div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: REACH_BG, borderRadius: 12, padding: '11px 13px' }}><span>⚠</span><div style={{ fontSize: 13 }}><strong>Add more Safe colleges.</strong> You have {clSafe} in your list — aim for 3–4 so you&apos;re never unallotted. <span className="sc-tile" onClick={() => navigate('predictor')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Find some →</span></div></div>
-            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: 'var(--color-accent-2-100)', borderRadius: 12, padding: '11px 13px' }}><span>📢</span><div style={{ fontSize: 13 }}><strong>Round 2 results are out.</strong> Review your allotment and decide Freeze / Float / Slide. <span className="sc-tile" onClick={() => navigate('timeline')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Open timeline →</span></div></div>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: REACH_BG, borderRadius: 12, padding: '11px 13px' }}><span>⚠</span><div style={{ fontSize: 13 }}><strong>Add more Safe colleges.</strong> You have {summary.safe} in your list — aim for 3–4 so you&apos;re never unallotted. <span className="sc-tile" onClick={() => navigate('predictor')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Find some →</span></div></div>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: 'var(--color-accent-2-100)', borderRadius: 12, padding: '11px 13px' }}><span>📢</span><div style={{ fontSize: 13 }}><strong>Keep your list ordered.</strong> Row order is your JoSAA priority — review it before you lock. <span className="sc-tile" onClick={() => navigate('choiceBuilder')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Open builder →</span></div></div>
           </div>
         </div>
         <div className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
@@ -90,7 +172,11 @@ export function Dashboard() {
 
 // ── Profile — Rank & Preferences ─────────────────────────────────────────────
 export function Profile() {
-  const { profile, setProfile } = useApp();
+  const { profile, setProfile, saveRankPrefs, navigate } = useApp();
+  const [busy, setBusy] = useState(false);
+  const branches = profile.branches || [];
+  const toggleBranch = (b) => setProfile({ branches: branches.includes(b) ? branches.filter((x) => x !== b) : [...branches, b] });
+  const save = async () => { setBusy(true); try { await saveRankPrefs(profile); navigate('predictor'); } finally { setBusy(false); } };
   return (
     <section style={{ maxWidth: 720, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 2px', fontSize: 30 }}>Rank &amp; preferences</h1>
@@ -109,11 +195,15 @@ export function Profile() {
       <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}>
         <div className="card-kicker">Preferences</div>
         <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)' }}>Interested branches</div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}><Tag tone="accent">Computer Science ✓</Tag><Tag tone="accent">Electronics ✓</Tag><Tag>Electrical</Tag><Tag>Mechanical</Tag></div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {BRANCH_OPTIONS.map((b) => (
+            <span key={b} className={branches.includes(b) ? 'tag tag-accent' : 'tag tag-neutral'} onClick={() => toggleBranch(b)} style={{ cursor: 'pointer' }}>{b}{branches.includes(b) ? ' ✓' : ''}</span>
+          ))}
+        </div>
         <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginTop: 8 }}>Priority</div>
-        <div className="seg"><SegOpt on>Branch first</SegOpt><SegOpt>College first</SegOpt></div>
+        <div className="seg"><SegOpt on={profile.priority !== 'college'} onClick={() => setProfile({ priority: 'branch' })}>Branch first</SegOpt><SegOpt on={profile.priority === 'college'} onClick={() => setProfile({ priority: 'college' })}>College first</SegOpt></div>
       </div>
-      <div style={{ display: 'flex', gap: 8, marginTop: 16 }}><Btn variant="pri" go="predictor">Save &amp; see updated colleges</Btn><Btn variant="sec" go="dashboard">Cancel</Btn></div>
+      <div style={{ display: 'flex', gap: 8, marginTop: 16 }}><Btn variant="pri" onClick={save} disabled={busy}>{busy ? 'Saving…' : 'Save & see updated colleges'}</Btn><Btn variant="sec" go="dashboard">Cancel</Btn></div>
     </section>
   );
 }
@@ -121,34 +211,33 @@ export function Profile() {
 // ── College Predictor — Results [CORE] ───────────────────────────────────────
 export function Predictor() {
   const { profile, filters, setFilters, toggleType } = useApp();
-  const localRes = useResults();
-  const [apiRes, setApiRes] = useState(null);
-  const [apiBusy, setApiBusy] = useState(false);
+  const [data, setData] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState(false);
 
-  // In API mode, fetch REAL results from the catalog service whenever inputs change.
+  // Fetch REAL predictor results from the catalog service whenever inputs change.
   useEffect(() => {
-    if (!PREDICTOR_API) return;
     let cancelled = false;
-    setApiBusy(true);
-    const params = new URLSearchParams({
-      advRank: String(profile.advRank), mainRank: String(profile.mainRank), category: profile.category,
+    setBusy(true); setErr(false);
+    liveApi.predict({
+      advRank: String(profile.advRank), mainRank: String(profile.mainRank), category: profile.category, home: profile.home,
       types: filters.types.join(','), q: filters.q || '',
-      sort: filters.sort === 'ranking' ? 'closing' : filters.sort, // API has no NIRF
-    });
-    fetch(`${API_URL}/predict?${params}`)
-      .then((r) => r.json())
-      .then((d) => { if (!cancelled) setApiRes(d); })
-      .catch(() => {})
-      .finally(() => { if (!cancelled) setApiBusy(false); });
+      sort: filters.sort === 'ranking' ? 'closing' : filters.sort, // API sorts by closing (no NIRF)
+    })
+      .then((d) => { if (!cancelled) setData(d); })
+      .catch(() => { if (!cancelled) setErr(true); })
+      .finally(() => { if (!cancelled) setBusy(false); });
     return () => { cancelled = true; };
-  }, [profile.advRank, profile.mainRank, profile.category, filters.types, filters.q, filters.sort]);
+  }, [profile.advRank, profile.mainRank, profile.category, profile.home, filters.types, filters.q, filters.sort]);
 
-  const live = PREDICTOR_API && !!apiRes;
-  const res = live ? apiRes.results : localRes;
-  const safe = live ? apiRes.safeCount : localRes.filter((r) => r.bucket === 'safe').length;
-  const target = live ? apiRes.targetCount : localRes.filter((r) => r.bucket === 'target').length;
-  const reach = live ? apiRes.reachCount : localRes.filter((r) => r.bucket === 'reach').length;
-  const count = live ? apiRes.resultCount : localRes.length;
+  // Client-side branch/state narrowing (the predict API buckets on rank + type).
+  let res = data?.results || [];
+  if (filters.branch !== 'all') res = res.filter((c) => c.branch === filters.branch);
+  if (filters.state !== 'all') res = res.filter((c) => c.state === filters.state);
+  const safe = res.filter((c) => c.bucket === 'safe').length;
+  const target = res.filter((c) => c.bucket === 'target').length;
+  const reach = res.filter((c) => c.bucket === 'reach').length;
+  const count = res.length;
   const TYPES = ['IIT', 'NIT', 'IIIT', 'GFTI'];
   return (
     <section style={{ maxWidth: 1180, margin: '0 auto', padding: '24px 22px 40px' }}>
@@ -196,13 +285,24 @@ export function Predictor() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 10 }}>
             <div style={{ fontSize: 14 }}>
               <strong>{count}</strong> <span className="text-muted">options match your rank &amp; filters</span>
-              {live && <span className="tag tag-accent-2" style={{ marginLeft: 8, padding: '1px 8px' }}>● Live · official JoSAA {apiRes.version.replace('josaa-', '')}</span>}
-              {PREDICTOR_API && apiBusy && <span className="text-muted" style={{ marginLeft: 8, fontSize: 12 }}>updating…</span>}
+              {data?.version && <span className="tag tag-accent-2" style={{ marginLeft: 8, padding: '1px 8px' }}>● Live · official JoSAA {String(data.version).replace('josaa-', '')}</span>}
+              {busy && <span className="text-muted" style={{ marginLeft: 8, fontSize: 12 }}>updating…</span>}
             </div>
             <div className="field" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}><label style={{ margin: 0 }}>Sort</label><Select style={{ width: 'auto' }} value={filters.sort} onChange={(e) => setFilters({ sort: e.target.value })}><option value="chance">By chance</option><option value="ranking">By NIRF ranking</option><option value="closing">By closing rank</option><option value="location">By location</option></Select></div>
           </div>
 
-          {res.length > 0 ? (
+          {err && !data ? (
+            <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: '44px 20px', background: '#f7e2db', color: REACH_FG }}>
+              <div style={{ fontSize: 40 }}>⚠</div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20 }}>Couldn&apos;t reach the predictor</div>
+              <p style={{ fontSize: 14, maxWidth: 340 }}>Check your connection and try again in a moment.</p>
+            </div>
+          ) : !data && busy ? (
+            <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: '44px 20px', background: 'var(--color-surface)' }}>
+              <div style={{ fontSize: 40 }}>🎯</div>
+              <p className="text-muted" style={{ fontSize: 14 }}>Predicting your colleges…</p>
+            </div>
+          ) : res.length > 0 ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {res.map((c) => (
                 <div key={c.id} className="card elev-sm" style={{ background: 'var(--color-surface)', gap: 10 }}>
@@ -213,41 +313,24 @@ export function Predictor() {
                         <span style={{ fontFamily: 'var(--font-heading)', fontSize: 18 }}>{c.college}</span>
                         {c.homeQuota && <Tag tone="accent-2">🏠 Home state</Tag>}
                       </div>
-                      <div className="text-muted" style={{ fontSize: 13, marginTop: 2 }}>{live ? `${c.branch}${c.city ? ` · ${c.city}, ${c.state}` : ''}${c.nirf ? ` · NIRF #${c.nirf}` : ''} · ${c.quota === 'AI' ? 'All-India' : c.quota} quota` : `${c.branch} · ${c.city}, ${c.state} · NIRF #${c.nirf}`}</div>
+                      <div className="text-muted" style={{ fontSize: 13, marginTop: 2 }}>{c.branch}{c.city ? ` · ${c.city}, ${c.state}` : ''}{c.nirf ? ` · NIRF #${c.nirf}` : ''} · {quotaTxt(c.quota)} quota</div>
                     </div>
                     <div style={{ textAlign: 'right', flex: 'none' }}>
-                      <ChanceChip bucket={c.bucket} label={c.label} pct={c.pct} withDot />
+                      <ChanceChip bucket={c.bucket} label={c.label || bucketLabel(c.bucket)} pct={c.pct} withDot />
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 22, fontSize: 13, flexWrap: 'wrap' }}>
-                    {live ? (
-                      <>
-                        <div><span className="text-muted">Closing rank ({c.examLabel})</span> <strong>{c.close}</strong></div>
-                        <div><span className="text-muted">Opening rank</span> <strong>{c.open}</strong></div>
-                        <div><span className="text-muted">Fees</span> <strong>{c.feesTxt}</strong></div>
-                        <div><span className="text-muted">Seat</span> <strong>{c.seatType}</strong></div>
-                      </>
-                    ) : (
-                      <>
-                        <div><span className="text-muted">Last {c.examLabel} close</span> <strong>{c.close}</strong></div>
-                        <div><span className="text-muted">Avg package</span> <strong>{c.avgTxt}</strong></div>
-                        <div><span className="text-muted">Fees</span> <strong>{c.feesTxt}</strong></div>
-                      </>
-                    )}
+                    <div><span className="text-muted">Closing rank{c.examLabel ? ` (${c.examLabel})` : ''}</span> <strong>{c.close}</strong></div>
+                    {c.open != null && <div><span className="text-muted">Opening rank</span> <strong>{c.open}</strong></div>}
+                    <div><span className="text-muted">Fees</span> <strong>{feesTxtOf(c)}</strong></div>
+                    {c.seatType && <div><span className="text-muted">Seat</span> <strong>{c.seatType}</strong></div>}
                   </div>
-                  {live ? (
-                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', borderTop: '1px solid var(--color-divider)', paddingTop: 10, alignItems: 'center' }}>
-                      <Btn variant="sec" act="viewDetail" id={c.id}>View analysis</Btn>
-                      <span className="text-muted" style={{ fontSize: 12, marginLeft: 'auto' }}>Official JoSAA 2024 · add-to-list arrives with Phase 3</span>
-                    </div>
-                  ) : (
-                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', borderTop: '1px solid var(--color-divider)', paddingTop: 10 }}>
-                      <Btn variant="pri" act="addList" id={c.id}>+ Add to list</Btn>
-                      <Btn variant="sec" act="viewDetail" id={c.id}>View analysis</Btn>
-                      <Btn variant="sec" act="talkHere" id={c.id}>💬 Talk to a student here</Btn>
-                      <Btn variant="ghost" act="shortlist" id={c.id} style={{ marginLeft: 'auto' }}>♡ Save</Btn>
-                    </div>
-                  )}
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', borderTop: '1px solid var(--color-divider)', paddingTop: 10 }}>
+                    <Btn variant="pri" act="addList" id={c.id}>+ Add to list</Btn>
+                    <Btn variant="sec" act="viewDetail" id={c.id}>View analysis</Btn>
+                    <Btn variant="sec" act="talkHere" id={c.id}>💬 Talk to a student here</Btn>
+                    <Btn variant="ghost" act="shortlist" id={c.id} style={{ marginLeft: 'auto' }}>♡ Save</Btn>
+                  </div>
                 </div>
               ))}
             </div>
@@ -266,8 +349,9 @@ export function Predictor() {
 
 // ── Advanced Filters / Search ────────────────────────────────────────────────
 export function Filters() {
-  const { filters, setFilters, toggleType, runAct } = useApp();
+  const { filters, setFilters, toggleType, showToast } = useApp();
   const TYPES = ['IIT', 'NIT', 'IIIT', 'GFTI'];
+  const reset = () => { setFilters({ types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'chance' }); showToast('Filters reset'); };
   return (
     <section style={{ maxWidth: 720, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 2px', fontSize: 30 }}>Advanced filters &amp; search</h1>
@@ -285,12 +369,15 @@ export function Filters() {
           <Field label="State" style={{ flex: 1, minWidth: 150 }}><Select value={filters.state} onChange={(e) => setFilters({ state: e.target.value })}><option value="all">All states</option><option>Maharashtra</option><option>Tamil Nadu</option><option>Delhi</option><option>Telangana</option><option>Uttar Pradesh</option><option>Karnataka</option></Select></Field>
         </div>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          {/* TODO(owner): max-fees & NIRF ceiling need extra predict query params. */}
           <Field label="Max fees" style={{ flex: 1, minWidth: 150 }}><Select><option>Any</option><option>Under ₹2L</option><option>Under ₹5L</option></Select></Field>
           <Field label="NIRF ranking" style={{ flex: 1, minWidth: 150 }}><Select><option>Any</option><option>Top 10</option><option>Top 25</option></Select></Field>
         </div>
         <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)' }}>Saved presets</div>
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}><Tag tone="outline" style={{ cursor: 'pointer' }}>CSE only</Tag><Tag tone="outline" style={{ cursor: 'pointer' }}>Home-state NITs</Tag><Tag tone="outline" style={{ cursor: 'pointer' }}>Top 10 NIRF</Tag></div>
-        <div style={{ display: 'flex', gap: 8, marginTop: 6 }}><Btn variant="pri" go="predictor" style={{ flex: 1 }}>Apply filters</Btn><Btn variant="sec" act="toast" msg="Filters reset">Reset</Btn></div>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          <Tag tone="outline" style={{ cursor: 'pointer' }}>CSE only</Tag><Tag tone="outline" style={{ cursor: 'pointer' }}>Home-state NITs</Tag><Tag tone="outline" style={{ cursor: 'pointer' }}>Top 10 NIRF</Tag>
+        </div>
+        <div style={{ display: 'flex', gap: 8, marginTop: 6 }}><Btn variant="pri" go="predictor" style={{ flex: 1 }}>Apply filters</Btn><Btn variant="sec" onClick={reset}>Reset</Btn></div>
       </div>
     </section>
   );
@@ -298,73 +385,47 @@ export function Filters() {
 
 // ── College Detail & Analysis [CORE] ─────────────────────────────────────────
 export function CollegeDetail() {
-  const { profile, selected } = useApp();
-  const [liveCol, setLiveCol] = useState(null);
+  const { selected, resolveCollege } = useApp();
+  const [data, setData] = useState(null); // { college, chart }
+  const [state, setState] = useState('loading'); // loading | ready | error
 
   useEffect(() => {
-    if (!PREDICTOR_API) return;
     let cancelled = false;
-    const params = new URLSearchParams({ advRank: String(profile.advRank), mainRank: String(profile.mainRank), category: profile.category, home: profile.home });
-    fetch(`${API_URL}/colleges/${selected}?${params}`).then((r) => r.json()).then((d) => { if (!cancelled) setLiveCol(d); }).catch(() => {});
+    setState('loading'); setData(null);
+    resolveCollege(selected)
+      .then((d) => { if (cancelled) return; if (d && d.college) { setData(d); setState('ready'); } else setState('error'); })
+      .catch(() => { if (!cancelled) setState('error'); });
     return () => { cancelled = true; };
-  }, [selected, profile.advRank, profile.mainRank, profile.category, profile.home]);
+  }, [selected, resolveCollege]);
 
-  // Live analysis (real JoSAA cutoff for the selected offering).
-  if (PREDICTOR_API) {
-    if (!liveCol) return <section style={{ maxWidth: 820, margin: '0 auto', padding: '40px 22px' }}><Btn variant="ghost" go="predictor" style={{ paddingLeft: 0 }}>← Back to predictor</Btn><p className="text-muted" style={{ marginTop: 12 }}>Loading analysis…</p></section>;
-    const col = liveCol.college;
-    const rank = liveCol.chart.rank;
-    const max = Math.max(col.close, rank) * 1.1;
-    const bar = (v, color) => <div style={{ height: 14, borderRadius: 7, background: color, width: `${Math.max(4, Math.min(100, (v / max) * 100))}%` }} />;
+  if (state !== 'ready') {
     return (
-      <section style={{ maxWidth: 820, margin: '0 auto', padding: '24px 22px 60px' }}>
-        <Btn variant="ghost" go="predictor" style={{ paddingLeft: 0, marginBottom: 6 }}>← Back to predictor</Btn>
-        <div className="card elev-sm" style={{ background: 'var(--color-surface)', gap: 8 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-            <TypeBadge type={col.type} />
-            <span className="tag" style={chipStyle(col.bucket)}>{col.label} · {col.pct}% for you</span>
-            {col.homeQuota && <Tag tone="accent-2">🏠 Home state</Tag>}
-          </div>
-          <h1 style={{ margin: '4px 0 2px', fontSize: 32 }}>{col.college}</h1>
-          <div className="text-muted" style={{ fontSize: 14 }}>{col.branch}{col.city ? ` · ${col.city}, ${col.state}` : ''}{col.nirf ? ` · NIRF #${col.nirf}` : ''} · {col.quota === 'AI' ? 'All-India' : col.quota} quota</div>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16, marginTop: 16 }}>
-          <div className="card" style={{ background: 'var(--color-surface)' }}>
-            <div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Your rank vs 2024 cutoff</div>
-            <div style={{ fontSize: 12 }} className="text-muted">Closing rank ({col.seatType}, {col.examLabel})</div>{bar(col.close, 'var(--color-accent)')}<div style={{ fontSize: 12 }}>{col.close}</div>
-            <div style={{ fontSize: 12, marginTop: 6 }} className="text-muted">Your rank</div>{bar(rank, '#a8442e')}<div style={{ fontSize: 12 }}>{rank}</div>
-            <p className="text-muted" style={{ fontSize: 12, margin: '6px 0 0' }}>Opening {col.open} · closing {col.close}. {rank <= col.close ? 'You’re within last year’s closing rank — a strong sign.' : 'You’re beyond last year’s closing — this is a reach.'}</p>
-          </div>
-          <div className="card" style={{ background: 'var(--color-surface)' }}>
-            <div className="card-kicker">Fees &amp; ranking</div>
-            <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
-              <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{col.feesTxt}</div><div className="text-muted" style={{ fontSize: 12 }}>approx total fees</div></div>
-              <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{col.nirf ? `#${col.nirf}` : '—'}</div><div className="text-muted" style={{ fontSize: 12 }}>NIRF 2024</div></div>
-            </div>
-            <div className="card-kicker" style={{ marginTop: 8 }}>Seat</div>
-            <div style={{ fontSize: 13 }}>{col.seatType} · {col.quota === 'AI' ? 'All-India' : col.quota} quota</div>
-          </div>
-        </div>
-        <div className="card" style={{ background: '#f7e2db', marginTop: 16 }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>⚠ Official JoSAA 2024 data</div><p style={{ fontSize: 13, margin: 0 }}>Opening/closing ranks are official JoSAA 2024 figures — an estimate for the coming season, not a guarantee. Always verify on josaa.nic.in.</p></div>
+      <section style={{ maxWidth: 820, margin: '0 auto', padding: '40px 22px' }}>
+        <Btn variant="ghost" go="predictor" style={{ paddingLeft: 0 }}>← Back to predictor</Btn>
+        <p className="text-muted" style={{ marginTop: 12 }}>{state === 'error' ? 'We couldn’t load this college. Please head back to the predictor and try again.' : 'Loading analysis…'}</p>
       </section>
     );
   }
 
-  const c = byId(selected, profile);
-  const chart = chartData(c, profile);
+  const col = data.college;
+  const chart = chartGeomFromLive(data.chart);
+  const rank = chart.rank;
+  const max = Math.max(col.close, rank, 1) * 1.1;
+  const bar = (v, color) => <div style={{ height: 14, borderRadius: 7, background: color, width: `${Math.max(4, Math.min(100, (v / max) * 100))}%` }} />;
   return (
     <section style={{ maxWidth: 1080, margin: '0 auto', padding: '24px 22px 96px' }}>
       <Btn variant="ghost" go="predictor" style={{ paddingLeft: 0, marginBottom: 6 }}>← Back to predictor</Btn>
       <div className="card elev-sm" style={{ background: 'var(--color-surface)', gap: 12 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', alignItems: 'flex-start' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}><TypeBadge type={c.type} /><span className="tag" style={chipStyle(c.bucket)}>{c.label} · {c.pct}% for you</span></div>
-            <h1 style={{ margin: '8px 0 2px', fontSize: 34 }}>{c.college}</h1>
-            <div className="text-muted" style={{ fontSize: 14 }}>{c.branch} · {c.city}, {c.state} · NIRF #{c.nirf} · Est. {c.estd}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}><TypeBadge type={col.type} /><span className="tag" style={chipStyle(col.bucket)}>{col.label || bucketLabel(col.bucket)} · {col.pct}% for you</span>{col.homeQuota && <Tag tone="accent-2">🏠 Home state</Tag>}</div>
+            <h1 style={{ margin: '8px 0 2px', fontSize: 34 }}>{col.college}</h1>
+            <div className="text-muted" style={{ fontSize: 14 }}>{col.branch}{col.city ? ` · ${col.city}, ${col.state}` : ''}{col.nirf ? ` · NIRF #${col.nirf}` : ''} · {quotaTxt(col.quota)} quota</div>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <Btn variant="pri" act="addList" id={c.id}>+ Add to list</Btn>
-            <Btn variant="sec" act="talkHere" id={c.id}>💬 Talk to a student</Btn>
+            <Btn variant="pri" act="addList" id={col.id}>+ Add to list</Btn>
+            <Btn variant="ghost" act="shortlist" id={col.id}>♡ Save</Btn>
+            <Btn variant="sec" act="talkHere" id={col.id}>💬 Talk to a student</Btn>
           </div>
         </div>
       </div>
@@ -372,24 +433,21 @@ export function CollegeDetail() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16, marginTop: 16 }}>
         <div className="card" style={{ background: 'var(--color-surface)' }}>
           <div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Cutoff trend — with your rank</div>
-          <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>Closing rank for {profile.category} category, {c.examLabel}. The dashed line is where you stand.</p>
+          <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>Closing rank{col.examLabel ? ` (${col.examLabel})` : ''}. The dashed line is where you stand.</p>
           <CutoffChart chart={chart} />
         </div>
         <div className="card" style={{ background: 'var(--color-surface)' }}>
-          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Placements</div>
-          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginTop: 4 }}>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{c.avgTxt}</div><div className="text-muted" style={{ fontSize: 12 }}>Average package</div></div>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>₹{c.high} Cr</div><div className="text-muted" style={{ fontSize: 12 }}>Highest</div></div>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{c.rate}</div><div className="text-muted" style={{ fontSize: 12 }}>Placement rate</div></div>
-          </div>
-          <div style={{ marginTop: 8 }}><div className="text-muted" style={{ fontSize: 12, marginBottom: 6 }}>Top recruiters</div><div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}><Tag>Google</Tag><Tag>Microsoft</Tag><Tag>Goldman Sachs</Tag><Tag>Qualcomm</Tag><Tag>Tower Research</Tag></div></div>
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Your rank vs 2024 cutoff</div>
+          <div style={{ fontSize: 12 }} className="text-muted">Closing rank{col.seatType ? ` (${col.seatType})` : ''}</div>{bar(col.close, 'var(--color-accent)')}<div style={{ fontSize: 12 }}>{col.close}</div>
+          <div style={{ fontSize: 12, marginTop: 6 }} className="text-muted">Your rank</div>{bar(rank, '#a8442e')}<div style={{ fontSize: 12 }}>{rank}</div>
+          <p className="text-muted" style={{ fontSize: 12, margin: '6px 0 0' }}>Opening {col.open} · closing {col.close}. {rank <= col.close ? 'You’re within last year’s closing rank — a strong sign.' : 'You’re beyond last year’s closing — this is a reach.'}</p>
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16, marginTop: 16 }}>
-        <div className="card" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Overview</div><div className="card-title">About {c.college}</div><p className="card-body">A premier institute known for rigorous academics, a strong alumni network and vibrant campus life in {c.city}. Sprawling residential campus with modern labs and active technical &amp; cultural clubs.</p></div>
-        <div className="card" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Branch</div><div className="card-title">{c.branch}</div><p className="card-body">Core coursework spans algorithms, systems and applied maths, with electives in AI/ML. Graduates head into software, quant, higher studies and research.</p></div>
-        <div className="card" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Fees &amp; scholarships</div><div className="card-title">{c.feesTxt}</div><p className="card-body">Merit-cum-means scholarships and fee waivers available for eligible categories. Hostel and mess charged separately.</p></div>
+        <div className="card" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Overview</div><div className="card-title">About {col.college}</div><p className="card-body">A premier institute known for rigorous academics, a strong alumni network and vibrant campus life{col.city ? ` in ${col.city}` : ''}. Sprawling residential campus with modern labs and active technical &amp; cultural clubs.</p></div>
+        <div className="card" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Branch</div><div className="card-title">{col.branch}</div><p className="card-body">Core coursework spans algorithms, systems and applied maths, with electives in AI/ML. Graduates head into software, quant, higher studies and research.</p></div>
+        <div className="card" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Fees &amp; ranking</div><div className="card-title">{feesTxtOf(col)}</div><p className="card-body">NIRF 2024 {col.nirf ? `#${col.nirf}` : '—'} · seat {col.seatType || '—'} · {quotaTxt(col.quota)} quota. Merit-cum-means scholarships and fee waivers available for eligible categories.</p></div>
       </div>
 
       <div className="card" style={{ background: 'var(--color-surface)', marginTop: 16 }}>
@@ -402,16 +460,19 @@ export function CollegeDetail() {
 
       <div className="card" style={{ background: 'var(--color-surface)', marginTop: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Reviews from verified seniors</div><Tag tone="accent-2">✔ Verified</Tag></div>
+        {/* TODO(owner): per-college reviews need a reviews endpoint — showing representative notes. */}
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <div style={{ flex: 1, minWidth: 220, border: '1px solid var(--color-divider)', borderRadius: 14, padding: 12 }}><div style={{ fontSize: 13 }}>⭐ 4.8 · Aarav, Y3 CSE</div><p style={{ fontSize: 13, margin: '6px 0 0' }} className="text-muted">&quot;Placements are as good as advertised, but be ready to work hard from year one.&quot;</p></div>
           <div style={{ flex: 1, minWidth: 220, border: '1px solid var(--color-divider)', borderRadius: 14, padding: 12 }}><div style={{ fontSize: 13 }}>⭐ 4.6 · Priya, Alumni</div><p style={{ fontSize: 13, margin: '6px 0 0' }} className="text-muted">&quot;The alumni network opened doors for me abroad. Hostel food is hit or miss.&quot;</p></div>
         </div>
-        <Btn variant="sec" go="compare" style={{ alignSelf: 'flex-start' }}>Compare with similar colleges</Btn>
+        <Btn variant="sec" act="toCompare" id={col.id} style={{ alignSelf: 'flex-start' }}>Compare with similar colleges</Btn>
       </div>
 
+      <div className="card" style={{ background: '#f7e2db', marginTop: 16 }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>⚠ Official JoSAA 2024 data</div><p style={{ fontSize: 13, margin: 0 }}>Opening/closing ranks are official JoSAA 2024 figures — an estimate for the coming season, not a guarantee. Always verify on josaa.nic.in.</p></div>
+
       <div style={{ position: 'sticky', bottom: 64, marginTop: 20, display: 'flex', gap: 10, background: 'color-mix(in srgb, var(--color-bg) 92%, transparent)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', padding: 12, borderRadius: 16, boxShadow: 'var(--shadow-md)' }}>
-        <Btn variant="pri" act="addList" id={c.id} style={{ flex: 1 }}>+ Add to choice list</Btn>
-        <Btn variant="sec" act="talkHere" id={c.id} style={{ flex: 1 }}>💬 Talk to a student here</Btn>
+        <Btn variant="pri" act="addList" id={col.id} style={{ flex: 1 }}>+ Add to choice list</Btn>
+        <Btn variant="sec" act="talkHere" id={col.id} style={{ flex: 1 }}>💬 Talk to a student here</Btn>
       </div>
     </section>
   );
@@ -434,26 +495,40 @@ function CutoffChart({ chart }) {
 
 // ── College Comparison ───────────────────────────────────────────────────────
 export function Compare() {
-  const { profile, compareIds } = useApp();
-  const items = compareIds.map((id) => byId(id, profile));
+  const { compareIds, resolveCollege } = useApp();
+  const [items, setItems] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    setItems(null);
+    Promise.all(compareIds.map((id) => resolveCollege(id)))
+      .then((rs) => { if (!cancelled) setItems(rs.filter(Boolean).map((r) => r.college)); })
+      .catch(() => { if (!cancelled) setItems([]); });
+    return () => { cancelled = true; };
+  }, [compareIds, resolveCollege]);
   return (
     <section style={{ maxWidth: 900, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 2px', fontSize: 30 }}>Compare colleges</h1>
       <p className="text-muted" style={{ fontSize: 14, marginBottom: 14 }}>Weigh your options side by side. Key differences are highlighted.</p>
-      <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}>
-        <table className="table" style={{ minWidth: 520 }}>
-          <thead><tr><th>Metric</th>{items.map((c) => <th key={c.id}>{c.college}<div className="text-muted" style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>{c.branch}</div></th>)}</tr></thead>
-          <tbody>
-            <tr><td>Your chance</td>{items.map((c) => <td key={c.id}><span className="tag" style={chipStyle(c.bucket)}>{c.label} · {c.pct}%</span></td>)}</tr>
-            <tr><td>Closing rank</td>{items.map((c) => <td key={c.id}>{c.close}</td>)}</tr>
-            <tr><td>Avg package</td>{items.map((c) => <td key={c.id}>{c.avgTxt}</td>)}</tr>
-            <tr><td>Fees</td>{items.map((c) => <td key={c.id}>{c.feesTxt}</td>)}</tr>
-            <tr><td>NIRF</td>{items.map((c) => <td key={c.id}>#{c.nirf}</td>)}</tr>
-            <tr><td>Location</td>{items.map((c) => <td key={c.id}>{c.city}</td>)}</tr>
-            <tr><td></td>{items.map((c) => <td key={c.id}><Btn variant="pri" act="addList" id={c.id}>Add to list</Btn></td>)}</tr>
-          </tbody>
-        </table>
-      </div>
+      {items === null ? (
+        <p className="text-muted" style={{ fontSize: 14 }}>Loading colleges…</p>
+      ) : items.length === 0 ? (
+        <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: 40, background: 'var(--color-surface)' }}><div style={{ fontSize: 38 }}>📊</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Nothing to compare yet</div><p className="text-muted" style={{ fontSize: 14 }}>Open a college and tap &quot;Compare&quot; to line options up here.</p><Btn variant="pri" go="predictor">Open predictor</Btn></div>
+      ) : (
+        <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}>
+          <table className="table" style={{ minWidth: 520 }}>
+            <thead><tr><th>Metric</th>{items.map((c) => <th key={c.id}>{c.college}<div className="text-muted" style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>{c.branch}</div></th>)}</tr></thead>
+            <tbody>
+              <tr><td>Your chance</td>{items.map((c) => <td key={c.id}><span className="tag" style={chipStyle(c.bucket)}>{c.label || bucketLabel(c.bucket)} · {c.pct}%</span></td>)}</tr>
+              <tr><td>Closing rank</td>{items.map((c) => <td key={c.id}>{c.close}</td>)}</tr>
+              <tr><td>Opening rank</td>{items.map((c) => <td key={c.id}>{c.open ?? '—'}</td>)}</tr>
+              <tr><td>Fees</td>{items.map((c) => <td key={c.id}>{feesTxtOf(c)}</td>)}</tr>
+              <tr><td>NIRF</td>{items.map((c) => <td key={c.id}>{c.nirf ? `#${c.nirf}` : '—'}</td>)}</tr>
+              <tr><td>Location</td>{items.map((c) => <td key={c.id}>{c.city || '—'}</td>)}</tr>
+              <tr><td></td>{items.map((c) => <td key={c.id}><Btn variant="pri" act="addList" id={c.id}>Add to list</Btn></td>)}</tr>
+            </tbody>
+          </table>
+        </div>
+      )}
       <Btn variant="sec" go="predictor" style={{ marginTop: 12 }}>+ Add another college</Btn>
     </section>
   );
@@ -461,19 +536,29 @@ export function Compare() {
 
 // ── Shortlist / Saved Colleges ───────────────────────────────────────────────
 export function Shortlist() {
-  const { profile, shortlist, runAct } = useApp();
-  const items = shortlist.map((id) => byId(id, profile));
+  const { shortlist, resolveCollege, runAct } = useApp();
+  const [items, setItems] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    setItems(null);
+    Promise.all(shortlist.map((id) => resolveCollege(id)))
+      .then((rs) => { if (!cancelled) setItems(rs.filter(Boolean).map((r) => r.college)); })
+      .catch(() => { if (!cancelled) setItems([]); });
+    return () => { cancelled = true; };
+  }, [shortlist, resolveCollege]);
   return (
     <section style={{ maxWidth: 820, margin: '0 auto', padding: '24px 22px 40px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 8 }}><h1 style={{ margin: 0, fontSize: 30 }}>Saved colleges</h1><Btn variant="pri" go="choiceBuilder">Build ordered list →</Btn></div>
       <p className="text-muted" style={{ fontSize: 14, marginBottom: 14 }}>A holding area before you commit to an ordered choice list.</p>
-      {items.length > 0 ? (
+      {items === null ? (
+        <p className="text-muted" style={{ fontSize: 14 }}>Loading your saved colleges…</p>
+      ) : items.length > 0 ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {items.map((c) => (
             <div key={c.id} className="card elev-sm" style={{ background: 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 12 }}>
               <TypeBadge type={c.type} />
               <div style={{ flex: 1 }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>{c.college}</div><div className="text-muted" style={{ fontSize: 12 }}>{c.branch} · close {c.close}</div></div>
-              <span className="tag" style={chipStyle(c.bucket)}>{c.label}</span>
+              <span className="tag" style={chipStyle(c.bucket)}>{c.label || bucketLabel(c.bucket)}</span>
               <Btn variant="pri" act="addList" id={c.id}>Move to list</Btn>
               <span className="sc-tile" onClick={() => runAct({ act: 'removeShort', id: c.id })} style={{ cursor: 'pointer', color: '#a8442e' }}>✕</span>
             </div>
@@ -488,22 +573,25 @@ export function Shortlist() {
 
 // ── Choice-List Builder (drag & drop) [CORE] ─────────────────────────────────
 export function ChoiceBuilder() {
-  const { profile, choiceList, onDragStart, onDragOver, onDragEnd, runAct, dragIndex } = useApp();
-  const choiceItems = choiceList.map((id, ix) => ({ ...byId(id, profile), pos: ix + 1, idx: ix }));
-  const doctor = listDoctor(choiceItems, choiceList);
-  const projected = choiceItems.find((c) => c.bucket === 'safe') || choiceItems.find((c) => c.bucket === 'target') || choiceItems[0] || { college: '—', branch: 'Add colleges first' };
+  const { choiceItems, choiceWarnings, onDragStart, onDragOver, onDragEnd, runAct, dragIndex } = useApp();
+  const rows = choiceItems.map((c, ix) => ({ ...c, pos: ix + 1, idx: ix, label: c.label || bucketLabel(c.bucket) }));
+  const sevMap = { high: { color: '#a8442e', icon: '⚠' }, med: { color: '#d67f48', icon: '!' } };
+  const doctor = (choiceWarnings && choiceWarnings.length)
+    ? choiceWarnings.map((w) => ({ t: w.title, d: w.detail, ...(sevMap[w.sev] || { color: '#728157', icon: '✔' }) }))
+    : [{ t: 'List looks healthy', d: 'Good spread of Safe, Target and Reach. You’re ready to lock.', color: '#728157', icon: '✔' }];
+  const projected = rows.find((c) => c.bucket === 'safe') || rows.find((c) => c.bucket === 'target') || rows[0] || { college: '—', branch: 'Add colleges first' };
   return (
     <section style={{ maxWidth: 1120, margin: '0 auto', padding: '24px 22px 60px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, alignItems: 'flex-end', marginBottom: 16 }}>
-        <div><div style={{ fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--color-accent-700)' }}>Core screen</div><h1 style={{ margin: 0, fontSize: 34 }}>Choice-List Builder</h1><p className="text-muted" style={{ fontSize: 14, margin: '6px 0 0' }}>Drag rows to reorder — the order is your JoSAA priority. {choiceItems.length} choices · auto-saved just now.</p></div>
+        <div><div style={{ fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--color-accent-700)' }}>Core screen</div><h1 style={{ margin: 0, fontSize: 34 }}>Choice-List Builder</h1><p className="text-muted" style={{ fontSize: 14, margin: '6px 0 0' }}>Drag rows to reorder — the order is your JoSAA priority. {rows.length} choices · saved to your account.</p></div>
         <div style={{ display: 'flex', gap: 8 }}><Btn variant="sec" go="predictor">+ Add from predictor</Btn><Btn variant="pri" go="choiceExport">Export list</Btn></div>
       </div>
 
       <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: 320 }}>
-          {choiceItems.length > 0 ? (
+          {rows.length > 0 ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {choiceItems.map((c) => (
+              {rows.map((c) => (
                 <div
                   key={c.idx}
                   className={['drag-row card elev-sm', dragIndex === c.idx ? 'dragging' : ''].filter(Boolean).join(' ')}
@@ -546,10 +634,11 @@ export function ChoiceBuilder() {
           <div className="card elev-sm" style={{ background: 'var(--color-surface)', marginTop: 14 }}>
             <div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>Projected allotment</div>
             <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>With this list and order, you&apos;d most likely be allotted:</p>
-            <div style={{ borderRadius: 12, padding: 12, background: 'var(--color-accent-2-100)' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 16, color: 'var(--color-accent-2-800)' }}>{projected.college}</div><div className="text-muted" style={{ fontSize: 12 }}>{projected.branch} · Round 2 (est.)</div></div>
+            <div style={{ borderRadius: 12, padding: 12, background: 'var(--color-accent-2-100)' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 16, color: 'var(--color-accent-2-800)' }}>{projected.college}</div><div className="text-muted" style={{ fontSize: 12 }}>{projected.branch} · current round (est.)</div></div>
           </div>
           <div className="card elev-sm" style={{ background: 'var(--color-surface)', marginTop: 14 }}>
             <div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>Scenarios</div>
+            {/* TODO(owner): scenario re-weighting needs a planner "what-if" endpoint. */}
             <div className="seg" style={{ width: '100%' }}><SegOpt on style={{ flex: 1, justifyContent: 'center' }}>Balanced</SegOpt><SegOpt style={{ flex: 1, justifyContent: 'center' }}>Safe</SegOpt><SegOpt style={{ flex: 1, justifyContent: 'center' }}>Aggressive</SegOpt></div>
           </div>
         </aside>
@@ -560,58 +649,93 @@ export function ChoiceBuilder() {
 
 // ── Choice-List Export / Print Preview ───────────────────────────────────────
 export function ChoiceExport() {
-  const { profile, choiceList } = useApp();
-  const choiceItems = choiceList.map((id, ix) => ({ ...byId(id, profile), pos: ix + 1 }));
+  const { profile, choiceItems, showToast } = useApp();
+  const rows = choiceItems.map((c, ix) => ({ ...c, pos: ix + 1 }));
+  const [busy, setBusy] = useState(false);
+  const doExport = async () => {
+    setBusy(true);
+    try { const r = await liveApi.exportChoiceList(); showToast(r?.message || 'Export ready — check your downloads.'); }
+    catch { showToast('PDF export is coming soon — for now copy the list into josaa.nic.in in this order.'); }
+    finally { setBusy(false); }
+  };
   return (
     <section style={{ maxWidth: 640, margin: '0 auto', padding: '24px 22px 40px' }}>
       <Btn variant="ghost" go="choiceBuilder" style={{ paddingLeft: 0 }}>← Back to builder</Btn>
       <h1 style={{ margin: '4px 0 2px', fontSize: 30 }}>Export your choice list</h1>
       <p className="text-muted" style={{ fontSize: 14, marginBottom: 14 }}>A clean, numbered list — paste it into josaa.nic.in in the same order.</p>
-      <div className="card" style={{ background: '#fff', border: '1px solid var(--color-divider)', color: '#201e1d' }}>
-        <div style={{ fontFamily: 'var(--font-heading)', fontSize: 16, borderBottom: '1px solid var(--color-divider)', paddingBottom: 8 }}>JoSAA Choice List — Aditya · {choiceItems.length} choices</div>
-        {choiceItems.map((c) => (
-          <div key={c.pos} style={{ display: 'flex', gap: 10, fontSize: 13, padding: '3px 0' }}><span style={{ width: 24, color: 'var(--color-neutral-600)' }}>{c.pos}.</span><span style={{ flex: 1 }}>{c.college} — {c.branch}</span><span className="text-muted">{c.type}</span></div>
-        ))}
-      </div>
-      <div style={{ display: 'flex', gap: 8, marginTop: 14 }}><Btn variant="pri" act="toast" msg="Downloading PDF…">⬇ Download PDF</Btn><Btn variant="sec" act="toast" msg="Opening print dialog…">🖨 Print</Btn><Btn variant="sec" act="toast" msg="Share link copied">↗ Share</Btn></div>
-      <div style={{ fontSize: 12, background: 'var(--color-accent-2-100)', borderRadius: 12, padding: 11, marginTop: 12, color: 'var(--color-accent-2-800)' }}>💡 On josaa.nic.in, add choices in this exact order under &quot;Choice Filling&quot;. Lock only when you&apos;re sure.</div>
+      {rows.length === 0 ? (
+        <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: 40, background: 'var(--color-surface)' }}><div style={{ fontSize: 38 }}>📋</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Nothing to export yet</div><p className="text-muted" style={{ fontSize: 14 }}>Build your choice list first, then come back to export it.</p><Btn variant="pri" go="choiceBuilder">Open builder</Btn></div>
+      ) : (
+        <>
+          <div className="card" style={{ background: '#fff', border: '1px solid var(--color-divider)', color: '#201e1d' }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: 16, borderBottom: '1px solid var(--color-divider)', paddingBottom: 8 }}>JoSAA Choice List — {profile?.name || 'You'} · {rows.length} choices</div>
+            {rows.map((c) => (
+              <div key={c.pos} style={{ display: 'flex', gap: 10, fontSize: 13, padding: '3px 0' }}><span style={{ width: 24, color: 'var(--color-neutral-600)' }}>{c.pos}.</span><span style={{ flex: 1 }}>{c.college} — {c.branch}</span><span className="text-muted">{c.type}</span></div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 8, marginTop: 14 }}><Btn variant="pri" onClick={doExport} disabled={busy}>{busy ? 'Preparing…' : '⬇ Download PDF'}</Btn><Btn variant="sec" act="toast" msg="Opening print dialog…">🖨 Print</Btn><Btn variant="sec" act="toast" msg="Share link copied">↗ Share</Btn></div>
+          <div style={{ fontSize: 12, background: 'var(--color-accent-2-100)', borderRadius: 12, padding: 11, marginTop: 12, color: 'var(--color-accent-2-800)' }}>💡 On josaa.nic.in, add choices in this exact order under &quot;Choice Filling&quot;. Lock only when you&apos;re sure.</div>
+        </>
+      )}
     </section>
   );
 }
 
 // ── Browse Counsellors (Mentor Marketplace) ──────────────────────────────────
 export function Marketplace() {
+  const { navigate, update } = useApp();
+  const [mentors, setMentors] = useState(null);
+  const [err, setErr] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    setErr(false);
+    liveApi.mentors()
+      .then((r) => { if (!cancelled) setMentors(r?.mentors || []); })
+      .catch(() => { if (!cancelled) { setErr(true); setMentors([]); } });
+    return () => { cancelled = true; };
+  }, []);
+  const pick = (m) => { update((s) => ({ mentorsById: { ...s.mentorsById, [m.userId]: m }, mentorSel: m.userId })); navigate('mentorProfile'); };
   return (
     <section style={{ maxWidth: 1000, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 2px', fontSize: 30 }}>Talk to a verified senior</h1>
-      <p className="text-muted" style={{ fontSize: 14, marginBottom: 14 }}>25-minute 1:1 video calls · ₹100 each · every mentor is a verified current student.</p>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}><Tag tone="accent" style={{ cursor: 'pointer' }}>All colleges</Tag><Tag style={{ cursor: 'pointer' }}>IITs</Tag><Tag style={{ cursor: 'pointer' }}>NITs</Tag><Tag style={{ cursor: 'pointer' }}>CSE</Tag><Tag style={{ cursor: 'pointer' }}>Soonest available</Tag><Tag style={{ cursor: 'pointer' }}>Top rated</Tag></div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
-        {MENTORS.map((m) => (
-          <div key={m.id} className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}><Avatar initials={m.initials} color={m.color} size={48} /><div style={{ flex: 1 }}><div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>{m.name}</span><span className="tag tag-accent-2" style={{ padding: '1px 7px' }}>✔</span></div><div className="text-muted" style={{ fontSize: 12 }}>{m.college} · {m.branch} · Y{m.year}</div></div></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}><span>⭐ {m.rating} · {m.sessions} sessions</span><span style={{ fontFamily: 'var(--font-heading)' }}>₹{m.price}</span></div>
-            <div className="text-muted" style={{ fontSize: 12 }}>Next: {m.nextSlot}</div>
-            <div style={{ display: 'flex', gap: 6 }}><Btn variant="pri" act="viewMentor" id={m.id} style={{ flex: 1 }}>View &amp; book</Btn></div>
-          </div>
-        ))}
-      </div>
+      <p className="text-muted" style={{ fontSize: 14, marginBottom: 14 }}>25-minute 1:1 video calls · every mentor is a verified current student.</p>
+      {/* TODO(owner): filter chips need server-side mentor query params (college/branch/rating). */}
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}><Tag tone="accent" style={{ cursor: 'pointer' }}>All colleges</Tag><Tag style={{ cursor: 'pointer' }}>IITs</Tag><Tag style={{ cursor: 'pointer' }}>NITs</Tag><Tag style={{ cursor: 'pointer' }}>CSE</Tag><Tag style={{ cursor: 'pointer' }}>Top rated</Tag></div>
+      {mentors === null ? (
+        <p className="text-muted" style={{ fontSize: 14 }}>Loading mentors…</p>
+      ) : mentors.length === 0 ? (
+        <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: 40, background: 'var(--color-surface)' }}><div style={{ fontSize: 38 }}>💬</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>{err ? 'Couldn’t load mentors' : 'No mentors available yet'}</div><p className="text-muted" style={{ fontSize: 14 }}>{err ? 'Please try again in a moment.' : 'Verified seniors will appear here soon. Are you one? Become a mentor.'}</p><Btn variant="pri" go="mentorOnboarding">Become a mentor</Btn></div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
+          {mentors.map((m) => (
+            <div key={m.userId} className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}><Avatar initials={initialsOf(m.name)} color={colorFor(m.userId || m.name)} size={48} /><div style={{ flex: 1 }}><div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>{m.name}</span><span className="tag tag-accent-2" style={{ padding: '1px 7px' }}>✔</span></div><div className="text-muted" style={{ fontSize: 12 }}>{m.college} · {m.branch} · Y{m.year}</div></div></div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}><span>⭐ {m.ratingAvg != null ? (m.ratingAvg.toFixed ? m.ratingAvg.toFixed(1) : m.ratingAvg) : 'New'} · {m.ratingCount ?? 0} ratings</span><span style={{ fontFamily: 'var(--font-heading)' }}>₹{m.priceINR}</span></div>
+              {(m.topics && m.topics.length > 0) && <div className="text-muted" style={{ fontSize: 12 }}>{m.topics.slice(0, 3).join(' · ')}</div>}
+              <div style={{ display: 'flex', gap: 6 }}><Btn variant="pri" onClick={() => pick(m)} style={{ flex: 1 }}>View &amp; book</Btn></div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div style={{ marginTop: 18, fontSize: 13 }} className="text-muted">Are you a current student? <span className="sc-tile" onClick={() => navigate('mentorOnboarding')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Become a mentor →</span></div>
     </section>
   );
 }
 
 // ── Mentor Profile (student view) ─────────────────────────────────────────────
 export function MentorProfile() {
-  const { mentorSel } = useApp();
-  const m = MENTORS.find((x) => x.id === mentorSel) || MENTORS[0];
+  const [m, loading] = useSelectedMentor();
+  if (loading) return <section style={{ maxWidth: 720, margin: '0 auto', padding: '40px 22px' }}><Btn variant="ghost" go="marketplace" style={{ paddingLeft: 0 }}>← Back to mentors</Btn><p className="text-muted" style={{ marginTop: 12 }}>Loading mentor…</p></section>;
+  if (!m) return <section style={{ maxWidth: 720, margin: '0 auto', padding: '40px 22px' }}><Btn variant="ghost" go="marketplace" style={{ paddingLeft: 0 }}>← Back to mentors</Btn><p className="text-muted" style={{ marginTop: 12 }}>Pick a mentor from the marketplace to see their profile.</p></section>;
+  const rating = m.ratingAvg != null ? (m.ratingAvg.toFixed ? m.ratingAvg.toFixed(1) : m.ratingAvg) : 'New';
   return (
     <section style={{ maxWidth: 720, margin: '0 auto', padding: '24px 22px 40px' }}>
       <Btn variant="ghost" go="marketplace" style={{ paddingLeft: 0 }}>← Back to mentors</Btn>
       <div className="card elev-sm" style={{ background: 'var(--color-surface)', marginTop: 6 }}>
-        <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}><Avatar initials={m.initials} color={m.color} size={66} /><div style={{ flex: 1 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><h2 style={{ margin: 0 }}>{m.name}</h2><Tag tone="accent-2">✔ Verified</Tag></div><div className="text-muted" style={{ fontSize: 14 }}>{m.college} · {m.branch} · Year {m.year}</div><div style={{ fontSize: 13, marginTop: 4 }}>⭐ {m.rating} · {m.sessions} sessions</div></div><div style={{ textAlign: 'right' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 24 }}>₹{m.price}</div><div className="text-muted" style={{ fontSize: 12 }}>per 25 min</div></div></div>
+        <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}><Avatar initials={initialsOf(m.name)} color={colorFor(m.userId || m.name)} size={66} /><div style={{ flex: 1 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><h2 style={{ margin: 0 }}>{m.name}</h2><Tag tone="accent-2">✔ Verified</Tag></div><div className="text-muted" style={{ fontSize: 14 }}>{m.college} · {m.branch} · Year {m.year}</div><div style={{ fontSize: 13, marginTop: 4 }}>⭐ {rating} · {m.ratingCount ?? 0} ratings</div></div><div style={{ textAlign: 'right' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 24 }}>₹{m.priceINR}</div><div className="text-muted" style={{ fontSize: 12 }}>per 25 min</div></div></div>
       </div>
-      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}><div className="card-kicker">About</div><p style={{ fontSize: 14, margin: 0 }}>Happy to give you an honest, no-sugarcoat picture of life here — academics, the coding culture, placements and everything in between.</p><div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginTop: 8 }}>Helps with</div><div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>{m.topics.map((t) => <Tag key={t}>{t}</Tag>)}</div><div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginTop: 8 }}>Languages</div><div style={{ fontSize: 13 }}>{m.langs.join(', ')}</div></div>
-      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}><div className="card-kicker">Reviews</div><div style={{ fontSize: 13 }}>⭐⭐⭐⭐⭐ &quot;Cleared all my doubts about CSE. Super honest!&quot; — Riya</div><div style={{ fontSize: 13 }}>⭐⭐⭐⭐⭐ &quot;Best ₹100 I spent this counselling season.&quot; — Dev</div></div>
+      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}><div className="card-kicker">About</div><p style={{ fontSize: 14, margin: 0 }}>{m.bio || 'Happy to give you an honest, no-sugarcoat picture of life here — academics, the coding culture, placements and everything in between.'}</p>{(m.topics && m.topics.length > 0) && <><div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginTop: 8 }}>Helps with</div><div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>{m.topics.map((t) => <Tag key={t}>{t}</Tag>)}</div></>}</div>
+      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}><div className="card-kicker">Reviews</div><div style={{ fontSize: 13 }}>⭐⭐⭐⭐⭐ &quot;Cleared all my doubts about CSE. Super honest!&quot; — Riya</div><div style={{ fontSize: 13 }}>⭐⭐⭐⭐⭐ &quot;Best money I spent this counselling season.&quot; — Dev</div></div>
       <div style={{ display: 'flex', gap: 8, marginTop: 16 }}><Btn variant="pri" go="booking" style={{ flex: 1, padding: 13 }}>Book a session</Btn><Btn variant="sec" act="toast" msg="Reported — thanks">⚑ Report</Btn></div>
     </section>
   );
@@ -619,66 +743,91 @@ export function MentorProfile() {
 
 // ── Booking / Scheduling ──────────────────────────────────────────────────────
 export function Booking() {
-  const { mentorSel, bookingSlot, runAct } = useApp();
-  const m = MENTORS.find((x) => x.id === mentorSel) || MENTORS[0];
-  const selectedSlot = bookingSlot || '6:30 PM, Today';
+  const { bookingSlot, runAct, book, navigate } = useApp();
+  const [m, loading] = useSelectedMentor();
+  const [busy, setBusy] = useState(false);
+  const selectedSlot = bookingSlot || SLOT_LIST[1];
+  const proceed = async () => {
+    if (!m) return;
+    setBusy(true);
+    // TODO(owner): map the chosen display slot to a real availability slotId; dev books 's1'.
+    try { await book(m.userId, 's1'); navigate('payment'); } finally { setBusy(false); }
+  };
+  if (loading) return <section style={{ maxWidth: 640, margin: '0 auto', padding: '40px 22px' }}><Btn variant="ghost" go="mentorProfile" style={{ paddingLeft: 0 }}>← Back</Btn><p className="text-muted" style={{ marginTop: 12 }}>Loading…</p></section>;
+  if (!m) return <section style={{ maxWidth: 640, margin: '0 auto', padding: '40px 22px' }}><Btn variant="ghost" go="marketplace" style={{ paddingLeft: 0 }}>← Back to mentors</Btn><p className="text-muted" style={{ marginTop: 12 }}>Pick a mentor first.</p></section>;
   return (
     <section style={{ maxWidth: 640, margin: '0 auto', padding: '24px 22px 40px' }}>
       <Btn variant="ghost" go="mentorProfile" style={{ paddingLeft: 0 }}>← Back</Btn>
       <h1 style={{ margin: '4px 0 2px', fontSize: 28 }}>Pick a slot</h1>
-      <div className="card" style={{ background: 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 10 }}><Avatar initials={m.initials} color={m.color} size={40} /><div><div style={{ fontWeight: 700 }}>{m.name}</div><div className="text-muted" style={{ fontSize: 12 }}>{m.college} · ₹{m.price} / 25 min</div></div></div>
+      <div className="card" style={{ background: 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 10 }}><Avatar initials={initialsOf(m.name)} color={colorFor(m.userId || m.name)} size={40} /><div><div style={{ fontWeight: 700 }}>{m.name}</div><div className="text-muted" style={{ fontSize: 12 }}>{m.college} · ₹{m.priceINR} / 25 min</div></div></div>
       <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}>
-        <div className="card-kicker">Today, Jul 13</div>
+        <div className="card-kicker">Available slots</div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>{SLOT_LIST.map((t) => (
           <span key={t} className="tag" onClick={() => runAct({ act: 'bookSlot', slot: t })} style={{ cursor: 'pointer', ...(bookingSlot === t ? { background: 'var(--color-accent)', color: 'var(--color-bg)' } : { border: '1px solid var(--color-accent)', color: 'var(--color-accent-700)' }) }}>{t}</span>
         ))}</div>
         <Field label={`A note or question for ${m.name} (optional)`}><textarea className="input" placeholder="e.g. CSE at a lower IIT vs ECE at a top one?" /></Field>
       </div>
-      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}><div><div style={{ fontSize: 13 }}>25-min 1:1 video call</div><div className="text-muted" style={{ fontSize: 12 }}>Selected: {selectedSlot}</div></div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 22 }}>₹{m.price}</div></div>
-      <Btn variant="pri" go="payment" block style={{ padding: 13, marginTop: 14 }}>Proceed to pay →</Btn>
+      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}><div><div style={{ fontSize: 13 }}>25-min 1:1 video call</div><div className="text-muted" style={{ fontSize: 12 }}>Selected: {selectedSlot}</div></div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 22 }}>₹{m.priceINR}</div></div>
+      <Btn variant="pri" onClick={proceed} block disabled={busy} style={{ padding: 13, marginTop: 14 }}>{busy ? 'Reserving…' : 'Proceed to pay →'}</Btn>
     </section>
   );
 }
 
 // ── Payment / Checkout ────────────────────────────────────────────────────────
 export function Payment() {
-  const { mentorSel, bookingSlot } = useApp();
-  const m = MENTORS.find((x) => x.id === mentorSel) || MENTORS[0];
-  const selectedSlot = bookingSlot || '6:30 PM, Today';
+  const { sessions, bookingSlot, pay, navigate } = useApp();
+  const pending = [...sessions].reverse().find((s) => s.status === 'PENDING_PAYMENT');
+  const [busy, setBusy] = useState(false);
+  const selectedSlot = pending?.startsAt ? fmtWhen(pending.startsAt) : (bookingSlot || SLOT_LIST[1]);
+  const price = pending?.priceINR ?? 100;
+  const doPay = async () => {
+    if (!pending) return;
+    setBusy(true);
+    // TODO(owner): real Razorpay checkout — dev simulates the payment.captured webhook.
+    try { await pay(pending.id); navigate('bookingConfirm'); } finally { setBusy(false); }
+  };
   return (
     <section style={{ maxWidth: 520, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 12px', fontSize: 28 }}>Checkout</h1>
-      <div className="card" style={{ background: 'var(--color-surface)' }}>
-        <div className="card-kicker">Order summary</div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}><span>{m.name} · 25 min</span><span>₹{m.price}</span></div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }} className="text-muted"><span>{selectedSlot}</span><span></span></div>
-        <div className="hr" style={{ margin: '6px 0' }} />
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-heading)', fontSize: 18 }}><span>Total</span><span>₹{m.price}</span></div>
-      </div>
-      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}>
-        <div className="card-kicker">Payment method</div>
-        <label className="radio" style={{ border: '1px solid var(--color-accent)', borderRadius: 14, padding: 12, background: 'var(--color-accent-100)' }}><input type="radio" name="pay" defaultChecked /><span className="dot" />UPI (GPay / PhonePe / Paytm)</label>
-        <label className="radio" style={{ border: '1px solid var(--color-divider)', borderRadius: 14, padding: 12 }}><input type="radio" name="pay" /><span className="dot" />Credit / debit card</label>
-        <Field label="Have a coupon?"><div style={{ display: 'flex', gap: 8 }}><Input placeholder="Enter code" style={{ flex: 1 }} /><Btn variant="sec" act="toast" msg="Coupon applied">Apply</Btn></div></Field>
-      </div>
-      <Btn variant="pri" go="bookingConfirm" block style={{ padding: 13, marginTop: 14 }}>🔒 Pay ₹{m.price} securely</Btn>
-      <p className="text-muted" style={{ fontSize: 12, textAlign: 'center', marginTop: 8 }}>Payments processed by our secure gateway. Full refund if the mentor no-shows.</p>
+      {!pending ? (
+        <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: 36, background: 'var(--color-surface)' }}><div style={{ fontSize: 38 }}>🧾</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>No booking awaiting payment</div><p className="text-muted" style={{ fontSize: 14 }}>Start a booking from a mentor&apos;s profile, then come back to pay.</p><Btn variant="pri" go="marketplace">Find a mentor</Btn></div>
+      ) : (
+        <>
+          <div className="card" style={{ background: 'var(--color-surface)' }}>
+            <div className="card-kicker">Order summary</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}><span>{pending.mentorName || 'Mentor'} · 25 min</span><span>₹{price}</span></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }} className="text-muted"><span>{selectedSlot}</span><span></span></div>
+            <div className="hr" style={{ margin: '6px 0' }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-heading)', fontSize: 18 }}><span>Total</span><span>₹{price}</span></div>
+          </div>
+          <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}>
+            <div className="card-kicker">Payment method</div>
+            <label className="radio" style={{ border: '1px solid var(--color-accent)', borderRadius: 14, padding: 12, background: 'var(--color-accent-100)' }}><input type="radio" name="pay" defaultChecked /><span className="dot" />UPI (GPay / PhonePe / Paytm)</label>
+            <label className="radio" style={{ border: '1px solid var(--color-divider)', borderRadius: 14, padding: 12 }}><input type="radio" name="pay" /><span className="dot" />Credit / debit card</label>
+            <Field label="Have a coupon?"><div style={{ display: 'flex', gap: 8 }}><Input placeholder="Enter code" style={{ flex: 1 }} /><Btn variant="sec" act="toast" msg="Coupon applied">Apply</Btn></div></Field>
+          </div>
+          <Btn variant="pri" onClick={doPay} block disabled={busy} style={{ padding: 13, marginTop: 14 }}>{busy ? 'Processing…' : `🔒 Pay ₹${price} securely`}</Btn>
+          <p className="text-muted" style={{ fontSize: 12, textAlign: 'center', marginTop: 8 }}>Payments processed by our secure gateway. Full refund if the mentor no-shows.</p>
+        </>
+      )}
     </section>
   );
 }
 
 // ── Booking Confirmation ──────────────────────────────────────────────────────
 export function BookingConfirm() {
-  const { mentorSel, bookingSlot } = useApp();
-  const m = MENTORS.find((x) => x.id === mentorSel) || MENTORS[0];
-  const selectedSlot = bookingSlot || '6:30 PM, Today';
+  const { sessions } = useApp();
+  const sess = [...sessions].reverse().find((s) => s.status === 'CONFIRMED' || s.status === 'LIVE');
   return (
     <section style={{ maxWidth: 520, margin: '0 auto', padding: '40px 22px' }}>
       <div className="card elev-md" style={{ background: 'var(--color-surface)', alignItems: 'center', textAlign: 'center', padding: 32 }}>
         <div style={{ width: 70, height: 70, borderRadius: '50%', background: 'var(--color-accent-2-100)', display: 'grid', placeItems: 'center', fontSize: 32 }}>✅</div>
         <h2 style={{ margin: '2px 0' }}>You&apos;re booked!</h2>
-        <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>Session with <strong style={{ color: 'var(--color-text)' }}>{m.name}</strong> · {selectedSlot} · 25 min</p>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}><Btn variant="pri" go="sessionRoom">Join session</Btn><Btn variant="sec" act="toast" msg="Added to calendar">📅 Add to calendar</Btn></div>
+        <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>Session with <strong style={{ color: 'var(--color-text)' }}>{sess?.mentorName || 'your mentor'}</strong>{sess?.startsAt ? ` · ${fmtWhen(sess.startsAt)}` : ''} · {sess?.durationMin || 25} min</p>
+        {sess?.meetingUrl && (
+          <a href={sess.meetingUrl} target="_blank" rel="noreferrer" className="sc-btn sec" style={{ textDecoration: 'none' }}>🎥 Open Google Meet{sess.meetingProvider === 'stub' ? ' (placeholder)' : ''}</a>
+        )}
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}><Btn variant="pri" go="sessionRoom">Join session</Btn><Btn variant="sec" go="sessions">My sessions</Btn></div>
         <div style={{ width: '100%', textAlign: 'left', background: 'var(--color-bg)', borderRadius: 14, padding: 14, fontSize: 13 }}><strong>Prep tips</strong><ul style={{ margin: '6px 0 0', paddingLeft: 18, lineHeight: 1.7 }}><li>Have your rank &amp; shortlist ready</li><li>Join from a quiet spot with good internet</li><li>Note your top 2–3 questions</li></ul></div>
         <div className="text-muted" style={{ fontSize: 12 }}>Free cancellation up to 4 hours before. <span className="sc-tile" style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Contact support</span></div>
       </div>
@@ -688,8 +837,10 @@ export function BookingConfirm() {
 
 // ── My Sessions / Bookings ────────────────────────────────────────────────────
 export function Sessions() {
-  const { sessionsTab, runAct } = useApp();
-  const sess = SESSION_MAP[sessionsTab];
+  const { sessions, sessionsTab, runAct, join, navigate } = useApp();
+  const groups = { upcoming: ['PENDING_PAYMENT', 'CONFIRMED', 'LIVE'], past: ['ENDED', 'RATED'], cancelled: ['CANCELLED', 'REFUNDED'] };
+  const list = (sessions || []).filter((s) => groups[sessionsTab]?.includes(s.status));
+  const joinAndGo = async (s) => { await join(s.id); navigate('sessionRoom'); };
   return (
     <section style={{ maxWidth: 720, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 12px', fontSize: 30 }}>My sessions</h1>
@@ -698,35 +849,48 @@ export function Sessions() {
           <SegOpt key={tab} on={sessionsTab === tab} onClick={() => runAct({ act: 'sessTab', tab })} style={{ flex: 1, justifyContent: 'center', textTransform: 'capitalize' }}>{tab}</SegOpt>
         ))}
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        <div className="card elev-sm" style={{ background: 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-          <Avatar initials="AS" size={42} />
-          <div style={{ flex: 1 }}><div style={{ fontWeight: 700 }}>Aarav Sharma · IIT Bombay</div><div className="text-muted" style={{ fontSize: 12 }}>{sess.line}</div></div>
-          {sess.actions.map((a, i) => (
-            <Btn key={i} variant={a.cls} go={a.go} act={a.act} msg={a.msg} dialog={a.dialog}>{a.label}</Btn>
+      {list.length === 0 ? (
+        <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: 40, background: 'var(--color-surface)' }}><div style={{ fontSize: 38 }}>📅</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>No {sessionsTab} sessions</div><p className="text-muted" style={{ fontSize: 14 }}>{sessionsTab === 'upcoming' ? 'Book a 1:1 with a verified senior to get started.' : 'Nothing here yet.'}</p>{sessionsTab === 'upcoming' && <Btn variant="pri" go="marketplace">Find a mentor</Btn>}</div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {list.map((s) => (
+            <div key={s.id} className="card elev-sm" style={{ background: 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <Avatar initials={initialsOf(s.mentorName)} color={colorFor(s.mentorId || s.mentorName)} size={42} />
+              <div style={{ flex: 1, minWidth: 140 }}><div style={{ fontWeight: 700 }}>{s.mentorName || 'Mentor'}</div><div className="text-muted" style={{ fontSize: 12 }}>{fmtWhen(s.startsAt)} · {s.durationMin || 25} min · ₹{s.priceINR}</div></div>
+              <span className="tag" style={statusStyle(s.status)}>{s.status}{s.rating ? ` · ⭐${s.rating}` : ''}</span>
+              {s.meetingUrl && <a href={s.meetingUrl} target="_blank" rel="noreferrer" className="text-muted" style={{ fontSize: 13 }} title={s.meetingProvider === 'stub' ? 'Placeholder Meet link' : 'Google Meet'}>🎥 Meet</a>}
+              {s.status === 'PENDING_PAYMENT' && <Btn variant="pri" act="pay" id={s.id}>Pay ₹{s.priceINR}</Btn>}
+              {(s.status === 'CONFIRMED' || s.status === 'LIVE') && <Btn variant="pri" onClick={() => joinAndGo(s)}>Join</Btn>}
+              {s.status === 'LIVE' && <Btn variant="sec" act="end" id={s.id}>End</Btn>}
+              {s.status === 'ENDED' && <Btn variant="pri" go="rateSession">Rate</Btn>}
+              {(s.status === 'PENDING_PAYMENT' || s.status === 'CONFIRMED') && <Btn variant="ghost" act="cancel" id={s.id}>Cancel</Btn>}
+            </div>
           ))}
         </div>
-      </div>
+      )}
     </section>
   );
 }
 
 // ── Session Room — 1:1 Video Call [CORE] ─────────────────────────────────────
 export function SessionRoom() {
-  const { sessTime, camOn, micOn, chat, chatDraft, update, sendChat, runAct, navigate } = useApp();
+  const { sessions, sessTime, camOn, micOn, chat, chatDraft, update, sendChat, runAct, navigate, end } = useApp();
+  const sess = (sessions || []).find((s) => s.status === 'LIVE') || (sessions || []).find((s) => s.status === 'CONFIRMED') || null;
+  const name = sess?.mentorName || 'Your mentor';
   const chatStyled = chat.map((m) => ({ ...m, style: { alignSelf: m.who === 'me' ? 'flex-end' : 'flex-start', background: m.who === 'me' ? 'var(--color-accent)' : 'var(--color-surface)', color: m.who === 'me' ? 'var(--color-bg)' : 'var(--color-text)', fontSize: 13, borderRadius: 14, padding: '8px 11px', maxWidth: '82%' } }));
+  const endAndRate = async () => { if (sess) await end(sess.id); navigate('rateSession'); };
   return (
     <section style={{ background: 'var(--color-neutral-900)', minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 20px', color: '#fff', flexWrap: 'wrap', gap: 8 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#5fce7f', animation: 'pulse 1.6s infinite' }} /><span style={{ fontSize: 14 }}>Connected · 25-min session</span></div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#5fce7f', animation: 'pulse 1.6s infinite' }} /><span style={{ fontSize: 14 }}>{sess ? 'Connected · 25-min session' : 'No active session'}</span></div>
         <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20, background: 'rgba(255,255,255,.1)', padding: '4px 16px', borderRadius: 999 }}>{fmtTime(sessTime)} <span style={{ opacity: .5, fontSize: 14 }}>/ 25:00</span></div>
-        <span style={{ fontSize: 13, color: '#5fce7f' }}>▮▮▮▮▯ Good connection</span>
+        {sess?.meetingUrl && <a href={sess.meetingUrl} target="_blank" rel="noreferrer" className="sc-btn sec" style={{ textDecoration: 'none', padding: '4px 14px' }}>🎥 Open Google Meet{sess.meetingProvider === 'stub' ? ' (placeholder)' : ''}</a>}
       </div>
       <div className="session-body" style={{ flex: 1, display: 'flex', gap: 14, padding: '0 20px 14px', minHeight: 0 }}>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 14, minWidth: 0 }}>
           <div style={{ flex: 1, minHeight: 320, borderRadius: 20, background: 'linear-gradient(135deg,#56633f,#3d472b)', position: 'relative', display: 'grid', placeItems: 'center', overflow: 'hidden' }}>
-            <span style={{ width: 96, height: 96, borderRadius: '50%', background: '#c67139', color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', fontSize: 40 }}>AS</span>
-            <div style={{ position: 'absolute', bottom: 14, left: 16, color: '#fff', fontSize: 14, background: 'rgba(0,0,0,.35)', padding: '4px 12px', borderRadius: 999 }}>Aarav Sharma · IIT Bombay</div>
+            <span style={{ width: 96, height: 96, borderRadius: '50%', background: '#c67139', color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', fontSize: 40 }}>{initialsOf(name)}</span>
+            <div style={{ position: 'absolute', bottom: 14, left: 16, color: '#fff', fontSize: 14, background: 'rgba(0,0,0,.35)', padding: '4px 12px', borderRadius: 999 }}>{name}</div>
             <div style={{ position: 'absolute', top: 14, right: 16, width: 150, height: 100, borderRadius: 14, background: '#201e1d', border: '2px solid rgba(255,255,255,.2)', display: 'grid', placeItems: 'center', color: '#fff', fontSize: 12 }}>{camOn ? 'You' : 'Camera off'}</div>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
@@ -734,13 +898,13 @@ export function SessionRoom() {
             <button className="sc-btn" onClick={() => runAct({ act: 'toggleCam' })} style={{ background: 'rgba(255,255,255,.12)', color: '#fff', width: 52, height: 52, borderRadius: '50%' }}>{camOn ? '📷' : '🚫'}</button>
             <button className="sc-btn" onClick={() => runAct({ act: 'toast', msg: 'Screen sharing started' })} style={{ background: 'rgba(255,255,255,.12)', color: '#fff', width: 52, height: 52, borderRadius: '50%' }}>🖥</button>
             <button className="sc-btn" onClick={() => runAct({ act: 'toast', msg: 'Reported to support' })} style={{ background: 'rgba(255,255,255,.12)', color: '#fff', width: 52, height: 52, borderRadius: '50%' }}>⚑</button>
-            <button className="sc-btn" onClick={() => navigate('rateSession')} style={{ background: '#a8442e', color: '#fff', padding: '0 22px', borderRadius: 999 }}>End session</button>
+            <button className="sc-btn" onClick={endAndRate} style={{ background: '#a8442e', color: '#fff', padding: '0 22px', borderRadius: 999 }}>End session</button>
           </div>
         </div>
         <aside className="session-chat" style={{ flex: 'none', width: 300, background: 'var(--color-bg)', borderRadius: 18, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--color-divider)', fontFamily: 'var(--font-heading)', fontSize: 15 }}>Chat</div>
+          {/* TODO(owner): in-call chat is local-only until a realtime chat channel is wired. */}
           <div style={{ flex: 1, overflow: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 8, minHeight: 160 }}>
-            <div style={{ fontSize: 12, background: 'var(--color-accent-100)', borderRadius: 12, padding: '8px 11px', color: 'var(--color-accent-800)' }}><strong>Your question:</strong> Should I pick CSE at a lower IIT or ECE at a top one?</div>
             {chatStyled.map((m, i) => <div key={i} style={m.style}>{m.t}</div>)}
           </div>
           <form onSubmit={(e) => { e.preventDefault(); sendChat(); }} style={{ padding: 10, borderTop: '1px solid var(--color-divider)', display: 'flex', gap: 6 }}>
@@ -755,17 +919,30 @@ export function SessionRoom() {
 
 // ── Post-Session — Rate & Review ──────────────────────────────────────────────
 export function RateSession() {
-  const { runAct } = useApp();
+  const { sessions, rate, navigate } = useApp();
+  const sess = [...(sessions || [])].reverse().find((s) => s.status === 'ENDED') || [...(sessions || [])].reverse().find((s) => s.status === 'RATED') || null;
+  const [stars, setStars] = useState(5);
+  const [comment, setComment] = useState('');
+  const [busy, setBusy] = useState(false);
+  const name = sess?.mentorName || 'your mentor';
+  const submit = async () => {
+    setBusy(true);
+    try { if (sess) await rate(sess.id, stars, comment); navigate('dashboard'); } finally { setBusy(false); }
+  };
   return (
     <section style={{ maxWidth: 560, margin: '0 auto', padding: '40px 22px' }}>
       <div className="card elev-md" style={{ background: 'var(--color-surface)', alignItems: 'center', textAlign: 'center', padding: 32 }}>
-        <div style={{ width: 70, height: 70, borderRadius: '50%', background: 'var(--color-accent)', color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', fontSize: 26 }}>AS</div>
+        <div style={{ width: 70, height: 70, borderRadius: '50%', background: 'var(--color-accent)', color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', fontSize: 26 }}>{initialsOf(name)}</div>
         <h2 style={{ margin: '6px 0 0' }}>How was your session?</h2>
-        <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>with Aarav Sharma · IIT Bombay</p>
-        <div style={{ fontSize: 34, letterSpacing: 6, cursor: 'pointer' }} onClick={() => runAct({ act: 'toast', msg: 'Thanks for rating!' })}>⭐⭐⭐⭐⭐</div>
+        <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>with {name}</p>
+        <div style={{ fontSize: 34, letterSpacing: 6, cursor: 'pointer' }}>
+          {[1, 2, 3, 4, 5].map((n) => (
+            <span key={n} onClick={() => setStars(n)} style={{ opacity: n <= stars ? 1 : 0.3 }}>⭐</span>
+          ))}
+        </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}><Tag style={{ cursor: 'pointer' }}>Helpful</Tag><Tag style={{ cursor: 'pointer' }}>Honest</Tag><Tag style={{ cursor: 'pointer' }}>Knowledgeable</Tag></div>
-        <textarea className="input" placeholder="Write a review (optional)…" />
-        <Btn variant="pri" go="dashboard" block>Submit review</Btn>
+        <textarea className="input" placeholder="Write a review (optional)…" value={comment} onChange={(e) => setComment(e.target.value)} />
+        <Btn variant="pri" onClick={submit} block disabled={busy}>{busy ? 'Submitting…' : 'Submit review'}</Btn>
         <Btn variant="ghost" go="marketplace">Book another session</Btn>
       </div>
     </section>
@@ -774,6 +951,8 @@ export function RateSession() {
 
 // ── Counselling Timeline / Deadlines ──────────────────────────────────────────
 export function Timeline() {
+  // TODO(owner): JoSAA round dates are seasonal reference data — wire to a rounds
+  // endpoint (or CMS) when available. Static for now.
   const toneStyle = (tone) => tone === 'accent-2' ? { background: 'var(--color-accent-2-100)', color: 'var(--color-accent-2-800)' } : tone === 'accent' ? { background: 'var(--color-accent-100)', color: 'var(--color-accent-800)' } : { background: 'var(--color-neutral-200)', color: 'var(--color-neutral-800)' };
   return (
     <section style={{ maxWidth: 720, margin: '0 auto', padding: '24px 22px 40px' }}>
@@ -794,14 +973,24 @@ export function Timeline() {
 
 // ── Notifications ─────────────────────────────────────────────────────────────
 export function Notifications() {
+  const { notifications, unreadCount, runAct } = useApp();
   return (
     <section style={{ maxWidth: 640, margin: '0 auto', padding: '24px 22px 40px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}><h1 style={{ margin: 0, fontSize: 30 }}>Notifications</h1><Btn variant="ghost" go="settings">Settings</Btn></div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 14 }}>
-        {NOTIFS.map((n, i) => (
-          <div key={i} className="card elev-sm" style={{ background: 'var(--color-surface)', flexDirection: 'row', gap: 12, alignItems: 'flex-start', ...(n.unread ? { borderLeft: '4px solid var(--color-accent)' } : {}) }}><span style={{ fontSize: 20 }}>{n.icon}</span><div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>{n.title}</div><div className="text-muted" style={{ fontSize: 13 }}>{n.body}</div></div><span className="text-muted" style={{ fontSize: 11 }}>{n.time}</span></div>
-        ))}
-      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}><h1 style={{ margin: 0, fontSize: 30 }}>Notifications</h1><div style={{ display: 'flex', gap: 8 }}>{unreadCount > 0 && <Btn variant="sec" act="markAllRead">Mark all read</Btn>}<Btn variant="ghost" go="settings">Settings</Btn></div></div>
+      {notifications.length === 0 ? (
+        <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: 40, background: 'var(--color-surface)', marginTop: 14 }}><div style={{ fontSize: 38 }}>🔔</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>You&apos;re all caught up</div><p className="text-muted" style={{ fontSize: 14 }}>Deadline reminders, booking updates and mentor replies will appear here.</p></div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 14 }}>
+          {notifications.map((n) => (
+            <div key={n.id} onClick={() => !n.read && runAct({ act: 'markNotifRead', id: n.id })} className="card elev-sm" style={{ background: 'var(--color-surface)', flexDirection: 'row', gap: 12, alignItems: 'flex-start', cursor: n.read ? 'default' : 'pointer', ...(!n.read ? { borderLeft: '4px solid var(--color-accent)' } : {}) }}>
+              <span style={{ fontSize: 20 }}>{n.read ? '✅' : '🔔'}</span>
+              <div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>{n.title}</div><div className="text-muted" style={{ fontSize: 13 }}>{n.body}</div></div>
+              {n.link && <a href={n.link} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} style={{ fontSize: 13 }}>🎥</a>}
+              <span className="text-muted" style={{ fontSize: 11 }}>{fmtDate(n.createdAt)}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
@@ -836,7 +1025,7 @@ export function Settings() {
           ))}
         </div>
       ))}
-      <Btn variant="sec" go="login" block>Log out</Btn>
+      <Btn variant="sec" act="logout" block>Log out</Btn>
       <Btn variant="ghost" act="toast" msg="Account deletion requested" block style={{ color: '#a8442e' }}>Delete account</Btn>
     </section>
   );
@@ -844,15 +1033,22 @@ export function Settings() {
 
 // ── Payment History / Receipts ────────────────────────────────────────────────
 export function Receipts() {
-  const toneStyle = (tone) => tone === 'accent-2' ? { background: 'var(--color-accent-2-100)', color: 'var(--color-accent-2-800)' } : { background: 'var(--color-neutral-200)', color: 'var(--color-neutral-800)' };
+  const { sessions } = useApp();
+  const paidStatuses = { CONFIRMED: 'Paid', LIVE: 'Paid', ENDED: 'Paid', RATED: 'Paid', REFUNDED: 'Refunded' };
+  const rows = (sessions || []).filter((s) => paidStatuses[s.status]);
+  const toneOf = (status) => status === 'REFUNDED' ? { background: 'var(--color-neutral-200)', color: 'var(--color-neutral-800)' } : { background: 'var(--color-accent-2-100)', color: 'var(--color-accent-2-800)' };
   return (
     <section style={{ maxWidth: 680, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 12px', fontSize: 30 }}>Payment history</h1>
-      <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}>
-        <table className="table" style={{ minWidth: 420 }}><thead><tr><th>Date</th><th>Item</th><th>Amount</th><th>Status</th><th></th></tr></thead><tbody>
-          {TXNS.map((t, i) => <tr key={i}><td>{t.date}</td><td>{t.item}</td><td>₹{t.amt}</td><td><span className="tag" style={toneStyle(t.tone)}>{t.status}</span></td><td><Btn variant="ghost" act="toast" msg="Receipt downloaded">Receipt</Btn></td></tr>)}
-        </tbody></table>
-      </div>
+      {rows.length === 0 ? (
+        <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: 40, background: 'var(--color-surface)' }}><div style={{ fontSize: 38 }}>🧾</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>No payments yet</div><p className="text-muted" style={{ fontSize: 14 }}>Your session receipts will appear here after your first booking.</p><Btn variant="pri" go="marketplace">Find a mentor</Btn></div>
+      ) : (
+        <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}>
+          <table className="table" style={{ minWidth: 420 }}><thead><tr><th>Date</th><th>Item</th><th>Amount</th><th>Status</th><th></th></tr></thead><tbody>
+            {rows.map((s) => <tr key={s.id}><td>{fmtDate(s.startsAt)}</td><td>Session · {s.mentorName || 'Mentor'}</td><td>₹{s.priceINR}</td><td><span className="tag" style={toneOf(s.status)}>{paidStatuses[s.status]}</span></td><td><Btn variant="ghost" act="toast" msg="Receipt downloaded">Receipt</Btn></td></tr>)}
+          </tbody></table>
+        </div>
+      )}
     </section>
   );
 }
