@@ -26,6 +26,8 @@ export default function LivePage() {
   const [showRaw, setShowRaw] = useState(false);
   const [pred, setPred] = useState(null);
   const [predBusy, setPredBusy] = useState(false);
+  const [choice, setChoice] = useState(null); // { items, warnings, summary, choiceVersion }
+  const [choiceBusy, setChoiceBusy] = useState(false);
 
   const flash = (m) => { setNote(m); setTimeout(() => setNote(null), 2200); };
 
@@ -47,6 +49,12 @@ export default function LivePage() {
     const t = getToken();
     if (t) { setTok(t); loadProfile(); }
   }, [loadProfile]);
+
+  // Load the saved choice list once we have a token (buckets refresh on Predict/Refresh).
+  useEffect(() => {
+    if (token) loadChoice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const doDevLogin = async () => {
     setBusy(true); setErr(null);
@@ -88,7 +96,42 @@ export default function LivePage() {
     try {
       const data = await liveApi.predict({ advRank: rp.advRank, mainRank: rp.mainRank, category: rp.category, home: rp.home });
       setPred(data);
+      loadChoice(); // refresh buckets against the same rank
     } catch (e) { setErr(e.message); } finally { setPredBusy(false); }
+  };
+
+  // Phase 3: the planner. The doctor endpoint returns the decorated (bucketed)
+  // choice list AND the List Doctor warnings in one call, so it doubles as "load".
+  const loadChoice = useCallback(async () => {
+    setChoiceBusy(true);
+    try {
+      setChoice(await liveApi.choiceDoctor({ advRank: rp.advRank, mainRank: rp.mainRank, category: rp.category, home: rp.home }));
+    } catch (e) { setErr(e.message); } finally { setChoiceBusy(false); }
+  }, [rp]);
+
+  const currentIds = () => (choice?.items ?? []).map((i) => i.id);
+  const inList = (id) => currentIds().includes(id);
+
+  const addToList = async (id) => {
+    if (inList(id)) { flash('Already in your list'); return; }
+    setChoiceBusy(true); setErr(null);
+    try { await liveApi.putChoiceList([...currentIds(), id], choice?.choiceVersion); await loadChoice(); flash('Added to choice list'); }
+    catch (e) { setErr(e.message); } finally { setChoiceBusy(false); }
+  };
+  const removeFromList = async (id) => {
+    setChoiceBusy(true); setErr(null);
+    try { await liveApi.putChoiceList(currentIds().filter((x) => x !== id), choice?.choiceVersion); await loadChoice(); }
+    catch (e) { setErr(e.message); } finally { setChoiceBusy(false); }
+  };
+  const moveChoice = async (from, to) => {
+    if (to < 0 || to >= currentIds().length) return;
+    setChoiceBusy(true); setErr(null);
+    try { await liveApi.reorderChoice(from, to, choice?.choiceVersion); await loadChoice(); }
+    catch (e) { setErr(e.message); } finally { setChoiceBusy(false); }
+  };
+  const doExport = async () => {
+    try { const r = await liveApi.exportChoiceList(); flash(r?.message || 'Exported'); }
+    catch { flash('PDF export is coming soon — for now copy the list into josaa.nic.in in this order.'); }
   };
 
   const claims = token ? decodeToken(token) : null;
@@ -99,6 +142,7 @@ export default function LivePage() {
     : b === 'target'
       ? { background: 'var(--color-accent-100)', color: 'var(--color-accent-800)' }
       : { background: '#f7e2db', color: '#7a2d1a' };
+  const sevColor = (s) => (s === 'high' ? '#c0492e' : s === 'med' ? '#d67f48' : '#728157');
 
   return (
     <section style={{ maxWidth: 760, margin: '0 auto', padding: '32px 22px 80px' }}>
@@ -192,6 +236,49 @@ export default function LivePage() {
                       <span style={{ fontFamily: 'var(--font-heading)', flex: 1 }}>{c.college} · {c.branch}</span>
                       {c.homeQuota && <span className="tag tag-accent-2" style={{ padding: '1px 7px' }}>🏠</span>}
                       <span className="tag" style={bucketStyle(c.bucket)}>{c.label} {c.pct}%</span>
+                      <button className="sc-btn ghost" style={{ padding: '2px 8px' }} onClick={() => addToList(c.id)} disabled={choiceBusy}>{inList(c.id) ? '✓ Listed' : '＋ List'}</button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          <div className="card elev-sm" style={{ ...card, background: 'var(--color-accent-2-100)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="card-kicker">My choice list — Phase 3 (planner API)</div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button className="sc-btn ghost" onClick={loadChoice} disabled={choiceBusy}>{choiceBusy ? '…' : 'Refresh'}</button>
+                <button className="sc-btn sec" onClick={doExport}>Export</button>
+              </div>
+            </div>
+            <p className="text-muted" style={{ fontSize: 12, margin: 0 }}>Saved to the <strong>planner Lambda + DynamoDB</strong> (per-user, optimistic concurrency). Add from the predictor above; row order = your <strong>JoSAA priority</strong>. <strong>List Doctor</strong> is computed server-side.</p>
+            {!choice || choice.items.length === 0 ? (
+              <p className="text-muted" style={{ fontSize: 13, margin: '4px 0 0' }}>No choices yet — add some with <strong>＋ List</strong> from the predictor results above.</p>
+            ) : (
+              <>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 4 }}>
+                  <span className="tag" style={bucketStyle('safe')}>Safe {choice.summary.safe}</span>
+                  <span className="tag" style={bucketStyle('target')}>Target {choice.summary.target}</span>
+                  <span className="tag" style={bucketStyle('reach')}>Reach {choice.summary.reach}</span>
+                  <span className="tag tag-neutral">{choice.summary.total} choices</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
+                  {choice.items.map((c, ix) => (
+                    <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, background: 'var(--color-bg)', borderRadius: 10, padding: '7px 10px' }}>
+                      <span className="tag tag-neutral" style={{ padding: '1px 7px' }}>{ix + 1}</span>
+                      <span style={{ fontFamily: 'var(--font-heading)', flex: 1 }}>{c.college} · {c.branch}</span>
+                      <span className="tag" style={bucketStyle(c.bucket)}>{c.label} {c.pct}%</span>
+                      <button className="sc-btn ghost" style={{ padding: '2px 6px' }} onClick={() => moveChoice(ix, ix - 1)} disabled={ix === 0 || choiceBusy} title="Move up">↑</button>
+                      <button className="sc-btn ghost" style={{ padding: '2px 6px' }} onClick={() => moveChoice(ix, ix + 1)} disabled={ix === choice.items.length - 1 || choiceBusy} title="Move down">↓</button>
+                      <button className="sc-btn ghost" style={{ padding: '2px 6px' }} onClick={() => removeFromList(c.id)} disabled={choiceBusy} title="Remove">✕</button>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
+                  {choice.warnings.map((w, i) => (
+                    <div key={i} style={{ fontSize: 12.5, background: 'var(--color-surface)', borderRadius: 10, padding: '8px 10px', borderLeft: `3px solid ${sevColor(w.sev)}` }}>
+                      <strong>{w.title}</strong> — <span className="text-muted">{w.detail}</span>
                     </div>
                   ))}
                 </div>
