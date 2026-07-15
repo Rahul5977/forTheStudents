@@ -15,6 +15,22 @@ export interface StageConfig {
    * it isn't associated with the API until Phase 9 hardening. Turn on there.
    */
   enableWaf: boolean;
+  /**
+   * Deploy the OPTIONAL warmup stack (EventBridge rule pinging the hot Lambdas every 5
+   * min to cut cold starts during the Jun–Jul peak). OFF by default — when false the
+   * WarmupStack is never instantiated (bin/app.ts) AND self-guards to ZERO resources, so
+   * it costs ₹0 idle. Turn ON only for the peak window (see docs/go-live.md ramp plan);
+   * cost when ON is a few thousand tiny invocations/mo (cents / free-tier).
+   */
+  enableWarmers: boolean;
+  /**
+   * API Gateway $default-stage default throttle — steady-state requests/sec. FREE and
+   * always-on: the first line of defence against a flood before it reaches Lambda/DDB
+   * (reach for WAF only if this can't shed it). Applied in foundation-stack.ts.
+   */
+  apiRateLimit: number;
+  /** API Gateway $default-stage burst ceiling (max concurrent spike). FREE, always-on. */
+  apiBurstLimit: number;
   /** Where AWS Budget cost alerts are emailed. */
   alertEmail: string;
   /** Monthly spend alert threshold (USD). */
@@ -34,6 +50,10 @@ const BASE = {
   // TODO(owner): change if you want alerts elsewhere.
   alertEmail: 'rahul.raj9237@gmail.com',
   monthlyBudgetUsd: 10,
+  // FREE always-on API throttle. Conservative cost-safe defaults for all stages;
+  // raise for the Jun–Jul season, lower off-season. (Phase 9.)
+  apiRateLimit: 200,
+  apiBurstLimit: 400,
   // Origins allowed for CORS + used to build Cognito callback/logout URLs.
   corsOrigins: [
     'http://localhost:3000', // local dev
@@ -51,6 +71,7 @@ export function getConfig(stage: string): StageConfig {
         removalPolicy: RemovalPolicy.RETAIN,
         provisionedConcurrency: 20, // TODO(owner): size from real peak; schedule on/off (ADR: season flag)
         enableWaf: false, // TODO(owner): turn on in Phase 9 when it's associated + rate-limiting
+        enableWarmers: false, // TODO(owner): flip ON for the Jun–Jul peak, then back OFF
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
     case 'staging':
@@ -60,6 +81,7 @@ export function getConfig(stage: string): StageConfig {
         removalPolicy: RemovalPolicy.DESTROY,
         provisionedConcurrency: 0,
         enableWaf: false,
+        enableWarmers: false,
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
     default:
@@ -69,6 +91,7 @@ export function getConfig(stage: string): StageConfig {
         removalPolicy: RemovalPolicy.DESTROY,
         provisionedConcurrency: 0,
         enableWaf: false,
+        enableWarmers: false,
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
   }

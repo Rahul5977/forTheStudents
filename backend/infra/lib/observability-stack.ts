@@ -29,6 +29,10 @@ export class ObservabilityStack extends Stack {
     const bookingFn = `sc-${cfg.stage}-booking`;
     const notifConsumerFn = `sc-${cfg.stage}-notifications-consumer`;
     const dlqName = `sc-${cfg.stage}-notifications-dlq`;
+    const adminFn = `sc-${cfg.stage}-admin`;
+    const analyticsStreamFn = `sc-${cfg.stage}-analytics-stream`;
+    const analyticsReconcileFn = `sc-${cfg.stage}-analytics-reconcile`;
+    const analyticsDlqName = `sc-${cfg.stage}-analytics-stream-dlq`;
     const tableName = `sc-${cfg.stage}-users`;
     const apiId = httpApi.apiId;
 
@@ -43,7 +47,11 @@ export class ObservabilityStack extends Stack {
     const mkt = lamFor(marketplaceFn);
     const bkg = lamFor(bookingFn);
     const ntf = lamFor(notifConsumerFn);
+    const adm = lamFor(adminFn);
+    const astr = lamFor(analyticsStreamFn);
+    const arec = lamFor(analyticsReconcileFn);
     const dlqDepth = new cw.Metric({ namespace: 'AWS/SQS', metricName: 'ApproximateNumberOfMessagesVisible', dimensionsMap: { QueueName: dlqName }, statistic: 'Maximum', period });
+    const analyticsDlqDepth = new cw.Metric({ namespace: 'AWS/SQS', metricName: 'ApproximateNumberOfMessagesVisible', dimensionsMap: { QueueName: analyticsDlqName }, statistic: 'Maximum', period });
     const ddb = (metricName: string, statistic: string, dims: Record<string, string> = {}, label?: string) =>
       new cw.Metric({ namespace: 'AWS/DynamoDB', metricName, dimensionsMap: { TableName: tableName, ...dims }, statistic, period, label });
 
@@ -89,6 +97,16 @@ export class ObservabilityStack extends Stack {
       new cw.GraphWidget({ title: 'Notifications DLQ depth (should be 0)', left: [dlqDepth], width: 12, height: 6 }),
     );
 
+    // Row 3c — Admin (Phase 7) + Analytics Lambdas (Phase 8): stream → S3 + daily reconciliation.
+    dashboard.addWidgets(
+      new cw.GraphWidget({ title: 'Admin — invocations / errors / throttles', left: [adm('Invocations', 'Sum'), adm('Errors', 'Sum'), adm('Throttles', 'Sum')], width: 8, height: 6 }),
+      new cw.GraphWidget({ title: 'Analytics stream — invocations / errors', left: [astr('Invocations', 'Sum'), astr('Errors', 'Sum')], width: 8, height: 6 }),
+      new cw.GraphWidget({ title: 'Analytics reconcile — invocations / errors', left: [arec('Invocations', 'Sum'), arec('Errors', 'Sum')], width: 8, height: 6 }),
+    );
+    dashboard.addWidgets(
+      new cw.GraphWidget({ title: 'Analytics stream DLQ depth (should be 0)', left: [analyticsDlqDepth], width: 8, height: 6 }),
+    );
+
     // Row 4 — DynamoDB (Users).
     dashboard.addWidgets(
       new cw.GraphWidget({ title: 'DynamoDB — consumed capacity (units)', left: [ddb('ConsumedReadCapacityUnits', 'Sum', {}, 'read'), ddb('ConsumedWriteCapacityUnits', 'Sum', {}, 'write')], width: 12, height: 6 }),
@@ -129,6 +147,10 @@ export class ObservabilityStack extends Stack {
     alarm('booking-errors', bkg('Errors', 'Sum'), 3, 1, 'booking Lambda errored ≥3 times in 5 min');
     alarm('notif-consumer-errors', ntf('Errors', 'Sum'), 3, 1, 'notifications consumer errored ≥3 times in 5 min');
     alarm('notif-dlq', dlqDepth, 1, 1, 'a domain event landed in the notifications DLQ (failed 3x) — investigate');
+    alarm('admin-errors', adm('Errors', 'Sum'), 3, 1, 'admin Lambda errored ≥3 times in 5 min');
+    alarm('analytics-stream-errors', astr('Errors', 'Sum'), 3, 1, 'analytics stream processor errored ≥3 times in 5 min');
+    alarm('analytics-reconcile-errors', arec('Errors', 'Sum'), 1, 1, 'daily reconciliation Lambda errored — ledger not reconciled today');
+    alarm('analytics-stream-dlq', analyticsDlqDepth, 1, 1, 'a DynamoDB stream batch failed 3x → analytics DLQ — investigate');
     alarm('lambda-throttle', lam('Throttles', 'Sum'), 1, 1, 'auth-identity Lambda was throttled (concurrency ceiling)');
     alarm('api-latency', api('Latency', 'p95'), 3000, 2, 'API p95 latency ≥3s for 10 min');
 

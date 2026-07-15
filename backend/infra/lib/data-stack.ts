@@ -17,6 +17,7 @@ export class DataStack extends Stack {
   readonly mentorsTable: ddb.Table;
   readonly bookingsTable: ddb.Table;
   readonly notificationsTable: ddb.Table;
+  readonly auditTable: ddb.Table;
 
   constructor(scope: Construct, id: string, props: DataStackProps) {
     super(scope, id, props);
@@ -58,6 +59,7 @@ export class DataStack extends Stack {
       pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
       removalPolicy: cfg.removalPolicy,
       timeToLiveAttribute: 'ttl', // ephemeral email-OTP rows
+      stream: ddb.StreamViewType.NEW_AND_OLD_IMAGES, // Phase 8: mentor lifecycle facts → analytics lake
     });
     this.mentorsTable.addGlobalSecondaryIndex({
       indexName: 'gsi1-status',
@@ -102,6 +104,19 @@ export class DataStack extends Stack {
       pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
       removalPolicy: cfg.removalPolicy,
       timeToLiveAttribute: 'ttl',
+    });
+
+    // Audit (Phase 7): append-only admin action trail.
+    //   PK=ADMIN#<adminId>  SK=ACT#<ts>  (ts = `${iso}#${ulid}` → time-sortable, collision-safe)
+    // Immutable rows (Put only — never updated/deleted). On-demand + PITR; no stream/TTL
+    // (retained for compliance). A cross-admin/by-entity view (`GSI1: entity`, arch §6.2) is deferred.
+    this.auditTable = new ddb.Table(this, 'Audit', {
+      tableName: `sc-${cfg.stage}-audit`,
+      partitionKey: { name: 'PK', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'SK', type: ddb.AttributeType.STRING },
+      billingMode: ddb.BillingMode.PAY_PER_REQUEST,
+      pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
+      removalPolicy: cfg.removalPolicy,
     });
 
     // Users: PK=USER#<id>, SK=PROFILE. Sparse GSIs for email/phone lookup.

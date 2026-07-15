@@ -33,6 +33,13 @@ export function fanout(type: string, detail: Record<string, unknown>): Fanned[] 
     case 'refund.issued':
       if (s('studentId')) out.push({ userId: s('studentId')!, type, title: 'Refund issued', body: 'Your session was cancelled and a refund has been initiated.' });
       break;
+    case 'admin.broadcast': {
+      const ids = Array.isArray(detail.userIds) ? (detail.userIds as string[]) : [];
+      const title = s('title') ?? 'Announcement';
+      const body = s('body') ?? '';
+      for (const uid of ids) out.push({ userId: uid, type, title, body });
+      break;
+    }
     default:
       break; // unmapped events are ignored (safe)
   }

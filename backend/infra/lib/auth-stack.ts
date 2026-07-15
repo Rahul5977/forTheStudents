@@ -32,7 +32,12 @@ export class AuthStack extends Stack {
         // App role travels in the JWT as "custom:role" (see shared/auth.ts getPrincipal).
         role: new cognito.StringAttribute({ mutable: true }),
       },
-      passwordPolicy: { minLength: 8, requireLowercase: true, requireDigits: true, requireSymbols: false, requireUppercase: false },
+      // Phase 9: stronger password policy in PROD (min 12 + symbols + upper/lower/digits).
+      // dev/staging keep the lighter min-8 for test-user convenience. Free.
+      passwordPolicy:
+        cfg.stage === 'prod'
+          ? { minLength: 12, requireLowercase: true, requireUppercase: true, requireDigits: true, requireSymbols: true }
+          : { minLength: 8, requireLowercase: true, requireDigits: true, requireSymbols: false, requireUppercase: false },
       accountRecovery: cognito.AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA,
       removalPolicy: cfg.removalPolicy,
       // TODO(owner): SMS sending needs an SNS role + spending limit + (in prod) a

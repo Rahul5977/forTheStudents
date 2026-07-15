@@ -34,6 +34,14 @@ export class FoundationStack extends Stack {
       },
     });
 
+    // Phase 9: FREE default throttle on the $default stage (rate + burst) so a flood is
+    // shed at the edge before it hits Lambda/DynamoDB. Cost-safe; values from cfg (200/400).
+    const defaultStage = this.httpApi.defaultStage!.node.defaultChild as apigw.CfnStage;
+    defaultStage.defaultRouteSettings = {
+      throttlingRateLimit: cfg.apiRateLimit,
+      throttlingBurstLimit: cfg.apiBurstLimit,
+    };
+
     // Default authorizer for authenticated routes. Services opt public routes out.
     this.authorizer = new HttpUserPoolAuthorizer('CognitoAuthorizer', userPool, {
       userPoolClients: [userPoolClient],
@@ -41,9 +49,9 @@ export class FoundationStack extends Stack {
     });
 
     // WAF: rate-limit abusive IPs. OFF by default (cfg.enableWaf) — a WebACL costs
-    // ~$5–6/mo even idle. Turned on + associated with the API stage in Phase 9.
+    // ~$6/mo even idle. Season-gated: turn on for Jun–Jul, OFF after. (Phase 9.)
     if (cfg.enableWaf) {
-      new wafv2.CfnWebACL(this, 'WebAcl', {
+      const webAcl = new wafv2.CfnWebACL(this, 'WebAcl', {
         name: `sc-${cfg.stage}-web-acl`,
         scope: 'REGIONAL',
         defaultAction: { allow: {} },
@@ -57,6 +65,17 @@ export class FoundationStack extends Stack {
             visibilityConfig: { cloudWatchMetricsEnabled: true, metricName: 'rate-limit', sampledRequestsEnabled: true },
           },
         ],
+      });
+
+      // Associate the WebACL with the API's $default stage (resourceArn = the stage ARN).
+      // CAVEAT: AWS WAFv2 direct association is supported for REST-API stages / CloudFront /
+      // ALB — NOT (yet) for HTTP API (apigatewayv2). The long-term plan (architecture §3.5/§8)
+      // fronts this HTTP API with CloudFront and attaches WAF there; this is the intended
+      // attach point until then. TODO(owner): repoint resourceArn at the CloudFront ARN when
+      // the front-door lands.
+      new wafv2.CfnWebACLAssociation(this, 'WebAclAssociation', {
+        webAclArn: webAcl.attrArn,
+        resourceArn: `arn:aws:apigateway:${cfg.region}::/apis/${this.httpApi.apiId}/stages/$default`,
       });
     }
 

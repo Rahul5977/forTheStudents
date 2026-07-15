@@ -10,7 +10,11 @@ import { PlannerServiceStack } from '../lib/planner-service-stack';
 import { MarketplaceServiceStack } from '../lib/marketplace-service-stack';
 import { BookingServiceStack } from '../lib/booking-service-stack';
 import { NotificationsServiceStack } from '../lib/notifications-service-stack';
+import { AdminServiceStack } from '../lib/admin-service-stack';
+import { AnalyticsServiceStack } from '../lib/analytics-service-stack';
 import { ObservabilityStack } from '../lib/observability-stack';
+import { ScalingStack } from '../lib/scaling-stack';
+import { WarmupStack } from '../lib/warmup-stack';
 
 const app = new App();
 const stage = (app.node.tryGetContext('stage') as string) ?? 'dev';
@@ -82,7 +86,39 @@ new NotificationsServiceStack(app, `sc-${stage}-svc-notifications`, {
   notificationsTable: data.notificationsTable,
 });
 
+// Phase 7 — admin & ops (role=admin; cheap metrics off the mentors GSI, append-only
+// audit trail, guarded moderation, and admin.broadcast events → notifications fanout).
+new AdminServiceStack(app, `sc-${stage}-svc-admin`, {
+  env,
+  cfg,
+  httpApi: foundation.httpApi,
+  authorizer: foundation.authorizer,
+  auditTable: data.auditTable,
+  mentorsTable: data.mentorsTable,
+});
+
+// Phase 8 — analytics & reporting (Streams→S3→Athena + daily ledger reconciliation).
+new AnalyticsServiceStack(app, `sc-${stage}-svc-analytics`, {
+  env,
+  cfg,
+  bookingsTable: data.bookingsTable,
+  mentorsTable: data.mentorsTable,
+});
+
 // Ops dashboard + spend guardrail.
 new ObservabilityStack(app, `sc-${stage}-observability`, { env, cfg, httpApi: foundation.httpApi });
+
+// Phase 9 — seasonal provisioned-concurrency scaling on the hot Lambdas. Only
+// instantiated when cfg.provisionedConcurrency > 0 (default 0 in every stage → the
+// stack is never created → ZERO idle cost). The stack body also self-guards.
+if (cfg.provisionedConcurrency > 0) {
+  new ScalingStack(app, `sc-${stage}-scaling`, { env, cfg });
+}
+
+// Phase 10 — OPTIONAL cold-start warmers for the hot Lambdas (season-gated, default OFF).
+// OFF by default → the stack is not even created → ZERO cost. The stack also self-guards.
+if (cfg.enableWarmers) {
+  new WarmupStack(app, `sc-${stage}-warmup`, { env, cfg });
+}
 
 app.synth();

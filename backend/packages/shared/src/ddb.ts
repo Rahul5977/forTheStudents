@@ -31,4 +31,6 @@ export const key = {
   // Notifications (Phase 6).
   notification: (userId: string, ts: string) => ({ PK: `USER#${userId}`, SK: `NOTIF#${ts}` }),
   notificationPrefs: (userId: string) => ({ PK: `USER#${userId}`, SK: 'PREFS' as const }),
+  // Admin audit (Phase 7): append-only action trail. ts should be time-sortable (`${iso}#${ulid}`).
+  audit: (adminId: string, ts: string) => ({ PK: `ADMIN#${adminId}`, SK: `ACT#${ts}` }),
 };

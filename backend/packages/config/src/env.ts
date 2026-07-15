@@ -14,6 +14,11 @@ const Schema = z.object({
   TABLE_MENTORS: z.string().default('sc-dev-mentors'),
   TABLE_BOOKINGS: z.string().default('sc-dev-bookings'),
   TABLE_NOTIFICATIONS: z.string().default('sc-dev-notifications'),
+  // Admin audit trail (Phase 7): append-only PK=ADMIN#<id> SK=ACT#<ts>.
+  TABLE_AUDIT: z.string().default('sc-dev-audit'),
+
+  // S3 (Phase 8 analytics lake)
+  BUCKET_ANALYTICS: z.string().default('sc-dev-analytics'),
 
   // Cognito (populated from CDK outputs / SSM in real deploys)
   COGNITO_USER_POOL_ID: z.string().optional(),
