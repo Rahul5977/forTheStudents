@@ -32,6 +32,8 @@ export default function LivePage() {
   const [mentorList, setMentorList] = useState(null); // approved mentors (public)
   const [mBusy, setMBusy] = useState(false);
   const [mForm, setMForm] = useState({ college: 'IIT Bombay', branch: 'Computer Science', year: 3, priceINR: 100, topics: 'CSE vs ECE, Placements', acEmail: '', otp: '', devOtp: '' });
+  const [sessions, setSessions] = useState(null); // my booking sessions
+  const [sBusy, setSBusy] = useState(false);
 
   const flash = (m) => { setNote(m); setTimeout(() => setNote(null), 2200); };
 
@@ -56,7 +58,7 @@ export default function LivePage() {
 
   // Load the saved choice list + mentor data once we have a token.
   useEffect(() => {
-    if (token) { loadChoice(); loadMentors(); loadMyMentor(); }
+    if (token) { loadChoice(); loadMentors(); loadMyMentor(); loadSessions(); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -171,6 +173,21 @@ export default function LivePage() {
     setMBusy(true); setErr(null);
     try { const r = await liveApi.mentorVerifyId('id-proof-stub'); setMentor(r.mentor); flash('ID step done'); await loadMentors(); }
     catch (e) { setErr(e.message); } finally { setMBusy(false); }
+  };
+
+  // Phase 5: booking sessions. Book a mentor's slot, then drive the saga.
+  const loadSessions = useCallback(async () => {
+    try { setSessions((await liveApi.sessions()).sessions); } catch (e) { setErr(e.message); }
+  }, []);
+  const bookMentor = async (mentorId) => {
+    setSBusy(true); setErr(null);
+    try { const r = await liveApi.createBooking(mentorId, 's1', `ui-${mentorId}-${Date.now()}`); flash(`Booked · ${r.booking.status}`); await loadSessions(); }
+    catch (e) { setErr(e.message); } finally { setSBusy(false); }
+  };
+  const sAction = async (fn, id, ...args) => {
+    setSBusy(true); setErr(null);
+    try { await fn(id, ...args); await loadSessions(); }
+    catch (e) { setErr(e.message); } finally { setSBusy(false); }
   };
 
   const claims = token ? decodeToken(token) : null;
@@ -383,6 +400,32 @@ export default function LivePage() {
                         <span className="text-muted">{m.branch} · Y{m.year}</span>
                         <span>⭐ {m.ratingAvg?.toFixed?.(1) ?? m.ratingAvg}</span>
                         <span style={{ fontFamily: 'var(--font-heading)' }}>₹{m.priceINR}</span>
+                        <button className="sc-btn ghost" style={{ padding: '2px 8px' }} onClick={() => bookMentor(m.userId)} disabled={sBusy} title="Books this mentor's slot 's1'">Book s1</button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+          </div>
+
+          <div className="card elev-sm" style={{ ...card, background: 'var(--color-accent-2-100)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="card-kicker">My sessions — Phase 5 (booking saga)</div>
+              <button className="sc-btn ghost" onClick={loadSessions} disabled={sBusy}>Refresh</button>
+            </div>
+            <p className="text-muted" style={{ fontSize: 12, margin: 0 }}>The booking↔payment saga on the real backend. &quot;Pay (dev)&quot; stands in for the Razorpay webhook; join mints a (stub) video token. Slot picker + real Razorpay/video = owner TODO.</p>
+            {!sessions ? <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>Loading…</p>
+              : sessions.length === 0 ? <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>No sessions yet — book a mentor above (needs a mentor with an open slot &apos;s1&apos;).</p>
+                : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {sessions.map((s) => (
+                      <div key={s.id} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, background: 'var(--color-bg)', borderRadius: 10, padding: '7px 10px', flexWrap: 'wrap' }}>
+                        <span style={{ fontFamily: 'var(--font-heading)', flex: 1, minWidth: 120 }}>{s.mentorName || s.mentorId?.slice(0, 8)} · ₹{s.priceINR}</span>
+                        <span className="tag" style={s.status === 'CONFIRMED' || s.status === 'LIVE' ? bucketStyle('safe') : s.status === 'PENDING_PAYMENT' ? bucketStyle('target') : bucketStyle('reach')}>{s.status}{s.rating ? ` · ⭐${s.rating}` : ''}</span>
+                        {s.status === 'PENDING_PAYMENT' && <button className="sc-btn pri" style={{ padding: '2px 8px' }} onClick={() => sAction(liveApi.simulatePayment, s.id)} disabled={sBusy}>Pay (dev)</button>}
+                        {(s.status === 'CONFIRMED' || s.status === 'LIVE') && <button className="sc-btn sec" style={{ padding: '2px 8px' }} onClick={() => sAction(liveApi.joinSession, s.id)} disabled={sBusy}>Join</button>}
+                        {s.status === 'LIVE' && <button className="sc-btn ghost" style={{ padding: '2px 8px' }} onClick={() => sAction(liveApi.endSession, s.id)} disabled={sBusy}>End</button>}
+                        {s.status === 'ENDED' && <button className="sc-btn pri" style={{ padding: '2px 8px' }} onClick={() => sAction(liveApi.rateSession, s.id, 5, 'Great!')} disabled={sBusy}>Rate ⭐5</button>}
+                        {(s.status === 'PENDING_PAYMENT' || s.status === 'CONFIRMED') && <button className="sc-btn ghost" style={{ padding: '2px 8px' }} onClick={() => sAction(liveApi.cancelBooking, s.id)} disabled={sBusy}>Cancel</button>}
                       </div>
                     ))}
                   </div>

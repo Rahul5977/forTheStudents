@@ -15,6 +15,7 @@ export class DataStack extends Stack {
   readonly catalogTable: ddb.Table;
   readonly plannerTable: ddb.Table;
   readonly mentorsTable: ddb.Table;
+  readonly bookingsTable: ddb.Table;
 
   constructor(scope: Construct, id: string, props: DataStackProps) {
     super(scope, id, props);
@@ -61,6 +62,32 @@ export class DataStack extends Stack {
       indexName: 'gsi1-status',
       partitionKey: { name: 'gsi1pk', type: ddb.AttributeType.STRING },
       sortKey: { name: 'gsi1sk', type: ddb.AttributeType.STRING },
+      projectionType: ddb.ProjectionType.ALL,
+    });
+
+    // Bookings (Phase 5): PK=BOOKING#<id> SK=META (+ SLOT#/IDEMP#/LEDGER# rows).
+    //   gsi1-student (USER#<id>) → my sessions · gsi2-mentor (MENTOR#<id>) → mentor's.
+    // TTL auto-releases unpaid PENDING_PAYMENT holds. Stream → analytics/notifications.
+    this.bookingsTable = new ddb.Table(this, 'Bookings', {
+      tableName: `sc-${cfg.stage}-bookings`,
+      partitionKey: { name: 'PK', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'SK', type: ddb.AttributeType.STRING },
+      billingMode: ddb.BillingMode.PAY_PER_REQUEST,
+      pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
+      removalPolicy: cfg.removalPolicy,
+      timeToLiveAttribute: 'ttl',
+      stream: ddb.StreamViewType.NEW_AND_OLD_IMAGES, // money truth → analytics/reconciliation
+    });
+    this.bookingsTable.addGlobalSecondaryIndex({
+      indexName: 'gsi1-student',
+      partitionKey: { name: 'gsi1pk', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'gsi1sk', type: ddb.AttributeType.STRING },
+      projectionType: ddb.ProjectionType.ALL,
+    });
+    this.bookingsTable.addGlobalSecondaryIndex({
+      indexName: 'gsi2-mentor',
+      partitionKey: { name: 'gsi2pk', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'gsi2sk', type: ddb.AttributeType.STRING },
       projectionType: ddb.ProjectionType.ALL,
     });
 

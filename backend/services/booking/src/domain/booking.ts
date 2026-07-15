@@ -1,0 +1,172 @@
+// The booking ↔ payment saga + session lifecycle.
+//   POST /bookings        → hold slot, PENDING_PAYMENT, ledger order.created
+//   payment webhook        → ledger payment.captured (exactly-once) → CONFIRMED
+//   join                   → assert window+paid+participant → mint video token (stub)
+//   end / rate             → ENDED → RATED
+// Razorpay + the SFU are boilerplate/interfaces only (secrets never touch us) — see
+// the `// TODO(owner)` markers. The state machine + ledger are real and tested.
+import {
+  NotFoundError, ValidationError, ConflictError, ForbiddenError, newId, publish, type Principal,
+} from '@sc/shared';
+import { bookingsRepo, type Booking } from '../repo/bookings.repo';
+import { getMentor, getSlot } from '../repo/mentor.reader';
+import type { CreateBooking, Webhook, Rate } from '../types';
+
+const HOLD_MIN = 15;         // unpaid holds expire after this
+const JOIN_EARLY_MIN = 15;   // you can join this early
+const nowIso = () => new Date().toISOString();
+const nowSec = () => Math.floor(Date.now() / 1000);
+
+function assertParticipant(b: Booking, userId: string) {
+  if (b.studentId !== userId && b.mentorId !== userId) throw ForbiddenError('Not your session.');
+}
+
+// ── Create (student holds a slot) ───────────────────────────────────────────────
+export async function createBooking(p: Principal, input: CreateBooking, idempKey?: string) {
+  if (input.mentorId === p.userId) throw ValidationError('You cannot book yourself.');
+
+  if (idempKey) {
+    const prior = await bookingsRepo.getIdempotent(p.userId, idempKey);
+    if (prior) { const b = await bookingsRepo.get(prior); if (b) return paymentView(b); }
+  }
+
+  const mentor = await getMentor(input.mentorId);
+  if (!mentor || mentor.status !== 'APPROVED') throw NotFoundError('Mentor not available.');
+  const slot = await getSlot(input.mentorId, input.slotId);
+  if (!slot) throw NotFoundError('Slot not found.');
+  if (!slot.open) throw ConflictError('That slot is not open.');
+
+  const booking: Booking = {
+    id: newId('bk'), studentId: p.userId, mentorId: input.mentorId, mentorName: mentor.name,
+    slotId: input.slotId, startsAt: slot.startsAt, durationMin: slot.durationMin, priceINR: mentor.priceINR,
+    status: 'PENDING_PAYMENT', createdAt: nowIso(), updatedAt: nowIso(),
+  };
+  const res = await bookingsRepo.createWithHold(booking, nowSec() + HOLD_MIN * 60, idempKey);
+  if ('duplicate' in res) { const b = await bookingsRepo.get(res.duplicate); if (b) return paymentView(b); }
+
+  await bookingsRepo.appendLedger(booking.id, `order-${booking.id}`, { type: 'order.created', amountINR: booking.priceINR });
+  await publish({ type: 'booking.created', source: 'booking', detail: { bookingId: booking.id, mentorId: booking.mentorId } });
+  return paymentView(booking);
+}
+
+/** Shape returned to the client: the booking + a payment intent. */
+function paymentView(b: Booking) {
+  return {
+    booking: b,
+    payment: {
+      provider: 'razorpay',
+      amountINR: b.priceINR,
+      // TODO(owner): call Razorpay orders.create with the amount + a receipt = booking.id,
+      // return { orderId, keyId } here; the client opens Razorpay checkout with them.
+      orderId: null,
+      note: b.status === 'PENDING_PAYMENT' ? 'Create a Razorpay order (owner TODO), then pay to confirm.' : 'Already paid.',
+    },
+  };
+}
+
+// ── Payment webhook (saga completion) ───────────────────────────────────────────
+export async function handleWebhook(input: Webhook) {
+  // TODO(owner): verify the Razorpay webhook signature (X-Razorpay-Signature, HMAC of
+  // the raw body with the webhook secret from Secrets Manager) BEFORE trusting this.
+  const b = await bookingsRepo.get(input.bookingId);
+  if (!b) throw NotFoundError('Booking not found.');
+
+  if (input.event === 'payment.failed') {
+    const wrote = await bookingsRepo.appendLedger(b.id, input.providerPaymentId, { type: 'payment.failed', providerPaymentId: input.providerPaymentId });
+    if (wrote && b.status === 'PENDING_PAYMENT') {
+      await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'EXPIRED').catch(() => {});
+      await bookingsRepo.releaseHold(b.mentorId, b.slotId);
+    }
+    return { status: 'EXPIRED', bookingId: b.id };
+  }
+
+  // payment.captured — exactly-once via the ledger guard on providerPaymentId.
+  const wrote = await bookingsRepo.appendLedger(b.id, input.providerPaymentId, { type: 'payment.captured', amountINR: b.priceINR, providerPaymentId: input.providerPaymentId });
+  if (!wrote) return { status: (await bookingsRepo.get(b.id))!.status, bookingId: b.id }; // replayed webhook — no-op
+
+  if (b.status === 'PENDING_PAYMENT') {
+    const confirmed = await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'CONFIRMED');
+    await publish({ type: 'payment.succeeded', source: 'booking', detail: { bookingId: b.id, amountINR: b.priceINR } });
+    await publish({ type: 'booking.confirmed', source: 'booking', detail: { bookingId: b.id, studentId: b.studentId, mentorId: b.mentorId } });
+    return { status: confirmed.status, bookingId: b.id };
+  }
+  return { status: b.status, bookingId: b.id };
+}
+
+// ── Cancel / refund ─────────────────────────────────────────────────────────────
+export async function cancel(p: Principal, id: string) {
+  const b = await bookingsRepo.get(id);
+  if (!b) throw NotFoundError('Booking not found.');
+  if (b.studentId !== p.userId) throw ForbiddenError('Only the booker can cancel.');
+
+  if (b.status === 'PENDING_PAYMENT') {
+    const out = await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'CANCELLED');
+    await bookingsRepo.releaseHold(b.mentorId, b.slotId);
+    return out;
+  }
+  if (b.status === 'CONFIRMED') {
+    // TODO(owner): issue the actual Razorpay refund; here we record the intent + free the slot.
+    const out = await bookingsRepo.transition(b.id, ['CONFIRMED'], 'REFUNDED');
+    await bookingsRepo.appendLedger(b.id, `refund-${b.id}`, { type: 'refund.issued', amountINR: b.priceINR });
+    await bookingsRepo.releaseHold(b.mentorId, b.slotId);
+    await publish({ type: 'refund.issued', source: 'booking', detail: { bookingId: b.id } });
+    return out;
+  }
+  throw ConflictError(`Cannot cancel a ${b.status} session.`);
+}
+
+// ── Sessions ─────────────────────────────────────────────────────────────────────
+export async function listSessions(p: Principal) {
+  const [asStudent, asMentor] = await Promise.all([
+    bookingsRepo.listByGsi('gsi1-student', `USER#${p.userId}`),
+    bookingsRepo.listByGsi('gsi2-mentor', `MENTOR#${p.userId}`),
+  ]);
+  const byId = new Map<string, Booking>();
+  for (const b of [...asStudent, ...asMentor]) byId.set(b.id, b);
+  return { sessions: [...byId.values()].sort((a, b) => b.createdAt.localeCompare(a.createdAt)) };
+}
+
+export async function getBooking(p: Principal, id: string) {
+  const b = await bookingsRepo.get(id);
+  if (!b) throw NotFoundError('Booking not found.');
+  assertParticipant(b, p.userId);
+  return { booking: b, ledger: await bookingsRepo.ledger(id) };
+}
+
+export async function join(p: Principal, id: string) {
+  const b = await bookingsRepo.get(id);
+  if (!b) throw NotFoundError('Booking not found.');
+  assertParticipant(b, p.userId);
+  if (b.status !== 'CONFIRMED' && b.status !== 'LIVE') throw ConflictError(`Session is ${b.status} — cannot join.`);
+
+  const starts = new Date(b.startsAt).getTime();
+  const now = Date.now();
+  if (now < starts - JOIN_EARLY_MIN * 60_000) throw ConflictError('Too early — you can join 15 min before the start.');
+  if (now > starts + (b.durationMin + 5) * 60_000) throw ConflictError('This session window has passed.');
+
+  // TODO(owner): mint a real SFU room token (100ms/Chime) with role + TTL=session length.
+  const roomId = b.videoRoomId ?? `room-${b.id}`;
+  const updated = b.status === 'CONFIRMED' ? await bookingsRepo.transition(b.id, ['CONFIRMED'], 'LIVE', { videoRoomId: roomId }) : b;
+  return { token: `dev-video-token-${b.id}`, roomId, role: b.mentorId === p.userId ? 'host' : 'guest', startsAt: updated.startsAt };
+}
+
+export async function endSession(p: Principal, id: string) {
+  const b = await bookingsRepo.get(id);
+  if (!b) throw NotFoundError('Booking not found.');
+  assertParticipant(b, p.userId);
+  // TODO(owner): in prod this is driven by the SFU `session.ended` webhook + recording.ready → S3.
+  const out = await bookingsRepo.transition(b.id, ['LIVE', 'CONFIRMED'], 'ENDED');
+  await publish({ type: 'session.ended', source: 'booking', detail: { bookingId: b.id } });
+  return out;
+}
+
+export async function rate(p: Principal, id: string, input: Rate) {
+  const b = await bookingsRepo.get(id);
+  if (!b) throw NotFoundError('Booking not found.');
+  if (b.studentId !== p.userId) throw ForbiddenError('Only the student can rate the session.');
+  const out = await bookingsRepo.transition(b.id, ['ENDED'], 'RATED', { rating: input.rating, ratingComment: input.comment });
+  // TODO(owner): a notifications/analytics consumer folds session.rated into the mentor's
+  // ratingAvg/ratingCount (kept out of the hot path; the mentors table isn't written here).
+  await publish({ type: 'session.rated', source: 'booking', detail: { bookingId: b.id, mentorId: b.mentorId, rating: input.rating } });
+  return out;
+}

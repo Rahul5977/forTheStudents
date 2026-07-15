@@ -24,4 +24,8 @@ export const key = {
   mentor: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'PROFILE' as const }),
   mentorAvailability: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'AVAILABILITY' as const }),
   mentorEmailOtp: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'EMAILOTP' as const }),
+  // Booking (Phase 5).
+  booking: (id: string) => ({ PK: `BOOKING#${id}`, SK: 'META' as const }),
+  slotHold: (mentorId: string, slotId: string) => ({ PK: `SLOT#${mentorId}#${slotId}`, SK: 'HOLD' as const }),
+  idempotency: (userId: string, k: string) => ({ PK: `IDEMP#${userId}#${k}`, SK: 'META' as const }),
 };

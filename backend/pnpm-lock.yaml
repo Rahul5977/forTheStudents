@@ -128,6 +128,37 @@ importers:
         specifier: ^4.16.0
         version: 4.23.1
 
+  services/booking:
+    dependencies:
+      '@aws-sdk/lib-dynamodb':
+        specifier: ^3.620.0
+        version: 3.1086.0(@aws-sdk/client-dynamodb@3.1086.0)
+      '@sc/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@sc/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      hono:
+        specifier: ^4.5.0
+        version: 4.12.30
+      zod:
+        specifier: ^3.23.0
+        version: 3.25.76
+    devDependencies:
+      '@aws-sdk/client-dynamodb':
+        specifier: ^3.620.0
+        version: 3.1086.0
+      '@hono/node-server':
+        specifier: ^1.12.0
+        version: 1.19.14(hono@4.12.30)
+      '@types/aws-lambda':
+        specifier: ^8.10.140
+        version: 8.10.162
+      tsx:
+        specifier: ^4.16.0
+        version: 4.23.1
+
   services/catalog:
     dependencies:
       '@aws-sdk/lib-dynamodb':

@@ -4,13 +4,14 @@
 import { API_URL } from './liveConfig';
 import { getToken } from './liveAuth';
 
-async function call(path, { method = 'GET', body } = {}) {
+async function call(path, { method = 'GET', body, headers } = {}) {
   const token = getToken();
   const res = await fetch(`${API_URL}${path}`, {
     method,
     headers: {
       ...(token ? { authorization: `Bearer ${token}` } : {}),
       ...(body ? { 'content-type': 'application/json' } : {}),
+      ...headers,
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
@@ -54,4 +55,15 @@ export const liveApi = {
   mentorProfile: () => call('/mentor/profile'),
   mentorPending: () => call('/admin/mentors/pending'), // admin
   mentorReview: (id, decision, note) => call(`/admin/mentors/${id}/review`, { method: 'POST', body: { decision, note } }),
+
+  // Phase 5 — booking, payments & sessions.
+  createBooking: (mentorId, slotId, idempKey) => call('/bookings', { method: 'POST', body: { mentorId, slotId }, headers: idempKey ? { 'idempotency-key': idempKey } : undefined }),
+  getBooking: (id) => call(`/bookings/${id}`),
+  cancelBooking: (id) => call(`/bookings/${id}/cancel`, { method: 'POST' }),
+  sessions: () => call('/sessions'),
+  joinSession: (id) => call(`/sessions/${id}/join`, { method: 'POST' }),
+  endSession: (id) => call(`/sessions/${id}/end`, { method: 'POST' }),
+  rateSession: (id, rating, comment) => call(`/sessions/${id}/rate`, { method: 'POST', body: { rating, comment } }),
+  // Dev-only: stand in for the Razorpay webhook so the saga can be driven from the UI.
+  simulatePayment: (bookingId) => call('/payments/webhook', { method: 'POST', body: { bookingId, providerPaymentId: `dev-${bookingId}`, event: 'payment.captured' } }),
 };

@@ -8,6 +8,7 @@ import { AuthServiceStack } from '../lib/auth-service-stack';
 import { CatalogServiceStack } from '../lib/catalog-service-stack';
 import { PlannerServiceStack } from '../lib/planner-service-stack';
 import { MarketplaceServiceStack } from '../lib/marketplace-service-stack';
+import { BookingServiceStack } from '../lib/booking-service-stack';
 import { ObservabilityStack } from '../lib/observability-stack';
 
 const app = new App();
@@ -58,6 +59,16 @@ new MarketplaceServiceStack(app, `sc-${stage}-svc-marketplace`, {
   cfg,
   httpApi: foundation.httpApi,
   authorizer: foundation.authorizer,
+  mentorsTable: data.mentorsTable,
+});
+
+// Phase 5 — booking, payments & sessions (saga; reads mentors, owns bookings).
+new BookingServiceStack(app, `sc-${stage}-svc-booking`, {
+  env,
+  cfg,
+  httpApi: foundation.httpApi,
+  authorizer: foundation.authorizer,
+  bookingsTable: data.bookingsTable,
   mentorsTable: data.mentorsTable,
 });
 
