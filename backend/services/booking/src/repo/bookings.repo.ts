@@ -24,6 +24,8 @@ export interface Booking {
   priceINR: number;
   status: BookingStatus;
   videoRoomId?: string;
+  meetingUrl?: string; // shared Google Meet link, set at payment confirmation
+  meetingProvider?: string; // 'google' | 'stub'
   rating?: number;
   ratingComment?: string;
   createdAt: string;

@@ -57,9 +57,18 @@ describe('booking-sessions saga (local DynamoDB)', () => {
     expect(res.status).toBe(409);
   });
 
-  it('payment webhook (captured) confirms the booking', async () => {
+  it('payment webhook (captured) confirms the booking + mints a shared meeting link', async () => {
     const r = await (await app.request('/payments/webhook', post({ bookingId, providerPaymentId: 'pay_1', event: 'payment.captured' }), authAs('anon'))).json();
     expect(r.status).toBe('CONFIRMED');
+    expect(r.meetingUrl).toContain('meet.google.com');
+  });
+
+  it('BOTH student and mentor see the same meeting link in GET /sessions', async () => {
+    const mentorAuth = authAs(MENTOR_ID);
+    const studentUrl = (await (await app.request('/sessions', {}, A)).json()).sessions.find((s: { id: string }) => s.id === bookingId)?.meetingUrl;
+    const mentorUrl = (await (await app.request('/sessions', {}, mentorAuth)).json()).sessions.find((s: { id: string }) => s.id === bookingId)?.meetingUrl;
+    expect(studentUrl).toBeTruthy();
+    expect(studentUrl).toBe(mentorUrl); // one shared room
   });
 
   it('a replayed webhook is a no-op (exactly-once ledger)', async () => {
@@ -71,10 +80,10 @@ describe('booking-sessions saga (local DynamoDB)', () => {
     expect(detail.ledger.some((l: { type: string }) => l.type === 'order.created')).toBe(true);
   });
 
-  it('join returns a video token + moves to LIVE; non-participants are 403', async () => {
+  it('join returns the meeting link + moves to LIVE; non-participants are 403', async () => {
     const r = await (await app.request(`/sessions/${bookingId}/join`, post(), A)).json();
-    expect(r.token).toContain(bookingId);
-    expect(r.roomId).toBeTruthy();
+    expect(r.meetingUrl).toContain('meet.google.com');
+    expect(r.role).toBe('guest'); // A is the student
     const forbidden = await app.request(`/sessions/${bookingId}/join`, post(), C);
     expect(forbidden.status).toBe(403);
   });

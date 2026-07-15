@@ -10,6 +10,7 @@ import {
 } from '@sc/shared';
 import { bookingsRepo, type Booking } from '../repo/bookings.repo';
 import { getMentor, getSlot } from '../repo/mentor.reader';
+import { createMeeting } from './meeting';
 import type { CreateBooking, Webhook, Rate } from '../types';
 
 const HOLD_MIN = 15;         // unpaid holds expire after this
@@ -85,12 +86,16 @@ export async function handleWebhook(input: Webhook) {
   if (!wrote) return { status: (await bookingsRepo.get(b.id))!.status, bookingId: b.id }; // replayed webhook — no-op
 
   if (b.status === 'PENDING_PAYMENT') {
-    const confirmed = await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'CONFIRMED');
+    // Generate the shared meeting link NOW (post-payment) so both sides see it.
+    const meeting = createMeeting(b.id);
+    const confirmed = await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'CONFIRMED', {
+      meetingUrl: meeting.url, meetingProvider: meeting.provider,
+    });
     await publish({ type: 'payment.succeeded', source: 'booking', detail: { bookingId: b.id, amountINR: b.priceINR } });
-    await publish({ type: 'booking.confirmed', source: 'booking', detail: { bookingId: b.id, studentId: b.studentId, mentorId: b.mentorId } });
-    return { status: confirmed.status, bookingId: b.id };
+    await publish({ type: 'booking.confirmed', source: 'booking', detail: { bookingId: b.id, studentId: b.studentId, mentorId: b.mentorId, meetingUrl: meeting.url } });
+    return { status: confirmed.status, bookingId: b.id, meetingUrl: meeting.url };
   }
-  return { status: b.status, bookingId: b.id };
+  return { status: b.status, bookingId: b.id, meetingUrl: b.meetingUrl };
 }
 
 // ── Cancel / refund ─────────────────────────────────────────────────────────────
@@ -144,10 +149,11 @@ export async function join(p: Principal, id: string) {
   if (now < starts - JOIN_EARLY_MIN * 60_000) throw ConflictError('Too early — you can join 15 min before the start.');
   if (now > starts + (b.durationMin + 5) * 60_000) throw ConflictError('This session window has passed.');
 
-  // TODO(owner): mint a real SFU room token (100ms/Chime) with role + TTL=session length.
-  const roomId = b.videoRoomId ?? `room-${b.id}`;
-  const updated = b.status === 'CONFIRMED' ? await bookingsRepo.transition(b.id, ['CONFIRMED'], 'LIVE', { videoRoomId: roomId }) : b;
-  return { token: `dev-video-token-${b.id}`, roomId, role: b.mentorId === p.userId ? 'host' : 'guest', startsAt: updated.startsAt };
+  // The shared Google Meet link was created at payment confirmation — the same URL
+  // for both student and mentor. (TODO(owner): real Google Calendar link — see meeting.ts.)
+  const meetingUrl = b.meetingUrl ?? createMeeting(b.id).url;
+  const updated = b.status === 'CONFIRMED' ? await bookingsRepo.transition(b.id, ['CONFIRMED'], 'LIVE', { meetingUrl }) : b;
+  return { meetingUrl, meetingProvider: b.meetingProvider ?? 'stub', role: b.mentorId === p.userId ? 'host' : 'guest', startsAt: updated.startsAt };
 }
 
 export async function endSession(p: Principal, id: string) {
