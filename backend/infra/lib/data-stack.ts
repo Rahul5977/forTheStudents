@@ -13,6 +13,7 @@ export interface DataStackProps extends StackProps {
 export class DataStack extends Stack {
   readonly usersTable: ddb.Table;
   readonly catalogTable: ddb.Table;
+  readonly plannerTable: ddb.Table;
 
   constructor(scope: Construct, id: string, props: DataStackProps) {
     super(scope, id, props);
@@ -24,6 +25,18 @@ export class DataStack extends Stack {
     // Read-heavy + tiny → on-demand, and the predictor caches it in Lambda memory.
     this.catalogTable = new ddb.Table(this, 'Catalog', {
       tableName: `sc-${cfg.stage}-catalog`,
+      partitionKey: { name: 'PK', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'SK', type: ddb.AttributeType.STRING },
+      billingMode: ddb.BillingMode.PAY_PER_REQUEST,
+      pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
+      removalPolicy: cfg.removalPolicy,
+    });
+
+    // Planner (Phase 3): per-user shortlist + ordered choice list.
+    //   PK=USER#<id>  SK=SHORTLIST | CHOICELIST  (attrs: ids[], version, updatedAt)
+    // Tiny per-user writes with optimistic concurrency → on-demand scales to zero.
+    this.plannerTable = new ddb.Table(this, 'Planner', {
+      tableName: `sc-${cfg.stage}-planner`,
       partitionKey: { name: 'PK', type: ddb.AttributeType.STRING },
       sortKey: { name: 'SK', type: ddb.AttributeType.STRING },
       billingMode: ddb.BillingMode.PAY_PER_REQUEST,

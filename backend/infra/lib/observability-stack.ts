@@ -24,6 +24,7 @@ export class ObservabilityStack extends Stack {
     const period = Duration.minutes(5);
     const authFn = `sc-${cfg.stage}-auth-identity`;
     const catalogFn = `sc-${cfg.stage}-catalog`;
+    const plannerFn = `sc-${cfg.stage}-planner`;
     const tableName = `sc-${cfg.stage}-users`;
     const apiId = httpApi.apiId;
 
@@ -34,6 +35,7 @@ export class ObservabilityStack extends Stack {
       new cw.Metric({ namespace: 'AWS/Lambda', metricName, dimensionsMap: { FunctionName: fn }, statistic, period, label });
     const lam = lamFor(authFn); // default = auth-identity (kept for existing widgets)
     const cat = lamFor(catalogFn);
+    const plan = lamFor(plannerFn);
     const ddb = (metricName: string, statistic: string, dims: Record<string, string> = {}, label?: string) =>
       new cw.Metric({ namespace: 'AWS/DynamoDB', metricName, dimensionsMap: { TableName: tableName, ...dims }, statistic, period, label });
 
@@ -66,6 +68,12 @@ export class ObservabilityStack extends Stack {
     dashboard.addWidgets(
       new cw.GraphWidget({ title: 'Catalog — invocations / errors / throttles', left: [cat('Invocations', 'Sum'), cat('Errors', 'Sum'), cat('Throttles', 'Sum')], width: 12, height: 6 }),
       new cw.GraphWidget({ title: 'Catalog — duration (ms)', left: [cat('Duration', 'Average', 'avg'), cat('Duration', 'p95', 'p95'), cat('Duration', 'Maximum', 'max (cold)')], width: 12, height: 6 }),
+    );
+
+    // Row 3b — Planner Lambda (Phase 3).
+    dashboard.addWidgets(
+      new cw.GraphWidget({ title: 'Planner — invocations / errors / throttles', left: [plan('Invocations', 'Sum'), plan('Errors', 'Sum'), plan('Throttles', 'Sum')], width: 12, height: 6 }),
+      new cw.GraphWidget({ title: 'Planner — duration (ms)', left: [plan('Duration', 'Average', 'avg'), plan('Duration', 'p95', 'p95')], width: 12, height: 6 }),
     );
 
     // Row 4 — DynamoDB (Users).
@@ -103,6 +111,7 @@ export class ObservabilityStack extends Stack {
     alarm('api-5xx', api('5xx', 'Sum'), 5, 1, 'API Gateway returned ≥5 server errors in 5 min');
     alarm('auth-errors', lam('Errors', 'Sum'), 3, 1, 'auth-identity Lambda errored ≥3 times in 5 min');
     alarm('catalog-errors', cat('Errors', 'Sum'), 3, 1, 'catalog Lambda errored ≥3 times in 5 min');
+    alarm('planner-errors', plan('Errors', 'Sum'), 3, 1, 'planner Lambda errored ≥3 times in 5 min');
     alarm('lambda-throttle', lam('Throttles', 'Sum'), 1, 1, 'auth-identity Lambda was throttled (concurrency ceiling)');
     alarm('api-latency', api('Latency', 'p95'), 3000, 2, 'API p95 latency ≥3s for 10 min');
 

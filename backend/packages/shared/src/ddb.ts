@@ -17,4 +17,7 @@ export const ddb = DynamoDBDocumentClient.from(base, {
 /** Key builders — keep key shapes in ONE place so every repo agrees. */
 export const key = {
   user: (userId: string) => ({ PK: `USER#${userId}`, SK: 'PROFILE' as const }),
+  // Planner (Phase 3): two per-user singleton rows under the same partition.
+  shortlist: (userId: string) => ({ PK: `USER#${userId}`, SK: 'SHORTLIST' as const }),
+  choiceList: (userId: string) => ({ PK: `USER#${userId}`, SK: 'CHOICELIST' as const }),
 };

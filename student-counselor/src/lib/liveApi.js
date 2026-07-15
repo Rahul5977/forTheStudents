@@ -36,4 +36,13 @@ export const liveApi = {
   // Phase 2 — public predictor/catalog (no auth needed; shared + cacheable).
   predict: (params) => call(`/predict?${new URLSearchParams(params).toString()}`),
   college: (id, params) => call(`/colleges/${id}?${new URLSearchParams(params).toString()}`),
+
+  // Phase 3 — planner (per-user; needs a token). Optimistic concurrency via `version`.
+  getShortlist: () => call('/shortlist'),
+  putShortlist: (collegeIds, version) => call('/shortlist', { method: 'PUT', body: { collegeIds, version } }),
+  getChoiceList: () => call('/choice-list'),
+  putChoiceList: (items, version) => call('/choice-list', { method: 'PUT', body: { items, version } }),
+  reorderChoice: (from, to, version) => call('/choice-list/reorder', { method: 'POST', body: { from, to, version } }),
+  choiceDoctor: (params) => call(`/choice-list/doctor?${new URLSearchParams(params).toString()}`),
+  exportChoiceList: () => call('/choice-list/export', { method: 'POST' }),
 };

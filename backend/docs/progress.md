@@ -34,7 +34,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 | 0 | Foundations (monorepo, CDK, CI/CD, shared libs, obs) | 🟡 | scaffolded; deploy pending AWS creds |
 | 1 | Auth & Identity (Cognito, JWT, profile, roles) | 🟡 | scaffolded; owner fills logic + Google/SMS TODOs |
 | 2 | Catalog + Predictor *(CORE)* | ✅ | predictor+catalog built, real JoSAA data (enriched + HS quota), seeded, deployed, wired to main predictor screen, docs + tests + alarms, e2e green (18/18). Deferred: CloudFront-in-front-of-API, admin ingest UI, split predictor into own service |
-| 3 | Planner *(CORE)* | ⬜ | choice list + List Doctor |
+| 3 | Planner *(CORE)* | 🟡 | **backend built + deployed + e2e green (12/12 authed):** shortlist + ordered choice list + List Doctor + optimistic concurrency; PDF export = TODO(owner) stub. Frontend `liveApi` methods added; screen-wiring (persist drag-drop) pending |
 | 4 | Marketplace & Mentors | ⬜ | verification workflow |
 | 5 | Booking, Payments & Sessions *(CORE)* | ⬜ | booking↔payment saga; video |
 | 6 | Notifications & Timeline | ⬜ | event-driven |
@@ -69,6 +69,19 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] **Prod observability** — CloudWatch alarms → SNS email (`sc-dev-alerts`): API 5xx, auth+catalog Lambda errors, throttles, p95 latency; dashboard extended with a Catalog-Lambda row
 - [x] **Deployed e2e green (18/18)** against live API — version, enrichment fields, HS quota (matching-state only), category/type filters, `/colleges` + `/colleges/:id` + 404, cache-control
 - [ ] Deferred: per-round history, college placements/median-package (separate content source), PwD/special (GO/JK/LA) quotas, add-to-list/analysis for live results (Phase 3/4), CloudFront-in-front-of-API, admin ingest UI, split predictor Lambda
+
+### Phase 3 — Planner (CORE)
+- [x] `@sc/planner` lambdalith — routes behind the Cognito authorizer: `GET/PUT /shortlist`, `GET/PUT /choice-list`, `POST /choice-list/reorder`, `GET /choice-list/doctor`, `POST /choice-list/export`
+- [x] Planner DynamoDB table (`sc-<stage>-planner`): per-user `PK=USER#<id>` / `SK=SHORTLIST|CHOICELIST`, `{ ids[], version, updatedAt }`
+- [x] **Optimistic concurrency** — atomic `ADD version :one` + `ConditionExpression version = :expected`; a stale write gets a **409** (survives double-taps / two tabs)
+- [x] **List Doctor** — server-authoritative, in `@sc/catalog-core/doctor.ts` (pure rules: no-safe / too-few / reach-heavy-top / duplicates), reuses the predictor's `analyze()` to bucket each saved choice by the caller's rank. Twin of the frontend `lib/logic.js#listDoctor` so app + API agree
+- [x] **PDF export** = `POST /choice-list/export` boilerplate returning **501** with a clear `// TODO(owner)` (S3 bucket + async render worker deferred — architecture §5.4)
+- [x] Read-only Catalog snapshot reader in planner (grants: RW planner table, **read-only** catalog table)
+- [x] Infra: `PlannerServiceStack` + planner table in `DataStack` + wired in `bin/app.ts`; observability extended (planner dashboard row + `planner-errors` alarm). **Deployed to AWS dev** (7 routes behind authorizer)
+- [x] Local dev server (auth-shim, port 8789) + **integration tests** `@sc/planner` (7 ✓, isolated `sc-test-planner`/`sc-test-catalog-planner`) + `@sc/catalog-core` doctor unit tests (5 ✓)
+- [x] **Deployed authed e2e green (12/12)** — throwaway Cognito user → ID token → choice-list PUT/GET, reorder, 409 on stale version, List Doctor buckets+warnings, shortlist isolation, export 501
+- [x] Frontend `liveApi` planner methods added (`getShortlist/putShortlist/getChoiceList/putChoiceList/reorderChoice/choiceDoctor/exportChoiceList`)
+- [ ] **Remaining**: wire the `shortlist`/`choiceBuilder`/`choiceExport` screens to persist via `liveApi` (currently in-memory store); PDF export render (owner); "add to list" from live predictor results
 
 ### Phase 1 — Auth & Identity
 - [x] Cognito user pool (email + phone OTP), web client, Google IdP (guarded on secret), hosted UI
@@ -148,6 +161,7 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 
 ## Changelog
 
+- **2026-07-15** — **Phase 3 (Planner) backend built end-to-end + deployed + tested.** New `@sc/planner` lambdalith (per-user, behind the Cognito authorizer): `GET/PUT /shortlist`, `GET/PUT /choice-list`, `POST /choice-list/reorder`, `GET /choice-list/doctor`, `POST /choice-list/export`. Per-user `sc-dev-planner` table (`SHORTLIST`/`CHOICELIST` rows) with **optimistic concurrency** (atomic version bump + conditional write → 409 on stale). **List Doctor** added to `@sc/catalog-core` (`doctor.ts`, pure rules mirroring the frontend) and made server-authoritative by reusing `analyze()` to bucket saved choices. PDF export = **501 TODO(owner)** stub (S3 + async render deferred). Infra: `PlannerServiceStack`, planner table in `DataStack`, wired in `bin/app.ts`, observability extended (planner row + `planner-errors` alarm) — **deployed to AWS dev** (7 routes). Tests: `@sc/planner` integration **7 ✓** + `@sc/catalog-core` doctor **5 ✓** (full suite **32 ✓**, typecheck **7/7**). **Deployed authed e2e 12/12** via a throwaway Cognito user (choice-list CRUD, reorder, 409, List Doctor, isolation, export). Frontend `liveApi` planner methods added. Also fixed `.gitignore` `lib/` rule that had hidden all CDK infra + frontend live-API source (now committed).
 - **2026-07-15** — **Phase 2 finalized: enrichment + HS quota + docs + tests + alarms + prod-ready.** Added institute **enrichment** (`enrich.ts`: short/city/state/NIRF/fees for all IITs+NITs+major IIITs, with fallbacks) so the analysis page fills in, and **Home-State quota** (`pickByQuota`: AI → HS-if-home → OS, `homeQuota` flag). **Deduped the dataset** to a single source (`josaa24.csv`, **11,261 cutoffs / 121 institutes**, `josaa-2024.2`) after the ORCR merge caused IIT duplicates + GFTI mistyping; `deriveType` now checks IIIT before IIT. Wrote **`docs/prediction-algorithm.md`**. Added **integration tests** on isolated tables (`@sc/catalog` 5 ✓ incl. HS quota via API; auth e2e made deterministic with `resetUsers` + `sc-test-users`) — full suite **20 ✓**, typecheck **6/6**. Added **CloudWatch alarms → SNS email** (`sc-dev-alerts`: API 5xx, auth+catalog Lambda errors, throttles, p95 latency) + a Catalog-Lambda dashboard row (deployed ✓). Restored root `esbuild` devDep (bundling regression). **Deployed e2e 18/18 green** against the live API (enrichment, HS-quota-by-state, filters, `/colleges(/:id)`, 404, cache-control). Frontend unchanged this pass (already wired in the prior entry).
 - **2026-07-15** — **Real official JoSAA data + main predictor wired.** Replaced the 26-row dummy dataset with **14,023 real JoSAA 2024 cutoffs** (all 144 institutes: IITs/NITs/IIITs/GFTIs; opening+closing per category/quota/gender). Rebuilt `@sc/catalog-core` (types/parse/predict over real cutoffs, quota = AI|OS, IIT→adv / rest→main), unified CSV importer, re-seeded local+cloud (v`josaa-2024`), redeployed catalog Lambda. Wired the **main `/predictor` screen** to the real API (env-gated, dummy fallback) with a live badge + adapted result card (real institute/branch/open/close/quota). Verified: catalog-core tests, deployed `/predict` = 1087 results for adv850/Open (top: IIT Indore CSE Safe), deployed predictor bundle calls the API, CORS from Amplify. **Attribution:** data via Quantum-Codes/JoSAA_2024 (JoSAA site + JIC report) — always verify on josaa.nic.in.
 - **2026-07-15** — **Phase 2 (Catalog + Predictor) built end-to-end + deployed + tested.** New `@sc/catalog-core` (dataset + predictor logic, 4 tests) and `@sc/catalog` lambdalith (public `/predict`, `/predict/summary`, `/colleges`, `/colleges/:id`; Lambda-memory snapshot cache per ADR-008; CDN cache-control). Added versioned `sc-dev-catalog` table + seed script. Deployed to AWS dev + seeded cloud (v2025.1). Wired frontend `/live` "Live predictor" → real public `/predict`, redeployed to Amplify. Verified: local + deployed `/predict` = 12 Safe / 3 Target / 3 Reach, `/colleges/:id` analysis + chart, CORS from Amplify origin, predictor in deployed bundle. typecheck 6/6 ✓, catalog-core tests 4 ✓.
@@ -175,6 +189,8 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 | Users table | `sc-dev-users` |
 | Catalog table | `sc-dev-catalog` (seeded `josaa-2024.2` — 11,261 cutoffs, 121 institutes) |
 | Predictor (public) | `GET {API}/predict` · `/predict/summary` · `/colleges` · `/colleges/:id` |
+| Planner table | `sc-dev-planner` (per-user `SHORTLIST`/`CHOICELIST`) |
+| Planner (authed) | `GET/PUT {API}/shortlist` · `GET/PUT /choice-list` · `POST /choice-list/reorder` · `GET /choice-list/doctor` · `POST /choice-list/export` |
 | Alerts topic | `sc-dev-alerts` (SNS → email; **owner must click "Confirm subscription"**) |
 | **Frontend (Amplify)** | app `dy6751tudpsop` · **https://main.dy6751tudpsop.amplifyapp.com** |
 | **Custom domain** | `counsellor.kodexa.in` (Amplify → CloudFront `d1m73c1l14jkpt.cloudfront.net`) — PENDING owner DNS at Hostinger |

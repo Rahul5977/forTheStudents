@@ -10,6 +10,7 @@ const Schema = z.object({
   DDB_ENDPOINT: z.string().optional(), // local dev only
   TABLE_USERS: z.string().default('sc-dev-users'),
   TABLE_CATALOG: z.string().default('sc-dev-catalog'),
+  TABLE_PLANNER: z.string().default('sc-dev-planner'),
 
   // Cognito (populated from CDK outputs / SSM in real deploys)
   COGNITO_USER_POOL_ID: z.string().optional(),

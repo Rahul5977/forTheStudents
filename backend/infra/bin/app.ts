@@ -6,6 +6,7 @@ import { AuthStack } from '../lib/auth-stack';
 import { FoundationStack } from '../lib/foundation-stack';
 import { AuthServiceStack } from '../lib/auth-service-stack';
 import { CatalogServiceStack } from '../lib/catalog-service-stack';
+import { PlannerServiceStack } from '../lib/planner-service-stack';
 import { ObservabilityStack } from '../lib/observability-stack';
 
 const app = new App();
@@ -37,6 +38,16 @@ new CatalogServiceStack(app, `sc-${stage}-svc-catalog`, {
   env,
   cfg,
   httpApi: foundation.httpApi,
+  catalogTable: data.catalogTable,
+});
+
+// Phase 3 — planner (per-user, behind the authorizer; reads Catalog for List Doctor).
+new PlannerServiceStack(app, `sc-${stage}-svc-planner`, {
+  env,
+  cfg,
+  httpApi: foundation.httpApi,
+  authorizer: foundation.authorizer,
+  plannerTable: data.plannerTable,
   catalogTable: data.catalogTable,
 });
 
