@@ -30,8 +30,12 @@ export class CatalogServiceStack extends Stack {
       handler: 'handler',
       runtime: Runtime.NODEJS_20_X,
       architecture: Architecture.ARM_64,
-      memorySize: 256,
-      timeout: Duration.seconds(10),
+      // The whole cutoff snapshot (11k+ rows, each with a 2026 forecast band + history) is
+      // loaded into memory once per cold start. More memory = proportionally more CPU/network,
+      // which keeps that one-time load well under the timeout. Warm requests are ~30ms, so the
+      // memory bump costs a negligible amount of billed-ms at steady state.
+      memorySize: 512,
+      timeout: Duration.seconds(20),
       tracing: Tracing.ACTIVE,
       bundling: { minify: true, sourceMap: true, target: 'node20' },
       environment: {
@@ -50,6 +54,7 @@ export class CatalogServiceStack extends Stack {
       { path: '/predict/summary', method: apigw.HttpMethod.GET },
       { path: '/colleges', method: apigw.HttpMethod.GET },
       { path: '/colleges/{id}', method: apigw.HttpMethod.GET },
+      { path: '/colleges/{id}/profile', method: apigw.HttpMethod.GET }, // deep college page
     ];
     for (const r of routes) {
       // No `authorizer` → public routes.
