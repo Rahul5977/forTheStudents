@@ -12,7 +12,8 @@
 // it floated the over-safe colleges (closing far above the student's rank, ~100% chance)
 // to the top, burying the good targets. That behavior is still available opt-in as
 // 'chance'/'safest'.
-import type { Cutoff, CollegeType, Category, Bucket, Sort } from './types';
+import type { Cutoff, EnrichedCutoff, ForecastBand, CollegeType, Category, Bucket, Sort } from './types';
+import { forecastChance } from './chance';
 
 export interface PredictInput {
   advRank: number;
@@ -24,6 +25,9 @@ export interface PredictInput {
   q: string;
   sort: Sort;
   limit: number;
+  // Predictor view hides hopeless reaches + pointlessly over-safe colleges (the "realistic
+  // window"). A college PROFILE wants every branch, so it sets this false.
+  applyWindow: boolean;
 }
 
 export interface Prediction {
@@ -41,12 +45,16 @@ export interface Prediction {
   nirf: number | null;
   feesTxt: string;
   open: number;
-  close: number;
+  close: number; // current-year (2024) closing rank
   ratio: number;
   bucket: Bucket;
   label: 'Safe' | 'Target' | 'Reach';
-  pct: number;
+  pct: number; // headline chance %: forecast-based when a band exists, else ratio-based
   homeQuota: boolean;
+  // ── forecast layer (present when the seat has a precomputed band) ──
+  forecast?: ForecastBand; // 2026 predicted closing-rank range
+  history?: { year: number; close: number }[]; // observed trend, for the chart
+  chanceBasis: 'forecast' | 'ratio'; // which method produced `pct`
 }
 
 const CAT_MAP: Record<Category, string> = { Open: 'OPEN', 'OBC-NCL': 'OBC-NCL', SC: 'SC', ST: 'ST', EWS: 'EWS' };
@@ -88,15 +96,21 @@ function ratioOf(rank: number, close: number): number {
   return close > 0 ? rank / close : Number.POSITIVE_INFINITY;
 }
 
-function decorate(c: Cutoff, i: PredictInput, homeQuota: boolean): Prediction {
+function decorate(c: EnrichedCutoff, i: PredictInput, homeQuota: boolean): Prediction {
   const rank = c.type === 'IIT' ? i.advRank : i.mainRank;
   const ratio = ratioOf(rank, c.close);
-  return {
+  const base = {
     id: c.id, college: c.short, institute: c.institute, branch: c.branch, program: c.program, type: c.type,
     examLabel: c.exam === 'adv' ? 'JEE Adv' : 'JEE Main', quota: c.quota, seatType: c.seatType,
     city: c.city, state: c.state, nirf: c.nirf, feesTxt: `₹${c.feesLakh}L`, open: c.open, close: c.close,
-    ratio, ...bucketFor(ratio), homeQuota,
+    ratio, homeQuota, forecast: c.forecast, history: c.history,
   };
+  // Prefer the calibrated 2026 forecast chance when a band exists; else the ratio heuristic.
+  if (c.forecast) {
+    const fc = forecastChance(c.forecast, rank);
+    return { ...base, bucket: fc.bucket, label: fc.label, pct: fc.pct, chanceBasis: 'forecast' };
+  }
+  return { ...base, ...bucketFor(ratio), chanceBasis: 'ratio' };
 }
 
 /** Normalize a state name for a robust match: case-insensitive, trimmed, punctuation/
@@ -158,7 +172,7 @@ function comparator(sort: Sort): (a: Prediction, b: Prediction) => number {
   }
 }
 
-export function predict(cutoffs: Cutoff[], i: PredictInput): PredictResult {
+export function predict(cutoffs: EnrichedCutoff[], i: PredictInput): PredictResult {
   const cat = CAT_MAP[i.category] ?? 'OPEN';
   const relevant = cutoffs.filter(
     (c) => c.seatType.toUpperCase() === cat && c.gender === i.gender && i.types.includes(c.type) && (c.quota === 'AI' || c.quota === 'HS' || c.quota === 'OS'),
@@ -171,10 +185,11 @@ export function predict(cutoffs: Cutoff[], i: PredictInput): PredictResult {
     if (g) g.push(c); else groups.set(k, [c]);
   }
   let list = [...groups.values()]
-    .map((rows) => { const { cutoff, homeQuota } = pickByQuota(rows, i.home); return decorate(cutoff, i, homeQuota); })
-    // Realistic window: drop hopeless reaches AND pointlessly over-safe colleges,
-    // but always keep genuine safe backups (ratio in [0.2, 1.6]).
-    .filter((c) => c.ratio <= REACH_MAX && c.ratio >= OVERSAFE_MIN_RATIO);
+    .map((rows) => { const { cutoff, homeQuota } = pickByQuota(rows, i.home); return decorate(cutoff, i, homeQuota); });
+  // Realistic window (predictor only): drop hopeless reaches AND pointlessly over-safe
+  // colleges, but always keep genuine safe backups (ratio in [0.2, 1.6]). A profile skips
+  // this so every branch of the college is shown.
+  if (i.applyWindow) list = list.filter((c) => c.ratio <= REACH_MAX && c.ratio >= OVERSAFE_MIN_RATIO);
 
   if (i.q && i.q.trim()) {
     const q = i.q.toLowerCase();
@@ -202,16 +217,24 @@ export function normalizeInput(q: Record<string, string | undefined>): PredictIn
     // Default is the choice-filling order (best reachable first), not the old 'chance'.
     sort: (q.sort as Sort) || 'best',
     limit: Math.min(500, Math.max(1, Number(q.limit) || 300)),
+    applyWindow: true, // predictor default; the profile overrides to false
   };
 }
 
-/** One cutoff (by id), decorated for the analysis page + a single-year chart.
- *  Consistent with predict()'s decoration, incl. the robust home-state match. */
-export function analyze(cutoffs: Cutoff[], id: number, i: PredictInput) {
+/** One cutoff (by id), decorated for the analysis page + the multi-year trend chart
+ *  (observed history + the 2026 forecast point). Consistent with predict()'s decoration. */
+export function analyze(cutoffs: EnrichedCutoff[], id: number, i: PredictInput) {
   const c = cutoffs.find((x) => x.id === id);
   if (!c) return null;
   const homeQuota = c.quota === 'HS' && sameState(c.state, i.home);
   const college = decorate(c, i, homeQuota);
   const rank = c.type === 'IIT' ? i.advRank : i.mainRank;
-  return { college, chart: { years: ['2024'], vals: [c.close], rank } };
+  // Chart: observed closing ranks per year, then the forecast band as the target-year point.
+  const hist = c.history && c.history.length ? c.history : [{ year: c.year, close: c.close }];
+  const years = hist.map((h) => String(h.year));
+  const vals = hist.map((h) => h.close);
+  const forecast = c.forecast
+    ? { year: c.forecast.targetYear, predicted: c.forecast.predicted, low: c.forecast.low, high: c.forecast.high }
+    : null;
+  return { college, chart: { years, vals, rank, forecast } };
 }

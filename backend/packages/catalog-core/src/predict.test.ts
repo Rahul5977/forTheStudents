@@ -15,7 +15,7 @@ const row = (inst: string, prog: string, quota: string, seat: string, gender: st
 // A convenience to build a fully-defaulted input then override.
 const input = (o: Partial<PredictInput> = {}): PredictInput => ({
   advRank: 9_999_999, mainRank: 9_999_999, category: 'Open', home: '', gender: 'Gender-Neutral',
-  types: ['IIT', 'NIT', 'IIIT', 'GFTI'], q: '', sort: 'best', limit: 300, ...o,
+  types: ['IIT', 'NIT', 'IIIT', 'GFTI'], q: '', sort: 'best', limit: 300, applyWindow: true, ...o,
 });
 
 describe('deriveType (IIIT before IIT)', () => {
@@ -349,5 +349,58 @@ describe('analyze', () => {
   });
   it('returns null for a missing id', () => {
     expect(analyze(cutoffs, 99999, input())).toBeNull();
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Forecast layer: when a seat carries a precomputed 2026 band, the headline chance
+// and bucket come from the calibrated forecast, not the ratio heuristic; the band +
+// history flow through to the result and the analyze() chart.
+// ─────────────────────────────────────────────────────────────────────────────
+describe('forecast-backed prediction', () => {
+  const base = parseCutoffs(csv(
+    row('Indian Institute of Technology Indore', CSE, 'AI', 'OPEN', 'Gender-Neutral', 900, 1567),
+  ))[0]!;
+  const withForecast = {
+    ...base,
+    forecast: { targetYear: 2026, predicted: 1600, low: 1200, high: 2100, sigmaRank: 400, confidence: 'high' as const, limitedHistory: false, nPoints: 4 },
+    history: [{ year: 2020, close: 1400 }, { year: 2024, close: 1567 }],
+  };
+
+  it('uses the forecast chance (Φ) for a rank near the predicted closing rank', () => {
+    // advRank 1600 == predicted → ≈50% → Target, basis=forecast.
+    const res = predict([withForecast], input({ advRank: 1600 }));
+    const p = res.results[0]!;
+    expect(p.chanceBasis).toBe('forecast');
+    expect(p.pct).toBeGreaterThanOrEqual(45);
+    expect(p.pct).toBeLessThanOrEqual(55);
+    expect(p.label).toBe('Target');
+    expect(p.forecast?.predicted).toBe(1600);
+  });
+
+  it('a much better rank → Safe via the forecast', () => {
+    const res = predict([withForecast], input({ advRank: 500 }));
+    expect(res.results[0]!.label).toBe('Safe');
+    expect(res.results[0]!.pct).toBeGreaterThan(80);
+  });
+
+  it('falls back to the ratio basis when no band is present', () => {
+    const res = predict([base], input({ advRank: 500 }));
+    expect(res.results[0]!.chanceBasis).toBe('ratio');
+  });
+
+  it('applyWindow=false keeps a hopeless-reach branch that the predictor would hide', () => {
+    // rank 999999 vs close 1567 → ratio huge → dropped by the window, kept without it.
+    const hidden = predict([base], input({ advRank: 999999, applyWindow: true }));
+    expect(hidden.results).toHaveLength(0);
+    const shown = predict([base], input({ advRank: 999999, applyWindow: false }));
+    expect(shown.results).toHaveLength(1);
+  });
+
+  it('analyze() chart carries the multi-year history + forecast point', () => {
+    const res = analyze([withForecast], withForecast.id, input({ advRank: 1000 }))!;
+    expect(res.chart.years).toEqual(['2020', '2024']);
+    expect(res.chart.vals).toEqual([1400, 1567]);
+    expect(res.chart.forecast).toEqual({ year: 2026, predicted: 1600, low: 1200, high: 2100 });
   });
 });

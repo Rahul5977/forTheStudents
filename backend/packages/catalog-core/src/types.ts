@@ -33,7 +33,29 @@ export interface Cutoff {
 }
 
 // Bump on each re-ingest (immutable versions; the predictor reads the active one).
-export const DATASET_VERSION = 'josaa-2024.2';
+// josaa-2026f = the multi-year corpus with precomputed 2026 forecast bands.
+export const DATASET_VERSION = 'josaa-2026f.1';
+
+// A precomputed forecast band for one seat (rank-INDEPENDENT). Computed at seed time by
+// @sc/forecast and stored on the current-year row, so runtime never recomputes and never
+// needs the raw history in memory. Plain data — catalog-core stays engine-free.
+export interface ForecastBand {
+  targetYear: number; // e.g. 2026
+  predicted: number; // R̂ — forecast closing rank
+  low: number; // optimistic bound (smaller rank)
+  high: number; // pessimistic bound (larger rank)
+  sigmaRank: number; // 1σ in rank space (drives the per-rank chance %)
+  confidence: 'high' | 'medium' | 'low';
+  limitedHistory: boolean;
+  nPoints: number; // years of history the forecast used
+}
+
+// A current-year cutoff augmented with its forecast band + the closing-rank history
+// (for the trend chart). This is what the catalog table actually stores.
+export interface EnrichedCutoff extends Cutoff {
+  forecast?: ForecastBand;
+  history?: { year: number; close: number }[]; // ascending; the observed trend
+}
 
 // A forecast series is one seat pool over time — the substrate for @sc/forecast.
 // Key: (instituteId, program, seatType, quota, gender). Values: closing rank per year.

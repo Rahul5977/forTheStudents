@@ -15,3 +15,10 @@ export async function getCollege(c: Context) {
   // Note: passes through ?advRank/&category/&home so we can mark "your chance".
   return c.json(await domain.getCollege(id, c.req.query()), 200, CACHEABLE);
 }
+
+// GET /colleges/:id/profile — deep per-college page, keyed by the canonical slug id.
+export async function getCollegeProfile(c: Context) {
+  const id = String(c.req.param('id') || '').trim().toLowerCase();
+  if (!/^[a-z0-9-]{2,64}$/.test(id)) throw ValidationError('Invalid college id');
+  return c.json(await domain.getCollegeProfile(id, c.req.query()), 200, CACHEABLE);
+}
