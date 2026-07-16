@@ -72,7 +72,33 @@ curated. Photos = **Wikimedia Commons / public-domain / CC only, with attributio
 - NOT ALLOWED: scraping + re-hosting images from official college websites (copyrighted). `// TODO(owner)` for any specific official photos you want to license.
 - Fallback: a branded gradient/monogram placeholder for colleges with no free photo.
 
+## Per-field data sources (finalized from research)
+**Legal ground rule:** FACTS are not copyrightable — store/display verbatim (ranks, seats, fees,
+established year, NIRF scores, salary figures, recruiter *names*). PROSE is copyrighted — never
+copy aggregator/Wikipedia/brochure narrative; summarize in own words. Every content row stores
+`source_url` + `academic_year`.
+
+| Field | Primary source | Format | Notes |
+|---|---|---|---|
+| Cutoffs (OR/CR) | JoSAA ORCR (official) + repo history CSVs | CSV | already ingesting |
+| Seat matrix | JoSAA seat-matrix (canonical) · `Quantum-Codes/JoSAA_2024` `seat_matrix.xlsx` (2024, verified) | XLSX/JSON | data=public-fact; re-derive from JoSAA for clean license |
+| Fees (tuition/hostel/mess split) | **NIRF per-institute PDFs** (`IR-E-U-####.pdf`) for full coverage → override with official brochure split | PDF/HTML | NIT B.Tech tuition ≈ ₹62.5k/sem uniform anchor; IITs vary + income waivers. Store the split, not just total |
+| Placements (avg/median/highest, recruiters) | NIRF PDFs (placement section) + official brochures | PDF | year-label every figure |
+| About / NIRF / accreditation / established | NIRF site + official site (facts) + own-words summary | HTML | `enrich.ts` CURATED already has short/city/state/nirf/feesLakh — **absorb it** |
+| Photos | **Wikimedia Commons CC/PD only** | img | see TASL rule below |
+
+**Photo TASL rule (mandatory for CC-BY / CC-BY-SA):** store + render **T**itle · **A**uthor · **S**ource
+(link to Commons file page) · **L**icense (name **+** deed link), plus "modified" if cropped.
+CC0/PD carry no legal requirement (still credit for provenance) → prefer them. ShareAlike only
+bites if you distribute an *adapted image* — resize/crop + display is fine. NEVER scrape/rehost
+official-site photos (copyrighted, "all rights reserved"). A CC license clears copyright, **not
+trademark** — don't imply endorsement or use a crest/logo as branding. Fallback = gradient monogram.
+
 ## Build phases (expanded)
+0. **Canonical institute identity** *(critical — nothing else keys without it)* — the repo has **no
+   stable per-institute id**: `getCollege(:id)` takes a *cutoff-row* id; institutes are grouped on the
+   fly by name string. Build a deterministic `institute_id` (slug from normalized name) + crosswalk,
+   expose `GET /colleges` (distinct institutes) keyed by it. This is the join key for every content table.
 1. **Data** — acquire + normalize cutoffs 2020–2025 (+2016–2019) → versioned dataset + crosswalk. *(started)*
 2. **`@sc/forecast`** — the engine above; unit tests + **backtest harness** (predict 2024 from ≤2023).
 3. **Content data** — seat matrix + fees + about/NIRF + placements + **licensed photos** → the college-content dataset (curated + NIRF + Commons; attribution stored).

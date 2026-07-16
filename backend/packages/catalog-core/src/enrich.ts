@@ -98,10 +98,24 @@ function guessCity(name: string): string {
   return afterComma.length > 2 && afterComma.length < 24 ? afterComma : w;
 }
 
+/** The college type a curated short name implies (IIT/NIT/IIIT/GFTI). Used to reject
+ *  cross-type signature collisions — e.g. "National Institute of Technology Delhi"
+ *  contains the substring "Technology Delhi" and would otherwise match the IIT Delhi row. */
+function shortType(short: string): CollegeType {
+  if (/IIIT/.test(short)) return 'IIIT';
+  if (/\bIIT\b/.test(short)) return 'IIT';
+  if (/N?IT\b|NIT/.test(short)) return 'NIT'; // NIT, MNIT, VNIT, SVNIT, MANIT, MNNIT…
+  return 'GFTI';
+}
+
 /** Enrich one institute. Curated first; else derive. */
 export function enrich(institute: string, type: CollegeType): Enrichment {
   for (const [sig, short, city, state, nirf, fees] of CURATED) {
-    if (institute.includes(sig)) return { short, city, state, nirf, feesLakh: fees };
+    // Require the curated row's implied type to match the derived type, so an
+    // ambiguous signature ("Technology Delhi") can't map a NIT onto an IIT row.
+    if (institute.includes(sig) && shortType(short) === type) {
+      return { short, city, state, nirf, feesLakh: fees };
+    }
   }
   const city = guessCity(institute);
   const state = CITY_STATE[city] ?? '';
@@ -114,4 +128,28 @@ export function enrich(institute: string, type: CollegeType): Enrichment {
     .slice(0, 46)
     .trim();
   return { short, city, state, nirf: null, feesLakh: FEES_BY_TYPE[type] };
+}
+
+/** Slugify a display name into a url-safe, stable id fragment. */
+function slug(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
+ * Canonical, name-churn-stable institute id — the join key for every content table
+ * and the forecast series. Derived from the CURATED short name (which is matched by a
+ * signature substring, so it survives the year-to-year churn in the official name),
+ * falling back to a slug of the derived short for the long tail. Deterministic: the
+ * same institute always yields the same id, regardless of minor name variations.
+ *
+ * NOTE(owner): the long-tail (uncurated GFTIs) keys off the derived short, so a large
+ * rename across years could split one institute into two ids. TODO(owner): add an alias
+ * crosswalk table for any long-tail institute whose name churns across the corpus.
+ */
+export function instituteId(institute: string, type: CollegeType): string {
+  return slug(enrich(institute, type).short);
 }

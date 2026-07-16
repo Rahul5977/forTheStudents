@@ -12,6 +12,7 @@ export type Sort = 'best' | 'chance' | 'safest' | 'closing' | 'location';
 
 export interface Cutoff {
   id: number;
+  instituteId: string; // canonical, name-churn-stable slug, e.g. "iit-bombay" (the join key)
   institute: string; // full official name
   short: string; // display name, e.g. "IIT Bombay"
   program: string; // full program name
@@ -23,6 +24,8 @@ export interface Cutoff {
   gender: string; // Gender-Neutral | Female-only...
   open: number; // opening rank
   close: number; // closing rank
+  year: number; // counselling year, e.g. 2024
+  round: number; // counselling round the snapshot is from (final round per year)
   city: string;
   state: string; // drives Home-State quota
   nirf: number | null; // NIRF 2024 rank where officially ranked
@@ -31,3 +34,23 @@ export interface Cutoff {
 
 // Bump on each re-ingest (immutable versions; the predictor reads the active one).
 export const DATASET_VERSION = 'josaa-2024.2';
+
+// A forecast series is one seat pool over time — the substrate for @sc/forecast.
+// Key: (instituteId, program, seatType, quota, gender). Values: closing rank per year.
+export interface SeriesPoint { year: number; round: number; open: number; close: number }
+export interface CutoffSeries {
+  key: string; // `${instituteId}|${program}|${seatType}|${quota}|${gender}`
+  instituteId: string;
+  institute: string;
+  short: string;
+  program: string;
+  branch: string;
+  type: CollegeType;
+  seatType: string;
+  quota: string;
+  gender: string;
+  city: string;
+  state: string;
+  nirf: number | null;
+  points: SeriesPoint[]; // sorted by year ascending, at most one per year (final round)
+}
