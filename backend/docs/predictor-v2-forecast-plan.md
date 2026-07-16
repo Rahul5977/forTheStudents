@@ -94,6 +94,20 @@ bites if you distribute an *adapted image* — resize/crop + display is fine. NE
 official-site photos (copyrighted, "all rights reserved"). A CC license clears copyright, **not
 trademark** — don't imply endorsement or use a crest/logo as branding. Fallback = gradient monogram.
 
+## Progress (updated live)
+- ✅ **Phase 0** — canonical `instituteId` + year/round model; fixed a live NIT-Delhi/IIT-Delhi
+  mislabel; `distinctInstitutes` + `buildSeries` (13,482 series over 2018–2024). (commit 55d6cae)
+- ✅ **Phase 2** — `@sc/forecast` engine + backtest. Predict-2024-from-2018-20: median
+  err 39.6%, **80% band coverage 82.6%** (well calibrated). (commit 3be1743, docs/forecast-backtest.md)
+- ✅ **Phase 4** — forecast-backed `/predict` + `GET /colleges/:id/profile`; seed precomputes
+  bands (11,261 rows, runtime engine-free). Deployed live @ josaa-2026f.1. (commits ff27175, 3fc1b4a)
+- ✅ **Phase 5** — College Explorer page + predictor forecast band + trend chart. Deployed to
+  counsellor.kodexa.in. (commit 3947f46)
+- ⏳ **Phase 1** — acquire 2021–2023 + 2025 cutoffs (needs external download). Biggest accuracy win.
+- ⏳ **Phase 3** — content: fees / seat matrix / placements / about / photos (needs sourcing + a
+  photo-hosting decision). Endpoint shape + UI placeholders already shipped.
+- ⏳ **Phase 6** — re-publish backtest once Phase 1 data lands.
+
 ## Build phases (expanded)
 0. **Canonical institute identity** *(critical — nothing else keys without it)* — the repo has **no
    stable per-institute id**: `getCollege(:id)` takes a *cutoff-row* id; institutes are grouped on the
