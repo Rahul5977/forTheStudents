@@ -48,23 +48,64 @@ function statusStyle(status) {
   return { background: REACH_BG, color: REACH_FG };
 }
 
-// Build CutoffChart geometry from the backend chart payload { years, vals, rank }.
+// Build CutoffChart geometry from the backend chart payload
+// { years, vals, rank, forecast?: { year, predicted, low, high } }.
+// The observed closing ranks are drawn solid; the 2026 forecast is a dashed
+// segment to a hollow dot, with a shaded low–high uncertainty band.
 function chartGeomFromLive(chart) {
-  const years = chart?.years || [];
+  const years = (chart?.years || []).map(String);
   const vals = chart?.vals || [];
   const rank = chart?.rank || 0;
-  const W = 520, H = 200, pad = 34;
-  const max = Math.max(...vals, rank, 1) * 1.1;
-  const n = Math.max(1, years.length - 1);
+  const fc = chart?.forecast || null;
+  const W = 520, H = 210, pad = 34;
+  // x-axis columns = observed years + (optionally) the forecast year.
+  const cols = fc ? [...years, String(fc.year)] : years;
+  const max = Math.max(...vals, rank, fc ? fc.high : 0, 1) * 1.12;
+  const n = Math.max(1, cols.length - 1);
   const x = (i) => pad + i * ((W - pad * 2) / n);
   const y = (v) => H - pad - (v / max) * (H - pad * 2);
   const points = vals.map((v, i) => x(i) + ',' + y(v)).join(' ');
+  const fcIdx = cols.length - 1;
+  const forecast = fc
+    ? {
+        x: x(fcIdx), y: y(fc.predicted), predicted: fc.predicted,
+        bandTop: y(fc.high), bandBot: y(fc.low), low: fc.low, high: fc.high,
+        // dashed link from the last observed point to the forecast point
+        linkFrom: vals.length ? { x: x(vals.length - 1), y: y(vals[vals.length - 1]) } : null,
+      }
+    : null;
   return {
-    W, H, pad, years, vals, points,
+    W, H, pad, years, vals, points, forecast,
     dots: vals.map((v, i) => ({ cx: x(i), cy: y(v), v, tx: x(i), ty: y(v) - 11 })),
-    yearLabels: years.map((yr, i) => ({ x: x(i), y: H - pad + 16, yr })),
+    yearLabels: cols.map((yr, i) => ({ x: x(i), y: H - pad + 16, yr })),
     rankY: y(rank), rank,
   };
+}
+
+// Confidence → chip colours (how much history the forecast leans on).
+const CONF = {
+  high: { bg: 'var(--color-accent-2-100)', fg: 'var(--color-accent-2-800)', txt: 'High confidence' },
+  medium: { bg: 'var(--color-accent-100)', fg: 'var(--color-accent-800)', txt: 'Medium confidence' },
+  low: { bg: REACH_BG, fg: REACH_FG, txt: 'Limited history' },
+};
+function ConfBadge({ level }) {
+  const c = CONF[level] || CONF.medium;
+  return <span className="tag" style={{ background: c.bg, color: c.fg, fontSize: 11 }}>{c.txt}</span>;
+}
+
+// One-line 2026 forecast band shown on a predictor result / branch row.
+function ForecastLine({ f, basis }) {
+  if (!f) return null;
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', fontSize: 13, background: 'color-mix(in srgb, var(--color-accent) 7%, transparent)', borderRadius: 10, padding: '7px 11px' }}>
+      <span style={{ fontSize: 15 }}>📈</span>
+      <span className="text-muted">{f.targetYear} projected close</span>
+      <strong style={{ color: 'var(--color-accent-800)' }}>~{f.predicted}</strong>
+      <span className="text-muted">({f.low.toLocaleString()}–{f.high.toLocaleString()})</span>
+      <ConfBadge level={f.confidence} />
+      {basis === 'forecast' && <span className="text-muted" style={{ fontSize: 11 }}>· chance uses this trend</span>}
+    </div>
+  );
 }
 
 // Resolve the mentor the student is viewing/booking. Reads the store cache first
@@ -210,7 +251,7 @@ export function Profile() {
 
 // ── College Predictor — Results [CORE] ───────────────────────────────────────
 export function Predictor() {
-  const { profile, filters, setFilters, toggleType } = useApp();
+  const { profile, filters, setFilters, toggleType, runAct } = useApp();
   const [data, setData] = useState(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(false);
@@ -310,7 +351,9 @@ export function Predictor() {
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                         <TypeBadge type={c.type} />
-                        <span style={{ fontFamily: 'var(--font-heading)', fontSize: 18 }}>{c.college}</span>
+                        {c.instituteId
+                          ? <span onClick={() => runAct({ act: 'viewCollege', slug: c.instituteId })} style={{ fontFamily: 'var(--font-heading)', fontSize: 18, cursor: 'pointer', textDecoration: 'underline', textDecorationColor: 'var(--color-divider)', textUnderlineOffset: 3 }}>{c.college}</span>
+                          : <span style={{ fontFamily: 'var(--font-heading)', fontSize: 18 }}>{c.college}</span>}
                         {c.homeQuota && <Tag tone="accent-2">🏠 Home state</Tag>}
                       </div>
                       <div className="text-muted" style={{ fontSize: 13, marginTop: 2 }}>{c.branch}{c.city ? ` · ${c.city}, ${c.state}` : ''}{c.nirf ? ` · NIRF #${c.nirf}` : ''} · {quotaTxt(c.quota)} quota</div>
@@ -325,10 +368,11 @@ export function Predictor() {
                     <div><span className="text-muted">Fees</span> <strong>{feesTxtOf(c)}</strong></div>
                     {c.seatType && <div><span className="text-muted">Seat</span> <strong>{c.seatType}</strong></div>}
                   </div>
+                  {c.forecast && <ForecastLine f={c.forecast} basis={c.chanceBasis} />}
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', borderTop: '1px solid var(--color-divider)', paddingTop: 10 }}>
                     <Btn variant="pri" act="addList" id={c.id}>+ Add to list</Btn>
                     <Btn variant="sec" act="viewDetail" id={c.id}>View analysis</Btn>
-                    <Btn variant="sec" act="talkHere" id={c.id}>💬 Talk to a student here</Btn>
+                    {c.instituteId && <Btn variant="sec" act="viewCollege" slug={c.instituteId}>🏛 Full college</Btn>}
                     <Btn variant="ghost" act="shortlist" id={c.id} style={{ marginLeft: 'auto' }}>♡ Save</Btn>
                   </div>
                 </div>
@@ -421,6 +465,7 @@ export function CollegeDetail() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}><TypeBadge type={col.type} /><span className="tag" style={chipStyle(col.bucket)}>{col.label || bucketLabel(col.bucket)} · {col.pct}% for you</span>{col.homeQuota && <Tag tone="accent-2">🏠 Home state</Tag>}</div>
             <h1 style={{ margin: '8px 0 2px', fontSize: 34 }}>{col.college}</h1>
             <div className="text-muted" style={{ fontSize: 14 }}>{col.branch}{col.city ? ` · ${col.city}, ${col.state}` : ''}{col.nirf ? ` · NIRF #${col.nirf}` : ''} · {quotaTxt(col.quota)} quota</div>
+            {col.instituteId && <Btn variant="ghost" act="viewCollege" slug={col.instituteId} style={{ paddingLeft: 0, marginTop: 4 }}>🏛 See all branches at {col.college} →</Btn>}
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <Btn variant="pri" act="addList" id={col.id}>+ Add to list</Btn>
@@ -478,11 +523,165 @@ export function CollegeDetail() {
   );
 }
 
+// ── Deep College Explorer [CORE] — profile keyed by canonical slug ───────────
+// Renders the institute header + every branch's cutoff, multi-year trend and 2026
+// forecast + the student's calibrated chance. Content sections (fees / seat matrix /
+// placements / photos) are shaped now and fill in with the Phase 3 dataset.
+function monogram(short = '') {
+  const parts = short.replace(/[^A-Za-z ]/g, '').split(/\s+/).filter(Boolean);
+  return (parts[0]?.[0] || 'C').toUpperCase() + (parts[1]?.[0] || parts[0]?.[1] || '').toUpperCase();
+}
+const TYPE_HUE = { IIT: 18, NIT: 205, IIIT: 265, GFTI: 150 };
+
+function BranchRow({ b, rank }) {
+  const [open, setOpen] = useState(false);
+  const chart = b.history
+    ? chartGeomFromLive({
+        years: b.history.map((h) => h.year), vals: b.history.map((h) => h.close), rank,
+        forecast: b.forecast ? { year: b.forecast.targetYear, predicted: b.forecast.predicted, low: b.forecast.low, high: b.forecast.high } : null,
+      })
+    : null;
+  return (
+    <div className="card" style={{ background: 'var(--color-surface)', gap: 8, padding: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>{b.branch}</div>
+          <div className="text-muted" style={{ fontSize: 12.5, marginTop: 1 }}>
+            Closing <strong>{b.close}</strong>{b.open != null ? ` · opening ${b.open}` : ''} · {b.seatType} · {quotaTxt(b.quota)}{b.homeQuota ? ' 🏠' : ''}
+          </div>
+        </div>
+        <ChanceChip bucket={b.bucket} label={b.label || bucketLabel(b.bucket)} pct={b.pct} withDot />
+      </div>
+      {b.forecast && <ForecastLine f={b.forecast} basis={b.chanceBasis} />}
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {chart && <Btn variant="ghost" onClick={() => setOpen((v) => !v)} style={{ paddingLeft: 0 }}>{open ? '▲ Hide trend' : '📈 Trend & 2026 forecast'}</Btn>}
+        <Btn variant="sec" act="addList" id={b.id} style={{ marginLeft: 'auto' }}>+ Add to list</Btn>
+      </div>
+      {open && chart && (
+        <div style={{ borderTop: '1px solid var(--color-divider)', paddingTop: 8 }}>
+          <CutoffChart chart={chart} />
+          <p className="text-muted" style={{ fontSize: 12, margin: '2px 0 0' }}>Solid line = official closing ranks. Hollow dot + shaded band = the 2026 forecast range. Dashed red = your rank.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ComingSoon({ icon, title, note }) {
+  return (
+    <div className="card" style={{ background: 'var(--color-surface)', gap: 6 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span style={{ fontSize: 18 }}>{icon}</span><div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>{title}</div><Tag tone="outline" style={{ marginLeft: 'auto', fontSize: 11 }}>Coming soon</Tag></div>
+      <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>{note}</p>
+    </div>
+  );
+}
+
+export function CollegeExplorer() {
+  const { selectedCollege, resolveProfile, profile } = useApp();
+  const [data, setData] = useState(null);
+  const [state, setState] = useState('loading'); // loading | ready | error
+
+  useEffect(() => {
+    if (!selectedCollege) { setState('error'); return; }
+    let cancelled = false;
+    setState('loading'); setData(null);
+    resolveProfile(selectedCollege)
+      .then((d) => { if (cancelled) return; if (d && d.institute) { setData(d); setState('ready'); } else setState('error'); })
+      .catch(() => { if (!cancelled) setState('error'); });
+    return () => { cancelled = true; };
+  }, [selectedCollege, resolveProfile]);
+
+  if (state !== 'ready') {
+    return (
+      <section style={{ maxWidth: 900, margin: '0 auto', padding: '40px 22px' }}>
+        <Btn variant="ghost" go="predictor" style={{ paddingLeft: 0 }}>← Back to predictor</Btn>
+        <p className="text-muted" style={{ marginTop: 12 }}>{state === 'error' ? 'We couldn’t load this college. Head back to the predictor and pick one from the list.' : 'Loading college profile…'}</p>
+      </section>
+    );
+  }
+
+  const inst = data.institute;
+  const branches = data.branches || [];
+  const sum = data.summary || {};
+  const rank = inst.type === 'IIT' ? profile.advRank : profile.mainRank;
+  const hue = TYPE_HUE[inst.type] ?? 205;
+
+  return (
+    <section style={{ maxWidth: 1000, margin: '0 auto', padding: '20px 22px 96px' }}>
+      <Btn variant="ghost" go="predictor" style={{ paddingLeft: 0, marginBottom: 6 }}>← Back to predictor</Btn>
+
+      {/* Hero — gradient monogram stands in until a licensed photo lands (Phase 3). */}
+      <div className="card elev-sm" style={{ background: 'var(--color-surface)', padding: 0, overflow: 'hidden', gap: 0 }}>
+        <div style={{ position: 'relative', height: 132, background: `linear-gradient(120deg, hsl(${hue} 45% 32%), hsl(${hue + 30} 55% 46%))`, display: 'flex', alignItems: 'center', padding: '0 22px' }}>
+          <div style={{ width: 72, height: 72, borderRadius: 16, background: 'rgba(255,255,255,0.18)', border: '1.5px solid rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-heading)', fontSize: 28, color: '#fff', flex: 'none' }}>{monogram(inst.short)}</div>
+          <div style={{ marginLeft: 16, color: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><TypeBadge type={inst.type} /></div>
+            <h1 style={{ margin: '4px 0 0', fontSize: 30, color: '#fff' }}>{inst.short}</h1>
+            <div style={{ fontSize: 13, opacity: 0.9 }}>{inst.city}{inst.state ? `, ${inst.state}` : ''}{inst.nirf ? ` · NIRF #${inst.nirf}` : ''}</div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 22, flexWrap: 'wrap', padding: '14px 22px', fontSize: 13 }}>
+          <div><span className="text-muted">Branches</span> <strong>{data.branchCount}</strong></div>
+          <div><span className="text-muted">Approx fees</span> <strong>₹{inst.feesLakh}L</strong></div>
+          <div><span className="text-muted">Admission via</span> <strong>{inst.exam === 'adv' ? 'JEE Advanced' : 'JEE Main'}</strong></div>
+          {inst.nirf && <div><span className="text-muted">NIRF 2024</span> <strong>#{inst.nirf}</strong></div>}
+        </div>
+      </div>
+
+      {/* Your-chances summary for this college */}
+      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 16, gap: 10 }}>
+        <div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>Your chances at {inst.short}</div>
+        <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>Based on your {inst.exam === 'adv' ? 'JEE Advanced' : 'JEE Main'} rank <strong>{rank ? rank.toLocaleString() : '—'}</strong> · {profile.category} category{profile.home ? ` · home ${profile.home}` : ''}. Every branch below shows the 2026 forecast + your calibrated chance.</p>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, minWidth: 120, background: 'var(--color-accent-2-100)', borderRadius: 14, padding: '10px 14px' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 24, color: 'var(--color-accent-2-800)' }}>{sum.safeCount ?? 0}</div><div style={{ fontSize: 12 }}>Safe</div></div>
+          <div style={{ flex: 1, minWidth: 120, background: 'var(--color-accent-100)', borderRadius: 14, padding: '10px 14px' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 24, color: 'var(--color-accent-800)' }}>{sum.targetCount ?? 0}</div><div style={{ fontSize: 12 }}>Target</div></div>
+          <div style={{ flex: 1, minWidth: 120, background: REACH_BG, borderRadius: 14, padding: '10px 14px' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 24, color: REACH_FG }}>{sum.reachCount ?? 0}</div><div style={{ fontSize: 12 }}>Reach</div></div>
+        </div>
+      </div>
+
+      {/* Cutoffs — the crown jewel: every branch, best reachable first */}
+      <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20, margin: '22px 0 10px' }}>Cutoffs, trend &amp; your chance — by branch</div>
+      {branches.length ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {branches.map((b) => <BranchRow key={b.id} b={b} rank={rank} />)}
+        </div>
+      ) : (
+        <div className="card" style={{ background: 'var(--color-surface)', textAlign: 'center', padding: 30 }}><p className="text-muted" style={{ margin: 0 }}>No branches match your category/gender pool at this college.</p></div>
+      )}
+
+      {/* Content layer — Phase 3 (curated + NIRF + Wikimedia) */}
+      <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20, margin: '24px 0 10px' }}>More about {inst.short}</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14 }}>
+        <ComingSoon icon="💰" title="Fee structure" note="Tuition, hostel & mess split with the full-degree total and category waivers — sourced from NIRF data & official brochures." />
+        <ComingSoon icon="🪑" title="Seat matrix" note="Seats per branch × category × gender pool, so you can see supply alongside the cutoffs." />
+        <ComingSoon icon="📊" title="Placements" note="Average / median / highest package with year and top recruiters — official, year-labelled figures." />
+        <ComingSoon icon="🏫" title="Campus & photos" note="About the institute, how to reach, and licensed campus photos (Wikimedia Commons, with credit)." />
+      </div>
+
+      <div className="card" style={{ background: '#f7e2db', marginTop: 18 }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 15 }}>⚠ Forecasts are estimates</div><p style={{ fontSize: 13, margin: 0 }}>Cutoffs are official JoSAA figures (2018–2024). The 2026 projection is a trend-based estimate with an uncertainty band — a planning aid, not a guarantee. Always verify on josaa.nic.in.</p></div>
+
+      <div style={{ position: 'sticky', bottom: 64, marginTop: 20, display: 'flex', gap: 10, background: 'color-mix(in srgb, var(--color-bg) 92%, transparent)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', padding: 12, borderRadius: 16, boxShadow: 'var(--shadow-md)' }}>
+        <Btn variant="pri" go="predictor" style={{ flex: 1 }}>← Find more colleges</Btn>
+        <Btn variant="sec" act="talkHere" id={branches[0]?.id} style={{ flex: 1 }}>💬 Talk to a senior here</Btn>
+      </div>
+    </section>
+  );
+}
+
 function CutoffChart({ chart }) {
-  const { W, H, pad, points, dots, yearLabels, rankY, rank } = chart;
+  const { W, H, pad, points, dots, yearLabels, rankY, rank, forecast: fc } = chart;
   return (
     <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxWidth: W }}>
       <line x1={pad} y1={H - pad} x2={W - pad} y2={H - pad} stroke="var(--color-divider)" />
+      {/* 2026 forecast: shaded uncertainty band + dashed link + hollow projected dot */}
+      {fc && (
+        <>
+          <rect x={fc.x - 16} y={fc.bandTop} width={32} height={Math.max(2, fc.bandBot - fc.bandTop)} rx={4} fill="var(--color-accent)" opacity={0.14} />
+          {fc.linkFrom && <line x1={fc.linkFrom.x} y1={fc.linkFrom.y} x2={fc.x} y2={fc.y} stroke="var(--color-accent)" strokeWidth={2.5} strokeDasharray="5 4" />}
+          <circle cx={fc.x} cy={fc.y} r={5} fill="var(--color-surface)" stroke="var(--color-accent)" strokeWidth={2.5} />
+          <text x={fc.x} y={fc.y - 11} textAnchor="middle" fontSize={11} fontWeight={700} fill="var(--color-accent-800)">{fc.predicted}</text>
+        </>
+      )}
       <polyline points={points} fill="none" stroke="var(--color-accent)" strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
       {dots.map((d, i) => <circle key={`c${i}`} cx={d.cx} cy={d.cy} r={4.5} fill="var(--color-accent)" />)}
       {dots.map((d, i) => <text key={`v${i}`} x={d.tx} y={d.ty} textAnchor="middle" fontSize={11} fill="var(--color-neutral-700)">{d.v}</text>)}

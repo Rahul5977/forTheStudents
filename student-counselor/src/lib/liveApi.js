@@ -37,6 +37,8 @@ export const liveApi = {
   // Phase 2 — public predictor/catalog (no auth needed; shared + cacheable).
   predict: (params) => call(`/predict?${new URLSearchParams(params).toString()}`),
   college: (id, params) => call(`/colleges/${id}?${new URLSearchParams(params).toString()}`),
+  collegeProfile: (slug, params) => call(`/colleges/${encodeURIComponent(slug)}/profile?${new URLSearchParams(params).toString()}`),
+  colleges: () => call('/colleges'), // canonical institute directory
 
   // Phase 3 — planner (per-user; needs a token). Optimistic concurrency via `version`.
   getShortlist: () => call('/shortlist'),

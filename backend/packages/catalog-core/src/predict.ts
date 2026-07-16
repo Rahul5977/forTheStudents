@@ -32,6 +32,7 @@ export interface PredictInput {
 
 export interface Prediction {
   id: number;
+  instituteId: string; // canonical slug → links to the college profile page
   college: string; // short display name (alias kept for frontend compatibility)
   institute: string; // full official name
   branch: string;
@@ -100,7 +101,7 @@ function decorate(c: EnrichedCutoff, i: PredictInput, homeQuota: boolean): Predi
   const rank = c.type === 'IIT' ? i.advRank : i.mainRank;
   const ratio = ratioOf(rank, c.close);
   const base = {
-    id: c.id, college: c.short, institute: c.institute, branch: c.branch, program: c.program, type: c.type,
+    id: c.id, instituteId: c.instituteId, college: c.short, institute: c.institute, branch: c.branch, program: c.program, type: c.type,
     examLabel: c.exam === 'adv' ? 'JEE Adv' : 'JEE Main', quota: c.quota, seatType: c.seatType,
     city: c.city, state: c.state, nirf: c.nirf, feesTxt: `₹${c.feesLakh}L`, open: c.open, close: c.close,
     ratio, homeQuota, forecast: c.forecast, history: c.history,

@@ -38,6 +38,7 @@ export const SCREENS = {
   predictor: S.Predictor,
   filters: S.Filters,
   collegeDetail: S.CollegeDetail,
+  collegeExplorer: S.CollegeExplorer,
   compare: S.Compare,
   shortlist: S.Shortlist,
   choiceBuilder: S.ChoiceBuilder,

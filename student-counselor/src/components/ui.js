@@ -7,14 +7,14 @@ import { chipStyle, dotColor, typeStyle } from '@/lib/logic';
 
 // Button / link that mirrors the prototype's data-go / data-act semantics.
 export function Btn({
-  variant = 'sec', go, act, id, msg, dialog, slot, tab, i,
+  variant = 'sec', go, act, id, msg, dialog, slot, tab, i, slug,
   as = 'button', block = false, style = {}, className = '', children, onClick, ...rest
 }) {
   const { runAct } = useApp();
   const cls = ['sc-btn', variant, block ? 'block' : '', className].filter(Boolean).join(' ');
   const handle = (e) => {
     if (onClick) return onClick(e);
-    runAct({ go, act, id, msg, dialog, slot, tab, i });
+    runAct({ go, act, id, msg, dialog, slot, tab, i, slug });
   };
   const Tag = as;
   return (

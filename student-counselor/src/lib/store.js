@@ -52,10 +52,12 @@ const INITIAL = {
   unreadCount: 0,
   // ── on-demand caches ───────────────────────────────────────────────────
   collegesById: {},
+  profilesById: {}, // canonical-slug → deep college profile
   mentorsById: {},
   // ── local UI state (unchanged from the prototype) ──────────────────────
   scenario: 'balanced',
   selected: 1,
+  selectedCollege: null, // canonical institute slug for the College Explorer
   compareIds: [1, 6],
   mentorSel: 1,
   onbStep: 1,
@@ -101,6 +103,7 @@ export function AppProvider({ children }) {
   const sRef = useRef(state);
   sRef.current = state;
   const inflightCollege = useRef({}); // memoize concurrent /colleges/:id fetches
+  const inflightProfile = useRef({}); // memoize concurrent /colleges/:slug/profile fetches
 
   // Strip leading + trailing slashes (trailingSlash export → e.g. "/predictor/").
   const screen = slugToId(pathname.replace(/^\/+|\/+$/g, ''));
@@ -114,6 +117,7 @@ export function AppProvider({ children }) {
     setState((s) => {
       const next = { ...s, toast: null, dialog: null };
       if (id === 'collegeDetail' && opts.id != null) next.selected = +opts.id;
+      if (id === 'collegeExplorer' && opts.slug != null) next.selectedCollege = String(opts.slug);
       return next;
     });
     router.push(idToPath(id));
@@ -357,6 +361,22 @@ export function AppProvider({ children }) {
     return req;
   }, []);
 
+  // ─── deep college profile resolver (by canonical slug; fetch + memoize) ─────
+  // Re-keyed by rank/category/home so the per-branch chance reflects the student.
+  const resolveProfile = useCallback(async (slug) => {
+    const p = sRef.current.profile;
+    const key = `${slug}|${p.advRank}|${p.mainRank}|${p.category}|${p.home}`;
+    const cached = sRef.current.profilesById[key];
+    if (cached) return cached;
+    if (inflightProfile.current[key]) return inflightProfile.current[key];
+    const req = liveApi.collegeProfile(slug, predictParamsOf(p))
+      .then((c) => { setState((s) => ({ ...s, profilesById: { ...s.profilesById, [key]: c } })); return c; })
+      .catch(() => null)
+      .finally(() => { delete inflightProfile.current[key]; });
+    inflightProfile.current[key] = req;
+    return req;
+  }, []);
+
   // ─── universal dispatcher — SAME { act, id, i, ... } shape screens use ──────
   const runAct = useCallback((d = {}) => {
     if (d.go) { navigate(d.go, { id: d.id }); return; }
@@ -396,6 +416,7 @@ export function AppProvider({ children }) {
       case 'logout': logout(); break;
       // ── navigation / local UI (unchanged) ──
       case 'viewDetail': setState((s) => ({ ...s, selected: id })); navigate('collegeDetail', { id }); break;
+      case 'viewCollege': setState((s) => ({ ...s, selectedCollege: String(d.slug) })); navigate('collegeExplorer', { slug: d.slug }); break;
       case 'viewMentor': setState((s) => ({ ...s, mentorSel: id })); router.push(idToPath('mentorProfile')); break;
       case 'talkHere': navigate('marketplace'); toast('Showing seniors from this college'); break;
       case 'toCompare': update((s) => ({ compareIds: s.compareIds.includes(id) ? s.compareIds : [...s.compareIds.slice(-1), id] })); navigate('compare'); break;
@@ -465,6 +486,7 @@ export function AppProvider({ children }) {
     loadSessions,
     loadNotifs,
     resolveCollege,
+    resolveProfile,
     // named actions (also reachable via runAct)
     book, pay, join, end, rate, cancel,
     markNotifRead, markAllRead,
