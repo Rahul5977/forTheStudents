@@ -20,10 +20,10 @@ const homeFor = (role) => HOME_FOR[role] || 'dashboard';
 const initialOf = (name) => (String(name || '').trim().charAt(0) || 'A').toUpperCase();
 
 function Brand({ size = 19, title }) {
-  const { navigate } = useApp();
+  const { navigate, loggedIn, role } = useApp();
   return (
     <div
-      onClick={() => navigate('gallery')}
+      onClick={() => navigate(loggedIn ? (HOME_FOR[role] || 'dashboard') : 'landing')}
       style={{ fontFamily: 'var(--font-heading)', fontSize: size, display: 'flex', alignItems: 'center', gap: 9, cursor: 'pointer', whiteSpace: 'nowrap' }}
     >
       <span style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--color-accent)', display: 'inline-grid', placeItems: 'center', color: 'var(--color-bg)', fontSize: 14 }}>S</span>
@@ -80,7 +80,7 @@ function Sidebar() {
   const links = ctx === 'admin' ? ADMIN_LINKS : MENTOR_LINKS;
   return (
     <aside style={{ width: 232, flex: 'none', background: 'var(--color-surface)', borderRight: '1px solid var(--color-divider)', padding: '18px 14px', display: 'flex', flexDirection: 'column', gap: 4, position: 'sticky', top: 0, height: '100vh', overflow: 'auto' }}>
-      <div onClick={() => navigate('gallery')} style={{ fontFamily: 'var(--font-heading)', fontSize: 17, padding: '6px 8px 14px', display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+      <div onClick={() => navigate(HOME_FOR[ctx] || 'dashboard')} style={{ fontFamily: 'var(--font-heading)', fontSize: 17, padding: '6px 8px 14px', display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
         <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--color-accent)', display: 'inline-grid', placeItems: 'center', color: 'var(--color-bg)', fontSize: 13 }}>S</span>
         {ctx === 'admin' ? 'Admin' : 'Mentor'}
       </div>
@@ -89,8 +89,7 @@ function Sidebar() {
           {icon} {label}
         </span>
       ))}
-      <Btn variant="sec" go="gallery" style={{ marginTop: 'auto' }}>← All screens</Btn>
-      <Btn variant="ghost" act="logout">Log out</Btn>
+      <Btn variant="ghost" act="logout" style={{ marginTop: 'auto' }}>Log out</Btn>
     </aside>
   );
 }
@@ -140,11 +139,10 @@ function Dialog() {
 }
 
 export default function Chrome({ children }) {
-  const { ctx, screen, navigate } = useApp();
+  const { ctx } = useApp();
   const topNav = ctx === 'marketing' || ctx === 'student';
   const sidebar = ctx === 'admin' || ctx === 'mentor';
   const bottomNav = ctx === 'student';
-  const notGallery = screen !== 'gallery' && !sidebar;
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'var(--font-body)', color: 'var(--color-text)', background: 'var(--color-bg)' }}>
@@ -154,11 +152,6 @@ export default function Chrome({ children }) {
         <main style={{ flex: 1, minWidth: 0, overflowX: 'hidden' }}>{children}</main>
       </div>
       {bottomNav && <BottomNav />}
-      {notGallery && (
-        <button className="sc-btn" onClick={() => navigate('gallery')} style={{ position: 'fixed', left: 16, bottom: 80, zIndex: 70, background: 'var(--color-neutral-900)', color: '#fff', boxShadow: 'var(--shadow-lg)', padding: '10px 16px' }}>
-          ⊞ All screens
-        </button>
-      )}
       <Dialog />
       <Toast />
     </div>

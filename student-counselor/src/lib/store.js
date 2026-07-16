@@ -200,6 +200,8 @@ export function AppProvider({ children }) {
   // ── AUTH GATE: redirect unauthenticated users away from gated screens. ──
   useEffect(() => {
     if (!state.authReady) return;
+    // A signed-in user hitting the marketing root goes straight to their app.
+    if (state.token && screen === 'landing') { navigate(state.role === 'mentor' ? 'mDashboard' : state.role === 'admin' ? 'aDashboard' : 'dashboard'); return; }
     if (!GATED.has(ctx)) return;
     if (!state.token) { navigate('login'); return; }
     if (ctx === 'admin' && state.role !== 'admin') { navigate('dashboard'); }

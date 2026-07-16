@@ -6,11 +6,12 @@
 
 // camelCase id -> kebab-case slug (bijective for our ids), gallery -> '' (root).
 export function idToSlug(id) {
-  if (!id || id === 'gallery') return '';
+  // Landing is the site root (/). The dev screen-gallery moves to /gallery/.
+  if (!id || id === 'landing') return '';
   return id.replace(/([A-Z])/g, '-$1').toLowerCase();
 }
 export function slugToId(slug) {
-  if (!slug) return 'gallery';
+  if (!slug) return 'landing';
   return slug.replace(/-([a-z])/g, (_, ch) => ch.toUpperCase());
 }
 export function idToPath(id) {
