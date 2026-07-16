@@ -28,6 +28,10 @@ const Schema = z.object({
   // Eventing — default bus unless a dedicated bus is provisioned later.
   EVENT_BUS_NAME: z.string().default('default'),
 
+  // SSM Parameter Store name holding the app-secrets JSON blob (Razorpay, etc.).
+  // Only the NAME lives here; values are fetched + decrypted at runtime.
+  SECRETS_PARAM: z.string().optional(),
+
   // Feature flags
   SEASON: z.enum(['on', 'off']).default('on'),
 });

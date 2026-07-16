@@ -7,3 +7,4 @@ export * from './ddb';
 export * from './events';
 export * from './ids';
 export * from './types';
+export * from './secrets';

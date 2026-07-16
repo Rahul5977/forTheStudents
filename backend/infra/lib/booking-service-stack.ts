@@ -45,6 +45,7 @@ export class BookingServiceStack extends Stack {
         TABLE_BOOKINGS: bookingsTable.tableName,
         TABLE_MENTORS: mentorsTable.tableName,
         EVENT_BUS_NAME: 'default',
+        SECRETS_PARAM: `/sc-${cfg.stage}/secrets`, // SSM param holding Razorpay keys (name only)
         POWERTOOLS_SERVICE_NAME: 'booking',
         POWERTOOLS_METRICS_NAMESPACE: 'StudentCounselor',
       },
@@ -56,6 +57,20 @@ export class BookingServiceStack extends Stack {
       new iam.PolicyStatement({
         actions: ['events:PutEvents'],
         resources: [`arn:aws:events:${this.region}:${this.account}:event-bus/default`],
+      }),
+    );
+    // Read the Razorpay keys from SSM Parameter Store (+ decrypt the SecureString via KMS).
+    fn.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ['ssm:GetParameter'],
+        resources: [`arn:aws:ssm:${this.region}:${this.account}:parameter/sc-${cfg.stage}/secrets`],
+      }),
+    );
+    fn.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ['kms:Decrypt'],
+        resources: ['*'], // the AWS-managed aws/ssm key; scoped tight by the ViaService condition
+        conditions: { StringEquals: { 'kms:ViaService': `ssm.${this.region}.amazonaws.com` } },
       }),
     );
 

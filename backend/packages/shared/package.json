@@ -20,6 +20,7 @@
     "@aws-lambda-powertools/tracer": "^2.7.0",
     "@aws-sdk/client-dynamodb": "^3.620.0",
     "@aws-sdk/client-eventbridge": "^3.620.0",
+    "@aws-sdk/client-ssm": "^3.620.0",
     "@aws-sdk/lib-dynamodb": "^3.620.0",
     "hono": "^4.5.0",
     "ulid": "^2.3.0",

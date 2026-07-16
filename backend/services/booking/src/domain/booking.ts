@@ -6,12 +6,15 @@
 // Razorpay + the SFU are boilerplate/interfaces only (secrets never touch us) — see
 // the `// TODO(owner)` markers. The state machine + ledger are real and tested.
 import {
-  NotFoundError, ValidationError, ConflictError, ForbiddenError, newId, publish, type Principal,
+  NotFoundError, ValidationError, ConflictError, ForbiddenError, newId, publish, createLogger, type Principal,
 } from '@sc/shared';
 import { bookingsRepo, type Booking } from '../repo/bookings.repo';
 import { getMentor, getSlot } from '../repo/mentor.reader';
 import { createMeeting } from './meeting';
+import { createOrder, createRefund, razorpayKeyId } from '../repo/razorpay';
 import type { CreateBooking, Webhook, Rate } from '../types';
+
+const logger = createLogger('booking');
 
 const HOLD_MIN = 15;         // unpaid holds expire after this
 const JOIN_EARLY_MIN = 15;   // you can join this early
@@ -37,38 +40,49 @@ export async function createBooking(p: Principal, input: CreateBooking, idempKey
   if (!slot) throw NotFoundError('Slot not found.');
   if (!slot.open) throw ConflictError('That slot is not open.');
 
+  const holdTtl = nowSec() + HOLD_MIN * 60;
   const booking: Booking = {
     id: newId('bk'), studentId: p.userId, mentorId: input.mentorId, mentorName: mentor.name,
     slotId: input.slotId, startsAt: slot.startsAt, durationMin: slot.durationMin, priceINR: mentor.priceINR,
     status: 'PENDING_PAYMENT', createdAt: nowIso(), updatedAt: nowIso(),
   };
-  const res = await bookingsRepo.createWithHold(booking, nowSec() + HOLD_MIN * 60, idempKey);
+  // Create the Razorpay order up front (receipt = booking id). Returns null when
+  // keys aren't configured → the client falls back to the dev-payment path.
+  const order = await createOrder(booking.priceINR, booking.id).catch((e) => {
+    logger.error('razorpay order failed', { bookingId: booking.id, err: String(e) });
+    return null;
+  });
+  if (order) booking.razorpayOrderId = order.id;
+
+  const res = await bookingsRepo.createWithHold(booking, holdTtl, idempKey);
   if ('duplicate' in res) { const b = await bookingsRepo.get(res.duplicate); if (b) return paymentView(b); }
+  if (order) await bookingsRepo.putOrderMapping(order.id, booking.id, holdTtl);
 
   await bookingsRepo.appendLedger(booking.id, `order-${booking.id}`, { type: 'order.created', amountINR: booking.priceINR });
   await publish({ type: 'booking.created', source: 'booking', detail: { bookingId: booking.id, mentorId: booking.mentorId } });
   return paymentView(booking);
 }
 
-/** Shape returned to the client: the booking + a payment intent. */
-function paymentView(b: Booking) {
+/** Shape returned to the client: the booking + a Razorpay payment intent. */
+async function paymentView(b: Booking) {
   return {
     booking: b,
     payment: {
       provider: 'razorpay',
       amountINR: b.priceINR,
-      // TODO(owner): call Razorpay orders.create with the amount + a receipt = booking.id,
-      // return { orderId, keyId } here; the client opens Razorpay checkout with them.
-      orderId: null,
-      note: b.status === 'PENDING_PAYMENT' ? 'Create a Razorpay order (owner TODO), then pay to confirm.' : 'Already paid.',
+      orderId: b.razorpayOrderId ?? null,        // client opens Checkout with this + keyId
+      keyId: (await razorpayKeyId()) ?? null,    // public Key ID (safe for the browser)
+      note: b.razorpayOrderId
+        ? 'Open Razorpay Checkout with { key: keyId, order_id: orderId }.'
+        : (b.status === 'PENDING_PAYMENT' ? 'Razorpay not configured — the dev-pay path applies.' : 'Already paid.'),
     },
   };
 }
 
 // ── Payment webhook (saga completion) ───────────────────────────────────────────
+// The HTTP handler verifies the Razorpay signature + maps the payload to this
+// normalized shape (see handleRazorpayEvent) before calling us.
 export async function handleWebhook(input: Webhook) {
-  // TODO(owner): verify the Razorpay webhook signature (X-Razorpay-Signature, HMAC of
-  // the raw body with the webhook secret from Secrets Manager) BEFORE trusting this.
   const b = await bookingsRepo.get(input.bookingId);
   if (!b) throw NotFoundError('Booking not found.');
 
@@ -90,6 +104,7 @@ export async function handleWebhook(input: Webhook) {
     const meeting = createMeeting(b.id);
     const confirmed = await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'CONFIRMED', {
       meetingUrl: meeting.url, meetingProvider: meeting.provider,
+      razorpayPaymentId: input.providerPaymentId, // kept for refunds
     });
     await publish({ type: 'payment.succeeded', source: 'booking', detail: { bookingId: b.id, amountINR: b.priceINR } });
     await publish({ type: 'booking.confirmed', source: 'booking', detail: { bookingId: b.id, studentId: b.studentId, mentorId: b.mentorId, meetingUrl: meeting.url } });
@@ -110,14 +125,40 @@ export async function cancel(p: Principal, id: string) {
     return out;
   }
   if (b.status === 'CONFIRMED') {
-    // TODO(owner): issue the actual Razorpay refund; here we record the intent + free the slot.
+    // Issue the real Razorpay refund (no-op/null if keys aren't configured or it was a dev pay).
+    let refundId: string | undefined;
+    if (b.razorpayPaymentId) {
+      const refund = await createRefund(b.razorpayPaymentId).catch((e) => {
+        logger.error('razorpay refund failed', { bookingId: b.id, err: String(e) });
+        return null;
+      });
+      refundId = refund?.id;
+    }
     const out = await bookingsRepo.transition(b.id, ['CONFIRMED'], 'REFUNDED');
-    await bookingsRepo.appendLedger(b.id, `refund-${b.id}`, { type: 'refund.issued', amountINR: b.priceINR });
+    await bookingsRepo.appendLedger(b.id, `refund-${b.id}`, { type: 'refund.issued', amountINR: b.priceINR, refundId });
     await bookingsRepo.releaseHold(b.mentorId, b.slotId);
-    await publish({ type: 'refund.issued', source: 'booking', detail: { bookingId: b.id } });
+    await publish({ type: 'refund.issued', source: 'booking', detail: { bookingId: b.id, studentId: b.studentId, refundId } });
     return out;
   }
   throw ConflictError(`Cannot cancel a ${b.status} session.`);
+}
+
+// ── Razorpay webhook payload → normalized event → the saga ───────────────────────
+/**
+ * Map a verified Razorpay webhook body to the normalized {bookingId, providerPaymentId,
+ * event} shape and run the saga. Resolves the booking via the order→booking mapping.
+ */
+export async function handleRazorpayEvent(evt: unknown) {
+  const e = evt as { event?: string; payload?: { payment?: { entity?: { id?: string; order_id?: string; notes?: { bookingId?: string } } } } };
+  const type = e?.event;
+  const entity = e?.payload?.payment?.entity;
+  if (!type || !entity?.id) return { ignored: true, reason: 'no payment entity' };
+  if (type !== 'payment.captured' && type !== 'payment.failed') return { ignored: true, reason: `unhandled event ${type}` };
+
+  const bookingId = (entity.order_id ? await bookingsRepo.getBookingIdByOrder(entity.order_id) : null) ?? entity.notes?.bookingId;
+  if (!bookingId) return { ignored: true, reason: 'unknown order' };
+
+  return handleWebhook({ bookingId, providerPaymentId: entity.id, event: type });
 }
 
 // ── Sessions ─────────────────────────────────────────────────────────────────────
@@ -135,7 +176,10 @@ export async function getBooking(p: Principal, id: string) {
   const b = await bookingsRepo.get(id);
   if (!b) throw NotFoundError('Booking not found.');
   assertParticipant(b, p.userId);
-  return { booking: b, ledger: await bookingsRepo.ledger(id) };
+  const payment = b.status === 'PENDING_PAYMENT'
+    ? { provider: 'razorpay', amountINR: b.priceINR, orderId: b.razorpayOrderId ?? null, keyId: (await razorpayKeyId()) ?? null }
+    : null;
+  return { booking: b, ledger: await bookingsRepo.ledger(id), payment };
 }
 
 export async function join(p: Principal, id: string) {

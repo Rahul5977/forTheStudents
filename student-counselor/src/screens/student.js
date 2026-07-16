@@ -774,18 +774,77 @@ export function Booking() {
 }
 
 // ── Payment / Checkout ────────────────────────────────────────────────────────
+// Load Razorpay Checkout.js once, on demand.
+function loadRazorpay() {
+  return new Promise((resolve, reject) => {
+    if (typeof window === 'undefined') return reject(new Error('no window'));
+    if (window.Razorpay) return resolve(true);
+    const s = document.createElement('script');
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    s.onload = () => resolve(true);
+    s.onerror = () => reject(new Error('Failed to load Razorpay'));
+    document.body.appendChild(s);
+  });
+}
+
 export function Payment() {
-  const { sessions, bookingSlot, pay, navigate } = useApp();
+  const { sessions, bookingSlot, pay, navigate, showToast, profile, loadSessions } = useApp();
   const pending = [...sessions].reverse().find((s) => s.status === 'PENDING_PAYMENT');
   const [busy, setBusy] = useState(false);
   const selectedSlot = pending?.startsAt ? fmtWhen(pending.startsAt) : (bookingSlot || SLOT_LIST[1]);
   const price = pending?.priceINR ?? 100;
+
+  // Poll the booking a few times for the webhook to flip it to CONFIRMED.
+  const waitForConfirm = async (id) => {
+    for (let i = 0; i < 8; i++) {
+      const { booking } = await liveApi.getBooking(id).catch(() => ({ booking: null }));
+      if (booking && booking.status !== 'PENDING_PAYMENT') return booking.status;
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+    return 'PENDING_PAYMENT';
+  };
+
   const doPay = async () => {
     if (!pending) return;
     setBusy(true);
-    // TODO(owner): real Razorpay checkout — dev simulates the payment.captured webhook.
-    try { await pay(pending.id); navigate('bookingConfirm'); } finally { setBusy(false); }
+    try {
+      const { payment } = await liveApi.getBooking(pending.id);
+      if (payment?.orderId && payment?.keyId) {
+        // Real Razorpay Checkout.
+        await loadRazorpay();
+        await new Promise((resolve) => {
+          const rzp = new window.Razorpay({
+            key: payment.keyId,
+            order_id: payment.orderId,
+            amount: (payment.amountINR ?? price) * 100,
+            currency: 'INR',
+            name: 'Student-Counselor',
+            description: `Mentoring session with ${pending.mentorName || 'your mentor'}`,
+            prefill: { name: profile?.name || '', email: profile?.email || '' },
+            theme: { color: '#c9603f' },
+            handler: async () => {
+              showToast('Payment received — confirming…');
+              const status = await waitForConfirm(pending.id);
+              await loadSessions();
+              if (status === 'CONFIRMED' || status === 'LIVE') navigate('bookingConfirm');
+              else showToast('Paid — confirmation is pending the payment webhook.');
+              resolve();
+            },
+            modal: { ondismiss: () => resolve() },
+          });
+          rzp.open();
+        });
+      } else {
+        // Razorpay not configured yet → dev-simulate the capture (still real backend).
+        await pay(pending.id);
+        navigate('bookingConfirm');
+      }
+    } catch (e) {
+      showToast(e.message || 'Payment could not start');
+    } finally { setBusy(false); }
   };
+
+  const doSimulate = async () => { if (!pending) return; setBusy(true); try { await pay(pending.id); navigate('bookingConfirm'); } finally { setBusy(false); } };
   return (
     <section style={{ maxWidth: 520, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 12px', fontSize: 28 }}>Checkout</h1>
@@ -807,7 +866,8 @@ export function Payment() {
             <Field label="Have a coupon?"><div style={{ display: 'flex', gap: 8 }}><Input placeholder="Enter code" style={{ flex: 1 }} /><Btn variant="sec" act="toast" msg="Coupon applied">Apply</Btn></div></Field>
           </div>
           <Btn variant="pri" onClick={doPay} block disabled={busy} style={{ padding: 13, marginTop: 14 }}>{busy ? 'Processing…' : `🔒 Pay ₹${price} securely`}</Btn>
-          <p className="text-muted" style={{ fontSize: 12, textAlign: 'center', marginTop: 8 }}>Payments processed by our secure gateway. Full refund if the mentor no-shows.</p>
+          <button onClick={doSimulate} disabled={busy} style={{ display: 'block', margin: '8px auto 0', background: 'none', border: 'none', color: 'var(--color-neutral-600)', fontSize: 12, textDecoration: 'underline', cursor: 'pointer' }}>Simulate payment (test — skips the gateway)</button>
+          <p className="text-muted" style={{ fontSize: 12, textAlign: 'center', marginTop: 8 }}>Payments processed by Razorpay. Full refund if the mentor no-shows.</p>
         </>
       )}
     </section>

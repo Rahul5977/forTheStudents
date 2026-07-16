@@ -26,6 +26,8 @@ export interface Booking {
   videoRoomId?: string;
   meetingUrl?: string; // shared Google Meet link, set at payment confirmation
   meetingProvider?: string; // 'google' | 'stub'
+  razorpayOrderId?: string; // the Razorpay order for this booking's payment
+  razorpayPaymentId?: string; // the captured payment id (used for refunds)
   rating?: number;
   ratingComment?: string;
   createdAt: string;
@@ -162,6 +164,15 @@ export const bookingsRepo = {
 
   async releaseHold(mentorId: string, slotId: string): Promise<void> {
     await ddb.send(new DeleteCommand({ TableName: TABLE(), Key: key.slotHold(mentorId, slotId) }));
+  },
+
+  /** Map a Razorpay order id → booking id (so a signed webhook can resolve the booking). */
+  async putOrderMapping(orderId: string, bookingId: string, ttl: number): Promise<void> {
+    await ddb.send(new PutCommand({ TableName: TABLE(), Item: { ...key.razorpayOrder(orderId), bookingId, ttl } }));
+  },
+  async getBookingIdByOrder(orderId: string): Promise<string | null> {
+    const res = await ddb.send(new GetCommand({ TableName: TABLE(), Key: key.razorpayOrder(orderId) }));
+    return (res.Item?.bookingId as string | undefined) ?? null;
   },
 
   async listByGsi(index: 'gsi1-student' | 'gsi2-mentor', pk: string): Promise<Booking[]> {
