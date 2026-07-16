@@ -40,12 +40,45 @@ Per series: `rank → percentile p = R/N_year → logit y = ln(p/(1−p))`.
 - **Probability:** `P(admit) = Φ((R̂_2026 − yourRank)/σ_total)` → % → Safe/Target/Reach.
 - **Edge cases:** <3-yr / new-EWS series → best-effort + "limited history" flag.
 
-## Build phases
-1. **Data** — acquire + normalize 2020–2025 (+2016–2019 history) → new versioned dataset + crosswalk. *(started)*
+## Deep college page ("College Explorer", CollegePravesh-inspired)
+
+A rich per-college profile, not just a cutoff row. The predictor and this page share one
+dataset — the cutoffs section is the ORCR data we're already ingesting (per branch ×
+category × quota × gender × year) + trend + 2026 forecast + "your chance". The **new** data
+is *content* (fees, seat matrix, placements, about, photos).
+
+**Section spec (v1 must-haves):**
+- **Hero** — campus photo + name, type (IIT/NIT/…), NIRF rank, city/state, established, official-site link.
+- **Cutoffs** — full opening/closing table per **branch × category × quota × gender**, with the multi-year trend + **2026 forecast band** + a "your rank vs this seat → chance %" widget (free from the forecast engine).
+- **Seat matrix** — seats per branch × category × quota × gender (supply side; pairs with cutoffs).
+- **Fee structure** — tuition + hostel + mess + total, per year and full-degree.
+- **Placements** — avg / median / highest package + top recruiters (with a "source + year" caveat).
+- **About & rankings** — overview, NIRF (overall + engineering), accreditation, location/how-to-reach.
+- **Photo gallery** — a few licensed campus shots. *(later: reviews, FAQs, compare)*
+
+**Data-model additions (new content layer, keyed by `institute_id`):**
+- `college_info(institute_id, about, established, website, nirf_overall, nirf_eng, accreditation, city, state, lat/lng)`
+- `college_fees(institute_id, program_id?, year, tuition, hostel, mess, other, total_year, total_degree, source)`
+- `seat_matrix(year, institute_id, program_id, category, quota, seat_pool, seats)` *(already in the schema above)*
+- `college_placements(institute_id, year, avg_lpa, median_lpa, highest_lpa, top_recruiters[], source)`
+- `college_media(institute_id, image_url, kind{hero,gallery}, license, author, source_page, width, height)`
+
+**Sourcing per field:** cutoffs/seat-matrix = JoSAA (public); fees/about/rankings/placements =
+**NIRF public data** (nirfindia.org) + official brochures/sites (facts only, never copied prose) +
+curated. Photos = **Wikimedia Commons / public-domain / CC only, with attribution** — see below.
+
+**Photo strategy + the IP boundary (important):**
+- ALLOWED: Wikimedia Commons (CC-BY-SA / CC0 / PD), other freely-licensed sources, or owner-obtained permission — each stored with `license + author + source_page` and credited in the UI.
+- NOT ALLOWED: scraping + re-hosting images from official college websites (copyrighted). `// TODO(owner)` for any specific official photos you want to license.
+- Fallback: a branded gradient/monogram placeholder for colleges with no free photo.
+
+## Build phases (expanded)
+1. **Data** — acquire + normalize cutoffs 2020–2025 (+2016–2019) → versioned dataset + crosswalk. *(started)*
 2. **`@sc/forecast`** — the engine above; unit tests + **backtest harness** (predict 2024 from ≤2023).
-3. **Integrate** — `/predict` + `/colleges/:id` return forecast + range + % + trend series (backward-compatible).
-4. **Frontend** — trend chart + forecast band + % on predictor & analysis pages.
-5. **Backtest report** — published accuracy vs held-out 2024/2025.
+3. **Content data** — seat matrix + fees + about/NIRF + placements + **licensed photos** → the college-content dataset (curated + NIRF + Commons; attribution stored).
+4. **Integrate** — `/predict` + a new **`GET /colleges/:id/profile`** returning forecast cutoffs + seat matrix + fees + placements + info + photos (backward-compatible).
+5. **Frontend** — the deep **College Explorer** page (hero + cutoffs/trend/forecast + seat matrix + fees + placements + about + gallery) and the predictor trend/forecast band.
+6. **Backtest report** — published forecast accuracy vs held-out 2024/2025.
 
 ## Sources
 JoSAA ORCR archive (josaa.admissions.nic.in) · github.com/seshaljain/josaa-scrape ·
