@@ -1,6 +1,6 @@
 // Business logic for catalog + predictor. Pure functions from @sc/catalog-core;
 // this layer supplies the snapshot and shapes responses.
-import { predict as computePredict, analyze, normalizeInput, distinctInstitutes } from '@sc/catalog-core';
+import { predict as computePredict, analyze, normalizeInput, distinctInstitutes, contentFor } from '@sc/catalog-core';
 import type { EnrichedCutoff, PredictInput } from '@sc/catalog-core';
 import { NotFoundError } from '@sc/shared';
 import { loadSnapshot } from '../repo/catalog.repo';
@@ -78,8 +78,9 @@ export async function getCollegeProfile(instituteId: string, query: Record<strin
     // The student-scoped, forecast-decorated branch list (best reachable first).
     branches: pred.results,
     summary: { resultCount: pred.resultCount, safeCount: pred.safeCount, targetCount: pred.targetCount, reachCount: pred.reachCount },
-    // ── content layer (Phase 3) — shape declared now, populated by the content dataset ──
-    content: {
+    // ── content layer (Phase 3) — curated FACTS (established/website/NIRF) for targeted
+    // institutes; falls back to the null/[] shape (with a note) when none is curated yet. ──
+    content: contentFor(instituteId) ?? {
       about: null as string | null,
       established: null as number | null,
       website: null as string | null,

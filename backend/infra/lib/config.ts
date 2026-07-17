@@ -24,6 +24,17 @@ export interface StageConfig {
    */
   enableWarmers: boolean;
   /**
+   * Deploy the CloudFront distribution that fronts the HTTP API (Track D — spike survival).
+   * Unlike WAF / warmers / provisioned-concurrency (all gated OFF for their 24/7 idle COST),
+   * CloudFront is pay-per-request with NO idle floor, so it is safe to leave ON year-round.
+   * It is gated only because switching it on is a deliberate cutover: the distribution takes
+   * ~15 min to deploy and the frontend must repoint NEXT_PUBLIC_API_URL at the edge domain
+   * (see the TODO(owner) block in catalog-service-stack.ts). The direct HTTP API keeps serving
+   * the whole time, so flipping this ON is additive and non-breaking. OFF by default; turn ON
+   * (starting in prod, ahead of the Jun–Jul JoSAA spike) once the frontend is ready to cut over.
+   */
+  enableCdn: boolean;
+  /**
    * API Gateway $default-stage default throttle — steady-state requests/sec. FREE and
    * always-on: the first line of defence against a flood before it reaches Lambda/DDB
    * (reach for WAF only if this can't shed it). Applied in foundation-stack.ts.
@@ -72,6 +83,7 @@ export function getConfig(stage: string): StageConfig {
         provisionedConcurrency: 20, // TODO(owner): size from real peak; schedule on/off (ADR: season flag)
         enableWaf: false, // TODO(owner): turn on in Phase 9 when it's associated + rate-limiting
         enableWarmers: false, // TODO(owner): flip ON for the Jun–Jul peak, then back OFF
+        enableCdn: false, // TODO(owner): flip ON (safe year-round) once frontend repoints at the edge domain
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
     case 'staging':
@@ -82,6 +94,7 @@ export function getConfig(stage: string): StageConfig {
         provisionedConcurrency: 0,
         enableWaf: false,
         enableWarmers: false,
+        enableCdn: false, // TODO(owner): optional in staging for a full edge-cache dress rehearsal
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
     default:
@@ -92,6 +105,7 @@ export function getConfig(stage: string): StageConfig {
         provisionedConcurrency: 0,
         enableWaf: false,
         enableWarmers: false,
+        enableCdn: false, // dev usually hits the direct HTTP API; no need for an edge cache here
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
   }

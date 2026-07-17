@@ -5,3 +5,5 @@ export * from './institutes';
 export * from './chance';
 export * from './predict';
 export * from './doctor';
+export * from './validate';
+export * from './content';

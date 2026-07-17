@@ -327,6 +327,69 @@ describe('normalizeInput', () => {
   });
 });
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Track A — normalizeInput is now a strict guard: valid input passes through
+// unchanged (back-compat), but PRESENT-but-clearly-invalid input throws so the
+// public, CDN-cacheable /predict never caches a coerced-nonsense response.
+// ─────────────────────────────────────────────────────────────────────────────
+describe('normalizeInput validation guard', () => {
+  // Grab a thrown error without failing the assertion library first.
+  const grab = (fn: () => unknown): { statusCode?: number; code?: string; message: string; details?: { fields?: string[] } } | null => {
+    try { fn(); return null; } catch (e) { return e as never; }
+  };
+
+  it('absent fields still default gracefully (a bare /predict is valid)', () => {
+    const n = normalizeInput({});
+    expect(n.advRank).toBe(9_999_999);
+    expect(n.mainRank).toBe(9_999_999);
+    expect(n.category).toBe('Open');
+    expect(n.sort).toBe('best');
+    expect(n.types).toEqual(['IIT', 'NIT', 'IIIT', 'GFTI']);
+    expect(n.limit).toBe(300);
+    expect(n.gender).toBe('Gender-Neutral');
+  });
+
+  it('valid input passes through unchanged (back-compat)', () => {
+    const n = normalizeInput({ advRank: '850', mainRank: '4200', category: 'OBC-NCL', home: 'Delhi', sort: 'closing', types: 'IIT,NIT', limit: '25' });
+    expect(n).toMatchObject({ advRank: 850, mainRank: 4200, category: 'OBC-NCL', home: 'Delhi', sort: 'closing', types: ['IIT', 'NIT'], limit: 25, applyWindow: true });
+  });
+
+  it('rejects a rank of 0, negative, over MAX_RANK, or non-numeric', () => {
+    for (const advRank of ['0', '-1', '2000001', 'abc', '12.5']) {
+      expect(() => normalizeInput({ advRank })).toThrow();
+    }
+  });
+
+  it('accepts the boundary ranks 1 and MAX_RANK', () => {
+    expect(normalizeInput({ advRank: '1' }).advRank).toBe(1);
+    expect(normalizeInput({ mainRank: '2000000' }).mainRank).toBe(2_000_000);
+  });
+
+  it('rejects unknown category / sort / college type', () => {
+    expect(() => normalizeInput({ category: 'General' })).toThrow();
+    expect(() => normalizeInput({ sort: 'cheapest' })).toThrow();
+    expect(() => normalizeInput({ types: 'IIT,FOO' })).toThrow();
+  });
+
+  it('clamps limit (present numeric) instead of throwing; rejects non-numeric limit', () => {
+    expect(normalizeInput({ limit: '1000' }).limit).toBe(500);
+    expect(normalizeInput({ limit: '0' }).limit).toBe(1);
+    expect(() => normalizeInput({ limit: 'lots' })).toThrow();
+  });
+
+  it('the thrown error carries a 400 / VALIDATION contract with the bad field(s) in details', () => {
+    const err = grab(() => normalizeInput({ advRank: '0', category: 'General' }));
+    expect(err).not.toBeNull();
+    expect(err!.statusCode).toBe(400);
+    expect(err!.code).toBe('VALIDATION');
+    expect(err!.details?.fields).toEqual(expect.arrayContaining(['advRank', 'category']));
+  });
+
+  it('does not reject free-form home/gender (lenient), so real state spellings pass', () => {
+    expect(() => normalizeInput({ home: 'Jammu & Kashmir', gender: 'Gender-Neutral' })).not.toThrow();
+  });
+});
+
 describe('analyze', () => {
   const cutoffs = parseCutoffs(csv(
     row('National Institute of Technology Karnataka, Surathkal', CSE, 'HS', 'OPEN', 'Gender-Neutral', 200, 900),

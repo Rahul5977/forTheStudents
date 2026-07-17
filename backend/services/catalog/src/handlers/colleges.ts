@@ -2,11 +2,18 @@
 import type { Context } from 'hono';
 import { ValidationError } from '@sc/shared';
 import * as domain from '../domain/predictor';
+import { compare } from '../domain/compare';
 
 const CACHEABLE = { 'cache-control': 'public, s-maxage=300, stale-while-revalidate=600' };
 
 export async function listColleges(c: Context) {
   return c.json(await domain.listColleges(), 200, CACHEABLE);
+}
+
+// GET /colleges/compare?ids=1,6,42 — batch, side-by-side analysis for the Compare page.
+// MUST be routed before /colleges/:id (see app.ts) or 'compare' hits the :id validator.
+export async function compareColleges(c: Context) {
+  return c.json(await compare(c.req.query()), 200, CACHEABLE);
 }
 
 export async function getCollege(c: Context) {
