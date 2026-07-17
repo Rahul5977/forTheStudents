@@ -40,6 +40,8 @@ const fmtWhen = (iso) =>
   iso ? new Date(iso).toLocaleString('en-IN', { weekday: 'short', hour: 'numeric', minute: '2-digit' }) : 'Time TBD';
 const feesTxtOf = (col) => (col?.feesTxt ? col.feesTxt : col?.feesLakh != null ? `₹${col.feesLakh}L total` : '—');
 const quotaTxt = (q) => (q === 'AI' ? 'All-India' : q || 'All-India');
+// Parse the ₹ lakh figure out of a result's feesTxt (e.g. "₹8.6L" → 8.6); Infinity if unknown.
+const feesLakhOf = (c) => { const n = parseFloat(String(c.feesTxt || '').replace(/[^\d.]/g, '')); return Number.isFinite(n) ? n : Infinity; };
 
 // Session-status → Safe/Target/Reach chip colours.
 function statusStyle(status) {
@@ -251,7 +253,7 @@ export function Profile() {
 
 // ── College Predictor — Results [CORE] ───────────────────────────────────────
 export function Predictor() {
-  const { profile, filters, setFilters, toggleType, runAct } = useApp();
+  const { profile, filters, setFilters, setProfile, toggleType, runAct } = useApp();
   const [data, setData] = useState(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(false);
@@ -262,6 +264,7 @@ export function Predictor() {
     setBusy(true); setErr(false);
     liveApi.predict({
       advRank: String(profile.advRank), mainRank: String(profile.mainRank), category: profile.category, home: profile.home,
+      gender: filters.gender, // seat pool — Gender-Neutral vs Female-only (including Supernumerary)
       types: filters.types.join(','), q: filters.q || '',
       sort: filters.sort === 'ranking' ? 'closing' : filters.sort, // API sorts by closing (no NIRF)
     })
@@ -269,15 +272,23 @@ export function Predictor() {
       .catch(() => { if (!cancelled) setErr(true); })
       .finally(() => { if (!cancelled) setBusy(false); });
     return () => { cancelled = true; };
-  }, [profile.advRank, profile.mainRank, profile.category, profile.home, filters.types, filters.q, filters.sort]);
+  }, [profile.advRank, profile.mainRank, profile.category, profile.home, filters.gender, filters.types, filters.q, filters.sort]);
 
   // Client-side branch/state narrowing (the predict API buckets on rank + type).
   let res = data?.results || [];
   if (filters.branch !== 'all') res = res.filter((c) => c.branch === filters.branch);
   if (filters.state !== 'all') res = res.filter((c) => c.state === filters.state);
+  if (filters.quota !== 'all') res = res.filter((c) => c.quota === filters.quota);
+  if (filters.nirfMax > 0) res = res.filter((c) => c.nirf != null && c.nirf <= filters.nirfMax);
+  if (filters.homeOnly) res = res.filter((c) => c.homeQuota === true);
+  if (filters.maxFees > 0) res = res.filter((c) => feesLakhOf(c) <= filters.maxFees);
+  // Stage breakdown is counted over the full filtered set (BEFORE the bucket filter) so the
+  // Safe/Target/Reach tiles always show the true distribution — not 0s for the stages you
+  // filtered out. The bucket filter then narrows only the visible list below.
   const safe = res.filter((c) => c.bucket === 'safe').length;
   const target = res.filter((c) => c.bucket === 'target').length;
   const reach = res.filter((c) => c.bucket === 'reach').length;
+  if (filters.bucket !== 'all') res = res.filter((c) => c.bucket === filters.bucket);
   const count = res.length;
   const TYPES = ['IIT', 'NIT', 'IIIT', 'GFTI'];
   return (
@@ -308,6 +319,22 @@ export function Predictor() {
           <div className="card" style={{ background: 'var(--color-surface)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>Filters</div><Btn variant="ghost" go="filters" style={{ fontSize: 12 }}>All →</Btn></div>
             <Field label="Search college or branch"><Input placeholder="e.g. IIT Bombay" value={filters.q} onChange={(e) => setFilters({ q: e.target.value })} /></Field>
+            <Field label="Category"><Select value={profile.category} onChange={(e) => setProfile({ category: e.target.value })}><option>Open</option><option>OBC-NCL</option><option>SC</option><option>ST</option><option>EWS</option></Select></Field>
+            <div>
+              <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginBottom: 6 }}>Seat pool</div>
+              <div className="seg">
+                <SegOpt on={filters.gender === 'Gender-Neutral'} onClick={() => setFilters({ gender: 'Gender-Neutral' })}>Gender-Neutral</SegOpt>
+                <SegOpt on={filters.gender === 'Female-only (including Supernumerary)'} onClick={() => setFilters({ gender: 'Female-only (including Supernumerary)' })}>Female-only</SegOpt>
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginBottom: 6 }}>Result stage</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {[['all', 'All'], ['safe', 'Safe'], ['target', 'Target'], ['reach', 'Reach']].map(([val, lbl]) => (
+                  <span key={val} className="tag" onClick={() => setFilters({ bucket: val })} style={{ cursor: 'pointer', ...(filters.bucket === val ? { background: 'var(--color-accent)', color: 'var(--color-bg)' } : { background: 'var(--color-neutral-200)', color: 'var(--color-neutral-700)' }) }}>{lbl}</span>
+                ))}
+              </div>
+            </div>
             <div>
               <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginBottom: 6 }}>College type</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -318,6 +345,17 @@ export function Predictor() {
             </div>
             <Field label="Branch"><Select value={filters.branch} onChange={(e) => setFilters({ branch: e.target.value })}><option value="all">All branches</option><option>Computer Science</option><option>Electronics</option><option>Electrical</option><option>Mechanical</option></Select></Field>
             <Field label="State"><Select value={filters.state} onChange={(e) => setFilters({ state: e.target.value })}><option value="all">All states</option><option>Maharashtra</option><option>Tamil Nadu</option><option>Delhi</option><option>Telangana</option><option>Uttar Pradesh</option><option>Karnataka</option></Select></Field>
+            <div style={{ fontSize: 11, letterSpacing: '.08em', textTransform: 'uppercase', fontWeight: 700, color: 'var(--color-accent-700)', borderTop: '1px solid var(--color-divider)', paddingTop: 10 }}>More filters</div>
+            <Field label="Quota"><Select value={filters.quota} onChange={(e) => setFilters({ quota: e.target.value })}><option value="all">All quotas</option><option value="AI">All-India (AI)</option><option value="HS">Home state (HS)</option><option value="OS">Other state (OS)</option></Select></Field>
+            <Field label="NIRF ranking"><Select value={filters.nirfMax} onChange={(e) => setFilters({ nirfMax: +e.target.value })}><option value={0}>Any</option><option value={25}>Top 25</option><option value={50}>Top 50</option><option value={100}>Top 100</option></Select></Field>
+            <Field label="Max fees"><Select value={filters.maxFees} onChange={(e) => setFilters({ maxFees: +e.target.value })}><option value={0}>Any</option><option value={2}>≤ ₹2L</option><option value={5}>≤ ₹5L</option><option value={8}>≤ ₹8L</option></Select></Field>
+            <div>
+              <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginBottom: 6 }}>Home-state seats</div>
+              <div className="seg">
+                <SegOpt on={!filters.homeOnly} onClick={() => setFilters({ homeOnly: false })}>All seats</SegOpt>
+                <SegOpt on={filters.homeOnly} onClick={() => setFilters({ homeOnly: true })}>Home-state only</SegOpt>
+              </div>
+            </div>
             <div style={{ fontSize: 12, background: 'var(--color-accent-2-100)', borderRadius: 12, padding: '9px 11px', color: 'var(--color-accent-2-800)' }}>🏠 Home-state quota applied for <strong>{profile.home}</strong> NITs &amp; GFTIs.</div>
           </div>
         </aside>
@@ -395,7 +433,7 @@ export function Predictor() {
 export function Filters() {
   const { filters, setFilters, toggleType, showToast } = useApp();
   const TYPES = ['IIT', 'NIT', 'IIIT', 'GFTI'];
-  const reset = () => { setFilters({ types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'best' }); showToast('Filters reset'); };
+  const reset = () => { setFilters({ types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'best', gender: 'Gender-Neutral', bucket: 'all', quota: 'all', nirfMax: 0, maxFees: 0, homeOnly: false }); showToast('Filters reset'); };
   return (
     <section style={{ maxWidth: 720, margin: '0 auto', padding: '24px 22px 40px' }}>
       <h1 style={{ margin: '0 0 2px', fontSize: 30 }}>Advanced filters &amp; search</h1>
@@ -413,9 +451,28 @@ export function Filters() {
           <Field label="State" style={{ flex: 1, minWidth: 150 }}><Select value={filters.state} onChange={(e) => setFilters({ state: e.target.value })}><option value="all">All states</option><option>Maharashtra</option><option>Tamil Nadu</option><option>Delhi</option><option>Telangana</option><option>Uttar Pradesh</option><option>Karnataka</option></Select></Field>
         </div>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          {/* TODO(owner): max-fees & NIRF ceiling need extra predict query params. */}
-          <Field label="Max fees" style={{ flex: 1, minWidth: 150 }}><Select><option>Any</option><option>Under ₹2L</option><option>Under ₹5L</option></Select></Field>
-          <Field label="NIRF ranking" style={{ flex: 1, minWidth: 150 }}><Select><option>Any</option><option>Top 10</option><option>Top 25</option></Select></Field>
+          <Field label="Max fees" style={{ flex: 1, minWidth: 150 }}><Select value={filters.maxFees} onChange={(e) => setFilters({ maxFees: +e.target.value })}><option value={0}>Any</option><option value={2}>≤ ₹2L</option><option value={5}>≤ ₹5L</option><option value={8}>≤ ₹8L</option></Select></Field>
+          <Field label="NIRF ranking" style={{ flex: 1, minWidth: 150 }}><Select value={filters.nirfMax} onChange={(e) => setFilters({ nirfMax: +e.target.value })}><option value={0}>Any</option><option value={25}>Top 25</option><option value={50}>Top 50</option><option value={100}>Top 100</option></Select></Field>
+        </div>
+        <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)' }}>Seat pool</div>
+        <div className="seg" style={{ maxWidth: 340 }}>
+          <SegOpt on={filters.gender === 'Gender-Neutral'} onClick={() => setFilters({ gender: 'Gender-Neutral' })}>Gender-Neutral</SegOpt>
+          <SegOpt on={filters.gender === 'Female-only (including Supernumerary)'} onClick={() => setFilters({ gender: 'Female-only (including Supernumerary)' })}>Female-only</SegOpt>
+        </div>
+        <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)' }}>Result stage</div>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {[['all', 'All'], ['safe', 'Safe'], ['target', 'Target'], ['reach', 'Reach']].map(([val, lbl]) => (
+            <span key={val} className="tag" onClick={() => setFilters({ bucket: val })} style={{ cursor: 'pointer', ...(filters.bucket === val ? { background: 'var(--color-accent)', color: 'var(--color-bg)' } : { background: 'var(--color-neutral-200)', color: 'var(--color-neutral-700)' }) }}>{lbl}</span>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-end' }}>
+          <Field label="Quota" style={{ flex: 1, minWidth: 150 }}><Select value={filters.quota} onChange={(e) => setFilters({ quota: e.target.value })}><option value="all">All quotas</option><option value="AI">All-India (AI)</option><option value="HS">Home state (HS)</option><option value="OS">Other state (OS)</option></Select></Field>
+          <Field label="Home-state seats" style={{ flex: 1, minWidth: 150 }}>
+            <div className="seg">
+              <SegOpt on={!filters.homeOnly} onClick={() => setFilters({ homeOnly: false })}>All seats</SegOpt>
+              <SegOpt on={filters.homeOnly} onClick={() => setFilters({ homeOnly: true })}>Home only</SegOpt>
+            </div>
+          </Field>
         </div>
         <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)' }}>Saved presets</div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>

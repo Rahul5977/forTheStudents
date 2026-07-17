@@ -33,7 +33,8 @@ export function Landing() {
           <div className="card elev-lg" style={{ background: 'var(--color-surface)', padding: 22 }}>
             <div style={{ fontFamily: 'var(--font-heading)', fontSize: 19, marginBottom: 4 }}>Try it now</div>
             <p className="text-muted" style={{ fontSize: 13, marginBottom: 14 }}>Enter your rank — see colleges in seconds.</p>
-            <div className="field" style={{ marginBottom: 12 }}><label>JEE Advanced rank</label><input className="input" value={profile.advRank} onChange={(e) => setProfile({ advRank: +e.target.value || 0 })} /></div>
+            <div className="field" style={{ marginBottom: 12 }}><label>JEE Advanced rank <span className="text-muted" style={{ fontWeight: 400, fontSize: 11 }}>· for IITs</span></label><input className="input" value={profile.advRank} onChange={(e) => setProfile({ advRank: +e.target.value || 0 })} /></div>
+            <div className="field" style={{ marginBottom: 12 }}><label>JEE Main rank <span className="text-muted" style={{ fontWeight: 400, fontSize: 11 }}>· for NITs / IIITs / GFTIs</span></label><input className="input" value={profile.mainRank} onChange={(e) => setProfile({ mainRank: +e.target.value || 0 })} /></div>
             <div className="field" style={{ marginBottom: 16 }}><label>Category</label>
               <select className="input" value={profile.category} onChange={(e) => setProfile({ category: e.target.value })}>
                 <option>Open</option><option>OBC-NCL</option><option>SC</option><option>ST</option><option>EWS</option>
