@@ -6,6 +6,7 @@
 // ══════════════════════════════════════════════════════════════════════════
 import { useApp } from '@/lib/store';
 import { Btn } from './ui';
+import Logo from './Logo';
 import { ADMIN_LINKS, MENTOR_LINKS, BOTTOM_NAV, DIALOGS } from '@/lib/data';
 
 const MKT_LINKS = [
@@ -26,7 +27,7 @@ function Brand({ size = 19, title }) {
       onClick={() => navigate(loggedIn ? (HOME_FOR[role] || 'dashboard') : 'landing')}
       style={{ fontFamily: 'var(--font-heading)', fontSize: size, display: 'flex', alignItems: 'center', gap: 9, cursor: 'pointer', whiteSpace: 'nowrap' }}
     >
-      <span style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--color-accent)', display: 'inline-grid', placeItems: 'center', color: 'var(--color-bg)', fontSize: 14 }}>S</span>
+      <Logo size={26} />
       {title || <>Student<span style={{ color: 'var(--color-accent-700)' }}>-Counselor</span></>}
     </div>
   );
@@ -81,7 +82,7 @@ function Sidebar() {
   return (
     <aside style={{ width: 232, flex: 'none', background: 'var(--color-surface)', borderRight: '1px solid var(--color-divider)', padding: '18px 14px', display: 'flex', flexDirection: 'column', gap: 4, position: 'sticky', top: 0, height: '100vh', overflow: 'auto' }}>
       <div onClick={() => navigate(HOME_FOR[ctx] || 'dashboard')} style={{ fontFamily: 'var(--font-heading)', fontSize: 17, padding: '6px 8px 14px', display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-        <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--color-accent)', display: 'inline-grid', placeItems: 'center', color: 'var(--color-bg)', fontSize: 13 }}>S</span>
+        <Logo size={24} />
         {ctx === 'admin' ? 'Admin' : 'Mentor'}
       </div>
       {links.map(([id, label, icon]) => (
