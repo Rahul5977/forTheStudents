@@ -21,6 +21,12 @@ export const COGNITO = {
 
 export const isCognito = () => AUTH_MODE === 'cognito';
 
+// Google federated sign-in. OFF until the Cognito pool has the Google IdP configured
+// (backend cfg.googleOAuthSecretArn + redeploy) — otherwise the Hosted UI errors. Flip
+// NEXT_PUBLIC_GOOGLE_AUTH=on and rebuild once that's done; until then the button stays a
+// graceful "coming soon".
+export const GOOGLE_AUTH = process.env.NEXT_PUBLIC_GOOGLE_AUTH === 'on';
+
 // When 'on', the main predictor screen fetches REAL results from the catalog API
 // (official JoSAA cutoffs) instead of the local dummy dataset.
 export const PREDICTOR_API = process.env.NEXT_PUBLIC_PREDICTOR_API === 'on';

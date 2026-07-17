@@ -17,7 +17,7 @@ const errStyle = { fontSize: 12.5, color: '#7a2d1a', background: '#f7e2db', bord
 
 // ── Sign Up ───────────────────────────────────────────────────────────────
 export function Signup() {
-  const { navigate, doSignup, showToast } = useApp();
+  const { navigate, doSignup, loginWithGoogle } = useApp();
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
   const [agree, setAgree] = useState(false);
@@ -31,9 +31,10 @@ export function Signup() {
     setBusy(true);
     try {
       try { sessionStorage.setItem('sc_pending_email', email); } catch { /* SSR / private mode */ }
-      // Dev pool auto-confirms → doSignup signs straight in; then land on onboarding.
-      await doSignup(email, pw, email.split('@')[0] || 'Student');
-      navigate('onboarding');
+      // If the pool auto-confirms, doSignup logs straight in → onboarding. If email
+      // verification is enforced, it returns { confirmed:false } → send to the OTP screen.
+      const res = await doSignup(email, pw, email.split('@')[0] || 'Student');
+      navigate(res?.confirmed === false ? 'otp' : 'onboarding');
     } catch (e) {
       setErr(e?.message || 'Could not create your account. Try a different email.');
     } finally { setBusy(false); }
@@ -44,8 +45,7 @@ export function Signup() {
       <div className="card elev-lg" style={cardStyle}>
         <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22, display: 'flex', alignItems: 'center', gap: 9, marginBottom: 2 }}><span style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--color-accent)', display: 'inline-grid', placeItems: 'center', color: 'var(--color-bg)', fontSize: 14 }}>S</span>Create your account</div>
         <p className="text-muted" style={{ fontSize: 14, marginBottom: 6 }}>Free to see your colleges — no card needed.</p>
-        {/* TODO(owner): wire Google (Cognito Hosted UI federated sign-in). */}
-        <Btn variant="sec" onClick={() => showToast('Google sign-in is coming soon — use email for now.')} block style={{ gap: 10, padding: 12 }}><span style={{ fontSize: 16 }}>G</span> Continue with Google</Btn>
+        <Btn variant="sec" onClick={loginWithGoogle} block style={{ gap: 10, padding: 12 }}><span style={{ fontSize: 16 }}>G</span> Continue with Google</Btn>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0' }}><div style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} /><span className="text-muted" style={{ fontSize: 12 }}>or</span><div style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} /></div>
         <Field label="Email"><Input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
         <Field label="Password"><Input type="password" placeholder="••••••••" value={pw} onChange={(e) => setPw(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
@@ -60,7 +60,7 @@ export function Signup() {
 
 // ── Log In ──────────────────────────────────────────────────────────────────
 export function Login() {
-  const { navigate, doLogin, showToast } = useApp();
+  const { navigate, doLogin, loginWithGoogle } = useApp();
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
   const [busy, setBusy] = useState(false);
@@ -83,8 +83,7 @@ export function Login() {
       <div className="card elev-lg" style={cardStyle}>
         <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22, marginBottom: 2 }}>Welcome back</div>
         <p className="text-muted" style={{ fontSize: 14, marginBottom: 6 }}>Log in to pick up where you left off.</p>
-        {/* TODO(owner): wire Google (Cognito Hosted UI federated sign-in). */}
-        <Btn variant="sec" onClick={() => showToast('Google sign-in is coming soon — use email for now.')} block style={{ gap: 10, padding: 12 }}><span style={{ fontSize: 16 }}>G</span> Continue with Google</Btn>
+        <Btn variant="sec" onClick={loginWithGoogle} block style={{ gap: 10, padding: 12 }}><span style={{ fontSize: 16 }}>G</span> Continue with Google</Btn>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0' }}><div style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} /><span className="text-muted" style={{ fontSize: 12 }}>or</span><div style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} /></div>
         <Field label="Email"><Input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
         <Field label="Password"><Input type="password" placeholder="••••••••" value={pw} onChange={(e) => setPw(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
@@ -102,10 +101,11 @@ export function Login() {
 // Cognito email confirmation (doConfirm). In the dev pool sign-ups auto-confirm,
 // so this is tolerant of an already-confirmed account.
 export function Otp() {
-  const { navigate, doConfirm, showToast } = useApp();
+  const { navigate, doConfirm, doResend, showToast } = useApp();
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const [email, setEmail] = useState('');
   const [busy, setBusy] = useState(false);
+  const [resending, setResending] = useState(false);
   const [err, setErr] = useState(null);
 
   useEffect(() => {
@@ -119,19 +119,25 @@ export function Otp() {
 
   const submit = async () => {
     setErr(null);
-    if (!email) {
-      // No pending email in this tab (dev sign-ups are already confirmed) — proceed.
-      showToast('Account already verified.');
-      navigate('dashboard');
-      return;
-    }
+    if (!email) { showToast('Please log in to continue.'); navigate('login'); return; }
+    if (code.join('').length < 6) { setErr('Enter the 6-digit code from your email.'); return; }
     setBusy(true);
     try {
-      await doConfirm(email, code.join('')); // tolerant of already-confirmed
-      navigate('dashboard');
+      await doConfirm(email, code.join(''));
+      // Verified. We don't hold the password here, so finish at the login screen.
+      showToast('Email verified — please log in.');
+      navigate('login');
     } catch (e) {
       setErr(e?.message || 'That code didn’t work — check it and try again.');
     } finally { setBusy(false); }
+  };
+
+  const resend = async () => {
+    if (!email) { showToast('Sign up first to get a code.'); return; }
+    setResending(true);
+    try { await doResend(email); showToast('New code sent to your email.'); }
+    catch (e) { showToast(e?.message || 'Could not resend the code.'); }
+    finally { setResending(false); }
   };
 
   return (
@@ -145,31 +151,66 @@ export function Otp() {
         </div>
         {err && <div style={{ ...errStyle, width: '100%' }}>{err}</div>}
         <Btn variant="pri" onClick={submit} disabled={busy} block style={{ padding: 12, opacity: busy ? 0.7 : 1 }}>{busy ? 'Verifying…' : 'Verify'}</Btn>
-        <div className="text-muted" style={{ fontSize: 12 }}>Didn’t get it? · <span className="sc-tile" onClick={() => navigate('signup')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Change email</span></div>
+        <div className="text-muted" style={{ fontSize: 12 }}>Didn’t get it? <span className="sc-tile" onClick={resend} style={{ color: 'var(--color-accent-700)', cursor: resending ? 'default' : 'pointer', display: 'inline', opacity: resending ? 0.6 : 1 }}>{resending ? 'Sending…' : 'Resend code'}</span> · <span className="sc-tile" onClick={() => navigate('signup')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Change email</span></div>
       </div>
     </section>
   );
 }
 
 // ── Forgot / Reset Password ──────────────────────────────────────────────────
-// Graceful placeholder: no Cognito forgot-password helper is exposed by auth.js.
+// Real Cognito flow: step 1 requests a reset code (emailed), step 2 confirms the code +
+// sets a new password (doForgot / doResetPassword → forgotPassword / confirmForgotPassword).
 export function Reset() {
-  const { showToast } = useApp();
+  const { navigate, doForgot, doResetPassword, showToast } = useApp();
+  const [step, setStep] = useState(1); // 1 = request code, 2 = set new password
   const [email, setEmail] = useState('');
-  // TODO(owner): wire Cognito forgotPassword / confirmForgotPassword when a helper
-  // is added to src/lib/auth.js, then send the code + reset form from here.
-  const submit = () => {
-    showToast(email
-      ? 'Password reset is coming soon — reach support to reset for now.'
-      : 'Enter your email first.');
+  const [code, setCode] = useState('');
+  const [pw, setPw] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState(null);
+
+  const requestCode = async () => {
+    setErr(null);
+    if (!email) { setErr('Enter your email.'); return; }
+    setBusy(true);
+    try { await doForgot(email); showToast('We emailed you a reset code.'); setStep(2); }
+    catch (e) { setErr(e?.message || 'Could not start the reset — check the email and try again.'); }
+    finally { setBusy(false); }
   };
+
+  const resetPassword = async () => {
+    setErr(null);
+    if (!code || !pw) { setErr('Enter the code and your new password.'); return; }
+    setBusy(true);
+    try {
+      await doResetPassword(email, code.trim(), pw);
+      showToast('Password updated — please log in.');
+      navigate('login');
+    } catch (e) { setErr(e?.message || 'That code didn’t work, or the password is too weak.'); }
+    finally { setBusy(false); }
+  };
+
   return (
     <section style={authWrap}>
       <div className="card elev-lg" style={cardStyle}>
         <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22 }}>Reset your password</div>
-        <p className="text-muted" style={{ fontSize: 14 }}>Enter your email or phone and we&apos;ll send a reset link.</p>
-        <Field label="Email or phone"><Input placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
-        <Btn variant="pri" onClick={submit} block style={{ padding: 12 }}>Send reset link</Btn>
+        {step === 1 ? (
+          <>
+            <p className="text-muted" style={{ fontSize: 14 }}>Enter your email and we&apos;ll send a reset code.</p>
+            <Field label="Email"><Input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && requestCode()} /></Field>
+            {err && <div style={errStyle}>{err}</div>}
+            <Btn variant="pri" onClick={requestCode} disabled={busy} block style={{ padding: 12, opacity: busy ? 0.7 : 1 }}>{busy ? 'Sending…' : 'Send reset code'}</Btn>
+          </>
+        ) : (
+          <>
+            <p className="text-muted" style={{ fontSize: 14 }}>Enter the code sent to <strong style={{ color: 'var(--color-text)' }}>{email}</strong> and choose a new password.</p>
+            <Field label="Reset code"><Input inputMode="numeric" placeholder="6-digit code" value={code} onChange={(e) => setCode(e.target.value)} /></Field>
+            <Field label="New password"><Input type="password" placeholder="••••••••" value={pw} onChange={(e) => setPw(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && resetPassword()} /></Field>
+            {err && <div style={errStyle}>{err}</div>}
+            <Btn variant="pri" onClick={resetPassword} disabled={busy} block style={{ padding: 12, opacity: busy ? 0.7 : 1 }}>{busy ? 'Updating…' : 'Set new password'}</Btn>
+            <Btn variant="ghost" onClick={requestCode} block style={{ marginTop: 2 }}>Resend code</Btn>
+          </>
+        )}
         <Btn variant="ghost" go="login" block>← Back to log in</Btn>
       </div>
     </section>

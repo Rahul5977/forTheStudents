@@ -19,8 +19,12 @@ import { createContext, useContext, useState, useRef, useEffect, useCallback } f
 import { usePathname, useRouter } from 'next/navigation';
 import { idToPath, slugToId, ctxOf } from './routes';
 import { liveApi } from './liveApi';
-import { getToken, captureCognitoRedirect } from './liveAuth';
-import { login as cognitoLogin, signUp as cognitoSignUp, confirm as cognitoConfirm, logout as cognitoLogout } from './auth';
+import { getToken, captureCognitoRedirect, loginWithGoogle as googleRedirect } from './liveAuth';
+import { GOOGLE_AUTH } from './liveConfig';
+import {
+  login as cognitoLogin, signUp as cognitoSignUp, confirm as cognitoConfirm, logout as cognitoLogout,
+  resendCode as cognitoResend, forgotPassword as cognitoForgot, confirmForgotPassword as cognitoConfirmForgot,
+} from './auth';
 
 const AppCtx = createContext(null);
 
@@ -324,16 +328,31 @@ export function AppProvider({ children }) {
     return tok;
   }, [hydrateAuth, navigate]);
 
+  // Returns { confirmed }. When the pool auto-confirms (cfg.autoConfirmSignups) we log the
+  // user straight in; otherwise Cognito emailed a code and the caller must route to the OTP
+  // screen. This adapts automatically when email verification is switched on server-side.
   const doSignup = useCallback(async (email, password, name) => {
-    await cognitoSignUp(email, password, name);
-    // Dev pool auto-confirms → logging straight in works.
-    return doLogin(email, password);
+    const { userConfirmed } = await cognitoSignUp(email, password, name);
+    if (userConfirmed) { await doLogin(email, password); return { confirmed: true }; }
+    return { confirmed: false };
   }, [doLogin]);
 
   const doConfirm = useCallback(async (email, code) => {
-    await cognitoConfirm(email, code); // tolerant of already-confirmed
+    await cognitoConfirm(email, code); // verifies the emailed code (tolerant of already-confirmed)
     return true;
   }, []);
+
+  // Resend the sign-up verification code; start / complete a password reset.
+  const doResend = useCallback((email) => cognitoResend(email), []);
+  const doForgot = useCallback((email) => cognitoForgot(email), []);
+  const doResetPassword = useCallback((email, code, password) => cognitoConfirmForgot(email, code, password), []);
+
+  // Google sign-in: redirect to the Hosted UI only when it's enabled (the pool has the
+  // Google IdP) — otherwise stay a graceful "coming soon" instead of a broken redirect.
+  const loginWithGoogle = useCallback(() => {
+    if (!GOOGLE_AUTH) { toast('Google sign-in is coming soon — use email for now.'); return; }
+    googleRedirect();
+  }, [toast]);
 
   const logout = useCallback(() => {
     cognitoLogout();
@@ -491,7 +510,7 @@ export function AppProvider({ children }) {
     book, pay, join, end, rate, cancel,
     markNotifRead, markAllRead,
     saveProfile, saveRankPrefs, switchRole, logout,
-    doLogin, doSignup, doConfirm,
+    doLogin, doSignup, doConfirm, doResend, doForgot, doResetPassword, loginWithGoogle,
   };
 
   return <AppCtx.Provider value={value}>{children}</AppCtx.Provider>;

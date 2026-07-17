@@ -33,7 +33,15 @@ function userOf(email) {
   return new CognitoUser({ Username: email, Pool: pool() });
 }
 
-/** Register a new user. The dev pool auto-confirms, so login works right after. */
+/**
+ * Register a new user. Resolves `{ user, userConfirmed }`:
+ *   • userConfirmed === true  → the pool auto-confirmed (dev auto-confirm trigger) — the
+ *     caller can log in immediately.
+ *   • userConfirmed === false → Cognito emailed a verification code; the caller must send
+ *     the user to the OTP screen to confirm before login.
+ * This makes the signup flow adapt automatically to whether email verification is enforced
+ * server-side (see backend cfg.autoConfirmSignups) — no frontend change needed to switch it on.
+ */
 export function signUp(email, password, name) {
   return new Promise((resolve, reject) => {
     const attrs = [
@@ -42,7 +50,34 @@ export function signUp(email, password, name) {
     ];
     pool().signUp(email, password, attrs, null, (err, res) => {
       if (err) return reject(normalize(err));
-      resolve(res?.user || null);
+      resolve({ user: res?.user || null, userConfirmed: !!res?.userConfirmed });
+    });
+  });
+}
+
+/** Re-send the sign-up verification code to the user's email. */
+export function resendCode(email) {
+  return new Promise((resolve, reject) => {
+    userOf(email).resendConfirmationCode((err) => (err ? reject(normalize(err)) : resolve(true)));
+  });
+}
+
+/** Start a password reset — Cognito emails a 6-digit verification code. */
+export function forgotPassword(email) {
+  return new Promise((resolve, reject) => {
+    userOf(email).forgotPassword({
+      onSuccess: () => resolve(true),
+      onFailure: (err) => reject(normalize(err)),
+    });
+  });
+}
+
+/** Complete a password reset with the emailed code + the new password. */
+export function confirmForgotPassword(email, code, newPassword) {
+  return new Promise((resolve, reject) => {
+    userOf(email).confirmPassword(code, newPassword, {
+      onSuccess: () => resolve(true),
+      onFailure: (err) => reject(normalize(err)),
     });
   });
 }
