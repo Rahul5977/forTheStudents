@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import { useApp } from '@/lib/store';
 import { Btn, Tile, Tag, Avatar } from '@/components/ui';
+import Logo from '@/components/Logo';
 import { MENTORS, PILLARS, JOURNEY, FEATURE_CARDS, GUIDES, TEAM, FAQS } from '@/lib/data';
 
 // ── Landing / Home ────────────────────────────────────────────────────────
@@ -82,7 +83,7 @@ export function Landing() {
 
       <footer style={{ background: 'var(--color-neutral-900)', color: 'var(--color-neutral-200)', padding: '44px 26px' }}>
         <div style={{ maxWidth: 1080, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'space-between' }}>
-          <div style={{ maxWidth: 280 }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 20, color: '#fff', marginBottom: 8 }}>Student-Counselor</div><p style={{ fontSize: 13, opacity: .7 }}>Estimates from historical JoSAA data — not a guarantee. Always verify on josaa.nic.in.</p></div>
+          <div style={{ maxWidth: 280 }}><div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 8 }}><Logo size={24} /><span style={{ fontFamily: 'var(--font-heading)', fontSize: 20, color: '#fff' }}>Student-Counselor</span></div><p style={{ fontSize: 13, opacity: .7 }}>Estimates from historical JoSAA data — not a guarantee. Always verify on josaa.nic.in.</p></div>
           <div style={{ display: 'flex', gap: 44, flexWrap: 'wrap' }}>
             <div><div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '.1em', opacity: .5, marginBottom: 10 }}>Product</div><div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13 }}><span className="sc-tile" onClick={() => navigate('features')} style={{ cursor: 'pointer' }}>Features</span><span className="sc-tile" onClick={() => navigate('pricing')} style={{ cursor: 'pointer' }}>Pricing</span><span className="sc-tile" onClick={() => navigate('becomeMentor')} style={{ cursor: 'pointer' }}>Become a mentor</span></div></div>
             <div><div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '.1em', opacity: .5, marginBottom: 10 }}>Company</div><div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13 }}><span className="sc-tile" onClick={() => navigate('about')} style={{ cursor: 'pointer' }}>About</span><span className="sc-tile" onClick={() => navigate('faq')} style={{ cursor: 'pointer' }}>FAQ</span><span className="sc-tile" onClick={() => navigate('contact')} style={{ cursor: 'pointer' }}>Contact</span><span className="sc-tile" onClick={() => navigate('legal')} style={{ cursor: 'pointer' }}>Legal</span></div></div>
