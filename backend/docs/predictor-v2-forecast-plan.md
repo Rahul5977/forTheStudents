@@ -103,9 +103,11 @@ trademark** — don't imply endorsement or use a crest/logo as branding. Fallbac
   bands (11,261 rows, runtime engine-free). Deployed live @ josaa-2026f.1. (commits ff27175, 3fc1b4a)
 - ✅ **Phase 5** — College Explorer page + predictor forecast band + trend chart. Deployed to
   counsellor.kodexa.in. (commit 3947f46)
-- ◑ **Phase 1** — 2021/2022/2023/2025 final-round cutoffs **acquired + validated** (public mirrors,
-  chain-of-trust vs the in-repo 2020 file) and 2021–23 registered in `seed.ts`; backtest median err
-  39.6%→13.2%. **Promotion pending** (owner: bump `DATASET_VERSION` + reseed). See Phase 7 + `docs/forecast-data-acquisition.md`.
+- ✅ **Phase 1** — 2021/2022/2023/2025 final-round cutoffs **acquired + validated** (public mirrors,
+  chain-of-trust vs the in-repo 2020 file); 2021–23 registered in `seed.ts`; backtest median err
+  39.6%→13.2%. **Promoted live 2026-07-17: `josaa-2026f.2` reseeded to `sc-dev-catalog`** (7-yr
+  history 2018–2024, verified serving nPoints=7). 2025 still held back (would roll the served year).
+  See Phase 7 + `docs/forecast-data-acquisition.md`.
 - ◑ **Phase 3** — content layer **started**: `/colleges/:id/profile` serves curated *facts*
   (established / website / NIRF-eng) for IITs + top NITs + major IIITs. Still owner-sourced:
   fees split / seat matrix / placements / licensed photos (`TODO(owner)`, no fabrication). See Phase 7.
