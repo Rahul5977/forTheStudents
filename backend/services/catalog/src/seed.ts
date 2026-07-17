@@ -19,10 +19,21 @@ const read = (p: string) => readFileSync(p, 'utf8');
 
 async function main() {
   // History CSVs carry their own Year/Round columns; josaa24 is stamped 2024/R6.
+  // 2021–2023 were acquired from public JoSAA mirrors (final round R6), validated against
+  // an independent source, and normalized to the 9-col history schema — see
+  // backend/docs/forecast-data-acquisition.md. They fill the 2020→2024 gap so each series
+  // trends on 6 points instead of 4; the served snapshot stays 2024 (the latest year here).
+  // TODO(owner): josaa-2025-6.csv is acquired + validated on disk but intentionally NOT
+  // registered — adding it would make 2025 the latest year and roll the served snapshot
+  // forward from 2024. Register it (and reseed with a fresh DATASET_VERSION) only when the
+  // product decision to serve the 2025 cycle is made.
   const files: CorpusFile[] = [
     { text: read(join(historyDir, 'josaa-2018-7.csv')) },
     { text: read(join(historyDir, 'josaa-2019-7.csv')) },
     { text: read(join(historyDir, 'josaa-2020-6.csv')) },
+    { text: read(join(historyDir, 'josaa-2021-6.csv')) },
+    { text: read(join(historyDir, 'josaa-2022-6.csv')) },
+    { text: read(join(historyDir, 'josaa-2023-6.csv')) },
     { text: read(join(dataDir, 'josaa24.csv')), year: 2024, round: 6 },
   ];
   const { enriched, targetYear, stats } = buildEnrichedCorpus(files);

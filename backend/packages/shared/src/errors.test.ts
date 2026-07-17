@@ -21,4 +21,23 @@ describe('errors', () => {
     expect(e.statusCode).toBe(409);
     expect(e.details).toEqual({ id: 1 });
   });
+
+  it('maps a foreign AppError-SHAPED error by structure (cross-package / cross-bundle safe)', () => {
+    // Mimics @sc/catalog-core's local validation error: identical shape, different class
+    // identity (so `instanceof AppError` is false). It must still map to its real status.
+    const shim = Object.assign(new Error('Invalid predictor input: advRank must be at least 1'), {
+      name: 'AppError', statusCode: 400, code: 'VALIDATION', details: { fields: ['advRank'] },
+    });
+    const { statusCode, body } = toErrorBody(shim);
+    expect(statusCode).toBe(400);
+    expect(body.error.code).toBe('VALIDATION');
+    expect(body.error.details).toEqual({ fields: ['advRank'] });
+  });
+
+  it('does NOT treat a plain Error with a stray statusCode as an app error', () => {
+    // name !== 'AppError' → not matched → hidden behind a 500 (no false positives).
+    const { statusCode, body } = toErrorBody(Object.assign(new Error('secret'), { statusCode: 400 }));
+    expect(statusCode).toBe(500);
+    expect(body.error.message).not.toContain('secret');
+  });
 });

@@ -103,10 +103,32 @@ trademark** — don't imply endorsement or use a crest/logo as branding. Fallbac
   bands (11,261 rows, runtime engine-free). Deployed live @ josaa-2026f.1. (commits ff27175, 3fc1b4a)
 - ✅ **Phase 5** — College Explorer page + predictor forecast band + trend chart. Deployed to
   counsellor.kodexa.in. (commit 3947f46)
-- ⏳ **Phase 1** — acquire 2021–2023 + 2025 cutoffs (needs external download). Biggest accuracy win.
-- ⏳ **Phase 3** — content: fees / seat matrix / placements / about / photos (needs sourcing + a
-  photo-hosting decision). Endpoint shape + UI placeholders already shipped.
+- ◑ **Phase 1** — 2021/2022/2023/2025 final-round cutoffs **acquired + validated** (public mirrors,
+  chain-of-trust vs the in-repo 2020 file) and 2021–23 registered in `seed.ts`; backtest median err
+  39.6%→13.2%. **Promotion pending** (owner: bump `DATASET_VERSION` + reseed). See Phase 7 + `docs/forecast-data-acquisition.md`.
+- ◑ **Phase 3** — content layer **started**: `/colleges/:id/profile` serves curated *facts*
+  (established / website / NIRF-eng) for IITs + top NITs + major IIITs. Still owner-sourced:
+  fees split / seat matrix / placements / licensed photos (`TODO(owner)`, no fabrication). See Phase 7.
 - ⏳ **Phase 6** — re-publish backtest once Phase 1 data lands.
+- 🛠 **Phase 7 — production hardening (in progress, 2026-07-17)** — bring the predictor + catalog
+  service to production grade without changing the served model. Five parallel tracks:
+  1. **Input validation** — `@sc/catalog-core/validate` rejects present-but-invalid query params
+     (rank ≤ 0 / > 2M / non-numeric, unknown category·sort·type) with a 400; absent fields still
+     default (the UI's "no rank yet" state stays valid). Public/CDN cache never caches garbage.
+  2. **Service resilience** — snapshot cache gains a soft-TTL re-check of `CONFIG/ACTIVE` (a reseed
+     propagates to warm containers without a cold start) + in-flight load dedup; missing active
+     version → clean 503 (`ServiceUnavailableError`). New `GET /colleges/compare?ids=` batch endpoint.
+  3. **Content layer (Phase 3 kickoff)** — `@sc/catalog-core/content` serves curated *facts*
+     (established, website, NIRF overall/eng, accreditation) into `/colleges/:id/profile`; licensed
+     data (fees split / seat matrix / placements / CC photos) stays `TODO(owner)`, no fabrication.
+  4. **CDN spike-survival** — CloudFront in front of the HTTP API so the existing `s-maxage`/SWR
+     headers are actually honored (the lever for "lakhs in minutes"); additive, owner flips
+     `NEXT_PUBLIC_API_URL` on deploy.
+  5. **Data acquisition + backtest** — best-effort pull of 2021–2023/2025 from public sources with
+     strict schema validation; local backtest of the accuracy delta. No prod reseed / no version
+     bump — that stays `TODO(owner)`. See `docs/forecast-data-acquisition.md`.
+  Boundary held: real logic for plumbing (validation, caching, CDN, resilience); `TODO(owner)` for
+  owner-judgment data. Lands as a reviewable branch, not merged to main; nothing deployed/reseeded.
 
 ## Build phases (expanded)
 0. **Canonical institute identity** *(critical — nothing else keys without it)* — the repo has **no

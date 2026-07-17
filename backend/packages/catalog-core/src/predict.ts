@@ -14,6 +14,7 @@
 // 'chance'/'safest'.
 import type { Cutoff, EnrichedCutoff, ForecastBand, CollegeType, Category, Bucket, Sort } from './types';
 import { forecastChance } from './chance';
+import { validateInput } from './validate';
 
 export interface PredictInput {
   advRank: number;
@@ -205,21 +206,42 @@ export function predict(cutoffs: EnrichedCutoff[], i: PredictInput): PredictResu
   return { results: list.slice(0, i.limit), resultCount, safeCount, targetCount, reachCount, truncated: list.length > i.limit };
 }
 
+// ── Input validation (the /predict guard) ────────────────────────────────────
+// The predictor is a PUBLIC, CDN-cacheable endpoint whose output is a pure function of the
+// query, so garbage input must FAIL FAST — otherwise a coerced-nonsense response gets cached.
+// validateInput (validate.ts) is the single source of truth for what a valid query is;
+// normalizeInput below turns any fatal issue into a 400.
+//
+// DESIGN: this is a PURE domain package — it deliberately does NOT depend on @sc/shared
+// (whose barrel pulls in aws-sdk / hono, which have no place in a pure-logic package or its
+// unit tests). So instead of importing @sc/shared's `ValidationError`, we throw a local
+// AppError-SHAPED error carrying the identical public shape (name 'AppError', statusCode 400,
+// code 'VALIDATION', details). @sc/shared's `toErrorBody` maps by SHAPE, not by `instanceof`
+// (see errors.ts `isAppErrorShaped`), so the services' HTTP middleware turns this into a clean
+// 400 — no cross-package dependency required, and robust to bundler `instanceof` pitfalls.
+class InputValidationError extends Error {
+  readonly statusCode = 400;
+  readonly code = 'VALIDATION' as const;
+  readonly details?: unknown;
+  constructor(message: string, details?: unknown) {
+    super(message);
+    this.name = 'AppError';
+    this.details = details;
+  }
+}
+const ValidationError = (message: string, details?: unknown): InputValidationError =>
+  new InputValidationError(message, details);
+
 export function normalizeInput(q: Record<string, string | undefined>): PredictInput {
-  const types = (q.types ? q.types.split(',') : ['IIT', 'NIT', 'IIIT', 'GFTI']).filter(Boolean) as CollegeType[];
-  return {
-    advRank: Number(q.advRank) || 9_999_999,
-    mainRank: Number(q.mainRank) || 9_999_999,
-    category: (q.category as Category) || 'Open',
-    home: q.home || '',
-    gender: q.gender || 'Gender-Neutral',
-    types: types.length ? types : ['IIT', 'NIT', 'IIIT', 'GFTI'],
-    q: q.q || '',
-    // Default is the choice-filling order (best reachable first), not the old 'chance'.
-    sort: (q.sort as Sort) || 'best',
-    limit: Math.min(500, Math.max(1, Number(q.limit) || 300)),
-    applyWindow: true, // predictor default; the profile overrides to false
-  };
+  const { value, issues } = validateInput(q);
+  if (issues.length > 0) {
+    const fields = [...new Set(issues.map((i) => i.field))];
+    throw ValidationError(
+      `Invalid predictor input: ${issues.map((i) => i.message).join('; ')}`,
+      { fields, issues },
+    );
+  }
+  return value;
 }
 
 /** One cutoff (by id), decorated for the analysis page + the multi-year trend chart
