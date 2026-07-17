@@ -44,9 +44,11 @@ export class AuthStack extends Stack {
       // dedicated origination number/short code. Configure SMS role & sandbox exit.
     });
 
-    // DEV/STAGING ONLY: auto-confirm + auto-verify sign-ups so email/password test
-    // users are usable instantly (no emailed code). Never enabled in prod.
-    if (cfg.stage !== 'prod') {
+    // Auto-confirm + auto-verify sign-ups so email/password test users are usable instantly
+    // (no emailed code). Gated by cfg.autoConfirmSignups (true in dev/staging, false in prod).
+    // Flip it false — with SES wired as the pool email sender — to ENFORCE real email
+    // verification; the frontend adapts automatically (signUp reports userConfirmed:false).
+    if (cfg.autoConfirmSignups) {
       const preSignup = new lambda.Function(this, 'PreSignupAutoConfirm', {
         functionName: `sc-${cfg.stage}-pre-signup`,
         runtime: lambda.Runtime.NODEJS_20_X,

@@ -35,6 +35,16 @@ export interface StageConfig {
    */
   enableCdn: boolean;
   /**
+   * Auto-confirm + auto-verify sign-ups via a PreSignup Lambda (skips the emailed
+   * verification code) so test users are instant. Set FALSE to ENFORCE real email
+   * verification (the frontend adapts automatically — Cognito's signUp then reports
+   * userConfirmed:false and the app routes to the OTP screen).
+   * PREREQUISITE before turning this off for real traffic: Cognito's built-in email
+   * sender caps at ~50 emails/day, so wire SES (verified domain, out of the SES sandbox)
+   * as the pool's email provider first — otherwise sign-ups fail once the cap is hit.
+   */
+  autoConfirmSignups: boolean;
+  /**
    * API Gateway $default-stage default throttle — steady-state requests/sec. FREE and
    * always-on: the first line of defence against a flood before it reaches Lambda/DDB
    * (reach for WAF only if this can't shed it). Applied in foundation-stack.ts.
@@ -84,6 +94,7 @@ export function getConfig(stage: string): StageConfig {
         enableWaf: false, // TODO(owner): turn on in Phase 9 when it's associated + rate-limiting
         enableWarmers: false, // TODO(owner): flip ON for the Jun–Jul peak, then back OFF
         enableCdn: false, // TODO(owner): flip ON (safe year-round) once frontend repoints at the edge domain
+        autoConfirmSignups: false, // prod ENFORCES email verification (needs SES — see field doc)
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
     case 'staging':
@@ -95,6 +106,7 @@ export function getConfig(stage: string): StageConfig {
         enableWaf: false,
         enableWarmers: false,
         enableCdn: false, // TODO(owner): optional in staging for a full edge-cache dress rehearsal
+        autoConfirmSignups: true, // instant test users; flip false (with SES) to rehearse verification
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
     default:
@@ -106,6 +118,9 @@ export function getConfig(stage: string): StageConfig {
         enableWaf: false,
         enableWarmers: false,
         enableCdn: false, // dev usually hits the direct HTTP API; no need for an edge cache here
+        // dev is the LIVE env: keep instant signups. To enforce email verification live,
+        // set up SES (see field doc) then flip this to false and redeploy sc-dev-auth.
+        autoConfirmSignups: true,
         googleOAuthSecretArn: undefined, // TODO(owner)
       };
   }

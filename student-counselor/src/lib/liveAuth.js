@@ -56,6 +56,31 @@ export function cognitoLoginUrl() {
   return `${COGNITO.domain}/login?${params.toString()}`;
 }
 
+/**
+ * Federated sign-in via the Cognito Hosted UI (e.g. Google). Redirects straight to the
+ * IdP (identity_provider=<idp>) and returns to /auth/callback with the id_token in the URL
+ * fragment (implicit flow, matching cognitoLoginUrl). Requires the pool to have that IdP
+ * configured server-side (see backend cfg.googleOAuthSecretArn); until then Cognito rejects it.
+ * NOTE: for prod, switch to authorization-code + PKCE (implicit is disabled in the prod client).
+ */
+export function federatedLoginUrl(idp) {
+  const redirect =
+    COGNITO.redirectUri || (typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : '');
+  const params = new URLSearchParams({
+    identity_provider: idp, // 'Google'
+    client_id: COGNITO.clientId,
+    response_type: 'token',
+    scope: 'openid email profile',
+    redirect_uri: redirect,
+  });
+  return `${COGNITO.domain}/oauth2/authorize?${params.toString()}`;
+}
+
+/** Kick off Google sign-in (redirects the whole page to the Hosted UI). */
+export function loginWithGoogle() {
+  if (typeof window !== 'undefined') window.location.href = federatedLoginUrl('Google');
+}
+
 /** After the Hosted UI redirects back, pull id_token out of the URL fragment. */
 export function captureCognitoRedirect() {
   if (typeof window === 'undefined' || !window.location.hash) return null;
