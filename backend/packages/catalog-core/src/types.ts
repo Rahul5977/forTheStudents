@@ -34,7 +34,9 @@ export interface Cutoff {
 
 // Bump on each re-ingest (immutable versions; the predictor reads the active one).
 // josaa-2026f = the multi-year corpus with precomputed 2026 forecast bands.
-export const DATASET_VERSION = 'josaa-2026f.1';
+// .2 = deepened with the acquired 2021–2023 final-round history (2020→2024 gap filled);
+//      backtest median error 39.6%→13.2% vs .1. See docs/forecast-data-acquisition.md.
+export const DATASET_VERSION = 'josaa-2026f.2';
 
 // A precomputed forecast band for one seat (rank-INDEPENDENT). Computed at seed time by
 // @sc/forecast and stored on the current-year row, so runtime never recomputes and never
