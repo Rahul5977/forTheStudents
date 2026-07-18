@@ -85,6 +85,7 @@ export const SCREENS = {
   aBroadcast: AD.ABroadcast,
   aAnalytics: AD.AAnalytics,
   aSettings: AD.ASettings,
+  aAdmins: AD.AAdmins,
 
   // Shared & System
   emptyStates: SY.EmptyStates,

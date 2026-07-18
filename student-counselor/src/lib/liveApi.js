@@ -112,4 +112,10 @@ export const liveApi = {
   adminSuspendMentor: (id, reason) => call(`/admin/mentors/${id}/suspend`, { method: 'POST', body: { reason } }),
   adminReinstateMentor: (id) => call(`/admin/mentors/${id}/reinstate`, { method: 'POST' }),
   adminBroadcast: (body) => call('/admin/broadcast', { method: 'POST', body }),
+
+  // Superadmin-only: manage the admin team + distribute permission scopes.
+  adminAdmins: () => call('/admin/admins'),
+  promoteAdmin: (userId, permissions) => call('/admin/admins', { method: 'POST', body: { userId, permissions } }),
+  updateAdmin: (userId, permissions) => call(`/admin/admins/${encodeURIComponent(userId)}`, { method: 'PATCH', body: { permissions } }),
+  demoteAdmin: (userId) => call(`/admin/admins/${encodeURIComponent(userId)}/demote`, { method: 'POST' }),
 };

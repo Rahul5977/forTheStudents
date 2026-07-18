@@ -264,8 +264,33 @@ export const GALLERY_GROUPS = [
 ];
 
 // Sidebar nav definitions (mentor + admin).
+// [id, label, icon, scope] — scope gates the link: null = any admin, 'super' = superadmin
+// only, else the admin needs that permission. (Decluttered: dropped Content/Support/CMS
+// placeholders; ordered by priority with Verification first.)
 export const ADMIN_LINKS = [
-  ['aDashboard', 'Dashboard', '▦'], ['aStudents', 'Users', '👥'], ['aMentors', 'Mentors', '🎓'], ['aVerifyQueue', 'Verification', '✔'], ['aCollegeData', 'College Data', '🏛'], ['aContent', 'Content', '📝'], ['aSessions', 'Sessions', '🎥'], ['aPayments', 'Payments', '₹'], ['aModeration', 'Moderation', '🛡'], ['aSupport', 'Support', '💬'], ['aCms', 'CMS', '📰'], ['aBroadcast', 'Broadcast', '📣'], ['aAnalytics', 'Analytics', '📈'], ['aSettings', 'Settings', '⚙'],
+  ['aDashboard', 'Dashboard', '▦', null],
+  ['aVerifyQueue', 'Verification', '✔', 'mentors.manage'],
+  ['aMentors', 'Mentors', '🎓', 'mentors.manage'],
+  ['aSessions', 'Sessions', '🎥', 'sessions.view'],
+  ['aPayments', 'Payments', '₹', 'payments.view'],
+  ['aStudents', 'Users', '👥', 'users.view'],
+  ['aModeration', 'Moderation', '🛡', 'mentors.manage'],
+  ['aBroadcast', 'Broadcast', '📣', 'broadcast.send'],
+  ['aCollegeData', 'College Data', '🏛', 'content.manage'],
+  ['aAnalytics', 'Analytics', '📈', 'sessions.view'],
+  ['aAdmins', 'Admins', '👑', 'super'],
+  ['aSettings', 'Settings', '⚙', 'super'],
+];
+
+// The permission scopes a superadmin can grant an admin (mirrors backend ADMIN_SCOPES).
+export const ADMIN_SCOPES = [
+  { key: 'mentors.manage', label: 'Manage mentors', desc: 'Approve/reject applications, suspend/reinstate' },
+  { key: 'mentors.interview', label: 'Mentor interviews', desc: 'Schedule & conduct interviews' },
+  { key: 'sessions.view', label: 'Sessions', desc: 'View all sessions' },
+  { key: 'payments.view', label: 'Payments', desc: 'View payments & revenue' },
+  { key: 'users.view', label: 'Users', desc: 'View the user directory' },
+  { key: 'broadcast.send', label: 'Broadcast', desc: 'Send announcements' },
+  { key: 'content.manage', label: 'Content', desc: 'Manage college data & content' },
 ];
 export const MENTOR_LINKS = [
   ['mDashboard', 'Dashboard', '▦'], ['mBookings', 'Bookings', '📅'], ['mAvailability', 'Availability', '🕑'], ['mEarnings', 'Earnings', '₹'], ['mReviews', 'Reviews', '⭐'], ['mProfile', 'Profile', '👤'], ['mVerification', 'Verification', '✔'], ['mNotifications', 'Notifications', '🔔'], ['mSettings', 'Settings', '⚙'],

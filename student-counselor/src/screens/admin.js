@@ -12,7 +12,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useApp } from '@/lib/store';
 import { liveApi } from '@/lib/liveApi';
 import { Btn, Input, Field, Select, SegOpt } from '@/components/ui';
-import { COLLEGES, FUNNEL } from '@/lib/data';
+import { COLLEGES, FUNNEL, ADMIN_SCOPES } from '@/lib/data';
 import { typeStyle } from '@/lib/logic';
 
 const CRIT = { background: '#f7e2db', color: '#7a2d1a' };
@@ -576,5 +576,96 @@ export function ASettings() {
       <div className="card" style={{ background: 'var(--color-surface)', marginTop: 12 }}><div className="card-kicker">Feature flags</div><label className="radio"><input type="checkbox" defaultChecked /><span className="dot" />Mentor marketplace live</label><label className="radio"><input type="checkbox" defaultChecked /><span className="dot" />Auto-approve .ac.in emails</label><label className="radio"><input type="checkbox" /><span className="dot" />Premium bundles</label></div>
       <Btn variant="pri" act="toast" msg="Config persistence is an owner TODO" style={{ marginTop: 14 }}>Save config</Btn>
     </section>
+  );
+}
+
+// ── Admins & permissions (superadmin only) ───────────────────────────────────
+export function AAdmins() {
+  const { isSuperadmin, profile } = useApp();
+  const [data, setData] = useState(null);
+  const [err, setErr] = useState(null);
+  const [newId, setNewId] = useState('');
+  const [newScopes, setNewScopes] = useState([]);
+  const [busy, setBusy] = useState(false);
+
+  const load = useCallback(async () => {
+    try { setData(await liveApi.adminAdmins()); setErr(null); }
+    catch (e) { setErr(e.message || 'Could not load admins'); }
+  }, []);
+  useEffect(() => { if (isSuperadmin) load(); }, [isSuperadmin, load]);
+
+  if (!isSuperadmin) return (
+    <section style={{ maxWidth: 720, margin: '0 auto', padding: '26px 24px' }}>
+      <h1 style={{ fontSize: 28 }}>Admins</h1>
+      <div className="card" style={{ background: 'var(--color-surface)' }}>Only the superadmin can manage the admin team.</div>
+    </section>
+  );
+
+  const toggle = (list, set, s) => set(list.includes(s) ? list.filter((x) => x !== s) : [...list, s]);
+  const promote = async () => {
+    if (!newId.trim()) { setErr('Enter the user id to promote.'); return; }
+    setBusy(true);
+    try { await liveApi.promoteAdmin(newId.trim(), newScopes); setNewId(''); setNewScopes([]); await load(); }
+    catch (e) { setErr(e.message || 'Could not add admin'); }
+    finally { setBusy(false); }
+  };
+
+  return (
+    <section style={{ maxWidth: 820, margin: '0 auto', padding: '26px 24px 40px' }}>
+      <h1 style={{ margin: '0 0 4px', fontSize: 28 }}>Admins &amp; permissions</h1>
+      <p className="text-muted" style={{ fontSize: 14, marginBottom: 16 }}>You&apos;re the <strong>superadmin</strong>. Promote trusted users to admin and choose exactly what each one can do.</p>
+      {err && <div className="card" style={{ background: '#f7e2db', color: '#7a2d1a', marginBottom: 12 }}>{err}</div>}
+
+      <div className="card" style={{ background: 'var(--color-surface)', marginBottom: 16 }}>
+        <div className="card-kicker">Add an admin</div>
+        <Field label="User ID (copy it from the Users directory)"><Input value={newId} onChange={(e) => setNewId(e.target.value)} placeholder="e.g. d1d37d3a-5041-7022-..." /></Field>
+        <div style={{ fontSize: 12, color: 'var(--color-neutral-700)', marginBottom: 6 }}>Permissions to grant</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {ADMIN_SCOPES.map((s) => (
+            <span key={s.key} className={newScopes.includes(s.key) ? 'tag tag-accent' : 'tag tag-neutral'} onClick={() => toggle(newScopes, setNewScopes, s.key)} style={{ cursor: 'pointer' }} title={s.desc}>{s.label}{newScopes.includes(s.key) ? ' ✓' : ''}</span>
+          ))}
+        </div>
+        <Btn variant="pri" onClick={promote} disabled={busy} style={{ alignSelf: 'flex-start', marginTop: 10 }}>{busy ? 'Adding…' : 'Make admin'}</Btn>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {(data?.admins || []).map((a) => <AdminRow key={a.userId} a={a} me={profile?.userId} onChanged={load} />)}
+        {data && data.admins.length === 0 && <div className="card" style={{ background: 'var(--color-surface)' }}>No admins yet.</div>}
+        {!data && !err && <p className="text-muted">Loading admins…</p>}
+      </div>
+    </section>
+  );
+}
+
+function AdminRow({ a, me, onChanged }) {
+  const [scopes, setScopes] = useState(a.permissions || []);
+  const [busy, setBusy] = useState(false);
+  const isSuper = a.role === 'superadmin';
+  const toggle = (s) => setScopes(scopes.includes(s) ? scopes.filter((x) => x !== s) : [...scopes, s]);
+  const save = async () => { setBusy(true); try { await liveApi.updateAdmin(a.userId, scopes); await onChanged(); } finally { setBusy(false); } };
+  const demote = async () => { setBusy(true); try { await liveApi.demoteAdmin(a.userId); await onChanged(); } finally { setBusy(false); } };
+  return (
+    <div className="card" style={{ background: 'var(--color-surface)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+        <span style={{ fontWeight: 700 }}>{a.name || a.email || a.userId}</span>
+        <span className={isSuper ? 'tag tag-accent' : 'tag tag-accent-2'}>{isSuper ? '👑 Superadmin' : 'Admin'}</span>
+        {a.email && <span className="text-muted" style={{ fontSize: 12 }}>{a.email}</span>}
+      </div>
+      {isSuper ? (
+        <p className="text-muted" style={{ fontSize: 13, margin: '6px 0 0' }}>Full access — managed out-of-band.</p>
+      ) : (
+        <>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
+            {ADMIN_SCOPES.map((s) => (
+              <span key={s.key} className={scopes.includes(s.key) ? 'tag tag-accent' : 'tag tag-neutral'} onClick={() => toggle(s.key)} style={{ cursor: 'pointer' }} title={s.desc}>{s.label}{scopes.includes(s.key) ? ' ✓' : ''}</span>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+            <Btn variant="pri" onClick={save} disabled={busy}>Save permissions</Btn>
+            {a.userId !== me && <Btn variant="ghost" onClick={demote} disabled={busy} style={{ color: '#a8442e' }}>Demote to student</Btn>}
+          </div>
+        </>
+      )}
+    </div>
   );
 }

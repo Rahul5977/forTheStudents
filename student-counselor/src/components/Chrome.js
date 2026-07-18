@@ -79,8 +79,11 @@ function TopNav() {
 }
 
 function Sidebar() {
-  const { ctx, screen, navigate } = useApp();
-  const links = ctx === 'admin' ? ADMIN_LINKS : MENTOR_LINKS;
+  const { ctx, screen, navigate, can, isSuperadmin } = useApp();
+  // Admin links are gated by permission scope (superadmin sees all + the Admins page).
+  const links = ctx === 'admin'
+    ? ADMIN_LINKS.filter(([, , , scope]) => !scope || (scope === 'super' ? isSuperadmin : can(scope)))
+    : MENTOR_LINKS;
   return (
     <aside style={{ width: 232, flex: 'none', background: 'var(--color-surface)', borderRight: '1px solid var(--color-divider)', padding: '18px 14px', display: 'flex', flexDirection: 'column', gap: 4, position: 'sticky', top: 0, height: '100vh', overflow: 'auto' }}>
       <div onClick={() => navigate(HOME_FOR[ctx] || 'dashboard')} style={{ fontFamily: 'var(--font-heading)', fontSize: 17, padding: '6px 8px 14px', display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>

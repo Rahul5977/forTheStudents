@@ -117,6 +117,8 @@ function profileFromMe(me) {
     email: me?.email,
     name: me?.name,
     role: me?.role,
+    permissions: Array.isArray(me?.permissions) ? me.permissions : [],
+    onboardedAt: me?.onboardedAt,
     createdAt: me?.createdAt,
   };
 }
@@ -623,6 +625,9 @@ export function AppProvider({ children }) {
     predictParams: predictParamsOf(state.profile),
     // Derived auth/onboarding flags read by the auth screens + Chrome nav.
     isMentor: state.mentorStatus === 'APPROVED',
+    isSuperadmin: state.role === 'superadmin',
+    // Admin permission check: superadmin can do anything; an admin needs the specific scope.
+    can: (scope) => state.role === 'superadmin' || (state.profile.permissions || []).includes(scope),
     onboarded:
       state.profile.advRank > 0 || state.profile.mainRank > 0 ||
       (!!state.mentorStatus && state.mentorStatus !== 'none') ||

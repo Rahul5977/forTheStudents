@@ -17,6 +17,8 @@ interface UserItem {
   email?: string;
   phone?: string;
   rankPrefs?: RankPrefs;
+  permissions?: string[]; // admin permission scopes (role === 'admin')
+  onboardedAt?: string;
   createdAt: string;
   updatedAt: string;
   lastSeenAt?: string; // bumped on each /auth/bootstrap — drives the admin "live/active" view
@@ -29,6 +31,7 @@ export interface AdminUserRow {
   name?: string;
   email?: string;
   phone?: string;
+  permissions?: string[];
   createdAt: string;
   lastSeenAt?: string;
 }
@@ -170,8 +173,8 @@ export const usersRepo = {
       const res = await ddb.send(
         new ScanCommand({
           TableName: TABLE(),
-          ProjectionExpression: 'userId, #r, #n, email, phone, createdAt, lastSeenAt',
-          ExpressionAttributeNames: { '#r': 'role', '#n': 'name' },
+          ProjectionExpression: 'userId, #r, #n, email, phone, createdAt, lastSeenAt, #perms',
+          ExpressionAttributeNames: { '#r': 'role', '#n': 'name', '#perms': 'permissions' },
           ExclusiveStartKey,
           Limit: 500,
         }),
@@ -194,6 +197,22 @@ export const usersRepo = {
         UpdateExpression: 'SET #role = :role, updatedAt = :now',
         ExpressionAttributeNames: { '#role': 'role' },
         ExpressionAttributeValues: { ':role': role, ':now': now },
+        ConditionExpression: 'attribute_exists(PK)',
+        ReturnValues: 'ALL_NEW',
+      }),
+    );
+    return toProfile(res.Attributes as UserItem);
+  },
+
+  /** Superadmin management: set a user's role AND admin permission scopes together. */
+  async setRoleAndPermissions(userId: string, role: Role, permissions: string[], now: string): Promise<UserProfile> {
+    const res = await ddb.send(
+      new UpdateCommand({
+        TableName: TABLE(),
+        Key: key.user(userId),
+        UpdateExpression: 'SET #role = :role, #perms = :perms, updatedAt = :now',
+        ExpressionAttributeNames: { '#role': 'role', '#perms': 'permissions' },
+        ExpressionAttributeValues: { ':role': role, ':perms': permissions, ':now': now },
         ConditionExpression: 'attribute_exists(PK)',
         ReturnValues: 'ALL_NEW',
       }),

@@ -27,7 +27,7 @@ export const ALL_SCREENS = [
   'signup', 'login', 'otp', 'reset', 'roleSelect', 'onboarding', 'mentorOnboarding', 'verifyStatus',
   'dashboard', 'profile', 'predictor', 'filters', 'collegeDetail', 'collegeExplorer', 'compare', 'shortlist', 'choiceBuilder', 'choiceExport', 'marketplace', 'aiCounsellor', 'mentorProfile', 'booking', 'payment', 'bookingConfirm', 'sessions', 'sessionRoom', 'rateSession', 'timeline', 'notifications', 'help', 'settings', 'receipts',
   'mDashboard', 'mProfile', 'mAvailability', 'mVerification', 'mBookings', 'mSession', 'mEarnings', 'mReviews', 'mNotifications', 'mSettings',
-  'aDashboard', 'aStudents', 'aMentors', 'aVerifyQueue', 'aCollegeData', 'aContent', 'aSessions', 'aPayments', 'aModeration', 'aSupport', 'aCms', 'aBroadcast', 'aAnalytics', 'aSettings',
+  'aDashboard', 'aStudents', 'aMentors', 'aVerifyQueue', 'aCollegeData', 'aContent', 'aSessions', 'aPayments', 'aModeration', 'aSupport', 'aCms', 'aBroadcast', 'aAnalytics', 'aSettings', 'aAdmins',
   'emptyStates', 'loading', 'errorPages', 'confirmations', 'coachMarks', 'navPatterns',
 ];
 
@@ -37,7 +37,7 @@ const CTX = {
   signup: 'auth', login: 'auth', otp: 'auth', reset: 'auth', roleSelect: 'auth', onboarding: 'auth', mentorOnboarding: 'auth', verifyStatus: 'auth',
   dashboard: 'student', profile: 'student', predictor: 'student', filters: 'student', collegeDetail: 'student', collegeExplorer: 'student', compare: 'student', shortlist: 'student', choiceBuilder: 'student', choiceExport: 'student', marketplace: 'student', aiCounsellor: 'student', mentorProfile: 'student', booking: 'student', payment: 'student', bookingConfirm: 'student', sessions: 'student', sessionRoom: 'student', rateSession: 'student', timeline: 'student', notifications: 'student', help: 'student', settings: 'student', receipts: 'student',
   mDashboard: 'mentor', mProfile: 'mentor', mAvailability: 'mentor', mVerification: 'mentor', mBookings: 'mentor', mSession: 'mentor', mEarnings: 'mentor', mReviews: 'mentor', mNotifications: 'mentor', mSettings: 'mentor',
-  aDashboard: 'admin', aStudents: 'admin', aMentors: 'admin', aVerifyQueue: 'admin', aCollegeData: 'admin', aContent: 'admin', aSessions: 'admin', aPayments: 'admin', aModeration: 'admin', aSupport: 'admin', aCms: 'admin', aBroadcast: 'admin', aAnalytics: 'admin', aSettings: 'admin',
+  aDashboard: 'admin', aStudents: 'admin', aMentors: 'admin', aVerifyQueue: 'admin', aCollegeData: 'admin', aContent: 'admin', aSessions: 'admin', aPayments: 'admin', aModeration: 'admin', aSupport: 'admin', aCms: 'admin', aBroadcast: 'admin', aAnalytics: 'admin', aSettings: 'admin', aAdmins: 'admin',
   emptyStates: 'system', loading: 'system', errorPages: 'system', confirmations: 'system', coachMarks: 'system', navPatterns: 'system',
 };
 

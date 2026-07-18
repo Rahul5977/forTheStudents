@@ -77,6 +77,10 @@ export class AuthServiceStack extends Stack {
       { path: '/me/rank-prefs', method: apigw.HttpMethod.PATCH },
       { path: '/me/role', method: apigw.HttpMethod.POST },
       { path: '/admin/users', method: apigw.HttpMethod.GET }, // admin directory (role-gated in domain)
+      { path: '/admin/admins', method: apigw.HttpMethod.GET }, // superadmin: admin team (role-gated in domain)
+      { path: '/admin/admins', method: apigw.HttpMethod.POST },
+      { path: '/admin/admins/{id}', method: apigw.HttpMethod.PATCH },
+      { path: '/admin/admins/{id}/demote', method: apigw.HttpMethod.POST },
     ];
     for (const r of routes) {
       httpApi.addRoutes({ path: r.path, methods: [r.method], integration, authorizer });

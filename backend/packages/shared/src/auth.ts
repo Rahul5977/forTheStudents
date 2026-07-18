@@ -54,9 +54,19 @@ export function getPrincipal<E extends { Bindings: LambdaBindings }>(c: HonoCont
   };
 }
 
-/** Guard: require one of the given roles, else 403. */
+/**
+ * Guard: require one of the given roles, else 403.
+ * Hierarchy-aware: a `superadmin` satisfies ANY role requirement (superadmin ⊇ admin ⊇ …),
+ * so existing `requireRole(p, 'admin')` checks accept a superadmin without change.
+ */
 export function requireRole(p: Principal, ...roles: Role[]): void {
+  if (p.role === 'superadmin') return;
   if (!roles.includes(p.role)) {
     throw ForbiddenError(`Requires role: ${roles.join('/')}`);
   }
+}
+
+/** Guard: only the superadmin (never a regular admin) — for admin management. */
+export function requireSuperadmin(p: Principal): void {
+  if (p.role !== 'superadmin') throw ForbiddenError('Requires the superadmin.');
 }
