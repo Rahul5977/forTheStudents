@@ -416,6 +416,9 @@ export function Predictor() {
   const [data, setData] = useState(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(false);
+  // Results are split into two tabs: 'main' = Safe + Target (your core list), 'reach' =
+  // ambitious long-shots kept separate so they don't crowd the colleges you can realistically get.
+  const [tab, setTab] = useState(filters.bucket === 'reach' ? 'reach' : 'main');
 
   // Fetch REAL predictor results from the catalog service whenever inputs change.
   useEffect(() => {
@@ -445,13 +448,15 @@ export function Predictor() {
   if (filters.nirfMax > 0) res = res.filter((c) => c.nirf != null && c.nirf <= filters.nirfMax);
   if (filters.homeOnly) res = res.filter((c) => c.homeQuota === true);
   if (filters.maxFees > 0) res = res.filter((c) => feesLakhOf(c) <= filters.maxFees);
-  // Stage breakdown is counted over the full filtered set (BEFORE the bucket filter) so the
-  // Safe/Target/Reach tiles always show the true distribution — not 0s for the stages you
-  // filtered out. The bucket filter then narrows only the visible list below.
+  // Stage breakdown is counted over the full filtered set (BEFORE the tab split) so the
+  // Safe/Target/Reach tiles always show the true distribution. The main tab then shows only
+  // Safe + Target; Reach lives in its own tab so long-shots don't crowd the core list.
   const safe = res.filter((c) => c.bucket === 'safe').length;
   const target = res.filter((c) => c.bucket === 'target').length;
   const reach = res.filter((c) => c.bucket === 'reach').length;
-  if (filters.bucket !== 'all') res = res.filter((c) => c.bucket === filters.bucket);
+  res = tab === 'reach'
+    ? res.filter((c) => c.bucket === 'reach')
+    : res.filter((c) => c.bucket === 'safe' || c.bucket === 'target');
   const count = res.length;
   const TYPES = ['IIT', 'NIT', 'IIIT', 'GFTI'];
   return (
@@ -472,9 +477,9 @@ export function Predictor() {
       </div>
 
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 18 }}>
-        <div style={{ flex: 1, minWidth: 150, background: 'var(--color-accent-2-100)', borderRadius: 16, padding: '14px 18px' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 30, color: 'var(--color-accent-2-800)' }}>{safe}</div><div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#728157' }} />Safe — very likely</div></div>
-        <div style={{ flex: 1, minWidth: 150, background: 'var(--color-accent-100)', borderRadius: 16, padding: '14px 18px' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 30, color: 'var(--color-accent-800)' }}>{target}</div><div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#d67f48' }} />Target — realistic</div></div>
-        <div style={{ flex: 1, minWidth: 150, background: REACH_BG, borderRadius: 16, padding: '14px 18px' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 30, color: REACH_FG }}>{reach}</div><div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#a8442e' }} />Reach — ambitious</div></div>
+        <div onClick={() => setTab('main')} title="Shown in the Safe & Target tab" style={{ flex: 1, minWidth: 150, background: 'var(--color-accent-2-100)', borderRadius: 16, padding: '14px 18px', cursor: 'pointer', boxShadow: tab === 'main' ? '0 0 0 2px var(--color-accent-2-500)' : 'none' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 30, color: 'var(--color-accent-2-800)' }}>{safe}</div><div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#728157' }} />Safe — very likely</div></div>
+        <div onClick={() => setTab('main')} title="Shown in the Safe & Target tab" style={{ flex: 1, minWidth: 150, background: 'var(--color-accent-100)', borderRadius: 16, padding: '14px 18px', cursor: 'pointer', boxShadow: tab === 'main' ? '0 0 0 2px var(--color-accent-500)' : 'none' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 30, color: 'var(--color-accent-800)' }}>{target}</div><div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#d67f48' }} />Target — realistic</div></div>
+        <div onClick={() => setTab('reach')} title="Open the Reach tab" style={{ flex: 1, minWidth: 150, background: REACH_BG, borderRadius: 16, padding: '14px 18px', cursor: 'pointer', boxShadow: tab === 'reach' ? '0 0 0 2px #a8442e' : 'none' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 30, color: REACH_FG }}>{reach}</div><div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#a8442e' }} />Reach — ambitious <span style={{ marginLeft: 'auto', fontSize: 11, opacity: .75 }}>tab →</span></div></div>
       </div>
 
       <BucketExplainer />
@@ -501,14 +506,7 @@ export function Predictor() {
               </div>
               {filters.gender !== 'Gender-Neutral' && <div style={{ fontSize: 11, color: 'var(--color-accent-2-800)', marginTop: 5 }}>Shows Gender-Neutral + Female-only (supernumerary) seats — whichever gives the better chance.</div>}
             </div>
-            <div>
-              <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginBottom: 6 }}>Result stage</div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {[['all', 'All'], ['safe', 'Safe'], ['target', 'Target'], ['reach', 'Reach']].map(([val, lbl]) => (
-                  <span key={val} className="tag" onClick={() => setFilters({ bucket: val })} style={{ cursor: 'pointer', ...(filters.bucket === val ? { background: 'var(--color-accent)', color: 'var(--color-bg)' } : { background: 'var(--color-neutral-200)', color: 'var(--color-neutral-700)' }) }}>{lbl}</span>
-                ))}
-              </div>
-            </div>
+            <div style={{ fontSize: 12, background: 'var(--color-neutral-100)', borderRadius: 12, padding: '9px 11px', color: 'var(--color-neutral-700)' }}>💡 Results are split into a <strong>Safe &amp; Target</strong> tab and a <strong>Reach</strong> tab — switch them at the top of the list.</div>
             <div>
               <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', marginBottom: 6 }}>College type</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -535,14 +533,24 @@ export function Predictor() {
         </aside>
 
         <div style={{ flex: 1, minWidth: 300 }}>
+          <div className="seg" style={{ marginBottom: 12 }}>
+            <SegOpt on={tab === 'main'} onClick={() => setTab('main')}>✅ Safe &amp; Target · {safe + target}</SegOpt>
+            <SegOpt on={tab === 'reach'} onClick={() => setTab('reach')}>🎯 Reach · {reach}</SegOpt>
+          </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 10 }}>
             <div style={{ fontSize: 14 }}>
-              <strong>{count}</strong> <span className="text-muted">options match your rank &amp; filters</span>
+              <strong>{count}</strong> <span className="text-muted">{tab === 'reach' ? 'ambitious reach options' : 'safe & target options for your rank'}</span>
               {data?.version && <span className="tag tag-accent-2" style={{ marginLeft: 8, padding: '1px 8px' }}>● Live · official JoSAA {String(data.version).replace('josaa-', '')}</span>}
               {busy && <span className="text-muted" style={{ marginLeft: 8, fontSize: 12 }}>updating…</span>}
             </div>
             <div className="field" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}><label style={{ margin: 0 }}>Sort</label><Select style={{ width: 'auto' }} value={filters.sort} onChange={(e) => setFilters({ sort: e.target.value })}><option value="best">Recommended (best first)</option><option value="chance">By chance</option><option value="ranking">By NIRF ranking</option><option value="closing">By closing rank</option><option value="location">By location</option></Select></div>
           </div>
+          {tab === 'reach' && count > 0 && (
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', background: REACH_BG, color: REACH_FG, borderRadius: 14, padding: '11px 15px', marginBottom: 12, fontSize: 13 }}>
+              <span style={{ fontSize: 18 }}>🎯</span>
+              <span style={{ flex: 1, minWidth: 220 }}><strong>Reach = a stretch.</strong> Your rank is beyond last year&apos;s closing rank here (under 40% chance). Aim for a few, but keep most of your list in <strong>Safe &amp; Target</strong>.</span>
+            </div>
+          )}
 
           {err && !data ? (
             <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: '44px 20px', background: '#f7e2db', color: REACH_FG }}>
@@ -593,9 +601,18 @@ export function Predictor() {
             </div>
           ) : (
             <div className="card" style={{ alignItems: 'center', textAlign: 'center', padding: '44px 20px', background: 'var(--color-surface)' }}>
-              <div style={{ fontSize: 40 }}>🔍</div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20 }}>No colleges match these filters</div>
-              <p className="text-muted" style={{ fontSize: 14, maxWidth: 340 }}>Try loosening a filter — remove a college type, widen the branch, or clear the search.</p>
+              <div style={{ fontSize: 40 }}>{tab === 'reach' ? '🎯' : '🔍'}</div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20 }}>
+                {tab === 'reach' ? 'No reach colleges here' : reach > 0 ? 'No Safe or Target colleges yet' : 'No colleges match these filters'}
+              </div>
+              <p className="text-muted" style={{ fontSize: 14, maxWidth: 360 }}>
+                {tab === 'reach'
+                  ? 'Everything matching your filters is already Safe or Target — good news. 🎉'
+                  : reach > 0
+                    ? `Your rank is a stretch for these filters, but there ${reach === 1 ? 'is' : 'are'} ${reach} ambitious pick${reach === 1 ? '' : 's'} waiting in the Reach tab.`
+                    : 'Try loosening a filter — remove a college type, widen the branch, or clear the search.'}
+              </p>
+              {tab !== 'reach' && reach > 0 && <Btn variant="pri" onClick={() => setTab('reach')} style={{ marginTop: 10 }}>See {reach} Reach option{reach === 1 ? '' : 's'} →</Btn>}
             </div>
           )}
         </div>
