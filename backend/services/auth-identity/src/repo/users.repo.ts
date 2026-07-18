@@ -1,6 +1,6 @@
 // Data access for the Users table. Keep all DynamoDB item-shaping HERE; the
 // domain layer deals in UserProfile (transport shape), never raw items.
-import { GetCommand, PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { GetCommand, PutCommand, UpdateCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
 import { ddb, key } from '@sc/shared';
 import { getEnv } from '@sc/config';
 import type { RankPrefs, Role, UserProfile } from '@sc/shared';
@@ -19,6 +19,18 @@ interface UserItem {
   rankPrefs?: RankPrefs;
   createdAt: string;
   updatedAt: string;
+  lastSeenAt?: string; // bumped on each /auth/bootstrap — drives the admin "live/active" view
+}
+
+/** Projected admin view of a user row (no rankPrefs — the admin list is a directory). */
+export interface AdminUserRow {
+  userId: string;
+  role: Role;
+  name?: string;
+  email?: string;
+  phone?: string;
+  createdAt: string;
+  lastSeenAt?: string;
 }
 
 function toProfile(item: UserItem): UserProfile {
@@ -126,6 +138,51 @@ export const usersRepo = {
       }),
     );
     return toProfile(res.Attributes as UserItem);
+  },
+
+  /** Record a "seen now" timestamp (called on every bootstrap). Missing row ⇒ no-op. */
+  async touchLastSeen(userId: string, now: string): Promise<void> {
+    await ddb.send(
+      new UpdateCommand({
+        TableName: TABLE(),
+        Key: key.user(userId),
+        UpdateExpression: 'SET lastSeenAt = :now',
+        ConditionExpression: 'attribute_exists(PK)',
+        ExpressionAttributeValues: { ':now': now },
+      }),
+    ).catch((err: unknown) => {
+      if ((err as { name?: string }).name !== 'ConditionalCheckFailedException') throw err;
+    });
+  },
+
+  /**
+   * ADMIN-ONLY: scan up to `cap` user rows (paginated internally), projected to the admin
+   * directory view. A full Scan is acceptable at the platform's *authenticated*-user volume
+   * (the predictor is public/unauthed, so only signed-in users are stored here) and runs
+   * infrequently from the admin console. // TODO(owner): at much larger scale, move counts to
+   * a DynamoDB-Streams-fed Stats rollup (mirrors the Phase-7 mentor counters) to avoid scans.
+   */
+  async scanUsers(cap: number): Promise<{ rows: AdminUserRow[]; capped: boolean }> {
+    const rows: AdminUserRow[] = [];
+    let ExclusiveStartKey: Record<string, unknown> | undefined;
+    let capped = false;
+    do {
+      const res = await ddb.send(
+        new ScanCommand({
+          TableName: TABLE(),
+          ProjectionExpression: 'userId, #r, #n, email, phone, createdAt, lastSeenAt',
+          ExpressionAttributeNames: { '#r': 'role', '#n': 'name' },
+          ExclusiveStartKey,
+          Limit: 500,
+        }),
+      );
+      for (const it of (res.Items ?? []) as AdminUserRow[]) {
+        rows.push(it);
+        if (rows.length >= cap) { capped = true; break; }
+      }
+      ExclusiveStartKey = capped ? undefined : (res.LastEvaluatedKey as Record<string, unknown> | undefined);
+    } while (ExclusiveStartKey);
+    return { rows, capped };
   },
 
   /** Change app role (student <-> mentor). */

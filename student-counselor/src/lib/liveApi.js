@@ -98,6 +98,7 @@ export const liveApi = {
 
   // Phase 7 — admin console. All require role==='admin'.
   adminStats: () => call('/admin/stats'),
+  adminUsers: () => call('/admin/users'), // directory + live/active counts
   adminAudit: (params = {}) => call(`/admin/audit?${new URLSearchParams(params).toString()}`),
   // Moderation acts on a MENTOR id (drops/restores them from the public search).
   adminSuspendMentor: (id, reason) => call(`/admin/mentors/${id}/suspend`, { method: 'POST', body: { reason } }),

@@ -44,6 +44,7 @@ export const SCREENS = {
   choiceBuilder: S.ChoiceBuilder,
   choiceExport: S.ChoiceExport,
   marketplace: S.Marketplace,
+  aiCounsellor: S.AICounsellor,
   mentorProfile: S.MentorProfile,
   booking: S.Booking,
   payment: S.Payment,

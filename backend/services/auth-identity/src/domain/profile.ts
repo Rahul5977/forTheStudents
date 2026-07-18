@@ -32,6 +32,10 @@ export async function bootstrap(p: Principal): Promise<UserProfile> {
     name: p.name ? cleanName(p.name) : undefined,
     now: nowIso(),
   });
+  // Record presence — bootstrap runs on every session hydrate, so this doubles as a
+  // "last seen" heartbeat that powers the admin live/active view. Best-effort.
+  await usersRepo.touchLastSeen(p.userId, nowIso());
+
   const profile = await usersRepo.get(p.userId);
   if (!profile) throw NotFoundError('Profile could not be created');
 

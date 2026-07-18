@@ -211,6 +211,7 @@ export function Dashboard() {
         <Btn variant="sec" go="choiceBuilder">📋 Choice list</Btn>
         <Btn variant="sec" go="marketplace">💬 Talk to a senior</Btn>
         <Btn variant="sec" go="filters">🔍 College search</Btn>
+        <Btn variant="sec" go="aiCounsellor">✨ AI Counsellor <span style={{ fontSize: 10, opacity: 0.8 }}>· soon</span></Btn>
       </div>
     </section>
   );
@@ -682,6 +683,44 @@ function ComingSoon({ icon, title, note }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span style={{ fontSize: 18 }}>{icon}</span><div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>{title}</div><Tag tone="outline" style={{ marginLeft: 'auto', fontSize: 11 }}>Coming soon</Tag></div>
       <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>{note}</p>
     </div>
+  );
+}
+
+// ── AI Counsellor — upcoming feature (teaser + notify) ───────────────────────
+export function AICounsellor() {
+  const { showToast } = useApp();
+  const feats = [
+    { icon: '🎯', t: 'Rank-aware advice', d: 'Ask “CSE at NIT Trichy or ECE at IIT BHU for my rank?” — it reasons over your rank, category and the live JoSAA cutoffs.' },
+    { icon: '🧭', t: 'Choice-list co-pilot', d: 'It drafts and stress-tests your JoSAA order, explains Freeze / Float / Slide, and flags risky lists.' },
+    { icon: '💬', t: '24×7, in your language', d: 'Instant answers any time in the counselling window — in English or Hindi.' },
+    { icon: '📄', t: 'Grounded in official data', d: 'Every answer cites the JoSAA cutoff or NIRF fact it used — no made-up colleges.' },
+  ];
+  return (
+    <section style={{ maxWidth: 900, margin: '0 auto', padding: '24px 22px 48px' }}>
+      <div style={{ textAlign: 'center', padding: '18px 0 8px' }}>
+        <Tag tone="accent" style={{ fontSize: 12 }}>✨ Upcoming</Tag>
+        <h1 style={{ margin: '12px 0 6px', fontSize: 36 }}>AI Counsellor</h1>
+        <p className="text-muted" style={{ fontSize: 15, maxWidth: 560, margin: '0 auto' }}>
+          Your personal JoSAA guide — an AI that knows your rank and the official cutoffs, and answers the “what should I actually do?” questions, instantly.
+        </p>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14, marginTop: 22 }}>
+        {feats.map((f) => (
+          <div key={f.t} className="card" style={{ background: 'var(--color-surface)', gap: 6 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}><span style={{ fontSize: 22 }}>{f.icon}</span><div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>{f.t}</div></div>
+            <p className="text-muted" style={{ fontSize: 13.5, margin: 0 }}>{f.d}</p>
+          </div>
+        ))}
+      </div>
+      <div className="card" style={{ background: 'var(--color-accent-100)', marginTop: 20, alignItems: 'center', textAlign: 'center', gap: 10, padding: '26px 20px' }}>
+        <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20 }}>We’re building it for the next counselling season.</div>
+        <p className="text-muted" style={{ fontSize: 14, maxWidth: 460, margin: 0 }}>Want early access? We’ll ping you the moment it’s live.</p>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <Btn variant="pri" onClick={() => showToast('Thanks! We’ll notify you when the AI Counsellor launches. 🎉')}>Notify me when it’s live</Btn>
+          <Btn variant="sec" go="marketplace">Talk to a senior meanwhile</Btn>
+        </div>
+      </div>
+    </section>
   );
 }
 

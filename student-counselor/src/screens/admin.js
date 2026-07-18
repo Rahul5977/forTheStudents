@@ -54,13 +54,20 @@ function BackendTODO({ source }) {
 export function ADashboard() {
   const { runAct } = useApp();
   const [stats, setStats] = useState(null);
+  const [users, setUsers] = useState(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
 
   const load = useCallback(async () => {
     setLoading(true); setErr(null);
-    try { setStats(await liveApi.adminStats()); }
-    catch (e) { setErr(e.message || 'Could not load platform stats'); }
+    try {
+      // Users directory is best-effort — a stats failure shouldn't blank the whole page.
+      const [s, u] = await Promise.all([
+        liveApi.adminStats(),
+        liveApi.adminUsers().catch(() => null),
+      ]);
+      setStats(s); setUsers(u);
+    } catch (e) { setErr(e.message || 'Could not load platform stats'); }
     finally { setLoading(false); }
   }, []);
   useEffect(() => { load(); }, [load]);
@@ -78,8 +85,8 @@ export function ADashboard() {
         <div className="card elev-sm" style={{ background: 'var(--color-surface)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aMentors' })}><div className="card-kicker">Approved mentors</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(approved)}</div><div className="text-muted" style={{ fontSize: 11 }}>live count</div></div>
         <div className="card elev-sm" style={{ background: 'var(--color-accent-100)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aVerifyQueue' })}><div className="card-kicker">Pending review</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(pending)}</div><div className="text-muted" style={{ fontSize: 11 }}>verification queue</div></div>
         <div className="card elev-sm" style={{ background: 'var(--color-surface)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aModeration' })}><div className="card-kicker">Audit actions</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(auditN)}</div><div className="text-muted" style={{ fontSize: 11 }}>your trail</div></div>
-        <div className="card elev-sm" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Students</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>—</div><div className="text-muted" style={{ fontSize: 11 }}>Phase 8 rollup</div></div>
-        <div className="card elev-sm" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Revenue today</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>—</div><div className="text-muted" style={{ fontSize: 11 }}>Phase 8 rollup</div></div>
+        <div className="card elev-sm" style={{ background: 'var(--color-surface)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aStudents' })}><div className="card-kicker">Total users</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(users?.total)}</div><div className="text-muted" style={{ fontSize: 11 }}>signed-in accounts</div></div>
+        <div className="card elev-sm" style={{ background: 'var(--color-accent-2-100)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aStudents' })}><div className="card-kicker">Live now</div><div style={{ display: 'flex', alignItems: 'center', gap: 7 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#3fae6b', boxShadow: '0 0 0 3px rgba(63,174,107,.2)' }} /><span style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(users?.liveNow)}</span></div><div className="text-muted" style={{ fontSize: 11 }}>active in last 5 min</div></div>
       </div>
       <div className="dash-2col" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 14, marginTop: 14 }}>
         <div className="card elev-sm" style={{ background: 'var(--color-surface)' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>Sessions &amp; revenue (14 days)</div><svg viewBox="0 0 520 180" style={{ width: '100%', height: 'auto' }}><polyline points="10,150 50,140 90,120 130,125 170,100 210,90 250,70 290,80 330,55 370,45 410,50 450,30 490,25 510,20" fill="none" stroke="var(--color-accent)" strokeWidth="3" /><polyline points="10,165 50,160 90,150 130,155 170,140 210,138 250,120 290,128 330,110 370,100 410,105 450,88 490,82 510,78" fill="none" stroke="var(--color-accent-2)" strokeWidth="3" strokeDasharray="4 4" /></svg><div style={{ display: 'flex', gap: 16, fontSize: 12 }}><span>▬ Revenue</span><span style={{ color: 'var(--color-accent-2-700)' }}>┄ Sessions</span></div><Note style={{ marginTop: 8 }}>Trend line is illustrative — revenue/session rollups are fed by Phase 8 DynamoDB Streams aggregates. {/* TODO(owner) */}</Note></div>
@@ -89,22 +96,99 @@ export function ADashboard() {
   );
 }
 
-// ── Student Management ────────────────────────────────────────────────────
+// ── Users & presence ─────────────────────────────────────────────────────
+// Live directory from the identity service: GET /admin/users returns every signed-in
+// user + live/active counts (lastSeenAt is bumped on each session bootstrap).
+const num = (v) => (v == null ? '—' : v.toLocaleString('en-IN'));
+const fmtDay = (iso) => (iso ? new Date(iso).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' }) : '—');
+function agoOf(iso) {
+  if (!iso) return 'never';
+  const s = Math.max(0, (Date.now() - Date.parse(iso)) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+  return `${Math.floor(s / 86400)}d ago`;
+}
+const ROLE_TONE = { student: 'var(--color-accent-2-100)', mentor: 'var(--color-accent-100)', admin: '#f7e2db' };
+
 export function AStudents() {
-  const rows = [
-    ['Aditya Verma', '850', 'Open', '3', 'Jul 1'],
-    ['Riya Sen', '2,340', 'OBC-NCL', '1', 'Jul 2'],
-    ['Dev Patel', '5,120', 'Open', '2', 'Jul 3'],
-    ['Sana Khan', '1,090', 'EWS', '0', 'Jul 4'],
-  ];
+  const { showToast } = useApp();
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(null);
+  const [q, setQ] = useState('');
+
+  const load = useCallback(async () => {
+    setLoading(true); setErr(null);
+    try { setData(await liveApi.adminUsers()); }
+    catch (e) { setErr(e.message || 'Could not load users'); }
+    finally { setLoading(false); }
+  }, []);
+  useEffect(() => { load(); }, [load]);
+
+  const users = data?.users || [];
+  const ql = q.trim().toLowerCase();
+  const shown = ql ? users.filter((u) => `${u.name || ''} ${u.email || ''} ${u.userId}`.toLowerCase().includes(ql)) : users;
+
+  const stat = (label, value, tone, hint) => (
+    <div className="card elev-sm" style={{ background: tone || 'var(--color-surface)' }}>
+      <div className="card-kicker">{label}</div>
+      <div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(value)}</div>
+      {hint && <div className="text-muted" style={{ fontSize: 11 }}>{hint}</div>}
+    </div>
+  );
+
   return (
     <section style={{ padding: '26px 28px 40px' }}>
-      <h1 style={{ margin: '0 0 12px', fontSize: 26 }}>Student management</h1>
-      <BackendTODO source="the identity service (users table)" />
-      <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}><Input placeholder="Search students…" style={{ maxWidth: 280 }} /><Btn variant="sec" act="toast" msg="Student export is an owner TODO">Export</Btn></div>
-      <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}><table className="table" style={{ minWidth: 560 }}><thead><tr><th>Name</th><th>Rank (Adv)</th><th>Category</th><th>Sessions</th><th>Joined</th><th></th></tr></thead><tbody>
-        {rows.map((r) => <tr key={r[0]}><td>{r[0]}</td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td><td>{r[4]}</td><td><Btn variant="ghost" act="toast" msg="Student detail is an owner TODO">View</Btn></td></tr>)}
-      </tbody></table></div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+        <h1 style={{ margin: 0, fontSize: 26 }}>Users &amp; presence</h1>
+        <Btn variant="sec" onClick={load} disabled={loading}>{loading ? 'Refreshing…' : '↻ Refresh'}</Btn>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12, marginTop: 16 }}>
+        {stat('Total users', data?.total, 'var(--color-surface)', data?.capped ? 'showing first 5,000' : 'all signed-in users')}
+        <div className="card elev-sm" style={{ background: 'var(--color-accent-2-100)' }}>
+          <div className="card-kicker">Live now</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#3fae6b', boxShadow: '0 0 0 3px rgba(63,174,107,.2)' }} /><span style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(data?.liveNow)}</span></div>
+          <div className="text-muted" style={{ fontSize: 11 }}>active in last 5 min</div>
+        </div>
+        {stat('Active today', data?.activeToday, 'var(--color-surface)', 'last 24 hours')}
+        {stat('New today', data?.newToday, 'var(--color-accent-100)', 'signed up in 24h')}
+      </div>
+
+      {data?.byRole && (
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
+          {Object.entries(data.byRole).map(([role, n]) => (
+            <span key={role} className="tag" style={{ background: ROLE_TONE[role] || 'var(--color-neutral-200)', textTransform: 'capitalize' }}>{role}: <strong style={{ marginLeft: 4 }}>{num(n)}</strong></span>
+          ))}
+        </div>
+      )}
+
+      <div style={{ display: 'flex', gap: 8, margin: '14px 0 12px' }}>
+        <Input placeholder="Search name / email…" value={q} onChange={(e) => setQ(e.target.value)} style={{ maxWidth: 280 }} />
+        <Btn variant="sec" onClick={() => showToast('CSV export is an owner TODO — the data is live above.')}>Export</Btn>
+      </div>
+
+      <Status loading={loading && !data} err={err} empty={!!data && shown.length === 0} emptyMsg={ql ? 'No users match that search.' : 'No signed-in users yet.'} onRetry={load}>
+        <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}>
+          <table className="table" style={{ minWidth: 620 }}>
+            <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Joined</th><th>Last seen</th><th>Status</th></tr></thead>
+            <tbody>
+              {shown.map((u) => (
+                <tr key={u.userId}>
+                  <td>{u.name || <span className="text-muted">—</span>}</td>
+                  <td style={{ fontSize: 12.5 }}>{u.email || <span className="text-muted">—</span>}</td>
+                  <td><span className="tag" style={{ background: ROLE_TONE[u.role] || 'var(--color-neutral-200)', textTransform: 'capitalize' }}>{u.role}</span></td>
+                  <td>{fmtDay(u.createdAt)}</td>
+                  <td style={{ fontSize: 12.5 }}>{agoOf(u.lastSeenAt)}</td>
+                  <td>{u.live ? <span style={{ color: '#2c7a4b', fontSize: 12.5 }}>● Live</span> : u.activeToday ? <span className="text-muted" style={{ fontSize: 12.5 }}>Today</span> : <span className="text-muted" style={{ fontSize: 12.5 }}>Offline</span>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Status>
+      {data?.capped && <Note style={{ marginTop: 10 }}>Over 5,000 users — the list is capped. {/* TODO(owner): move counts to a Streams-fed Stats rollup for exact totals at scale. */}</Note>}
     </section>
   );
 }

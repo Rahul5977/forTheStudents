@@ -243,7 +243,7 @@ export const GALLERY_GROUPS = [
   },
   {
     title: 'Student App',
-    items: [['dashboard', 'Dashboard', ''], ['profile', 'Profile & Rank', ''], ['predictor', 'College Predictor', 'CORE'], ['filters', 'Advanced Filters', ''], ['collegeDetail', 'College Analysis', 'CORE'], ['compare', 'Comparison', ''], ['shortlist', 'Shortlist', ''], ['choiceBuilder', 'Choice-List Builder', 'CORE'], ['choiceExport', 'Export / Print', ''], ['marketplace', 'Browse Counsellors', ''], ['mentorProfile', 'Mentor Profile', ''], ['booking', 'Booking', ''], ['payment', 'Payment', ''], ['bookingConfirm', 'Booking Confirmed', ''], ['sessions', 'My Sessions', ''], ['sessionRoom', 'Session Room', 'CORE'], ['rateSession', 'Rate & Review', ''], ['timeline', 'Counselling Timeline', ''], ['notifications', 'Notifications', ''], ['help', 'Help / Support', ''], ['settings', 'Settings', ''], ['receipts', 'Payment History', '']],
+    items: [['dashboard', 'Dashboard', ''], ['profile', 'Profile & Rank', ''], ['predictor', 'College Predictor', 'CORE'], ['filters', 'Advanced Filters', ''], ['collegeDetail', 'College Analysis', 'CORE'], ['compare', 'Comparison', ''], ['shortlist', 'Shortlist', ''], ['choiceBuilder', 'Choice-List Builder', 'CORE'], ['choiceExport', 'Export / Print', ''], ['marketplace', 'Browse Counsellors', ''], ['aiCounsellor', 'AI Counsellor', 'SOON'], ['mentorProfile', 'Mentor Profile', ''], ['booking', 'Booking', ''], ['payment', 'Payment', ''], ['bookingConfirm', 'Booking Confirmed', ''], ['sessions', 'My Sessions', ''], ['sessionRoom', 'Session Room', 'CORE'], ['rateSession', 'Rate & Review', ''], ['timeline', 'Counselling Timeline', ''], ['notifications', 'Notifications', ''], ['help', 'Help / Support', ''], ['settings', 'Settings', ''], ['receipts', 'Payment History', '']],
   },
   {
     title: 'Counsellor / Mentor App',
@@ -265,7 +265,7 @@ export const GALLERY_GROUPS = [
 
 // Sidebar nav definitions (mentor + admin).
 export const ADMIN_LINKS = [
-  ['aDashboard', 'Dashboard', '▦'], ['aStudents', 'Students', '👥'], ['aMentors', 'Mentors', '🎓'], ['aVerifyQueue', 'Verification', '✔'], ['aCollegeData', 'College Data', '🏛'], ['aContent', 'Content', '📝'], ['aSessions', 'Sessions', '🎥'], ['aPayments', 'Payments', '₹'], ['aModeration', 'Moderation', '🛡'], ['aSupport', 'Support', '💬'], ['aCms', 'CMS', '📰'], ['aBroadcast', 'Broadcast', '📣'], ['aAnalytics', 'Analytics', '📈'], ['aSettings', 'Settings', '⚙'],
+  ['aDashboard', 'Dashboard', '▦'], ['aStudents', 'Users', '👥'], ['aMentors', 'Mentors', '🎓'], ['aVerifyQueue', 'Verification', '✔'], ['aCollegeData', 'College Data', '🏛'], ['aContent', 'Content', '📝'], ['aSessions', 'Sessions', '🎥'], ['aPayments', 'Payments', '₹'], ['aModeration', 'Moderation', '🛡'], ['aSupport', 'Support', '💬'], ['aCms', 'CMS', '📰'], ['aBroadcast', 'Broadcast', '📣'], ['aAnalytics', 'Analytics', '📈'], ['aSettings', 'Settings', '⚙'],
 ];
 export const MENTOR_LINKS = [
   ['mDashboard', 'Dashboard', '▦'], ['mBookings', 'Bookings', '📅'], ['mAvailability', 'Availability', '🕑'], ['mEarnings', 'Earnings', '₹'], ['mReviews', 'Reviews', '⭐'], ['mProfile', 'Profile', '👤'], ['mVerification', 'Verification', '✔'], ['mNotifications', 'Notifications', '🔔'], ['mSettings', 'Settings', '⚙'],
