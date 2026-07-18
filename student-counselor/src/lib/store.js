@@ -28,6 +28,20 @@ import {
 
 const AppCtx = createContext(null);
 
+// Lazy-load the Razorpay Checkout script once, on first payment. (This is a real
+// deployed site, not a sandboxed artifact, so loading the gateway script is fine.)
+function loadRazorpayCheckout() {
+  return new Promise((resolve) => {
+    if (typeof window === 'undefined') return resolve(false);
+    if (window.Razorpay) return resolve(true);
+    const s = document.createElement('script');
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);
+    document.body.appendChild(s);
+  });
+}
+
 // Default profile shape kept so public screens (and pre-hydration renders) never
 // crash reading profile.advRank etc. Overwritten by the DB profile after login.
 const DEFAULT_PROFILE = { advRank: 850, mainRank: 4200, category: 'Open', home: 'Maharashtra', gender: 'Male', pwd: false, branches: ['Computer Science', 'Electronics'], priority: 'branch' };
@@ -289,7 +303,56 @@ export function AppProvider({ children }) {
 
   const book = useCallback((mentorId, slotId) =>
     withSessionRefresh(() => liveApi.createBooking(mentorId, slotId || 's1', `ui-${mentorId}-${Date.now()}`), 'Booking created'), [withSessionRefresh]);
-  const pay = useCallback((bookingId) => withSessionRefresh(() => liveApi.simulatePayment(bookingId), 'Payment confirmed'), [withSessionRefresh]);
+
+  // After Razorpay reports success, the confirmation is authoritative from the SERVER
+  // webhook (payment.captured → CONFIRMED). Poll the booking until it flips.
+  const pollBookingConfirmed = useCallback(async (bookingId, tries = 8) => {
+    for (let i = 0; i < tries; i++) {
+      await new Promise((r) => setTimeout(r, 1800));
+      try {
+        const r = await liveApi.getBooking(bookingId);
+        if (r?.booking?.status === 'CONFIRMED') { await loadSessions(); toast('Payment successful — session confirmed 🎉'); return true; }
+        if (r?.booking?.status === 'EXPIRED') { await loadSessions(); toast('Payment failed — please try again.'); return false; }
+      } catch { /* keep polling */ }
+    }
+    await loadSessions();
+    toast('Payment received — confirming your session…');
+    return false;
+  }, [loadSessions, toast]);
+
+  // Pay for a booking. When Razorpay LIVE keys are configured (in SSM) the booking carries
+  // an orderId + public keyId, so we open Razorpay Checkout in the browser and let the
+  // server-side webhook confirm it. When it isn't configured (test env), fall back to the
+  // dev-pay webhook simulator so the flow stays demoable.
+  const pay = useCallback(async (bookingId) => {
+    try {
+      const res = await liveApi.getBooking(bookingId);
+      const pmt = res?.payment;
+      if (pmt?.keyId && pmt?.orderId) {
+        const ok = await loadRazorpayCheckout();
+        if (!ok) { toast('Could not load the payment gateway — check your connection.'); return; }
+        const prof = sRef.current.profile;
+        const rzp = new window.Razorpay({
+          key: pmt.keyId,
+          order_id: pmt.orderId,
+          amount: (pmt.amountINR || res?.booking?.priceINR || 0) * 100, // paise
+          currency: 'INR',
+          name: 'Student-Counselor',
+          description: `Session with ${res?.booking?.mentorName || 'your mentor'}`,
+          prefill: { name: prof.name || '', email: prof.email || '' },
+          theme: { color: '#c67139' },
+          handler: () => { toast('Payment received — confirming…'); pollBookingConfirmed(bookingId); },
+          modal: { ondismiss: () => toast('Payment cancelled') },
+        });
+        rzp.on('payment.failed', () => toast('Payment failed — please try again.'));
+        rzp.open();
+      } else {
+        await liveApi.simulatePayment(bookingId); // Razorpay not configured → dev-pay
+        await loadSessions();
+        toast('Payment confirmed');
+      }
+    } catch (e) { toast(e.message || 'Could not start payment'); }
+  }, [toast, loadSessions, pollBookingConfirmed]);
   const join = useCallback((id) => withSessionRefresh(() => liveApi.joinSession(id)), [withSessionRefresh]);
   const end = useCallback((id) => withSessionRefresh(() => liveApi.endSession(id), 'Session ended'), [withSessionRefresh]);
   const rate = useCallback((id, n, comment) => withSessionRefresh(() => liveApi.rateSession(id, n, comment), 'Thanks for the rating'), [withSessionRefresh]);
