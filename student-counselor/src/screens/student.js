@@ -141,76 +141,198 @@ function useSelectedMentor() {
 }
 
 // ── Dashboard / Home ───────────────────────────────────────────────────────
-export function Dashboard() {
-  const { navigate, profile, choiceItems, choiceSummary, sessions, unreadCount } = useApp();
-  const summary = choiceSummary || { safe: 0, target: 0, reach: 0, total: choiceItems.length };
-  const preview = choiceItems.slice(0, 3);
-  const upcoming = sessions.find((s) => s.status === 'CONFIRMED' || s.status === 'LIVE');
-  const firstName = (profile?.name || 'there').split(' ')[0];
-  return (
-    <section style={{ maxWidth: 1080, margin: '0 auto', padding: '24px 22px 40px' }}>
-      <h1 style={{ margin: '0 0 2px', fontSize: 32 }}>Hi {firstName} 👋</h1>
-      <p className="text-muted" style={{ fontSize: 14, marginBottom: 18 }}>JoSAA choice-filling is on — let&apos;s keep your list sharp.{unreadCount > 0 && <> You have <strong style={{ color: 'var(--color-accent-700)' }}>{unreadCount} new</strong> notification{unreadCount > 1 ? 's' : ''}.</>}</p>
+const MONTH_IDX = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+// Days from now until a "Mon D"-style round date (client-side; assumes the current
+// year, 6 PM cut-off). Returns null if unparseable — used only for a friendly
+// countdown on the deadline banner, never for anything load-bearing.
+function daysUntilRoundDate(dateStr) {
+  const m = String(dateStr || '').match(/([A-Za-z]{3})\s+(\d{1,2})/);
+  if (!m) return null;
+  const mon = MONTH_IDX[m[1][0].toUpperCase() + m[1].slice(1).toLowerCase()];
+  if (mon == null) return null;
+  const now = new Date();
+  const target = new Date(now.getFullYear(), mon, +m[2], 18, 0, 0);
+  return Math.ceil((target - now) / 86400000);
+}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 14 }}>
-        <Tile go="predictor" className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
-          <div className="card-kicker">Your list at a glance</div>
-          <div style={{ display: 'flex', gap: 14 }}>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: 'var(--color-accent-2-800)' }}>{summary.safe}</div><div style={{ fontSize: 11 }}>Safe</div></div>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: 'var(--color-accent-800)' }}>{summary.target}</div><div style={{ fontSize: 11 }}>Target</div></div>
-            <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26, color: REACH_FG }}>{summary.reach}</div><div style={{ fontSize: 11 }}>Reach</div></div>
+// The three admission buckets in plain English + the % band behind each, so a
+// student sees exactly what Safe / Target / Reach mean and the chance attached.
+const STAND_BUCKETS = [
+  { key: 'safe', plain: 'Almost sure to get', term: 'Safe', band: '≥ 80% chance', note: "You'll very likely get a seat in these.", bg: 'var(--color-accent-2-100)', fg: 'var(--color-accent-2-800)' },
+  { key: 'target', plain: 'Good chance', term: 'Target', band: '40–80% chance', note: 'Realistic if this round goes your way.', bg: 'var(--color-accent-100)', fg: 'var(--color-accent-800)' },
+  { key: 'reach', plain: 'Hard to get', term: 'Reach', band: 'under 40% chance', note: 'A stretch — but worth adding a few.', bg: REACH_BG, fg: REACH_FG },
+];
+
+export function Dashboard() {
+  const { navigate, profile, filters, choiceItems, sessions, unreadCount } = useApp();
+  const firstName = (profile?.name || 'there').split(' ')[0];
+  const upcoming = sessions.find((s) => s.status === 'CONFIRMED' || s.status === 'LIVE');
+  const shownRank = profile.advRank > 0 ? profile.advRank : profile.mainRank;
+  const rankExam = profile.advRank > 0 ? 'JEE Advanced' : 'JEE Main';
+
+  // "Where do you stand?" — the REAL Safe/Target/Reach distribution for this student's
+  // rank across the whole catalog. predictCached() memoizes by the query string, so
+  // revisiting the dashboard (or predicting the same rank again) is instant + stable.
+  const [stand, setStand] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    const params = {
+      advRank: profile.advRank > 0 ? String(profile.advRank) : '',
+      mainRank: profile.mainRank > 0 ? String(profile.mainRank) : '',
+      category: profile.category, home: profile.home, gender: filters.gender,
+    };
+    setStand(null);
+    liveApi.predictCached(params)
+      .then((d) => {
+        if (cancelled) return;
+        const r = d?.results || [];
+        setStand({
+          safe: r.filter((c) => c.bucket === 'safe').length,
+          target: r.filter((c) => c.bucket === 'target').length,
+          reach: r.filter((c) => c.bucket === 'reach').length,
+          total: r.length,
+          iitExcluded: !!d?.iitExcludedNoAdvRank,
+        });
+      })
+      .catch(() => { if (!cancelled) setStand({ error: true }); });
+    return () => { cancelled = true; };
+  }, [profile.advRank, profile.mainRank, profile.category, profile.home, filters.gender]);
+
+  const activeRound = ROUNDS.find((r) => r.status === 'Active') || ROUNDS.find((r) => r.status === 'Upcoming') || ROUNDS[0];
+  const daysLeft = activeRound ? daysUntilRoundDate(activeRound.date) : null;
+
+  const listBody = choiceItems.length
+    ? `The colleges you'll fill in counselling, kept in your own order. You have ${choiceItems.length} added.`
+    : "The colleges you'll fill in counselling, saved in your own order. Add your first from the predictor.";
+  const ACTIONS = [
+    { n: 1, icon: '🎯', bg: 'var(--color-accent-100)', title: 'Find my colleges', body: 'See which colleges you can get with your rank — sorted from safest to toughest.', go: 'predictor' },
+    { n: 2, icon: '📋', bg: 'var(--color-accent-2-100)', title: 'My college list', body: listBody, go: 'choiceBuilder' },
+    { n: 3, icon: '💬', bg: 'var(--color-neutral-200)', title: 'Talk to a senior', body: 'Book a video call with a student already studying in your dream college.', go: 'marketplace' },
+  ];
+
+  return (
+    <section style={{ maxWidth: 1120, margin: '0 auto', padding: '40px 26px 64px' }}>
+      {/* Hero greeting */}
+      <h1 style={{ margin: '0 0 8px', fontSize: 'clamp(38px, 6vw, 56px)' }}>Namaste, {firstName} 👋</h1>
+      <p className="text-muted" style={{ fontSize: 17, lineHeight: 1.5, maxWidth: 640, margin: '0 0 34px' }}>
+        This app turns your JEE rank into the right college — in three simple steps. Start anywhere below.
+        {unreadCount > 0 && <> You have <strong style={{ color: 'var(--color-accent-700)' }}>{unreadCount} new</strong> notification{unreadCount > 1 ? 's' : ''}.</>}
+      </p>
+
+      {/* Deadline banner */}
+      {activeRound && (
+        <div className="elev-sm" style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap', background: 'var(--color-accent-100)', borderRadius: 'calc(var(--radius-lg) * 1.15)', padding: '22px 26px', marginBottom: 44 }}>
+          <div style={{ fontSize: 40, lineHeight: 1 }}>⏰</div>
+          <div style={{ flex: 1, minWidth: 240 }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22, marginBottom: 4 }}>
+              {daysLeft > 0 ? `Last date is close — ${daysLeft} day${daysLeft > 1 ? 's' : ''} left` : `${activeRound.title} is on — don't miss it`}
+            </div>
+            <div className="text-muted" style={{ fontSize: 15 }}>
+              Finish filling your college choices — <strong style={{ color: 'var(--color-text)' }}>{activeRound.date}</strong>. We&apos;ll remind you again.
+            </div>
           </div>
-          <span className="sc-btn ghost" style={{ alignSelf: 'flex-start', paddingLeft: 0 }}>Open predictor →</span>
-        </Tile>
-        <Tile go="choiceBuilder" className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
-          <div className="card-kicker">My choice list · {choiceItems.length} choices</div>
-          <div style={{ fontSize: 13, lineHeight: 1.9 }}>
-            {preview.length > 0 ? preview.map((c, i) => (
-              <div key={c.id}>{i + 1}. {c.college} — {c.branch}</div>
-            )) : <div className="text-muted">Your list is empty — add colleges from the predictor.</div>}
+          <Btn variant="pri" go="choiceBuilder" style={{ fontSize: 15, padding: '12px 22px' }}>Fill my choices</Btn>
+        </div>
+      )}
+
+      {/* What would you like to do? */}
+      <h2 style={{ fontSize: 28, margin: '0 0 4px' }}>What would you like to do?</h2>
+      <p className="text-muted" style={{ fontSize: 15, marginBottom: 24 }}>Tap a card to begin. You can always come back to this home page.</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
+        {ACTIONS.map((a) => (
+          <Tile key={a.n} go={a.go} className="card elev-sm" style={{ background: 'var(--color-surface)', padding: 'var(--space-6)', gap: 14 }}>
+            <div style={{ width: 60, height: 60, borderRadius: '50%', background: a.bg, display: 'grid', placeItems: 'center', fontSize: 28 }}>{a.icon}</div>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22 }}>{a.n}. {a.title}</div>
+            <p className="text-muted" style={{ fontSize: 14.5, lineHeight: 1.5, flex: 1, margin: 0 }}>{a.body}</p>
+            <span className="sc-btn pri" style={{ alignSelf: 'flex-start', marginTop: 6 }}>Open →</span>
+          </Tile>
+        ))}
+      </div>
+
+      {/* Where do you stand?  +  Your next video call */}
+      <div className="dash-2col" style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 20, marginTop: 40 }}>
+        <div className="card elev-sm" style={{ background: 'var(--color-surface)', padding: 'var(--space-6)', gap: 18 }}>
+          <div>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: 24 }}>Where do you stand?</div>
+            <div className="text-muted" style={{ fontSize: 14, marginTop: 2 }}>
+              Based on your {rankExam} rank <strong style={{ color: 'var(--color-text)' }}>{shownRank ? Number(shownRank).toLocaleString('en-IN') : '—'}</strong> and last year&apos;s cut-offs, across all IITs, NITs, IIITs &amp; GFTIs.
+            </div>
           </div>
-          <span className="sc-btn ghost" style={{ alignSelf: 'flex-start', paddingLeft: 0 }}>Open builder →</span>
-        </Tile>
-        <div className="card elev-sm" style={{ background: 'var(--color-accent-100)' }}>
-          <div className="card-kicker">Upcoming session</div>
+          {stand?.error ? (
+            <div className="text-muted" style={{ fontSize: 14 }}>Couldn&apos;t work out your standing right now — open the predictor to see your colleges.</div>
+          ) : !stand ? (
+            <div className="text-muted" style={{ fontSize: 14 }}>Working out where you stand…</div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {STAND_BUCKETS.map((b) => (
+                <div key={b.key} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <div style={{ width: 54, height: 54, flex: 'none', borderRadius: 16, background: b.bg, color: b.fg, display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', fontSize: 24 }}>{stand[b.key]}</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+                      <span style={{ fontWeight: 700, fontSize: 15 }}>{b.plain}</span>
+                      <span className="tag" style={{ background: b.bg, color: b.fg, fontSize: 11 }}>{b.term} · {b.band}</span>
+                    </div>
+                    <div className="text-muted" style={{ fontSize: 13 }}>{b.note}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {stand?.iitExcluded && (
+            <div style={{ fontSize: 12.5, background: 'var(--color-accent-100)', color: 'var(--color-accent-800)', borderRadius: 12, padding: '9px 12px' }}>
+              🎓 IITs are hidden until you add a JEE&nbsp;Advanced rank — these counts are your NIT / IIIT / GFTI options.
+            </div>
+          )}
+          <Btn variant="sec" go="predictor" block>See the full list</Btn>
+        </div>
+
+        <div className="card elev-sm" style={{ background: 'var(--color-accent-2-100)', padding: 'var(--space-6)', gap: 14 }}>
+          <div className="card-kicker" style={{ color: 'var(--color-accent-2-800)' }}>Your next video call</div>
           {upcoming ? (
             <>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <Avatar initials={initialsOf(upcoming.mentorName)} size={40} />
-                <div><div style={{ fontWeight: 700, fontSize: 14 }}>{upcoming.mentorName || 'Your mentor'}</div><div className="text-muted" style={{ fontSize: 12 }}>{fmtWhen(upcoming.startsAt)} · {upcoming.durationMin || 25} min</div></div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <Avatar initials={initialsOf(upcoming.mentorName)} color={colorFor(upcoming.mentorId || upcoming.mentorName)} size={50} />
+                <div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 19 }}>{upcoming.mentorName || 'Your mentor'}</div><div className="text-muted" style={{ fontSize: 13 }}>{upcoming.mentorCollege || 'Verified senior · 1:1 video call'}</div></div>
               </div>
-              <div style={{ display: 'flex', gap: 6 }}><Btn variant="pri" go="sessionRoom">Join</Btn><Btn variant="sec" go="sessions">Manage</Btn></div>
+              <div style={{ fontSize: 14, display: 'flex', alignItems: 'center', gap: 8 }}><span>📅</span><span>{fmtWhen(upcoming.startsAt)} · {upcoming.durationMin || 25} minutes</span></div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}><Btn variant="pri" go="sessionRoom">Join call</Btn><Btn variant="sec" go="sessions">Manage</Btn></div>
             </>
           ) : (
             <>
-              <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>No upcoming sessions. Book a 1:1 with a verified senior for honest advice.</p>
+              <div style={{ fontSize: 40 }}>💬</div>
+              <p style={{ fontSize: 14.5, lineHeight: 1.5, margin: 0 }}>No call booked yet. Get honest, insider advice from a verified senior at your dream college.</p>
               <Btn variant="pri" go="marketplace" style={{ alignSelf: 'flex-start' }}>Find a senior →</Btn>
             </>
           )}
         </div>
       </div>
 
-      <div className="dash-2col" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 14, marginTop: 14 }}>
-        <div className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 18 }}>Smart nudges</div><Tag tone="accent-2">Personalised</Tag></div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: REACH_BG, borderRadius: 12, padding: '11px 13px' }}><span>⚠</span><div style={{ fontSize: 13 }}><strong>Add more Safe colleges.</strong> You have {summary.safe} in your list — aim for 3–4 so you&apos;re never unallotted. <span className="sc-tile" onClick={() => navigate('predictor')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Find some →</span></div></div>
-            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: 'var(--color-accent-2-100)', borderRadius: 12, padding: '11px 13px' }}><span>📢</span><div style={{ fontSize: 13 }}><strong>Keep your list ordered.</strong> Row order is your JoSAA priority — review it before you lock. <span className="sc-tile" onClick={() => navigate('choiceBuilder')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Open builder →</span></div></div>
-          </div>
+      {/* Important dates */}
+      <div className="card elev-sm" style={{ background: 'var(--color-surface)', padding: 'var(--space-6)', gap: 16, marginTop: 20 }}>
+        <div>
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 24 }}>Important dates</div>
+          <div className="text-muted" style={{ fontSize: 14, marginTop: 2 }}>The JoSAA counselling steps coming up for you.</div>
         </div>
-        <div className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
-          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 18 }}>Counselling timeline</div>
-          <div style={{ fontSize: 13 }}><div style={{ color: 'var(--color-accent-700)', fontWeight: 700 }}>Round 2 · closes Jul 16</div><div className="text-muted">Choice filling open now</div></div>
-          <div style={{ fontSize: 13, marginTop: 6 }}><div>Round 3 · Jul 22</div><div className="text-muted">Seat allotment</div></div>
-          <Btn variant="sec" go="timeline" block>View all rounds</Btn>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {ROUNDS.map((r) => (
+            <div key={r.title} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+              <span style={{ width: 12, height: 12, flex: 'none', borderRadius: '50%', background: r.dot, marginTop: 5 }} />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 700, fontSize: 15 }}>{r.title} — {r.date}{r.status === 'Active' ? ' · happening now' : ''}</div>
+                <div className="text-muted" style={{ fontSize: 13 }}>{r.desc}</div>
+              </div>
+              {r.status === 'Active' && <span className="tag tag-accent" style={{ cursor: 'pointer' }} onClick={() => navigate('choiceBuilder')}>Do now →</span>}
+              {r.status === 'Done' && <span className="tag tag-accent-2">Done</span>}
+            </div>
+          ))}
         </div>
+        <Btn variant="sec" go="timeline" block>See all dates</Btn>
       </div>
 
-      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 16 }}>
-        <Btn variant="sec" go="predictor">🎯 Predictor</Btn>
-        <Btn variant="sec" go="choiceBuilder">📋 Choice list</Btn>
-        <Btn variant="sec" go="marketplace">💬 Talk to a senior</Btn>
+      {/* Slim more-tools row */}
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 20 }}>
         <Btn variant="sec" go="filters">🔍 College search</Btn>
+        <Btn variant="sec" go="profile">⚙️ Rank &amp; preferences</Btn>
         <Btn variant="sec" go="aiCounsellor">✨ AI Counsellor <span style={{ fontSize: 10, opacity: 0.8 }}>· soon</span></Btn>
       </div>
     </section>
