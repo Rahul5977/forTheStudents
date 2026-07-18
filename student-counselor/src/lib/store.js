@@ -141,7 +141,12 @@ export function AppProvider({ children }) {
     } catch { /* leave existing */ }
   }, []);
 
-  const predictParamsOf = (p) => ({ advRank: p.advRank, mainRank: p.mainRank, category: p.category, home: p.home });
+  const predictParamsOf = (p) => ({
+    // Send empty (unranked) for a 0/absent rank — the API rejects "0" and an unranked
+    // Advanced rank correctly excludes IITs (predicted from the Main rank).
+    advRank: p.advRank > 0 ? p.advRank : '', mainRank: p.mainRank > 0 ? p.mainRank : '',
+    category: p.category, home: p.home, gender: p.gender || 'Male',
+  });
 
   const loadChoice = useCallback(async () => {
     const p = sRef.current.profile;
@@ -182,7 +187,13 @@ export function AppProvider({ children }) {
     try {
       await liveApi.bootstrap();
       const me = await liveApi.getMe();
-      setState((s) => ({ ...s, token: tok, loggedIn: true, role: me?.role || 'student', profile: profileFromMe(me), authReady: true }));
+      const prof = profileFromMe(me);
+      setState((s) => ({
+        ...s, token: tok, loggedIn: true, role: me?.role || 'student', profile: prof, authReady: true,
+        // Default the predictor's seat pool to the student's gender so a female sees her
+        // Female-only (supernumerary) advantage without having to toggle it on.
+        filters: { ...s.filters, gender: /female/i.test(prof.gender || '') ? 'Female-only (including Supernumerary)' : 'Gender-Neutral' },
+      }));
       return me;
     } catch {
       // Token present but invalid/expired — treat as logged out.
@@ -384,7 +395,7 @@ export function AppProvider({ children }) {
   // Re-keyed by rank/category/home so the per-branch chance reflects the student.
   const resolveProfile = useCallback(async (slug) => {
     const p = sRef.current.profile;
-    const key = `${slug}|${p.advRank}|${p.mainRank}|${p.category}|${p.home}`;
+    const key = `${slug}|${p.advRank}|${p.mainRank}|${p.category}|${p.home}|${p.gender || 'Male'}`;
     const cached = sRef.current.profilesById[key];
     if (cached) return cached;
     if (inflightProfile.current[key]) return inflightProfile.current[key];

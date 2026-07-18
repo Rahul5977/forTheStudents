@@ -9,6 +9,7 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '@/lib/store';
 import { liveApi } from '@/lib/liveApi';
+import { STATES } from '@/lib/data';
 import { Btn, Tile, Field, Input, Select, SegOpt } from '@/components/ui';
 
 const authWrap = { minHeight: '100%', display: 'grid', placeItems: 'center', padding: '40px 20px', background: 'var(--color-surface)' };
@@ -260,6 +261,10 @@ export function Onboarding() {
   const pct = (step / 5) * 100 + '%';
   const last = onbStep >= 5;
 
+  // Which exam(s) the student sat — drives which rank we collect and whether IITs
+  // (JEE Advanced only) can be predicted. 'main' zeroes the Advanced rank so the
+  // predictor correctly hides IITs; 'adv' zeroes the Main rank.
+  const examMode = profile.examMode || 'both';
   const branches = profile.branches || [];
   const toggleBranch = (b) => setProfile({ branches: branches.includes(b) ? branches.filter((x) => x !== b) : [...branches, b] });
 
@@ -279,16 +284,17 @@ export function Onboarding() {
         {step === 1 && (
           <div><h3 style={{ margin: '0 0 4px' }}>Which exam did you take?</h3><p className="text-muted" style={{ fontSize: 13 }}>We&apos;ll tailor predictions to it.</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 8 }}>
-              <label className="radio" style={{ border: '1px solid var(--color-divider)', borderRadius: 16, padding: 14 }}><input type="radio" name="exam" /><span className="dot" /><div><div style={{ fontWeight: 600 }}>JEE Main only</div><div className="text-muted" style={{ fontSize: 12 }}>NITs, IIITs, GFTIs</div></div></label>
-              <label className="radio" style={{ border: '1px solid var(--color-divider)', borderRadius: 16, padding: 14 }}><input type="radio" name="exam" /><span className="dot" /><div><div style={{ fontWeight: 600 }}>JEE Advanced only</div><div className="text-muted" style={{ fontSize: 12 }}>IITs</div></div></label>
-              <label className="radio" style={{ border: '1px solid var(--color-accent)', borderRadius: 16, padding: 14, background: 'var(--color-accent-100)' }}><input type="radio" name="exam" defaultChecked /><span className="dot" /><div><div style={{ fontWeight: 600 }}>Both Main &amp; Advanced</div><div className="text-muted" style={{ fontSize: 12 }}>All colleges — recommended</div></div></label>
+              <label className="radio" style={{ border: `1px solid ${examMode === 'main' ? 'var(--color-accent)' : 'var(--color-divider)'}`, borderRadius: 16, padding: 14, background: examMode === 'main' ? 'var(--color-accent-100)' : 'transparent' }}><input type="radio" name="exam" checked={examMode === 'main'} onChange={() => setProfile({ examMode: 'main', advRank: 0 })} /><span className="dot" /><div><div style={{ fontWeight: 600 }}>JEE Main only</div><div className="text-muted" style={{ fontSize: 12 }}>NITs, IIITs, GFTIs</div></div></label>
+              <label className="radio" style={{ border: `1px solid ${examMode === 'adv' ? 'var(--color-accent)' : 'var(--color-divider)'}`, borderRadius: 16, padding: 14, background: examMode === 'adv' ? 'var(--color-accent-100)' : 'transparent' }}><input type="radio" name="exam" checked={examMode === 'adv'} onChange={() => setProfile({ examMode: 'adv', mainRank: 0 })} /><span className="dot" /><div><div style={{ fontWeight: 600 }}>JEE Advanced only</div><div className="text-muted" style={{ fontSize: 12 }}>IITs</div></div></label>
+              <label className="radio" style={{ border: `1px solid ${examMode === 'both' ? 'var(--color-accent)' : 'var(--color-divider)'}`, borderRadius: 16, padding: 14, background: examMode === 'both' ? 'var(--color-accent-100)' : 'transparent' }}><input type="radio" name="exam" checked={examMode === 'both'} onChange={() => setProfile({ examMode: 'both' })} /><span className="dot" /><div><div style={{ fontWeight: 600 }}>Both Main &amp; Advanced</div><div className="text-muted" style={{ fontSize: 12 }}>All colleges — recommended</div></div></label>
             </div>
           </div>
         )}
         {step === 2 && (
           <div><h3 style={{ margin: '0 0 4px' }}>Your ranks</h3><p className="text-muted" style={{ fontSize: 13 }}>Find these on your JEE scorecard.</p>
-            <Field label="JEE Advanced — category rank" style={{ marginTop: 8 }}><Input value={profile.advRank} onChange={(e) => setProfile({ advRank: +e.target.value || 0 })} /></Field>
-            <Field label="JEE Main — category rank (CRL)"><Input value={profile.mainRank} onChange={(e) => setProfile({ mainRank: +e.target.value || 0 })} /></Field>
+            {examMode !== 'main' && <Field label="JEE Advanced — category rank" style={{ marginTop: 8 }}><Input value={profile.advRank || ''} onChange={(e) => setProfile({ advRank: +e.target.value || 0 })} /></Field>}
+            {examMode !== 'adv' && <Field label="JEE Main — category rank (CRL)"><Input value={profile.mainRank || ''} onChange={(e) => setProfile({ mainRank: +e.target.value || 0 })} /></Field>}
+            {examMode === 'main' && <p className="text-muted" style={{ fontSize: 12, marginTop: 8 }}>No JEE Advanced rank → IITs won&apos;t be shown; you&apos;ll see NITs, IIITs &amp; GFTIs.</p>}
           </div>
         )}
         {step === 3 && (
@@ -303,7 +309,7 @@ export function Onboarding() {
         )}
         {step === 4 && (
           <div><h3 style={{ margin: '0 0 4px' }}>Your home state</h3><p className="text-muted" style={{ fontSize: 13 }}>Needed for home-state quota at NITs &amp; GFTIs.</p>
-            <Field label="Home state" style={{ marginTop: 8 }}><Select value={profile.home} onChange={(e) => setProfile({ home: e.target.value })}><option>Maharashtra</option><option>Tamil Nadu</option><option>Delhi</option><option>Uttar Pradesh</option><option>Karnataka</option><option>Telangana</option><option>West Bengal</option></Select></Field>
+            <Field label="Home state" style={{ marginTop: 8 }}><Select value={profile.home} onChange={(e) => setProfile({ home: e.target.value })}>{STATES.map((s) => <option key={s}>{s}</option>)}</Select></Field>
           </div>
         )}
         {step >= 5 && (

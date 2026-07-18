@@ -4,6 +4,11 @@
 import { API_URL } from './liveConfig';
 import { getToken } from './liveAuth';
 
+// In-process memo of predictor responses keyed by the exact query string (rank +
+// category + gender + home + filters). Lives for the page session; predictions are a
+// pure function of the query, so caching them is safe and makes repeat predicts free.
+const _predictCache = new Map();
+
 async function call(path, { method = 'GET', body, headers } = {}) {
   const token = getToken();
   const res = await fetch(`${API_URL}${path}`, {
@@ -36,6 +41,18 @@ export const liveApi = {
 
   // Phase 2 — public predictor/catalog (no auth needed; shared + cacheable).
   predict: (params) => call(`/predict?${new URLSearchParams(params).toString()}`),
+  // Same as predict(), but memoized in-process by the exact query string. Predicting
+  // again for the SAME rank/category/gender/filters returns the cached result with no
+  // network round-trip — so repeated "Predict" clicks are stable and instant. A failed
+  // request is evicted so a later retry can re-fetch.
+  predictCached: (params) => {
+    const key = new URLSearchParams(params).toString();
+    const hit = _predictCache.get(key);
+    if (hit) return hit;
+    const req = call(`/predict?${key}`).catch((e) => { _predictCache.delete(key); throw e; });
+    _predictCache.set(key, req);
+    return req;
+  },
   college: (id, params) => call(`/colleges/${id}?${new URLSearchParams(params).toString()}`),
   collegeProfile: (slug, params) => call(`/colleges/${encodeURIComponent(slug)}/profile?${new URLSearchParams(params).toString()}`),
   colleges: () => call('/colleges'), // canonical institute directory

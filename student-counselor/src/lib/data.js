@@ -51,6 +51,25 @@ export const COLLEGES = RAW_COLLEGES.map((r, i) => ({
   rate: r[12],
 }));
 
+// ── All Indian states + UTs — the single source of truth for every home-state /
+// state-filter dropdown. Spellings match the backend JoSAA dataset so the exact
+// state filter lines up; the Home-State quota match is punctuation-tolerant. ──
+export const STATES = [
+  'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa',
+  'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala',
+  'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland',
+  'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura',
+  'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
+  // Union Territories
+  'Andaman and Nicobar Islands', 'Chandigarh',
+  'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Jammu and Kashmir',
+  'Ladakh', 'Lakshadweep', 'Puducherry',
+];
+
+// Gender pools. Only 'Female' unlocks the JoSAA Female-only (supernumerary) seats;
+// everyone else is judged against Gender-Neutral seats.
+export const GENDERS = ['Male', 'Female', 'Other'];
+
 // [name, college, ctype, branch, year, rating, sessions, price, initials, color, topics, langs]
 const RAW_MENTORS = [
   ['Aarav Sharma', 'IIT Bombay', 'IIT', 'Computer Science', 3, 4.9, 128, 100, 'AS', '#c67139', ['CSE vs ECE', 'Campus life', 'Placements'], ['Hindi', 'English']],

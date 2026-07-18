@@ -12,6 +12,18 @@
 // it floated the over-safe colleges (closing far above the student's rank, ~100% chance)
 // to the top, burying the good targets. That behavior is still available opt-in as
 // 'chance'/'safest'.
+//
+// GENDER (female-only supernumerary seats): JoSAA has two gender pools —
+// 'Gender-Neutral' (open to all) and 'Female-only (including Supernumerary)' (extra
+// seats a female candidate may ALSO claim, usually with an easier cutoff). A female
+// candidate is eligible for BOTH pools and gets the better of the two (larger/easier
+// closing rank); everyone else sees Gender-Neutral only. `femaleSeat` flags the pool.
+//
+// EXAM RANK: IIT seats fill from the JEE ADVANCED rank, all others from JEE MAIN. A
+// candidate with no Advanced rank (unranked/absent) cannot be allotted an IIT seat, so
+// IIT rows are DROPPED and NIT/IIIT/GFTI are predicted from the Main rank (flagged via
+// `iitExcludedNoAdvRank`). Symmetrically an unranked Main rank drops the non-IITs.
+// (0 is rejected upstream by validate.ts; "no rank" arrives as the UNRANKED sentinel.)
 import type { Cutoff, EnrichedCutoff, ForecastBand, CollegeType, Category, Bucket, Sort } from './types';
 import { forecastChance } from './chance';
 import { validateInput } from './validate';
@@ -53,6 +65,7 @@ export interface Prediction {
   label: 'Safe' | 'Target' | 'Reach';
   pct: number; // headline chance %: forecast-based when a band exists, else ratio-based
   homeQuota: boolean;
+  femaleSeat: boolean; // true when the surfaced seat is a Female-only (supernumerary) seat
   // ── forecast layer (present when the seat has a precomputed band) ──
   forecast?: ForecastBand; // 2026 predicted closing-rank range
   history?: { year: number; close: number }[]; // observed trend, for the chart
@@ -105,7 +118,7 @@ function decorate(c: EnrichedCutoff, i: PredictInput, homeQuota: boolean): Predi
     id: c.id, instituteId: c.instituteId, college: c.short, institute: c.institute, branch: c.branch, program: c.program, type: c.type,
     examLabel: c.exam === 'adv' ? 'JEE Adv' : 'JEE Main', quota: c.quota, seatType: c.seatType,
     city: c.city, state: c.state, nirf: c.nirf, feesTxt: `₹${c.feesLakh}L`, open: c.open, close: c.close,
-    ratio, homeQuota, forecast: c.forecast, history: c.history,
+    ratio, homeQuota, femaleSeat: /female/i.test(c.gender), forecast: c.forecast, history: c.history,
   };
   // Prefer the calibrated 2026 forecast chance when a band exists; else the ratio heuristic.
   if (c.forecast) {
@@ -126,16 +139,25 @@ function sameState(a: string | null | undefined, b: string | null | undefined): 
   return na !== '' && na === normState(b);
 }
 
-/** Choose the applicable quota row per institute+program for this caller.
- *  AI wins outright (central institutes). Otherwise HS is used ONLY when the
- *  institute's state matches the caller's home state (the home advantage); else OS. */
-function pickByQuota(rows: Cutoff[], home: string): { cutoff: Cutoff; homeQuota: boolean } {
-  const ai = rows.find((r) => r.quota === 'AI');
-  if (ai) return { cutoff: ai, homeQuota: false };
-  const hs = rows.find((r) => r.quota === 'HS');
-  const os = rows.find((r) => r.quota === 'OS');
-  if (hs && sameState(hs.state, home)) return { cutoff: hs, homeQuota: true };
-  return { cutoff: os ?? hs ?? rows[0]!, homeQuota: false };
+/** Choose the applicable seat (quota + gender pool) per institute+program for this caller.
+ *  Quota: AI wins outright (central institutes); otherwise HS is used ONLY when the
+ *  institute's state matches the caller's home state (the home advantage); else OS.
+ *  Gender: `rows` is already filtered to the pools the caller is eligible for (Gender-
+ *  Neutral always; Female-only too for a female candidate). Within the chosen quota, a
+ *  candidate eligible for multiple pools gets the EASIER seat — the larger (numerically
+ *  higher) closing rank — i.e. their best realistic admission chance. */
+function pickSeat(rows: Cutoff[], home: string): { cutoff: Cutoff; homeQuota: boolean } {
+  const byQuota = (q: string) => rows.filter((r) => r.quota === q);
+  let pool = byQuota('AI');
+  let homeQuota = false;
+  if (pool.length === 0) {
+    const hs = byQuota('HS');
+    const os = byQuota('OS');
+    if (hs.length && sameState(hs[0]!.state, home)) { pool = hs; homeQuota = true; }
+    else pool = os.length ? os : (hs.length ? hs : rows);
+  }
+  const cutoff = pool.reduce((best, r) => (r.close > best.close ? r : best), pool[0]!);
+  return { cutoff, homeQuota };
 }
 
 export interface PredictResult {
@@ -145,7 +167,15 @@ export interface PredictResult {
   targetCount: number;
   reachCount: number;
   truncated: boolean;
+  // true when the caller asked for IITs but has no JEE Advanced rank, so IIT rows were
+  // dropped and the list is Main-rank-only. Drives a UI note.
+  iitExcludedNoAdvRank: boolean;
 }
+
+// A real counselling rank never exceeds this; validate.ts uses the same ceiling and maps
+// "no rank" to a sentinel well above it (9,999,999). So a rank within (0, RANK_CEILING] is
+// a real rank; anything larger means the caller has no rank for that exam.
+const RANK_CEILING = 2_000_000;
 
 // NIRF: better (smaller) rank first; unranked (null) always sinks to the bottom.
 function nirfCmp(a: number | null, b: number | null): number {
@@ -176,10 +206,21 @@ function comparator(sort: Sort): (a: Prediction, b: Prediction) => number {
 
 export function predict(cutoffs: EnrichedCutoff[], i: PredictInput): PredictResult {
   const cat = CAT_MAP[i.category] ?? 'OPEN';
+  // Gender eligibility: a female candidate may claim BOTH pools; everyone else sees
+  // Gender-Neutral only. (Dataset gender strings: 'Gender-Neutral', 'Female-only …'.)
+  const isFemale = /female/i.test(i.gender);
+  const genderAllowed = (g: string) => (isFemale ? true : !/female/i.test(g));
+  // Exam-rank eligibility: IIT ⇐ JEE Advanced rank, everything else ⇐ JEE Main rank. A
+  // caller with no rank for an exam (unranked sentinel) can't be allotted its seats → drop.
+  const hasAdv = i.advRank > 0 && i.advRank <= RANK_CEILING;
+  const hasMain = i.mainRank > 0 && i.mainRank <= RANK_CEILING;
+  const rankOkFor = (t: CollegeType) => (t === 'IIT' ? hasAdv : hasMain);
+  const iitExcludedNoAdvRank = i.types.includes('IIT') && !hasAdv;
+
   const relevant = cutoffs.filter(
-    (c) => c.seatType.toUpperCase() === cat && c.gender === i.gender && i.types.includes(c.type) && (c.quota === 'AI' || c.quota === 'HS' || c.quota === 'OS'),
+    (c) => c.seatType.toUpperCase() === cat && genderAllowed(c.gender) && i.types.includes(c.type) && rankOkFor(c.type) && (c.quota === 'AI' || c.quota === 'HS' || c.quota === 'OS'),
   );
-  // Group by institute+program, then pick the applicable quota (AI/HS/OS).
+  // Group by institute+program, then pick the applicable seat (quota + gender pool).
   const groups = new Map<string, Cutoff[]>();
   for (const c of relevant) {
     const k = c.institute + '|' + c.program;
@@ -187,7 +228,7 @@ export function predict(cutoffs: EnrichedCutoff[], i: PredictInput): PredictResu
     if (g) g.push(c); else groups.set(k, [c]);
   }
   let list = [...groups.values()]
-    .map((rows) => { const { cutoff, homeQuota } = pickByQuota(rows, i.home); return decorate(cutoff, i, homeQuota); });
+    .map((rows) => { const { cutoff, homeQuota } = pickSeat(rows, i.home); return decorate(cutoff, i, homeQuota); });
   // Realistic window (predictor only): drop hopeless reaches AND pointlessly over-safe
   // colleges, but always keep genuine safe backups (ratio in [0.2, 1.6]). A profile skips
   // this so every branch of the college is shown.
@@ -203,7 +244,7 @@ export function predict(cutoffs: EnrichedCutoff[], i: PredictInput): PredictResu
   const safeCount = list.filter((c) => c.bucket === 'safe').length;
   const targetCount = list.filter((c) => c.bucket === 'target').length;
   const reachCount = list.filter((c) => c.bucket === 'reach').length;
-  return { results: list.slice(0, i.limit), resultCount, safeCount, targetCount, reachCount, truncated: list.length > i.limit };
+  return { results: list.slice(0, i.limit), resultCount, safeCount, targetCount, reachCount, truncated: list.length > i.limit, iitExcludedNoAdvRank };
 }
 
 // ── Input validation (the /predict guard) ────────────────────────────────────

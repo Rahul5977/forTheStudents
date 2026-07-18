@@ -64,12 +64,13 @@ function TopNav() {
           </div>
         </>
       ) : (
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 14 }}>
-          <span style={{ fontSize: 13 }} className="text-muted">Rank <strong style={{ color: 'var(--color-text)' }}>{profile.advRank}</strong> · {profile.category}</span>
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 13 }} className="text-muted">Rank <strong style={{ color: 'var(--color-text)' }}>{profile.advRank || profile.mainRank || '—'}</strong> · {profile.category}</span>
           <span className="sc-btn ghost" onClick={() => navigate('notifications')} style={{ position: 'relative' }} title={unreadCount > 0 ? `${unreadCount} unread` : 'Notifications'}>
             🔔{unreadCount > 0 && <span style={{ position: 'absolute', top: -2, right: -2, minWidth: 15, height: 15, padding: '0 4px', background: 'var(--color-accent)', color: 'var(--color-bg)', borderRadius: 999, fontSize: 10, lineHeight: '15px', textAlign: 'center', fontFamily: 'var(--font-body)' }}>{unreadCount > 9 ? '9+' : unreadCount}</span>}
           </span>
           <span onClick={() => navigate('profile')} title={profile.name || 'Profile'} style={{ width: 34, height: 34, borderRadius: '50%', background: 'var(--color-accent-2-500)', color: 'var(--color-bg)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)', cursor: 'pointer' }}>{initialOf(profile.name)}</span>
+          <Btn variant="ghost" act="logout" title="Log out" style={{ fontSize: 13 }}>Log out</Btn>
         </div>
       )}
     </header>

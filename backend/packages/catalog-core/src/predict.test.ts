@@ -155,11 +155,12 @@ describe('category + gender pool filter', () => {
     row('National Institute of Technology, Warangal', CSE, 'OS', 'OPEN', 'Female-only (including Supernumerary)', 1200, 2500),
   ));
 
-  it('OPEN + Gender-Neutral selects only the matching seat pool', () => {
+  it('a non-female candidate sees Gender-Neutral seats only', () => {
     const r = predict(cutoffs, input({ mainRank: 1800, category: 'Open', gender: 'Gender-Neutral' }));
     expect(r.results).toHaveLength(1);
     expect(r.results[0]!.seatType).toBe('OPEN');
     expect(r.results[0]!.close).toBe(2000);
+    expect(r.results[0]!.femaleSeat).toBe(false);
   });
 
   it('OBC-NCL selects the reserved closing rank', () => {
@@ -168,10 +169,54 @@ describe('category + gender pool filter', () => {
     expect(r.results[0]!.close).toBe(3000);
   });
 
-  it('Female-only pool is separate from Gender-Neutral', () => {
-    const r = predict(cutoffs, input({ mainRank: 1800, category: 'Open', gender: 'Female-only (including Supernumerary)' }));
-    expect(r.results).toHaveLength(1);
+  it('a female candidate gets the EASIER of Gender-Neutral vs Female-only (supernumerary)', () => {
+    // Female-only OPEN closes at 2500 (easier) vs Gender-Neutral 2000 → she gets 2500.
+    const r = predict(cutoffs, input({ mainRank: 1800, category: 'Open', gender: 'Female' }));
+    expect(r.results).toHaveLength(1); // one seat per institute+program, best pool chosen
     expect(r.results[0]!.close).toBe(2500);
+    expect(r.results[0]!.femaleSeat).toBe(true);
+  });
+
+  it('a female candidate still sees a program that has only a Gender-Neutral seat', () => {
+    const gnOnly = parseCutoffs(csv(
+      row('National Institute of Technology, Warangal', CSE, 'OS', 'OPEN', 'Gender-Neutral', 1000, 2000),
+    ));
+    const r = predict(gnOnly, input({ mainRank: 1800, category: 'Open', gender: 'Female' }));
+    expect(r.results).toHaveLength(1);
+    expect(r.results[0]!.close).toBe(2000);
+    expect(r.results[0]!.femaleSeat).toBe(false);
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Adv-rank fallback: a candidate with no JEE Advanced rank (the unranked sentinel)
+// can't get an IIT seat → IITs are dropped and the rest is predicted from the Main rank.
+// ─────────────────────────────────────────────────────────────────────────────
+describe('adv-rank fallback (no Advanced rank → Main-only, IITs dropped)', () => {
+  const cutoffs = parseCutoffs(csv(
+    row('Indian Institute of Technology Indore', CSE, 'AI', 'OPEN', 'Gender-Neutral', 900, 2000),      // IIT (adv)
+    row('National Institute of Technology, Warangal', CSE, 'OS', 'OPEN', 'Gender-Neutral', 1000, 2000), // NIT (main)
+  ));
+
+  it('no adv rank drops IITs, keeps NITs judged on the Main rank, and flags the exclusion', () => {
+    // advRank omitted → validate.ts maps it to the unranked sentinel.
+    const r = predict(cutoffs, { ...input({ mainRank: 1500 }), advRank: 9_999_999 });
+    expect(r.results.map((x) => x.type)).toEqual(['NIT']);
+    expect(r.results[0]!.examLabel).toBe('JEE Main');
+    expect(r.results[0]!.bucket).toBe('safe'); // 1500/2000 = 0.75
+    expect(r.iitExcludedNoAdvRank).toBe(true);
+  });
+
+  it('IITs not requested → no exclusion flag even without an adv rank', () => {
+    const r = predict(cutoffs, { ...input({ mainRank: 1500, types: ['NIT', 'IIIT', 'GFTI'] }), advRank: 9_999_999 });
+    expect(r.iitExcludedNoAdvRank).toBe(false);
+    expect(r.results.map((x) => x.type)).toEqual(['NIT']);
+  });
+
+  it('with a real adv rank, IITs are back and the flag is off', () => {
+    const r = predict(cutoffs, input({ advRank: 1500, mainRank: 1500 }));
+    expect(new Set(r.results.map((x) => x.type))).toEqual(new Set(['IIT', 'NIT']));
+    expect(r.iitExcludedNoAdvRank).toBe(false);
   });
 });
 
