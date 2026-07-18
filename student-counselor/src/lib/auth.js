@@ -128,6 +128,29 @@ export function login(email, password) {
   });
 }
 
+/**
+ * Silently renew the session from the stored refresh token. amazon-cognito-identity-js
+ * persists the id/access/refresh tokens at login; getSession() transparently uses the
+ * refresh token to mint a fresh id + access token when the current ones have expired — so
+ * a signed-in user stays signed in for the whole refresh-token lifetime (see auth-stack
+ * refreshTokenValidity) WITHOUT being bounced to the login screen. Resolves the fresh
+ * id-token JWT, or null when there is no valid session (refresh token expired → must
+ * re-login, or an unmanaged token e.g. a Hosted-UI/Google implicit token).
+ */
+export function refreshSession() {
+  return new Promise((resolve) => {
+    let user = null;
+    try { user = pool().getCurrentUser(); } catch { return resolve(null); }
+    if (!user) return resolve(null);
+    user.getSession((err, session) => {
+      if (err || !session || !session.isValid()) return resolve(null);
+      const idToken = session.getIdToken().getJwtToken();
+      setToken(idToken); // refresh the bearer token liveApi sends
+      resolve(idToken);
+    });
+  });
+}
+
 /** Clear the local token and the Cognito session. */
 export function logout() {
   try {

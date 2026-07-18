@@ -24,6 +24,7 @@ import { GOOGLE_AUTH } from './liveConfig';
 import {
   login as cognitoLogin, signUp as cognitoSignUp, confirm as cognitoConfirm, logout as cognitoLogout,
   resendCode as cognitoResend, forgotPassword as cognitoForgot, confirmForgotPassword as cognitoConfirmForgot,
+  refreshSession,
 } from './auth';
 
 const AppCtx = createContext(null);
@@ -217,12 +218,29 @@ export function AppProvider({ children }) {
   }, []);
 
   // ── On mount: capture a Hosted-UI redirect, then hydrate if a token exists. ──
+  // Prefer a freshly-refreshed token: the SDK uses the stored refresh token to renew an
+  // expired id token, so a returning user stays signed in instead of hitting the login
+  // screen. Falls back to whatever token is stored (e.g. a Hosted-UI/Google implicit token
+  // the SDK doesn't manage) so those paths keep working until they expire.
   useEffect(() => {
     captureCognitoRedirect();
-    const t = getToken();
-    if (t) { hydrateAuth(t); }
-    else { setState((s) => ({ ...s, authReady: true })); }
+    refreshSession()
+      .then((fresh) => fresh || getToken())
+      .then((t) => {
+        if (t) hydrateAuth(t);
+        else setState((s) => ({ ...s, authReady: true }));
+      })
+      .catch(() => setState((s) => ({ ...s, authReady: true })));
   }, [hydrateAuth]);
+
+  // Keep the session alive: silently refresh the id token every 30 min (well inside its
+  // 1h expiry) while signed in, so a user is never logged out mid-session — up to the
+  // refresh-token lifetime. No-op for unmanaged tokens (resolves null) and when signed out.
+  useEffect(() => {
+    if (!state.loggedIn) return undefined;
+    const id = setInterval(() => { refreshSession(); }, 30 * 60 * 1000);
+    return () => clearInterval(id);
+  }, [state.loggedIn]);
 
   // ── Load per-user data once authenticated. ──
   useEffect(() => {

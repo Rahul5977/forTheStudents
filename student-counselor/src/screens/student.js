@@ -219,6 +219,19 @@ export function Dashboard() {
         {unreadCount > 0 && <> You have <strong style={{ color: 'var(--color-accent-700)' }}>{unreadCount} new</strong> notification{unreadCount > 1 ? 's' : ''}.</>}
       </p>
 
+      {/* ✨ Flagship upcoming feature — AI Counsellor (launching next month) */}
+      <Tile go="aiCounsellor" className="elev-md" style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap', background: 'linear-gradient(120deg, var(--color-accent-700), var(--color-accent) 52%, var(--color-accent-2-600))', color: 'var(--color-bg)', borderRadius: 'calc(var(--radius-lg) * 1.15)', padding: '22px 26px', marginBottom: 34 }}>
+        <div style={{ fontSize: 42, lineHeight: 1 }}>✨</div>
+        <div style={{ flex: 1, minWidth: 220 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 5 }}>
+            <span style={{ fontFamily: 'var(--font-heading)', fontSize: 23 }}>AI Counsellor</span>
+            <span className="tag" style={{ background: 'rgba(255,255,255,0.24)', color: 'var(--color-bg)', fontWeight: 700, letterSpacing: '0.02em' }}>✦ Launching next month</span>
+          </div>
+          <div style={{ fontSize: 14.5, lineHeight: 1.5, opacity: 0.96 }}>Your personal JEE counsellor — instant 24/7 answers on colleges, branches and JoSAA strategy, tuned to your exact rank. Our most exciting feature yet.</div>
+        </div>
+        <span className="sc-btn" style={{ background: 'var(--color-bg)', color: 'var(--color-accent-800)', fontSize: 14, padding: '11px 20px', whiteSpace: 'nowrap', flex: 'none' }}>Get a sneak peek →</span>
+      </Tile>
+
       {/* Deadline banner */}
       {activeRound && (
         <div className="elev-sm" style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap', background: 'var(--color-accent-100)', borderRadius: 'calc(var(--radius-lg) * 1.15)', padding: '22px 26px', marginBottom: 44 }}>
@@ -333,7 +346,6 @@ export function Dashboard() {
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 20 }}>
         <Btn variant="sec" go="filters">🔍 College search</Btn>
         <Btn variant="sec" go="profile">⚙️ Rank &amp; preferences</Btn>
-        <Btn variant="sec" go="aiCounsellor">✨ AI Counsellor <span style={{ fontSize: 10, opacity: 0.8 }}>· soon</span></Btn>
       </div>
     </section>
   );

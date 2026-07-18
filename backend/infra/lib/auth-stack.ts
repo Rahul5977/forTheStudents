@@ -107,9 +107,11 @@ export class AuthStack extends Stack {
         callbackUrls: cfg.corsOrigins.flatMap((o) => [`${o}/live`, `${o}/auth/callback`]),
         logoutUrls: cfg.corsOrigins,
       },
+      // Short-lived id/access tokens (renewed silently from the refresh token by the
+      // frontend), with a long-lived refresh token so users aren't logged out for months.
       accessTokenValidity: Duration.hours(1),
       idTokenValidity: Duration.hours(1),
-      refreshTokenValidity: Duration.days(30),
+      refreshTokenValidity: Duration.days(90),
     });
 
     // Ensure the Google IdP is created before the client that references it (deploy ordering).
