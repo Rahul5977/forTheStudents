@@ -58,11 +58,16 @@ export const liveApi = {
   colleges: () => call('/colleges'), // canonical institute directory
 
   // Phase 3 — planner (per-user; needs a token). Optimistic concurrency via `version`.
+  // NOTE: only send `version` when it's an actual number. A fresh/unhydrated list has
+  // version === null, and the planner schema is `z.number().optional()` — which REJECTS
+  // null ("Expected number, received null") → the whole save 400s and "Add to list" looks
+  // broken. Omitting the key (optional) lets the first write through; the server returns
+  // the real version, and subsequent writes carry it for optimistic concurrency.
   getShortlist: () => call('/shortlist'),
-  putShortlist: (collegeIds, version) => call('/shortlist', { method: 'PUT', body: { collegeIds, version } }),
+  putShortlist: (collegeIds, version) => call('/shortlist', { method: 'PUT', body: { collegeIds, ...(typeof version === 'number' ? { version } : {}) } }),
   getChoiceList: () => call('/choice-list'),
-  putChoiceList: (items, version) => call('/choice-list', { method: 'PUT', body: { items, version } }),
-  reorderChoice: (from, to, version) => call('/choice-list/reorder', { method: 'POST', body: { from, to, version } }),
+  putChoiceList: (items, version) => call('/choice-list', { method: 'PUT', body: { items, ...(typeof version === 'number' ? { version } : {}) } }),
+  reorderChoice: (from, to, version) => call('/choice-list/reorder', { method: 'POST', body: { from, to, ...(typeof version === 'number' ? { version } : {}) } }),
   choiceDoctor: (params) => call(`/choice-list/doctor?${new URLSearchParams(params).toString()}`),
   exportChoiceList: () => call('/choice-list/export', { method: 'POST' }),
 

@@ -57,9 +57,12 @@ const INITIAL = {
   profile: DEFAULT_PROFILE,
   filters: { types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'best', grouped: true, gender: 'Gender-Neutral', bucket: 'all', quota: 'all', nirfMax: 0, maxFees: 0, homeOnly: false },
   // ── planner: ids the screens read + the decorated/versioned server data ─
-  shortlist: [3, 7],
+  // Empty by default — real ids arrive from loadShortlist()/loadChoice() after login.
+  // (Previously seeded with dummy ids [3,7] / [1,6,9,12,15], which could get PUT to the
+  // planner before hydration and pollute a fresh user's saved list.)
+  shortlist: [],
   shortlistVersion: null,
-  choiceList: [1, 6, 9, 12, 15],
+  choiceList: [],
   choiceItems: [],       // decorated rows from the planner (id, college, branch, bucket, pct…)
   choiceVersion: null,   // optimistic-concurrency version for the choice list
   choiceSummary: null,   // { safe, target, reach, total }
