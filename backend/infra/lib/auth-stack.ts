@@ -8,6 +8,8 @@ import type { StageConfig } from './config';
 
 export interface AuthStackProps extends StackProps {
   cfg: StageConfig;
+  /** Google OAuth creds, read from SSM at synth time (bin/app.ts). Undefined = Google OFF. */
+  google?: { clientId: string; clientSecret: string };
 }
 
 export class AuthStack extends Stack {
@@ -66,14 +68,16 @@ export class AuthStack extends Stack {
       this.userPool.addTrigger(cognito.UserPoolOperation.PRE_SIGN_UP, preSignup);
     }
 
-    // Google federation. Reads client id/secret from Secrets Manager if provided.
-    // TODO(owner): create the Google OAuth client, store creds in Secrets Manager,
-    // set cfg.googleOAuthSecretArn, and add the pool's callback URLs in Google console.
-    if (cfg.googleOAuthSecretArn) {
-      new cognito.UserPoolIdentityProviderGoogle(this, 'Google', {
+    // Google federation. Creds are read from an SSM SecureString at synth time
+    // (bin/app.ts → loadGoogleCreds) and passed in as props.google. The client secret must
+    // live in the pool config, so it lands in the synthesized CloudFormation template —
+    // that's inherent to Cognito federation and stays within the owner's own account/stack.
+    let googleIdp: cognito.UserPoolIdentityProviderGoogle | undefined;
+    if (props.google) {
+      googleIdp = new cognito.UserPoolIdentityProviderGoogle(this, 'Google', {
         userPool: this.userPool,
-        clientId: SecretValue.secretsManager(cfg.googleOAuthSecretArn, { jsonField: 'clientId' }).unsafeUnwrap(),
-        clientSecretValue: SecretValue.secretsManager(cfg.googleOAuthSecretArn, { jsonField: 'clientSecret' }),
+        clientId: props.google.clientId,
+        clientSecretValue: SecretValue.unsafePlainText(props.google.clientSecret),
         scopes: ['openid', 'email', 'profile'],
         attributeMapping: {
           email: cognito.ProviderAttribute.GOOGLE_EMAIL,
@@ -93,7 +97,7 @@ export class AuthStack extends Stack {
       preventUserExistenceErrors: true,
       supportedIdentityProviders: [
         cognito.UserPoolClientIdentityProvider.COGNITO,
-        ...(cfg.googleOAuthSecretArn ? [cognito.UserPoolClientIdentityProvider.GOOGLE] : []),
+        ...(props.google ? [cognito.UserPoolClientIdentityProvider.GOOGLE] : []),
       ],
       oAuth: {
         // Implicit grant (token in the URL fragment) is a dev convenience for the
@@ -107,6 +111,9 @@ export class AuthStack extends Stack {
       idTokenValidity: Duration.hours(1),
       refreshTokenValidity: Duration.days(30),
     });
+
+    // Ensure the Google IdP is created before the client that references it (deploy ordering).
+    if (googleIdp) this.userPoolClient.node.addDependency(googleIdp);
 
     // Hosted UI domain. Suffix with the account id to keep the prefix globally unique.
     const domainPrefix = `sc-${cfg.stage}-${this.account}`;

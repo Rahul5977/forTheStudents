@@ -59,11 +59,13 @@ export interface StageConfig {
   /** Allowed browser origin(s) for CORS. TODO(owner): set your real frontend URLs. */
   corsOrigins: string[];
   /**
-   * ARN of the Secrets Manager secret holding Google OAuth client id/secret.
-   * TODO(owner): create the secret and paste its ARN per stage.
-   * Shape: { "clientId": "...", "clientSecret": "..." }
+   * Name of the SSM Parameter Store SecureString holding the Google OAuth creds.
+   * Read + parsed at DEPLOY (synth) time (see lib/google-creds.ts) — accepts JSON
+   * ({ "clientId": "...", "clientSecret": "..." }) OR dotenv (GOOGLE_CLIENT_ID=… /
+   * GOOGLE_CLIENT_SECRET=…). Undefined = Google sign-in stays OFF. Free: SSM Standard
+   * tier + the default aws/ssm KMS key (no Secrets Manager, no customer KMS key).
    */
-  googleOAuthSecretArn?: string;
+  googleOAuthParam?: string;
 }
 
 const BASE = {
@@ -95,7 +97,7 @@ export function getConfig(stage: string): StageConfig {
         enableWarmers: false, // TODO(owner): flip ON for the Jun–Jul peak, then back OFF
         enableCdn: false, // TODO(owner): flip ON (safe year-round) once frontend repoints at the edge domain
         autoConfirmSignups: false, // prod ENFORCES email verification (needs SES — see field doc)
-        googleOAuthSecretArn: undefined, // TODO(owner)
+        googleOAuthParam: undefined, // TODO(owner): set to a /sc-prod/... SSM param when enabling Google in prod
       };
     case 'staging':
       return {
@@ -107,7 +109,7 @@ export function getConfig(stage: string): StageConfig {
         enableWarmers: false,
         enableCdn: false, // TODO(owner): optional in staging for a full edge-cache dress rehearsal
         autoConfirmSignups: true, // instant test users; flip false (with SES) to rehearse verification
-        googleOAuthSecretArn: undefined, // TODO(owner)
+        googleOAuthParam: undefined, // TODO(owner): set when Google is enabled in staging
       };
     default:
       return {
@@ -121,7 +123,7 @@ export function getConfig(stage: string): StageConfig {
         // dev is the LIVE env: keep instant signups. To enforce email verification live,
         // set up SES (see field doc) then flip this to false and redeploy sc-dev-auth.
         autoConfirmSignups: true,
-        googleOAuthSecretArn: undefined, // TODO(owner)
+        googleOAuthParam: '/sc-dev/google-client-secrets', // Google OAuth creds (SSM SecureString, dotenv KEY=VALUE)
       };
   }
 }

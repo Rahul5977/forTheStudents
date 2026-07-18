@@ -132,22 +132,31 @@ Google Cloud Console → **APIs & Services → Credentials → Create OAuth clie
 
 Copy the **Client ID** and **Client Secret**.
 
-### 3b. Store the creds in Secrets Manager + point the stack at them
+### 3b. Store the creds in SSM Parameter Store (free — NOT Secrets Manager)
+
+Secrets Manager charges ~$0.40/secret/mo. Use **SSM Parameter Store** instead — Standard-tier
+SecureString with the default `aws/ssm` KMS key is **free**. Put both values in one param, as
+JSON *or* dotenv `KEY=VALUE` (the deploy reads either):
 
 ```bash
-aws secretsmanager create-secret \
-  --region ap-south-1 \
-  --name "sc-dev/google-oauth" \
-  --secret-string '{"clientId":"XXXX.apps.googleusercontent.com","clientSecret":"YYYY"}'
+aws ssm put-parameter --region ap-south-1 \
+  --name "/sc-dev/google-client-secrets" --type SecureString --overwrite \
+  --value 'GOOGLE_CLIENT_ID=XXXX.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=YYYY'
 ```
 
-Set `googleOAuthSecretArn` (dev stage, `config.ts`) to the ARN that command prints, then:
+`config.ts` (dev) already sets `googleOAuthParam: '/sc-dev/google-client-secrets'`. On deploy,
+`infra/lib/google-creds.ts` reads + parses that param at synth time and wires the Cognito Google
+IdP. Then:
 
 ```bash
 cd backend/infra && pnpm exec cdk deploy sc-dev-auth --context stage=dev --require-approval never
 ```
 
-This adds the Google IdP to the pool and to the app client's supported providers.
+> **Status (2026-07-18): DONE for dev.** Google IdP deployed; Hosted-UI `?identity_provider=Google`
+> returns 302 → accounts.google.com; frontend `NEXT_PUBLIC_GOOGLE_AUTH=on` shipped (Amplify job 22).
+> Note: the client secret lands in the CloudFormation template — inherent to Cognito federation.
+> To wire Google in **prod** later, repeat with a `/sc-prod/...` param + set `googleOAuthParam` on the prod stage.
 
 ### 3c. Turn the button on in the frontend
 
@@ -166,4 +175,4 @@ Google" now runs the real Hosted-UI federated flow and lands back on `/auth/call
 
 - [ ] Razorpay: `RAZORPAY_*` in `/sc-dev/secrets` → redeploy booking Lambda → dashboard webhook → test-mode dry run → go live
 - [ ] Email verification: SES sender verified + production access → `autoConfirmSignups:false` + `UserPoolEmail.withSES` → redeploy `sc-dev-auth`
-- [ ] Google: OAuth client → `sc-dev/google-oauth` secret → `googleOAuthSecretArn` → redeploy `sc-dev-auth` → `NEXT_PUBLIC_GOOGLE_AUTH=on` + rebuild frontend
+- [x] **Google (dev): DONE 2026-07-18** — OAuth client → `/sc-dev/google-client-secrets` **SSM** SecureString (free) → `googleOAuthParam` → deployed `sc-dev-auth` → `NEXT_PUBLIC_GOOGLE_AUTH=on` + frontend rebuilt (Amplify job 22). Prod: repeat with a `/sc-prod/...` param.

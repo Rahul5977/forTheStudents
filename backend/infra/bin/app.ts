@@ -1,6 +1,7 @@
 // CDK app entry. Usage: `cdk deploy --all --context stage=dev`
 import { App } from 'aws-cdk-lib';
 import { getConfig } from '../lib/config';
+import { loadGoogleCreds } from '../lib/google-creds';
 import { DataStack } from '../lib/data-stack';
 import { AuthStack } from '../lib/auth-stack';
 import { FoundationStack } from '../lib/foundation-stack';
@@ -22,9 +23,13 @@ const cfg = getConfig(stage);
 
 const env = { account: process.env.CDK_DEFAULT_ACCOUNT, region: cfg.region };
 
+// Google OAuth creds, read from SSM at synth when cfg.googleOAuthParam is set (undefined
+// → Google sign-in stays OFF, and a read failure degrades gracefully — see google-creds.ts).
+const google = cfg.googleOAuthParam ? loadGoogleCreds(cfg.googleOAuthParam, cfg.region) : undefined;
+
 // Phase 0 foundations + Phase 1 identity.
 const data = new DataStack(app, `sc-${stage}-data`, { env, cfg });
-const auth = new AuthStack(app, `sc-${stage}-auth`, { env, cfg });
+const auth = new AuthStack(app, `sc-${stage}-auth`, { env, cfg, google });
 const foundation = new FoundationStack(app, `sc-${stage}-foundation`, {
   env,
   cfg,
