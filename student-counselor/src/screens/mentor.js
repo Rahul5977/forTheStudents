@@ -634,14 +634,16 @@ export function MNotifications() {
 
 // ── Mentor Settings ───────────────────────────────────────────────────────
 export function MSettings() {
-  const { runAct, switchRole, navigate } = useApp();
-  const deactivate = async () => { await switchRole('student'); navigate('dashboard'); };
+  const { runAct, navigate } = useApp();
+  // Additive model: a mentor IS a student — "switch to student view" just navigates back to
+  // the student app (no role swap). Their approved mentor profile stays intact.
+  const deactivate = () => navigate('dashboard');
   return (
     <section style={{ maxWidth: 600, margin: '0 auto', padding: '26px 24px 40px' }}>
       <h1 style={{ margin: '0 0 12px', fontSize: 28 }}>Settings</h1>
       <div className="card" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Mentor mode</div><label className="radio"><input type="checkbox" defaultChecked /><span className="dot" />Accepting new bookings</label><label className="radio"><input type="checkbox" defaultChecked /><span className="dot" />Email me about new requests</label></div>
       <div className="card" style={{ background: 'var(--color-surface)', marginTop: 12 }}><div className="card-kicker">Account</div><div className="sc-row" onClick={() => runAct({ act: 'toast', msg: 'Account settings is an owner TODO' })} style={{ padding: '8px 4px', fontSize: 14, cursor: 'pointer' }}>Account &amp; email ›</div><div className="sc-row" onClick={() => runAct({ go: 'mEarnings' })} style={{ padding: '8px 4px', fontSize: 14, cursor: 'pointer' }}>Payout method ›</div></div>
-      <Btn variant="sec" onClick={deactivate} block style={{ marginTop: 14 }}>Deactivate mentor mode (switch to student)</Btn>
+      <Btn variant="sec" onClick={deactivate} block style={{ marginTop: 14 }}>🎓 Switch to student view</Btn>
       <Btn variant="ghost" onClick={() => runAct({ act: 'logout' })} block style={{ color: '#a8442e', marginTop: 10 }}>Log out</Btn>
     </section>
   );

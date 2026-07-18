@@ -290,7 +290,10 @@ export function AppProvider({ children }) {
     if (!GATED.has(ctx)) return;
     if (!state.token) { navigate('login'); return; }
     if (onboardKnown && !onboarded) { navigate('roleSelect'); return; }
-    if (ctx === 'admin' && !isAdminish) { navigate('dashboard'); }
+    if (ctx === 'admin' && !isAdminish) { navigate('dashboard'); return; }
+    // The mentor area is additive on top of the student app — only APPROVED mentors get in.
+    // (null = status not loaded yet → don't bounce prematurely.)
+    if (ctx === 'mentor' && state.mentorStatus !== null && state.mentorStatus !== 'APPROVED') { navigate('dashboard'); }
   }, [ctx, screen, state.authReady, state.token, state.role, state.profile, state.mentorStatus, navigate]);
 
   // Session timer: tick while on a live call screen.

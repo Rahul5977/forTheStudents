@@ -34,7 +34,7 @@ function Brand({ size = 19, title }) {
 }
 
 function TopNav() {
-  const { ctx, screen, navigate, profile, loggedIn, role, unreadCount } = useApp();
+  const { ctx, screen, navigate, profile, loggedIn, role, unreadCount, isMentor } = useApp();
   const marketing = ctx === 'marketing';
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 40, display: 'flex', alignItems: 'center', gap: 18, padding: '12px 22px', background: 'color-mix(in srgb, var(--color-bg) 88%, transparent)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', borderBottom: '1px solid var(--color-divider)' }}>
@@ -65,6 +65,7 @@ function TopNav() {
         </>
       ) : (
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 12 }}>
+          {isMentor && <Btn variant="sec" go="mDashboard" style={{ fontSize: 13 }} title="Switch to your mentor dashboard">🧑‍🏫 Mentor</Btn>}
           <span style={{ fontSize: 13 }} className="text-muted">Rank <strong style={{ color: 'var(--color-text)' }}>{profile.advRank || profile.mainRank || '—'}</strong> · {profile.category}</span>
           <span className="sc-btn ghost" onClick={() => navigate('notifications')} style={{ position: 'relative' }} title={unreadCount > 0 ? `${unreadCount} unread` : 'Notifications'}>
             🔔{unreadCount > 0 && <span style={{ position: 'absolute', top: -2, right: -2, minWidth: 15, height: 15, padding: '0 4px', background: 'var(--color-accent)', color: 'var(--color-bg)', borderRadius: 999, fontSize: 10, lineHeight: '15px', textAlign: 'center', fontFamily: 'var(--font-body)' }}>{unreadCount > 9 ? '9+' : unreadCount}</span>}
@@ -91,7 +92,9 @@ function Sidebar() {
           {icon} {label}
         </span>
       ))}
-      <Btn variant="ghost" act="logout" style={{ marginTop: 'auto' }}>Log out</Btn>
+      {/* A mentor is also a student — let them jump back to the student app. */}
+      {ctx === 'mentor' && <span className="sc-navlink" onClick={() => navigate('dashboard')} style={{ marginTop: 'auto' }}>🎓 Student view</span>}
+      <Btn variant="ghost" act="logout" style={{ marginTop: ctx === 'mentor' ? 8 : 'auto' }}>Log out</Btn>
     </aside>
   );
 }
