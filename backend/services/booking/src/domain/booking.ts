@@ -16,8 +16,9 @@ import type { CreateBooking, Webhook, Rate } from '../types';
 
 const logger = createLogger('booking');
 
-const HOLD_MIN = 15;         // unpaid holds expire after this
-const JOIN_EARLY_MIN = 15;   // you can join this early
+const HOLD_MIN = 15;                 // unpaid (post-accept) holds expire after this
+const REQUEST_HOLD_SEC = 24 * 60 * 60; // a request holds the slot for 24h awaiting the mentor
+const JOIN_EARLY_MIN = 15;           // you can join this early
 const nowIso = () => new Date().toISOString();
 const nowSec = () => Math.floor(Date.now() / 1000);
 
@@ -25,7 +26,7 @@ function assertParticipant(b: Booking, userId: string) {
   if (b.studentId !== userId && b.mentorId !== userId) throw ForbiddenError('Not your session.');
 }
 
-// ── Create (student holds a slot) ───────────────────────────────────────────────
+// ── Request (student requests a slot; the mentor decides) ───────────────────────
 export async function createBooking(p: Principal, input: CreateBooking, idempKey?: string) {
   if (input.mentorId === p.userId) throw ValidationError('You cannot book yourself.');
 
@@ -40,41 +41,67 @@ export async function createBooking(p: Principal, input: CreateBooking, idempKey
   if (!slot) throw NotFoundError('Slot not found.');
   if (!slot.open) throw ConflictError('That slot is not open.');
 
-  const holdTtl = nowSec() + HOLD_MIN * 60;
+  // Hold the slot for 24h while the mentor decides (no payment order yet — that's created
+  // on accept()). The atomic hold means two students can't request the same slot.
+  const holdTtl = nowSec() + REQUEST_HOLD_SEC;
   const booking: Booking = {
     id: newId('bk'), studentId: p.userId, mentorId: input.mentorId, mentorName: mentor.name,
     slotId: input.slotId, startsAt: slot.startsAt, durationMin: slot.durationMin, priceINR: mentor.priceINR,
-    status: 'PENDING_PAYMENT', createdAt: nowIso(), updatedAt: nowIso(),
+    status: 'REQUESTED', createdAt: nowIso(), updatedAt: nowIso(),
   };
-  // Create the Razorpay order up front (receipt = booking id). Returns null when
-  // keys aren't configured → the client falls back to the dev-payment path.
-  const order = await createOrder(booking.priceINR, booking.id).catch((e) => {
-    logger.error('razorpay order failed', { bookingId: booking.id, err: String(e) });
-    return null;
-  });
-  if (order) booking.razorpayOrderId = order.id;
-
   const res = await bookingsRepo.createWithHold(booking, holdTtl, idempKey);
   if ('duplicate' in res) { const b = await bookingsRepo.get(res.duplicate); if (b) return paymentView(b); }
-  if (order) await bookingsRepo.putOrderMapping(order.id, booking.id, holdTtl);
 
-  await bookingsRepo.appendLedger(booking.id, `order-${booking.id}`, { type: 'order.created', amountINR: booking.priceINR });
-  await publish({ type: 'booking.created', source: 'booking', detail: { bookingId: booking.id, mentorId: booking.mentorId } });
+  await publish({ type: 'booking.requested', source: 'booking', detail: { bookingId: booking.id, studentId: booking.studentId, mentorId: booking.mentorId, mentorName: booking.mentorName } });
   return paymentView(booking);
 }
 
-/** Shape returned to the client: the booking + a Razorpay payment intent. */
+// ── Mentor accepts a request → create the payment order (student can now pay) ────
+export async function accept(p: Principal, id: string) {
+  const b = await bookingsRepo.get(id);
+  if (!b) throw NotFoundError('Booking not found.');
+  if (b.mentorId !== p.userId) throw ForbiddenError('Only the mentor can accept this request.');
+  if (b.status !== 'REQUESTED') throw ConflictError(`This request is ${b.status} — cannot accept.`);
+
+  // Create the Razorpay order now (null when keys aren't configured → dev-pay path).
+  const order = await createOrder(b.priceINR, b.id).catch((e) => {
+    logger.error('razorpay order failed', { bookingId: b.id, err: String(e) });
+    return null;
+  });
+  const accepted = await bookingsRepo.transition(b.id, ['REQUESTED'], 'ACCEPTED', order ? { razorpayOrderId: order.id } : {});
+  if (order) await bookingsRepo.putOrderMapping(order.id, b.id, nowSec() + REQUEST_HOLD_SEC);
+  await bookingsRepo.appendLedger(b.id, `order-${b.id}`, { type: 'order.created', amountINR: b.priceINR });
+  await publish({ type: 'booking.accepted', source: 'booking', detail: { bookingId: b.id, studentId: b.studentId, mentorId: b.mentorId, mentorName: b.mentorName } });
+  return paymentView(accepted);
+}
+
+// ── Mentor declines a request → release the slot ────────────────────────────────
+export async function decline(p: Principal, id: string) {
+  const b = await bookingsRepo.get(id);
+  if (!b) throw NotFoundError('Booking not found.');
+  if (b.mentorId !== p.userId) throw ForbiddenError('Only the mentor can decline this request.');
+  if (b.status !== 'REQUESTED') throw ConflictError(`This request is ${b.status} — cannot decline.`);
+  const out = await bookingsRepo.transition(b.id, ['REQUESTED'], 'DECLINED');
+  await bookingsRepo.releaseHold(b.mentorId, b.slotId);
+  await publish({ type: 'booking.rejected', source: 'booking', detail: { bookingId: b.id, studentId: b.studentId, mentorId: b.mentorId, mentorName: b.mentorName } });
+  return out;
+}
+
+/** Shape returned to the client: the booking + a Razorpay payment intent (only once ACCEPTED). */
 async function paymentView(b: Booking) {
+  const payable = b.status === 'ACCEPTED';
   return {
     booking: b,
     payment: {
       provider: 'razorpay',
       amountINR: b.priceINR,
-      orderId: b.razorpayOrderId ?? null,        // client opens Checkout with this + keyId
-      keyId: (await razorpayKeyId()) ?? null,    // public Key ID (safe for the browser)
-      note: b.razorpayOrderId
-        ? 'Open Razorpay Checkout with { key: keyId, order_id: orderId }.'
-        : (b.status === 'PENDING_PAYMENT' ? 'Razorpay not configured — the dev-pay path applies.' : 'Already paid.'),
+      orderId: payable ? (b.razorpayOrderId ?? null) : null, // client opens Checkout with this + keyId
+      keyId: payable ? ((await razorpayKeyId()) ?? null) : null,
+      note: b.status === 'REQUESTED'
+        ? 'Waiting for the mentor to accept your request.'
+        : payable
+          ? (b.razorpayOrderId ? 'Open Razorpay Checkout with { key: keyId, order_id: orderId }.' : 'Razorpay not configured — the dev-pay path applies.')
+          : 'No payment due.',
     },
   };
 }
@@ -88,8 +115,8 @@ export async function handleWebhook(input: Webhook) {
 
   if (input.event === 'payment.failed') {
     const wrote = await bookingsRepo.appendLedger(b.id, input.providerPaymentId, { type: 'payment.failed', providerPaymentId: input.providerPaymentId });
-    if (wrote && b.status === 'PENDING_PAYMENT') {
-      await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'EXPIRED').catch(() => {});
+    if (wrote && b.status === 'ACCEPTED') {
+      await bookingsRepo.transition(b.id, ['ACCEPTED'], 'EXPIRED').catch(() => {});
       await bookingsRepo.releaseHold(b.mentorId, b.slotId);
     }
     return { status: 'EXPIRED', bookingId: b.id };
@@ -99,10 +126,10 @@ export async function handleWebhook(input: Webhook) {
   const wrote = await bookingsRepo.appendLedger(b.id, input.providerPaymentId, { type: 'payment.captured', amountINR: b.priceINR, providerPaymentId: input.providerPaymentId });
   if (!wrote) return { status: (await bookingsRepo.get(b.id))!.status, bookingId: b.id }; // replayed webhook — no-op
 
-  if (b.status === 'PENDING_PAYMENT') {
+  if (b.status === 'ACCEPTED') {
     // Generate the shared meeting link NOW (post-payment) so both sides see it.
     const meeting = createMeeting(b.id);
-    const confirmed = await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'CONFIRMED', {
+    const confirmed = await bookingsRepo.transition(b.id, ['ACCEPTED'], 'CONFIRMED', {
       meetingUrl: meeting.url, meetingProvider: meeting.provider,
       razorpayPaymentId: input.providerPaymentId, // kept for refunds
     });
@@ -119,8 +146,8 @@ export async function cancel(p: Principal, id: string) {
   if (!b) throw NotFoundError('Booking not found.');
   if (b.studentId !== p.userId) throw ForbiddenError('Only the booker can cancel.');
 
-  if (b.status === 'PENDING_PAYMENT') {
-    const out = await bookingsRepo.transition(b.id, ['PENDING_PAYMENT'], 'CANCELLED');
+  if (b.status === 'REQUESTED' || b.status === 'ACCEPTED') {
+    const out = await bookingsRepo.transition(b.id, ['REQUESTED', 'ACCEPTED'], 'CANCELLED');
     await bookingsRepo.releaseHold(b.mentorId, b.slotId);
     return out;
   }
@@ -176,7 +203,7 @@ export async function getBooking(p: Principal, id: string) {
   const b = await bookingsRepo.get(id);
   if (!b) throw NotFoundError('Booking not found.');
   assertParticipant(b, p.userId);
-  const payment = b.status === 'PENDING_PAYMENT'
+  const payment = b.status === 'ACCEPTED'
     ? { provider: 'razorpay', amountINR: b.priceINR, orderId: b.razorpayOrderId ?? null, keyId: (await razorpayKeyId()) ?? null }
     : null;
   return { booking: b, ledger: await bookingsRepo.ledger(id), payment };

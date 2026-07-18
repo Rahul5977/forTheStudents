@@ -2,7 +2,7 @@
 // - /bookings/*, /sessions/* : authed (participants act on their own sessions)
 // - POST /payments/webhook   : PUBLIC (provider callback; signature-verified in the handler)
 import { createApp } from '@sc/shared';
-import { create, cancel, getOne } from './handlers/bookings';
+import { create, cancel, getOne, accept, decline } from './handlers/bookings';
 import { list, join, end, rate } from './handlers/sessions';
 import { webhook } from './handlers/payments';
 
@@ -11,6 +11,8 @@ export const app = createApp('booking');
 app.post('/bookings', create);
 app.get('/bookings/:id', getOne);
 app.post('/bookings/:id/cancel', cancel);
+app.post('/bookings/:id/accept', accept);   // mentor accepts a request
+app.post('/bookings/:id/decline', decline); // mentor declines a request
 
 app.get('/sessions', list);
 app.post('/sessions/:id/join', join);

@@ -2,14 +2,18 @@
 import { z } from 'zod';
 
 /**
- * Lifecycle:  PENDING_PAYMENT → CONFIRMED → LIVE → ENDED → RATED
- * Off-ramps:  CANCELLED (pre-pay), REFUNDED (post-pay cancel/no-show), EXPIRED (hold TTL)
+ * Lifecycle:  REQUESTED → ACCEPTED → CONFIRMED → LIVE → ENDED → RATED
+ *   REQUESTED  student requested a slot (held); awaiting the mentor's decision
+ *   ACCEPTED   mentor accepted → payment order created; awaiting the student's payment
+ *   CONFIRMED  paid → session locked in + Meet link
+ * Off-ramps:  DECLINED (mentor rejects), CANCELLED (student, pre-pay),
+ *             REFUNDED (post-pay cancel/no-show), EXPIRED (unpaid hold TTL)
  */
 export type BookingStatus =
-  | 'PENDING_PAYMENT' | 'CONFIRMED' | 'LIVE' | 'ENDED' | 'RATED'
-  | 'CANCELLED' | 'REFUNDED' | 'EXPIRED';
+  | 'REQUESTED' | 'ACCEPTED' | 'CONFIRMED' | 'LIVE' | 'ENDED' | 'RATED'
+  | 'DECLINED' | 'CANCELLED' | 'REFUNDED' | 'EXPIRED';
 
-/** POST /bookings — hold a mentor's slot (payment follows). Idempotency-Key header dedupes. */
+/** POST /bookings — REQUEST a mentor's slot (mentor accepts, then payment). Idempotency-Key dedupes. */
 export const CreateBookingInput = z.object({
   mentorId: z.string().min(1).max(80),
   slotId: z.string().min(1).max(40),

@@ -79,6 +79,8 @@ export class BookingServiceStack extends Stack {
       { path: '/bookings', method: apigw.HttpMethod.POST },
       { path: '/bookings/{id}', method: apigw.HttpMethod.GET },
       { path: '/bookings/{id}/cancel', method: apigw.HttpMethod.POST },
+      { path: '/bookings/{id}/accept', method: apigw.HttpMethod.POST },
+      { path: '/bookings/{id}/decline', method: apigw.HttpMethod.POST },
       { path: '/sessions', method: apigw.HttpMethod.GET },
       { path: '/sessions/{id}/join', method: apigw.HttpMethod.POST },
       { path: '/sessions/{id}/end', method: apigw.HttpMethod.POST },

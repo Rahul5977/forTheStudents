@@ -21,6 +21,22 @@ export async function cancel(c: Context<AppEnv>) {
   return c.json(await booking.cancel(p, id));
 }
 
+/** POST /bookings/:id/accept  (mentor accepts a request → creates the payment order) */
+export async function accept(c: Context<AppEnv>) {
+  const p = getPrincipal(c);
+  const id = c.req.param('id');
+  if (!id) throw ValidationError('Missing booking id');
+  return c.json(await booking.accept(p, id));
+}
+
+/** POST /bookings/:id/decline  (mentor declines a request → releases the slot) */
+export async function decline(c: Context<AppEnv>) {
+  const p = getPrincipal(c);
+  const id = c.req.param('id');
+  if (!id) throw ValidationError('Missing booking id');
+  return c.json(await booking.decline(p, id));
+}
+
 /** GET /bookings/:id  (booking + ledger, participants only) */
 export async function getOne(c: Context<AppEnv>) {
   const p = getPrincipal(c);

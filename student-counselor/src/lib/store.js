@@ -357,8 +357,9 @@ export function AppProvider({ children }) {
     catch (e) { toast(e.message || failMsg || 'Something went wrong'); }
   }, [loadSessions, toast]);
 
+  // Student REQUESTS a specific (real) slot — the mentor then accepts/declines.
   const book = useCallback((mentorId, slotId) =>
-    withSessionRefresh(() => liveApi.createBooking(mentorId, slotId || 's1', `ui-${mentorId}-${Date.now()}`), 'Booking created'), [withSessionRefresh]);
+    withSessionRefresh(() => liveApi.createBooking(mentorId, slotId, `ui-${mentorId}-${slotId}-${Date.now()}`), 'Request sent — the mentor will accept or decline'), [withSessionRefresh]);
 
   // After Razorpay reports success, the confirmation is authoritative from the SERVER
   // webhook (payment.captured → CONFIRMED). Poll the booking until it flips.
@@ -413,6 +414,8 @@ export function AppProvider({ children }) {
   const end = useCallback((id) => withSessionRefresh(() => liveApi.endSession(id), 'Session ended'), [withSessionRefresh]);
   const rate = useCallback((id, n, comment) => withSessionRefresh(() => liveApi.rateSession(id, n, comment), 'Thanks for the rating'), [withSessionRefresh]);
   const cancel = useCallback((id) => withSessionRefresh(() => liveApi.cancelBooking(id), 'Booking cancelled'), [withSessionRefresh]);
+  const acceptBooking = useCallback((id) => withSessionRefresh(() => liveApi.acceptBooking(id), 'Request accepted — the student can pay now'), [withSessionRefresh]);
+  const declineBooking = useCallback((id) => withSessionRefresh(() => liveApi.declineBooking(id), 'Request declined'), [withSessionRefresh]);
 
   // ─── notifications ─────────────────────────────────────────────────────────
   const markNotifRead = useCallback(async (id) => {
@@ -557,6 +560,8 @@ export function AppProvider({ children }) {
       case 'end': end(d.bookingId ?? id); break;
       case 'rate': rate(d.bookingId ?? id, d.rating ?? 5, d.comment); break;
       case 'cancel': cancel(d.bookingId ?? id); break;
+      case 'acceptBooking': acceptBooking(d.bookingId ?? id); break;
+      case 'declineBooking': declineBooking(d.bookingId ?? id); break;
       // ── notifications (new) ──
       case 'markNotifRead': markNotifRead(d.id ?? id); break;
       case 'markAllRead': markAllRead(); break;
@@ -580,7 +585,7 @@ export function AppProvider({ children }) {
       case 'toggleMic': update((s) => ({ micOn: !s.micOn })); break;
       default: break;
     }
-  }, [navigate, toast, update, router, putChoice, putShort, reorderChoice, book, pay, join, end, rate, cancel, markNotifRead, markAllRead, switchRole, logout]);
+  }, [navigate, toast, update, router, putChoice, putShort, reorderChoice, book, pay, join, end, rate, cancel, acceptBooking, declineBooking, markNotifRead, markAllRead, switchRole, logout]);
 
   // ─── field handlers (unchanged) ────────────────────────────────────────────
   const setProfile = (patch) => update((s) => ({ profile: { ...s.profile, ...patch } }));
@@ -644,7 +649,7 @@ export function AppProvider({ children }) {
     resolveCollege,
     resolveProfile,
     // named actions (also reachable via runAct)
-    book, pay, join, end, rate, cancel,
+    book, pay, join, end, rate, cancel, acceptBooking, declineBooking,
     markNotifRead, markAllRead,
     saveProfile, saveRankPrefs, switchRole, logout,
     doLogin, doSignup, doConfirm, doResend, doForgot, doResetPassword, loginWithGoogle,

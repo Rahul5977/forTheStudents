@@ -72,5 +72,6 @@ export class MarketplaceServiceStack extends Stack {
 
     // Public browse — no authorizer.
     httpApi.addRoutes({ path: '/mentors', methods: [apigw.HttpMethod.GET], integration });
+    httpApi.addRoutes({ path: '/mentors/{id}/slots', methods: [apigw.HttpMethod.GET], integration }); // a mentor's open slots
   }
 }

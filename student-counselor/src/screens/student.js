@@ -1241,32 +1241,55 @@ export function MentorProfile() {
 
 // ── Booking / Scheduling ──────────────────────────────────────────────────────
 export function Booking() {
-  const { bookingSlot, runAct, book, navigate } = useApp();
+  const { book, navigate } = useApp();
   const [m, loading] = useSelectedMentor();
+  const [slots, setSlots] = useState(null); // null = loading, [] = none open
+  const [sel, setSel] = useState(null);     // chosen slot id
   const [busy, setBusy] = useState(false);
-  const selectedSlot = bookingSlot || SLOT_LIST[1];
+
+  // Load the mentor's REAL open slots (public endpoint) — no more hardcoded 's1'.
+  useEffect(() => {
+    if (!m?.userId) return undefined;
+    let cancelled = false;
+    setSlots(null);
+    liveApi.mentorSlots(m.userId)
+      .then((r) => { if (cancelled) return; const s = r?.slots || []; setSlots(s); setSel(s[0]?.id || null); })
+      .catch(() => { if (!cancelled) setSlots([]); });
+    return () => { cancelled = true; };
+  }, [m?.userId]);
+
   const proceed = async () => {
-    if (!m) return;
+    if (!m || !sel) return;
     setBusy(true);
-    // TODO(owner): map the chosen display slot to a real availability slotId; dev books 's1'.
-    try { await book(m.userId, 's1'); navigate('payment'); } finally { setBusy(false); }
+    try { await book(m.userId, sel); navigate('sessions'); } // REQUEST the slot → mentor decides
+    finally { setBusy(false); }
   };
+
   if (loading) return <section style={{ maxWidth: 640, margin: '0 auto', padding: '40px 22px' }}><Btn variant="ghost" go="mentorProfile" style={{ paddingLeft: 0 }}>← Back</Btn><p className="text-muted" style={{ marginTop: 12 }}>Loading…</p></section>;
   if (!m) return <section style={{ maxWidth: 640, margin: '0 auto', padding: '40px 22px' }}><Btn variant="ghost" go="marketplace" style={{ paddingLeft: 0 }}>← Back to mentors</Btn><p className="text-muted" style={{ marginTop: 12 }}>Pick a mentor first.</p></section>;
   return (
     <section style={{ maxWidth: 640, margin: '0 auto', padding: '24px 22px 40px' }}>
       <Btn variant="ghost" go="mentorProfile" style={{ paddingLeft: 0 }}>← Back</Btn>
-      <h1 style={{ margin: '4px 0 2px', fontSize: 28 }}>Pick a slot</h1>
+      <h1 style={{ margin: '4px 0 2px', fontSize: 28 }}>Request a session</h1>
       <div className="card" style={{ background: 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 10 }}><Avatar initials={initialsOf(m.name)} color={colorFor(m.userId || m.name)} size={40} /><div><div style={{ fontWeight: 700 }}>{m.name}</div><div className="text-muted" style={{ fontSize: 12 }}>{m.college} · ₹{m.priceINR} / 25 min</div></div></div>
       <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14 }}>
-        <div className="card-kicker">Available slots</div>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>{SLOT_LIST.map((t) => (
-          <span key={t} className="tag" onClick={() => runAct({ act: 'bookSlot', slot: t })} style={{ cursor: 'pointer', ...(bookingSlot === t ? { background: 'var(--color-accent)', color: 'var(--color-bg)' } : { border: '1px solid var(--color-accent)', color: 'var(--color-accent-700)' }) }}>{t}</span>
-        ))}</div>
+        <div className="card-kicker">Choose an available slot</div>
+        {slots === null ? (
+          <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>Loading {m.name}&apos;s open slots…</p>
+        ) : slots.length === 0 ? (
+          <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>{m.name} hasn&apos;t opened any slots yet — check back soon, or browse other mentors.</p>
+        ) : (
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>{slots.map((s) => (
+            <span key={s.id} className="tag" onClick={() => setSel(s.id)} style={{ cursor: 'pointer', ...(sel === s.id ? { background: 'var(--color-accent)', color: 'var(--color-bg)' } : { border: '1px solid var(--color-accent)', color: 'var(--color-accent-700)' }) }}>{fmtWhen(s.startsAt)}</span>
+          ))}</div>
+        )}
         <Field label={`A note or question for ${m.name} (optional)`}><textarea className="input" placeholder="e.g. CSE at a lower IIT vs ECE at a top one?" /></Field>
       </div>
-      <div className="card" style={{ background: 'var(--color-surface)', marginTop: 14, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}><div><div style={{ fontSize: 13 }}>25-min 1:1 video call</div><div className="text-muted" style={{ fontSize: 12 }}>Selected: {selectedSlot}</div></div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 22 }}>₹{m.priceINR}</div></div>
-      <Btn variant="pri" onClick={proceed} block disabled={busy} style={{ padding: 13, marginTop: 14 }}>{busy ? 'Reserving…' : 'Proceed to pay →'}</Btn>
+      <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', background: 'var(--color-accent-2-100)', color: 'var(--color-accent-2-800)', borderRadius: 14, padding: '11px 14px', marginTop: 14, fontSize: 13 }}>
+        <span style={{ fontSize: 16 }}>💡</span>
+        <span>How it works: you <strong>request</strong> a slot → the mentor <strong>accepts</strong> → you <strong>pay ₹{m.priceINR}</strong> → the session is confirmed with a Meet link. You&apos;re only charged after they accept.</span>
+      </div>
+      <Btn variant="pri" onClick={proceed} block disabled={busy || !sel} style={{ padding: 13, marginTop: 14 }}>{busy ? 'Sending request…' : 'Request this session →'}</Btn>
     </section>
   );
 }
@@ -1287,7 +1310,8 @@ function loadRazorpay() {
 
 export function Payment() {
   const { sessions, bookingSlot, pay, navigate, showToast, profile, loadSessions } = useApp();
-  const pending = [...sessions].reverse().find((s) => s.status === 'PENDING_PAYMENT');
+  // Payment is due once the mentor has ACCEPTED the request.
+  const pending = [...sessions].reverse().find((s) => s.status === 'ACCEPTED');
   const [busy, setBusy] = useState(false);
   const selectedSlot = pending?.startsAt ? fmtWhen(pending.startsAt) : (bookingSlot || SLOT_LIST[1]);
   const price = pending?.priceINR ?? 100;
@@ -1395,8 +1419,8 @@ export function BookingConfirm() {
 
 // ── My Sessions / Bookings ────────────────────────────────────────────────────
 export function Sessions() {
-  const { sessions, sessionsTab, runAct, join, navigate } = useApp();
-  const groups = { upcoming: ['PENDING_PAYMENT', 'CONFIRMED', 'LIVE'], past: ['ENDED', 'RATED'], cancelled: ['CANCELLED', 'REFUNDED'] };
+  const { sessions, sessionsTab, runAct, join, navigate, pay, end, cancel } = useApp();
+  const groups = { upcoming: ['REQUESTED', 'ACCEPTED', 'CONFIRMED', 'LIVE'], past: ['ENDED', 'RATED'], cancelled: ['CANCELLED', 'REFUNDED', 'DECLINED', 'EXPIRED'] };
   const list = (sessions || []).filter((s) => groups[sessionsTab]?.includes(s.status));
   const joinAndGo = async (s) => { await join(s.id); navigate('sessionRoom'); };
   return (
@@ -1415,13 +1439,14 @@ export function Sessions() {
             <div key={s.id} className="card elev-sm" style={{ background: 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
               <Avatar initials={initialsOf(s.mentorName)} color={colorFor(s.mentorId || s.mentorName)} size={42} />
               <div style={{ flex: 1, minWidth: 140 }}><div style={{ fontWeight: 700 }}>{s.mentorName || 'Mentor'}</div><div className="text-muted" style={{ fontSize: 12 }}>{fmtWhen(s.startsAt)} · {s.durationMin || 25} min · ₹{s.priceINR}</div></div>
-              <span className="tag" style={statusStyle(s.status)}>{s.status}{s.rating ? ` · ⭐${s.rating}` : ''}</span>
-              {s.meetingUrl && <a href={s.meetingUrl} target="_blank" rel="noreferrer" className="text-muted" style={{ fontSize: 13 }} title={s.meetingProvider === 'stub' ? 'Placeholder Meet link' : 'Google Meet'}>🎥 Meet</a>}
-              {s.status === 'PENDING_PAYMENT' && <Btn variant="pri" act="pay" id={s.id}>Pay ₹{s.priceINR}</Btn>}
+              <span className="tag" style={statusStyle(s.status)}>{s.status === 'REQUESTED' ? '🙋 Awaiting mentor' : s.status === 'ACCEPTED' ? '✅ Accepted — pay now' : s.status === 'DECLINED' ? 'Declined' : s.status}{s.rating ? ` · ⭐${s.rating}` : ''}</span>
+              {s.meetingUrl && (s.status === 'CONFIRMED' || s.status === 'LIVE') && <a href={s.meetingUrl} target="_blank" rel="noreferrer" className="text-muted" style={{ fontSize: 13 }} title={s.meetingProvider === 'stub' ? 'Placeholder Meet link' : 'Google Meet'}>🎥 Meet</a>}
+              {/* Booking ids are strings → use onClick (runAct's +id would NaN them). */}
+              {s.status === 'ACCEPTED' && <Btn variant="pri" onClick={() => pay(s.id)}>Pay ₹{s.priceINR}</Btn>}
               {(s.status === 'CONFIRMED' || s.status === 'LIVE') && <Btn variant="pri" onClick={() => joinAndGo(s)}>Join</Btn>}
-              {s.status === 'LIVE' && <Btn variant="sec" act="end" id={s.id}>End</Btn>}
+              {s.status === 'LIVE' && <Btn variant="sec" onClick={() => end(s.id)}>End</Btn>}
               {s.status === 'ENDED' && <Btn variant="pri" go="rateSession">Rate</Btn>}
-              {(s.status === 'PENDING_PAYMENT' || s.status === 'CONFIRMED') && <Btn variant="ghost" act="cancel" id={s.id}>Cancel</Btn>}
+              {(s.status === 'REQUESTED' || s.status === 'ACCEPTED' || s.status === 'CONFIRMED') && <Btn variant="ghost" onClick={() => cancel(s.id)}>Cancel</Btn>}
             </div>
           ))}
         </div>

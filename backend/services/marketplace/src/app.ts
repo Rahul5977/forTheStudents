@@ -5,7 +5,7 @@
 import { createApp } from '@sc/shared';
 import { apply, verifyEmail, verifyId, getProfile, putProfile, getAvailability, putAvailability } from './handlers/mentor';
 import { listPending, review } from './handlers/admin';
-import { listMentors } from './handlers/browse';
+import { listMentors, mentorSlots } from './handlers/browse';
 
 export const app = createApp('marketplace');
 
@@ -24,3 +24,4 @@ app.post('/admin/mentors/:id/review', review);
 
 // Public search.
 app.get('/mentors', listMentors);
+app.get('/mentors/:id/slots', mentorSlots);

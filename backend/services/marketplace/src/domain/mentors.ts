@@ -168,3 +168,16 @@ export async function search(q: Record<string, string | undefined>) {
 
   return { count: list.length, mentors: list };
 }
+
+// ── Public: a mentor's OPEN, future slots (drives the student's booking screen) ──
+export async function publicSlots(mentorId: string) {
+  const m = await mentorsRepo.get(mentorId);
+  if (!m || m.status !== 'APPROVED') throw NotFoundError('Mentor not available.');
+  const { slots } = await mentorsRepo.getAvailability(mentorId);
+  const nowMs = Date.now();
+  const open = slots
+    .filter((s) => s.open && new Date(s.startsAt).getTime() > nowMs)
+    .map((s) => ({ id: s.id, startsAt: s.startsAt, durationMin: s.durationMin }))
+    .sort((a, b) => a.startsAt.localeCompare(b.startsAt));
+  return { mentorId, priceINR: m.priceINR, slots: open };
+}

@@ -406,7 +406,7 @@ export function MVerification() {
 
 // ── Bookings / Session Requests ───────────────────────────────────────────
 export function MBookings() {
-  const { join, navigate, loadSessions } = useApp();
+  const { join, navigate, loadSessions, acceptBooking, declineBooking } = useApp();
   const mySessions = useMyMentoringSessions();
   const [loading, setLoading] = useState(true);
 
@@ -430,11 +430,13 @@ export function MBookings() {
           {sorted.map((s) => {
             const label = s.studentName || s.mentorName || 'Student';
             const canJoin = s.status === 'CONFIRMED' || s.status === 'LIVE';
+            const isRequest = s.status === 'REQUESTED';
             return (
-              <div key={s.id} className="card elev-sm" style={{ background: 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <div key={s.id} className="card elev-sm" style={{ background: isRequest ? 'var(--color-accent-100)' : 'var(--color-surface)', flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                 <span style={{ width: 42, height: 42, borderRadius: '50%', background: 'var(--color-accent-2-500)', color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)' }}>{initialsOf(label)}</span>
                 <div style={{ flex: 1, minWidth: 140 }}><div style={{ fontWeight: 700, fontSize: 14 }}>{label} · {fmtWhen(s.startsAt)}</div><div className="text-muted" style={{ fontSize: 12 }}>{s.durationMin || SESSION_MIN} min · {inr(s.priceINR)} · {inr((s.priceINR || 0) * MENTOR_SHARE)} to you</div></div>
-                <span className="tag" style={statusStyle(s.status)}>{s.status}{s.rating ? ` · ⭐${s.rating}` : ''}</span>
+                <span className="tag" style={statusStyle(s.status)}>{isRequest ? '🙋 Request' : s.status}{s.rating ? ` · ⭐${s.rating}` : ''}</span>
+                {isRequest && <><Btn variant="pri" onClick={() => acceptBooking(s.id)}>Accept</Btn><Btn variant="sec" onClick={() => declineBooking(s.id)}>Decline</Btn></>}
                 {canJoin && <Btn variant="pri" onClick={() => joinSession(s)}>Join</Btn>}
               </div>
             );

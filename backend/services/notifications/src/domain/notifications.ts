@@ -16,6 +16,15 @@ export function fanout(type: string, detail: Record<string, unknown>): Fanned[] 
   const out: Fanned[] = [];
   const s = (k: string) => detail[k] as string | undefined;
   switch (type) {
+    case 'booking.requested':
+      if (s('mentorId')) out.push({ userId: s('mentorId')!, type, title: 'New session request 🙋', body: 'A student requested a 1:1 with you. Accept or decline it from your bookings.' });
+      break;
+    case 'booking.accepted':
+      if (s('studentId')) out.push({ userId: s('studentId')!, type, title: 'Request accepted ✅', body: `${detail.mentorName ?? 'Your mentor'} accepted your request — pay now to confirm the session.` });
+      break;
+    case 'booking.rejected':
+      if (s('studentId')) out.push({ userId: s('studentId')!, type, title: 'Request declined', body: `${detail.mentorName ?? 'The mentor'} can't take this slot. Try another slot or mentor.` });
+      break;
     case 'booking.confirmed': {
       if (s('studentId')) out.push({ userId: s('studentId')!, type, title: 'Session confirmed 🎉', body: 'Your mentor session is booked. The Google Meet link is ready.', link: s('meetingUrl') });
       if (s('mentorId')) out.push({ userId: s('mentorId')!, type, title: 'New session booked', body: 'A student booked a session with you. Meet link is ready.', link: s('meetingUrl') });
