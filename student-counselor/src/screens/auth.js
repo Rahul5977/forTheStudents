@@ -32,10 +32,10 @@ export function Signup() {
     setBusy(true);
     try {
       try { sessionStorage.setItem('sc_pending_email', email); } catch { /* SSR / private mode */ }
-      // If the pool auto-confirms, doSignup logs straight in → onboarding. If email
-      // verification is enforced, it returns { confirmed:false } → send to the OTP screen.
+      // If the pool auto-confirms, doSignup logs straight in → role select (student or
+      // mentor). If email verification is enforced, it returns { confirmed:false } → OTP.
       const res = await doSignup(email, pw, email.split('@')[0] || 'Student');
-      navigate(res?.confirmed === false ? 'otp' : 'onboarding');
+      navigate(res?.confirmed === false ? 'otp' : 'roleSelect');
     } catch (e) {
       setErr(e?.message || 'Could not create your account. Try a different email.');
     } finally { setBusy(false); }
@@ -220,13 +220,10 @@ export function Reset() {
 
 // ── Role Selection ────────────────────────────────────────────────────────────
 export function RoleSelect() {
-  const { navigate, switchRole, loggedIn } = useApp();
-  const choose = async (role) => {
-    // Persist the role choice when we already have a session; otherwise it is set
-    // during onboarding/mentor-apply. Navigate to the matching wizard either way.
-    if (loggedIn) { try { await switchRole(role); } catch { /* toast handled in store */ } }
-    navigate(role === 'mentor' ? 'mentorOnboarding' : 'onboarding');
-  };
+  const { navigate } = useApp();
+  // Additive model: everyone stays a `student`; choosing "mentor" just routes to the mentor
+  // application (the role is NOT swapped — the mentor area unlocks once an admin approves).
+  const choose = (role) => navigate(role === 'mentor' ? 'mentorOnboarding' : 'onboarding');
   return (
     <section style={authWrap}>
       <div style={{ width: 'min(720px, 100%)' }}>
@@ -255,7 +252,7 @@ export function RoleSelect() {
 const ONB_BRANCHES = ['Computer Science', 'Electronics', 'Electrical', 'Mechanical', 'Civil'];
 
 export function Onboarding() {
-  const { onbStep, profile, setProfile, saveRankPrefs, navigate } = useApp();
+  const { onbStep, profile, setProfile, saveRankPrefs, saveProfile, navigate } = useApp();
   const [saving, setSaving] = useState(false);
   const step = Math.min(5, onbStep);
   const pct = (step / 5) * 100 + '%';
@@ -270,7 +267,11 @@ export function Onboarding() {
 
   const finish = async () => {
     setSaving(true);
-    try { await saveRankPrefs(profile); } catch { /* toast handled in store */ }
+    try {
+      // Save the name FIRST so the rank-prefs write (which re-reads /me) returns it too.
+      if (profile.name && profile.name.trim()) await saveProfile(profile.name.trim());
+      await saveRankPrefs(profile); // persists ranks → marks the student "onboarded"
+    } catch { /* toast handled in store */ }
     setSaving(false);
     navigate('predictor'); // "See my colleges" → the live predictor, seeded with these prefs
   };
@@ -282,8 +283,10 @@ export function Onboarding() {
         <div style={{ height: 6, background: 'var(--color-neutral-200)', borderRadius: 999, overflow: 'hidden', marginBottom: 18 }}><div style={{ height: '100%', background: 'var(--color-accent)', borderRadius: 999, width: pct, transition: 'width .3s' }} /></div>
 
         {step === 1 && (
-          <div><h3 style={{ margin: '0 0 4px' }}>Which exam did you take?</h3><p className="text-muted" style={{ fontSize: 13 }}>We&apos;ll tailor predictions to it.</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 8 }}>
+          <div><h3 style={{ margin: '0 0 4px' }}>Tell us about you</h3><p className="text-muted" style={{ fontSize: 13 }}>Your name, and which exam you took.</p>
+            <Field label="Your name" style={{ marginTop: 8 }}><Input value={profile.name || ''} onChange={(e) => setProfile({ name: e.target.value })} placeholder="e.g. Aditya Sharma" /></Field>
+            <div style={{ fontSize: 12, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', margin: '12px 0 4px' }}>Which exam did you take?</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
               <label className="radio" style={{ border: `1px solid ${examMode === 'main' ? 'var(--color-accent)' : 'var(--color-divider)'}`, borderRadius: 16, padding: 14, background: examMode === 'main' ? 'var(--color-accent-100)' : 'transparent' }}><input type="radio" name="exam" checked={examMode === 'main'} onChange={() => setProfile({ examMode: 'main', advRank: 0 })} /><span className="dot" /><div><div style={{ fontWeight: 600 }}>JEE Main only</div><div className="text-muted" style={{ fontSize: 12 }}>NITs, IIITs, GFTIs</div></div></label>
               <label className="radio" style={{ border: `1px solid ${examMode === 'adv' ? 'var(--color-accent)' : 'var(--color-divider)'}`, borderRadius: 16, padding: 14, background: examMode === 'adv' ? 'var(--color-accent-100)' : 'transparent' }}><input type="radio" name="exam" checked={examMode === 'adv'} onChange={() => setProfile({ examMode: 'adv', mainRank: 0 })} /><span className="dot" /><div><div style={{ fontWeight: 600 }}>JEE Advanced only</div><div className="text-muted" style={{ fontSize: 12 }}>IITs</div></div></label>
               <label className="radio" style={{ border: `1px solid ${examMode === 'both' ? 'var(--color-accent)' : 'var(--color-divider)'}`, borderRadius: 16, padding: 14, background: examMode === 'both' ? 'var(--color-accent-100)' : 'transparent' }}><input type="radio" name="exam" checked={examMode === 'both'} onChange={() => setProfile({ examMode: 'both' })} /><span className="dot" /><div><div style={{ fontWeight: 600 }}>Both Main &amp; Advanced</div><div className="text-muted" style={{ fontSize: 12 }}>All colleges — recommended</div></div></label>
@@ -342,8 +345,8 @@ export function Onboarding() {
 const MENTOR_TOPICS = ['Branch choice', 'Placements', 'Hostel', 'Campus life'];
 
 export function MentorOnboarding() {
-  const { navigate, profile, showToast } = useApp();
-  const [form, setForm] = useState({ college: 'IIT Bombay', branch: 'Computer Science', year: '3', bio: '', topics: ['Branch choice', 'Placements'], upi: '' });
+  const { navigate, profile, showToast, loadMentorStatus } = useApp();
+  const [form, setForm] = useState({ name: profile?.name || '', college: '', branch: 'Computer Science', year: '3', bio: '', topics: ['Branch choice', 'Placements'], upi: '' });
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
   const set = (patch) => setForm((f) => ({ ...f, ...patch }));
@@ -351,11 +354,12 @@ export function MentorOnboarding() {
 
   const submit = async () => {
     setErr(null);
+    if (!form.name.trim()) { setErr('Add your name.'); return; }
     if (!form.college || !form.branch) { setErr('Add your college and branch.'); return; }
     setBusy(true);
     try {
       await liveApi.mentorApply({
-        name: profile?.name || 'Mentor',
+        name: form.name.trim(),
         college: form.college,
         branch: form.branch,
         year: Number(form.year) || 1,
@@ -363,6 +367,7 @@ export function MentorOnboarding() {
         topics: form.topics,
         bio: form.bio,
       });
+      await loadMentorStatus(); // now a mentor applicant → the app unlocks the mentor area on approval
       navigate('verifyStatus');
     } catch (e) {
       setErr(e?.message || 'Could not submit your application. Are you signed in?');
@@ -375,7 +380,7 @@ export function MentorOnboarding() {
         <Btn variant="ghost" go="roleSelect" style={{ paddingLeft: 0 }}>← Back</Btn>
         <h2 style={{ margin: '6px 0 2px' }}>Become a mentor</h2>
         <p className="text-muted" style={{ fontSize: 14 }}>Complete these to get verified. Fixed rate: <strong style={{ color: 'var(--color-text)' }}>₹100 / 25 min</strong> (platform fee 20%).</p>
-        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 8 }}><div className="card-kicker">Step 1</div><div className="card-title">College &amp; branch</div><Field label="College"><Input value={form.college} onChange={(e) => set({ college: e.target.value })} /></Field><div style={{ display: 'flex', gap: 10 }}><Field label="Branch" style={{ flex: 1 }}><Input value={form.branch} onChange={(e) => set({ branch: e.target.value })} /></Field><Field label="Year" style={{ width: 120 }}><Select value={form.year} onChange={(e) => set({ year: e.target.value })}><option>1</option><option>3</option><option>4</option></Select></Field></div></div>
+        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 8 }}><div className="card-kicker">Step 1</div><div className="card-title">About you &amp; your college</div><Field label="Your name"><Input value={form.name} onChange={(e) => set({ name: e.target.value })} placeholder="e.g. Aarav Sharma" /></Field><Field label="College"><Input value={form.college} onChange={(e) => set({ college: e.target.value })} placeholder="e.g. IIT Bombay" /></Field><div style={{ display: 'flex', gap: 10 }}><Field label="Branch" style={{ flex: 1 }}><Input value={form.branch} onChange={(e) => set({ branch: e.target.value })} /></Field><Field label="Year" style={{ width: 120 }}><Select value={form.year} onChange={(e) => set({ year: e.target.value })}><option>1</option><option>3</option><option>4</option></Select></Field></div></div>
         {/* Step 2 — email OTP + ID: the real .ac.in OTP + ID checks run on the verification screen after applying. */}
         <div className="card" style={{ background: 'var(--color-bg)', marginTop: 14 }}><div className="card-kicker">Step 2 · Verification</div><div className="card-title">Prove you study there</div><Field label="College email (.ac.in)"><div style={{ display: 'flex', gap: 8 }}><Input defaultValue="21b0xxx@iitb.ac.in" style={{ flex: 1 }} /><Btn variant="sec" onClick={() => showToast('You’ll verify your college email right after you submit.')}>Send OTP</Btn></div></Field><Tile onClick={() => showToast('Student ID upload happens on the next step.')} style={{ border: '1.5px dashed var(--color-divider)', borderRadius: 16, padding: 18, textAlign: 'center' }}><div style={{ fontSize: 22 }}>🪪</div><div style={{ fontSize: 13 }}>Upload your student ID card</div></Tile></div>
         <div className="card" style={{ background: 'var(--color-bg)', marginTop: 14 }}><div className="card-kicker">Step 3 · Profile</div><div className="card-title">How students see you</div><Field label="Short bio"><textarea className="input" placeholder="Tell juniors what you can help with…" value={form.bio} onChange={(e) => set({ bio: e.target.value })} /></Field><div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{MENTOR_TOPICS.map((t) => { const on = form.topics.includes(t); return <span key={t} className={on ? 'tag tag-accent' : 'tag tag-neutral'} onClick={() => toggleTopic(t)} style={{ cursor: 'pointer' }}>{t}{on ? ' ✓' : ''}</span>; })}</div></div>

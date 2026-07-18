@@ -10,8 +10,10 @@ export type UpdateProfileInput = z.infer<typeof UpdateProfileInput>;
 
 // ── PATCH /me/rank-prefs ───────────────────────────────────────────────────
 export const RankPrefsInput = z.object({
-  advRank: z.number().int().positive(),
-  mainRank: z.number().int().positive(),
+  // A candidate may have only ONE of the two ranks (e.g. JEE Main only → no Advanced),
+  // so each is nonnegative (0 = "not given"). The domain enforces "at least one > 0".
+  advRank: z.number().int().nonnegative(),
+  mainRank: z.number().int().nonnegative(),
   category: z.enum(['Open', 'OBC-NCL', 'SC', 'ST', 'EWS']),
   home: z.string().min(2),
   gender: z.enum(['Male', 'Female']),

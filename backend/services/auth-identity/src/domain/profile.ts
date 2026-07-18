@@ -92,6 +92,9 @@ export async function updateMe(userId: string, patch: { name?: string }): Promis
  */
 export async function updateRankPrefs(userId: string, rankPrefs: RankPrefs): Promise<UserProfile> {
   // Cross-field / data-quality rules beyond zod's per-field checks.
+  if (rankPrefs.advRank <= 0 && rankPrefs.mainRank <= 0) {
+    throw ValidationError('Enter at least one rank — your JEE Main or JEE Advanced rank.');
+  }
   if (rankPrefs.advRank > MAX_RANK || rankPrefs.mainRank > MAX_RANK) {
     throw ValidationError(`Ranks look out of range (max ${MAX_RANK})`);
   }

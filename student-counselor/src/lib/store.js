@@ -45,7 +45,10 @@ function loadRazorpayCheckout() {
 
 // Default profile shape kept so public screens (and pre-hydration renders) never
 // crash reading profile.advRank etc. Overwritten by the DB profile after login.
-const DEFAULT_PROFILE = { advRank: 850, mainRank: 4200, category: 'Open', home: 'Maharashtra', gender: 'Male', pwd: false, branches: ['Computer Science', 'Electronics'], priority: 'branch' };
+// Ranks start at 0 ("not given") — a signed-in user must enter them in onboarding, and the
+// predictor treats 0 as unranked. (Previously hardcoded 850/4200, which made a fresh user
+// look already-ranked and skipped the requirement to enter real ranks.)
+const DEFAULT_PROFILE = { advRank: 0, mainRank: 0, category: 'Open', home: 'Maharashtra', gender: 'Male', pwd: false, branches: [], priority: 'branch' };
 
 const INITIAL = {
   // ── auth ──────────────────────────────────────────────────────────────
@@ -53,6 +56,10 @@ const INITIAL = {
   loggedIn: false,
   role: 'student',
   authReady: false,
+  // Mentor application status, INDEPENDENT of `role` (a mentor is an additive area on top
+  // of the student experience). null = not yet loaded; 'none' = no application; else the
+  // marketplace status (DRAFT | PENDING_REVIEW | INTERVIEW | APPROVED | REJECTED).
+  mentorStatus: null,
   // ── profile / predictor inputs (flattened rankPrefs live here) ─────────
   profile: DEFAULT_PROFILE,
   filters: { types: ['IIT', 'NIT', 'IIIT', 'GFTI'], branch: 'all', state: 'all', q: '', sort: 'best', grouped: true, gender: 'Gender-Neutral', bucket: 'all', quota: 'all', nirfMax: 0, maxFees: 0, homeOnly: false },
@@ -195,10 +202,20 @@ export function AppProvider({ children }) {
     } catch { /* leave existing */ }
   }, []);
 
+  // Load the caller's mentor application status (independent of `role`). 404 → 'none'.
+  const loadMentorStatus = useCallback(async () => {
+    try {
+      const m = await liveApi.mentorProfile();
+      setState((s) => ({ ...s, mentorStatus: m?.status || 'none' }));
+    } catch {
+      setState((s) => ({ ...s, mentorStatus: 'none' }));
+    }
+  }, []);
+
   // Hydrate everything a signed-in user needs.
   const hydrateData = useCallback(() => {
-    loadShortlist(); loadChoice(); loadSessions(); loadNotifs();
-  }, [loadShortlist, loadChoice, loadSessions, loadNotifs]);
+    loadShortlist(); loadChoice(); loadSessions(); loadNotifs(); loadMentorStatus();
+  }, [loadShortlist, loadChoice, loadSessions, loadNotifs, loadMentorStatus]);
 
   // Bootstrap the account row + read the profile back.
   const hydrateAuth = useCallback(async (tok) => {
@@ -251,15 +268,30 @@ export function AppProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.loggedIn, state.token]);
 
-  // ── AUTH GATE: redirect unauthenticated users away from gated screens. ──
+  // ── AUTH GATE: redirect unauthenticated users away from gated screens, and route
+  // signed-in-but-not-onboarded users to pick a role + enter their details first. ──
   useEffect(() => {
     if (!state.authReady) return;
-    // A signed-in user hitting the marketing root goes straight to their app.
-    if (state.token && screen === 'landing') { navigate(state.role === 'mentor' ? 'mDashboard' : state.role === 'admin' ? 'aDashboard' : 'dashboard'); return; }
+    const isAdminish = state.role === 'admin' || state.role === 'superadmin';
+    const hasRanks = state.profile.advRank > 0 || state.profile.mainRank > 0;
+    const isMentorApplicant = !!state.mentorStatus && state.mentorStatus !== 'none';
+    // Onboarded = has real ranks (student) OR has applied as a mentor OR is an admin.
+    const onboarded = hasRanks || isMentorApplicant || isAdminish;
+    // Only act on the onboarding redirect once we actually KNOW the status (avoids bouncing
+    // a mentor-without-ranks to role-select before their mentor status has loaded).
+    const onboardKnown = hasRanks || state.mentorStatus !== null || isAdminish;
+
+    // A signed-in user hitting the marketing root goes to onboarding (if needed) or their app.
+    if (state.token && screen === 'landing') {
+      if (onboardKnown && !onboarded) { navigate('roleSelect'); return; }
+      navigate(isAdminish ? 'aDashboard' : 'dashboard');
+      return;
+    }
     if (!GATED.has(ctx)) return;
     if (!state.token) { navigate('login'); return; }
-    if (ctx === 'admin' && state.role !== 'admin') { navigate('dashboard'); }
-  }, [ctx, screen, state.authReady, state.token, state.role, navigate]);
+    if (onboardKnown && !onboarded) { navigate('roleSelect'); return; }
+    if (ctx === 'admin' && !isAdminish) { navigate('dashboard'); }
+  }, [ctx, screen, state.authReady, state.token, state.role, state.profile, state.mentorStatus, navigate]);
 
   // Session timer: tick while on a live call screen.
   useEffect(() => {
@@ -581,6 +613,13 @@ export function AppProvider({ children }) {
     screen,
     ctx,
     predictParams: predictParamsOf(state.profile),
+    // Derived auth/onboarding flags read by the auth screens + Chrome nav.
+    isMentor: state.mentorStatus === 'APPROVED',
+    onboarded:
+      state.profile.advRank > 0 || state.profile.mainRank > 0 ||
+      (!!state.mentorStatus && state.mentorStatus !== 'none') ||
+      state.role === 'admin' || state.role === 'superadmin',
+    loadMentorStatus,
     // navigation + dispatch
     navigate,
     runAct,
