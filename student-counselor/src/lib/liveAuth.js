@@ -3,7 +3,7 @@
 //  - dev:     POST /dev/login (email -> a fake token the dev server trusts)
 //  - cognito: redirect to the Cognito Hosted UI; it returns a REAL id_token JWT.
 // In BOTH cases the result is a bearer token we send to the backend.
-import { API_URL, COGNITO } from './liveConfig';
+import { API_URL, COGNITO, isCognito } from './liveConfig';
 
 const TOKEN_KEY = 'sc.live.token';
 
@@ -79,6 +79,23 @@ export function federatedLoginUrl(idp) {
 /** Kick off Google sign-in (redirects the whole page to the Hosted UI). */
 export function loginWithGoogle() {
   if (typeof window !== 'undefined') window.location.href = federatedLoginUrl('Google');
+}
+
+/**
+ * Cognito Hosted-UI sign-out URL, or null when not in cognito mode / not configured.
+ * CRUCIAL for federated (Google) login: clearing only our local token leaves the Hosted-UI
+ * session cookie alive, so the next "Continue with Google" silently re-logs-in the SAME user
+ * (e.g. an admin) with no Google prompt — the admin UI then leaks to whoever uses that browser.
+ * Redirecting here clears the Cognito session; `logout_uri` MUST exactly match a registered
+ * sign-out URL (the bare origin — see cfg.corsOrigins → Cognito LogoutURLs).
+ */
+export function hostedLogoutUrl() {
+  if (!isCognito() || !COGNITO.domain || typeof window === 'undefined') return null;
+  const params = new URLSearchParams({
+    client_id: COGNITO.clientId,
+    logout_uri: window.location.origin,
+  });
+  return `${COGNITO.domain}/logout?${params.toString()}`;
 }
 
 /** After the Hosted UI redirects back, pull id_token out of the URL fragment. */

@@ -16,6 +16,10 @@ const authWrap = { minHeight: '100%', display: 'grid', placeItems: 'center', pad
 const cardStyle = { background: 'var(--color-bg)', width: 'min(420px, 100%)', padding: 30 };
 const errStyle = { fontSize: 12.5, color: '#7a2d1a', background: '#f7e2db', borderRadius: 10, padding: '8px 10px', margin: '2px 0 8px' };
 
+// Google-only login (owner request 2026-07-19): the email/password + signup/OTP/reset
+// UI is hidden but the code is kept intact. Flip this to `true` to bring it back.
+const PASSWORD_LOGIN = false;
+
 // ── Sign Up ───────────────────────────────────────────────────────────────
 export function Signup() {
   const { navigate, doSignup, loginWithGoogle } = useApp();
@@ -47,6 +51,8 @@ export function Signup() {
         <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22, display: 'flex', alignItems: 'center', gap: 9, marginBottom: 2 }}><span style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--color-accent)', display: 'inline-grid', placeItems: 'center', color: 'var(--color-bg)', fontSize: 14 }}>S</span>Create your account</div>
         <p className="text-muted" style={{ fontSize: 14, marginBottom: 6 }}>Free to see your colleges — no card needed.</p>
         <Btn variant="sec" onClick={loginWithGoogle} block style={{ gap: 10, padding: 12 }}><span style={{ fontSize: 16 }}>G</span> Continue with Google</Btn>
+        {!PASSWORD_LOGIN && <p className="text-muted" style={{ fontSize: 12, textAlign: 'center', margin: '12px 0 0' }}>🔒 We use Google sign-in only — nothing to remember, and we never share your data.</p>}
+        {PASSWORD_LOGIN && (<>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0' }}><div style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} /><span className="text-muted" style={{ fontSize: 12 }}>or</span><div style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} /></div>
         <Field label="Email"><Input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
         <Field label="Password"><Input type="password" placeholder="••••••••" value={pw} onChange={(e) => setPw(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
@@ -54,6 +60,7 @@ export function Signup() {
         {err && <div style={errStyle}>{err}</div>}
         <Btn variant="pri" onClick={submit} disabled={busy} block style={{ padding: 12, opacity: busy ? 0.7 : 1 }}>{busy ? 'Creating account…' : 'Create account'}</Btn>
         <p className="text-muted" style={{ fontSize: 12, textAlign: 'center', margin: '12px 0 0' }}>🔒 We never share your data. Already have an account? <span className="sc-tile" onClick={() => navigate('login')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Log in</span></p>
+        </>)}
       </div>
     </section>
   );
@@ -85,6 +92,8 @@ export function Login() {
         <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22, marginBottom: 2 }}>Welcome back</div>
         <p className="text-muted" style={{ fontSize: 14, marginBottom: 6 }}>Log in to pick up where you left off.</p>
         <Btn variant="sec" onClick={loginWithGoogle} block style={{ gap: 10, padding: 12 }}><span style={{ fontSize: 16 }}>G</span> Continue with Google</Btn>
+        {!PASSWORD_LOGIN && <p className="text-muted" style={{ fontSize: 12, textAlign: 'center', margin: '12px 0 0' }}>🔒 We use Google sign-in only — one tap, nothing to remember.</p>}
+        {PASSWORD_LOGIN && (<>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0' }}><div style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} /><span className="text-muted" style={{ fontSize: 12 }}>or</span><div style={{ flex: 1, height: 1, background: 'var(--color-divider)' }} /></div>
         <Field label="Email"><Input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} /></Field>
         <Field label="Password"><Input type="password" placeholder="••••••••" value={pw} onChange={(e) => setPw(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
@@ -92,6 +101,7 @@ export function Login() {
         {err && <div style={errStyle}>{err}</div>}
         <Btn variant="pri" onClick={submit} disabled={busy} block style={{ padding: 12, opacity: busy ? 0.7 : 1 }}>{busy ? 'Logging in…' : 'Log in'}</Btn>
         <p className="text-muted" style={{ fontSize: 12, textAlign: 'center', margin: '12px 0 0' }}>New here? <span className="sc-tile" onClick={() => navigate('signup')} style={{ color: 'var(--color-accent-700)', cursor: 'pointer', display: 'inline' }}>Sign up</span></p>
+        </>)}
       </div>
     </section>
   );

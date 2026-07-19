@@ -80,7 +80,7 @@ const BASE = {
   // Origins allowed for CORS + used to build Cognito callback/logout URLs.
   corsOrigins: [
     'http://localhost:3000', // local dev
-    'https://main.dy6751tudpsop.amplifyapp.com', // Amplify-hosted frontend
+    'https://main.d32971gyq5jq34.amplifyapp.com', // Amplify-hosted frontend
     'https://counsellor.kodexa.in', // custom domain (once DNS is live)
   ],
 };

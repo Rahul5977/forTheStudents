@@ -19,7 +19,7 @@ import { createContext, useContext, useState, useRef, useEffect, useCallback } f
 import { usePathname, useRouter } from 'next/navigation';
 import { idToPath, slugToId, ctxOf } from './routes';
 import { liveApi } from './liveApi';
-import { getToken, captureCognitoRedirect, loginWithGoogle as googleRedirect } from './liveAuth';
+import { getToken, captureCognitoRedirect, loginWithGoogle as googleRedirect, hostedLogoutUrl } from './liveAuth';
 import { GOOGLE_AUTH } from './liveConfig';
 import {
   login as cognitoLogin, signUp as cognitoSignUp, confirm as cognitoConfirm, logout as cognitoLogout,
@@ -493,7 +493,13 @@ export function AppProvider({ children }) {
   }, [toast]);
 
   const logout = useCallback(() => {
-    cognitoLogout();
+    cognitoLogout(); // clears our local token + any SDK-managed user
+    // Federated (Google/Hosted-UI) sessions ALSO have a Cognito session cookie that our local
+    // clear doesn't touch — without ending it, the next "Continue with Google" silently signs the
+    // SAME user back in (admin role leaking to anyone on this browser). Redirect through the
+    // Hosted-UI /logout to kill that session; it returns to the origin as a clean, signed-out load.
+    const hosted = hostedLogoutUrl();
+    if (hosted) { window.location.href = hosted; return; }
     setState((s) => ({
       ...INITIAL,
       authReady: true,

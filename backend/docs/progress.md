@@ -237,6 +237,7 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 
 ## Changelog
 
+- **2026-07-19** — **Full stack RE-DEPLOYED from scratch (Google-only auth) + ~$0 posture.** After the same-day teardown, re-bootstrapped CDK and re-deployed all 12 `sc-dev-*` stacks to ap-south-1 (acct 058264128057). Reseeded catalog `josaa-2026f.2` (11,261 cutoffs). **New IDs:** API `https://um9t7ip0g9.execute-api.ap-south-1.amazonaws.com`, Cognito pool `ap-south-1_ubGSCKVZz`, client `5ijb4moldr63q261m1esr0qitb`, Hosted-UI unchanged (`sc-dev-058264128057.auth…`). **Google-only login:** Google creds restored to SSM `/sc-dev/google-client-secrets` (from `backend/.env`); Cognito Google IdP redeployed + verified (`/oauth2/authorize` → 302 accounts.google.com); frontend email/password UI hidden behind `PASSWORD_LOGIN=false` in `screens/auth.js` (reversible; Cognito native path retained, unused). **Frontend:** fresh Amplify app `d32971gyq5jq34` (old one was deleted) → `https://main.d32971gyq5jq34.amplifyapp.com` (job 1 SUCCEED); `.env.local` regenerated for new IDs; `corsOrigins` updated + `sc-dev-auth`/`sc-dev-foundation` redeployed so the new origin is an allowed callback/CORS origin. **Custom domain:** re-associated `counsellor.kodexa.in` → new CloudFront `d2u66q58y4x03k.cloudfront.net` (owner updates 2 Hostinger CNAMEs; ACM validation record is identical to before). **Cost:** WAF off, all DynamoDB on-demand, no provisioned concurrency/warmers → ~$0 idle. **Verified e2e** (throwaway users, USER_PASSWORD_AUTH): student bootstrap/`me` 200; mentor apply → profile `DRAFT`; RBAC student→403 vs admin→200 on `/admin/stats` + `/admin/mentors/pending`. **Owner actions pending:** (1) update Hostinger DNS, (2) log in via Google once → then set `rahul.raj9237@gmail.com` to `custom:role=superadmin` + `sc-dev-users role=superadmin`.
 - **2026-07-18** — **Prod-grade auth (refresh tokens), AI-Counsellor hero, demo-mentor cleanup, owner→admin.** (1) **Auth no longer logs users out daily:** added `auth.js#refreshSession()` (SDK `getSession()` silently renews the id token from the stored refresh token) wired into `store.js` on mount + a 30-min timer, and bumped Cognito `refreshTokenValidity` 30→**90 days** (deployed `sc-dev-auth`; id/access stay 1h, renewed silently). Email/password path fully covered; **Google/Hosted-UI still uses the implicit flow (no refresh token) — TODO: switch to auth-code + PKCE** for federated refresh. (2) **AI Counsellor** promoted to a bold gradient hero banner at the top of the dashboard ("Launching next month") + removed the small duplicate tools-row button. (3) **Demo mentors removed:** all 13 e2e-test mentors in `sc-dev-mentors` hidden (status→REJECTED, `gsi1pk` cleared → dropped from the sparse GSI); live `GET /mentors` now returns **0** (reversible; rows retained). (4) **Owner made admin:** `rahul.raj9237@gmail.com` → Cognito `custom:role=admin` + `sc-dev-users` `role=admin` (needs a re-login for the fresh JWT claim). Frontend Amplify **job 23**. Razorpay verified earlier this session: live keys stored + authenticate (200) + booking Lambda rolled.
 - **2026-07-19** — **Phases 2–5 shipped (mentor model, booking-with-approval, RBAC, admin console).** **P2 additive mentor:** role decoupled from mentor — a user stays `student`, an APPROVED mentor gets a toggled-into mentor area (Chrome nav switch; gate requires mentorStatus APPROVED). **P3 booking saga:** REQUESTED→ACCEPTED→CONFIRMED→LIVE→ENDED→RATED (+DECLINED/CANCELLED); mentor accepts/declines requests (`POST /bookings/:id/accept|decline`), payment only after accept; real availability via public `GET /mentors/:id/slots` (no more hardcoded s1); notifications fanout; also fixed booking-action buttons (string ids broke `runAct`'s `+id`). **P4 RBAC:** superadmin⊇admin⊇student; `requireRole` hierarchy-aware + `requireSuperadmin`; per-admin `permissions[]`; superadmin-only `/admin/admins` (list/promote/edit/demote); frontend `can(scope)` + scope-gated sidebar + aAdmins page; **rahul → superadmin**. **P5 admin console:** mentor INTERVIEW state (`POST /admin/mentors/:id/interview`, review from INTERVIEW, queue+verifyStatus show it); bookings `gsi3-byday` (date-partitioned, scale-safe) + `GET /admin/bookings` + `/admin/mentors/:id/bookings`; ASessions/APayments now REAL. **KEY DEPLOY NOTE:** `httpApi.addRoutes` in service stacks synths routes into **`sc-dev-foundation`** — always `cdk deploy sc-dev-foundation` after adding a route. Amplify jobs 24–29; each phase verified live e2e (throwaway users). Follow-ups: Streams-fed KPI rollup, per-scope backend enforcement (v1 frontend-gated), Google auth-code+PKCE refresh, SES email verification.
 - **2026-07-18** — **Big-rework plan approved; Phase 0 + 1 shipped.** New multi-phase plan (onboarding → additive mentor → booking-with-approval → RBAC/superadmin → admin console) approved by owner. **Phase 0 (add-to-list bug):** the choice-list PUT sent `version:null` which the planner `z.number().optional()` rejects (confirmed live: 400 vs 200) → `liveApi` now omits `version` unless it's a number; `INITIAL.choiceList/shortlist` → `[]` (were dummy ids). **Phase 1 (onboarding):** signup → `roleSelect` (student|mentor); `DEFAULT_PROFILE` ranks 850/4200 → 0; auth-gate routes a signed-in-but-not-onboarded user to role-select (onboarded = has ranks OR a mentor application OR admin); onboarding collects NAME; role is no longer swapped for mentors (additive); `auth-identity` rank-prefs allow one rank = 0 (Main-only/Adv-only) with a domain "≥1 rank" check (verified: main-only 200, both-zero 400). Deployed `sc-dev-svc-auth` + Amplify jobs 24/25. Also (ops) hid 13 demo mentors, rahul → admin, Razorpay live verified, Google sign-in live, refresh-token sessions. Remaining: Phases 2–5.
@@ -267,13 +268,13 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 
 ---
 
-## Deployed dev-stack outputs (2026-07-15 · ap-south-1 · acct 058264128057)
+## Deployed dev-stack outputs (2026-07-19 redeploy · ap-south-1 · acct 058264128057)
 
 | Key | Value |
 |---|---|
-| API base URL | `https://7zumjbvms0.execute-api.ap-south-1.amazonaws.com` |
-| Cognito User Pool | `ap-south-1_OQv6ssgbO` |
-| User Pool Client | `5f22b9n70k3bolqppvvrast0en` |
+| API base URL | `https://um9t7ip0g9.execute-api.ap-south-1.amazonaws.com` |
+| Cognito User Pool | `ap-south-1_ubGSCKVZz` |
+| User Pool Client | `5ijb4moldr63q261m1esr0qitb` |
 | Hosted UI domain | `https://sc-dev-058264128057.auth.ap-south-1.amazoncognito.com` |
 | Users table | `sc-dev-users` |
 | Catalog table | `sc-dev-catalog` (seeded `josaa-2024.2` — 11,261 cutoffs, 121 institutes) |
@@ -293,8 +294,8 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 | Admin (authed, role=admin) | `GET {API}/admin/stats` · `/admin/audit` · `POST /admin/mentors/:id/suspend\|reinstate` · `POST /admin/broadcast` |
 | Analytics | S3 `sc-dev-analytics-058264128057` (streams→NDJSON, 365d TTL) · Lambdas `sc-dev-analytics-stream` + `-reconcile` (daily) · Athena DDL in `docs/analytics-athena.md` |
 | Alerts topic | `sc-dev-alerts` (SNS → email; **owner must click "Confirm subscription"**) |
-| **Frontend (Amplify)** | app `dy6751tudpsop` · **https://main.dy6751tudpsop.amplifyapp.com** |
-| **Custom domain** | `counsellor.kodexa.in` (Amplify → CloudFront `d1m73c1l14jkpt.cloudfront.net`) — PENDING owner DNS at Hostinger |
+| **Frontend (Amplify)** | app `d32971gyq5jq34` · **https://main.d32971gyq5jq34.amplifyapp.com** |
+| **Custom domain** | `counsellor.kodexa.in` (Amplify → CloudFront `d2u66q58y4x03k.cloudfront.net`) — PENDING owner DNS at Hostinger |
 
 Frontend `.env.local` points at these in Cognito mode. Cognito callbacks + API CORS allow all three origins (localhost, Amplify URL, custom domain). Tear down: `pnpm --filter @sc/infra run destroy -- --context stage=dev`; delete Amplify app `dy6751tudpsop`.
 
@@ -302,7 +303,7 @@ Frontend `.env.local` points at these in Cognito mode. Cognito callbacks + API C
 | Purpose | Type | Name | Value |
 |---|---|---|---|
 | SSL cert validation | CNAME | `_b58439fee0cb6feda31a4a6e9c4dc919` | `_2a39a1aad07abdab47479d35ec8a827d.jkddzztszm.acm-validations.aws` |
-| Subdomain | CNAME | `counsellor` | `d1m73c1l14jkpt.cloudfront.net` |
+| Subdomain | CNAME | `counsellor` | `d2u66q58y4x03k.cloudfront.net` (2026-07-19 redeploy — new target; old `d1m73c1l14jkpt` is dead) |
 
 **Cost note:** the only real fixed cost in this dev stack is the **WAF WebACL (~$5–6/mo)** — and it isn't associated with the API yet (association is a Phase 9 task). Consider removing WAF from the dev stack until Phase 9 to make dev ≈ $0. Everything else (Cognito Lite, DynamoDB on-demand, Lambda, HTTP API) is free-tier at dev volume.
 
