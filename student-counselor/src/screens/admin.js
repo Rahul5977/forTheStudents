@@ -301,6 +301,21 @@ export function AVerifyQueue() {
     finally { setBusyId(null); }
   };
 
+  // Schedule the short screening interview (moves the application to INTERVIEW).
+  const schedule = async (m) => {
+    if (typeof window === 'undefined') return;
+    const when = window.prompt(`Schedule interview for ${m.name}.\nDate & time (YYYY-MM-DD HH:MM, your local time):`, '');
+    if (!when) return;
+    const dt = new Date(when.trim().replace(' ', 'T'));
+    if (Number.isNaN(dt.getTime())) { showToast('Could not read that date/time.'); return; }
+    const link = window.prompt('Meeting link for the interview (Google Meet / Zoom):', 'https://meet.google.com/');
+    if (!link) return;
+    setBusyId(m.userId);
+    try { await liveApi.mentorScheduleInterview(m.userId, dt.toISOString(), link.trim()); showToast(`Interview scheduled for ${m.name}`); await load(); }
+    catch (e) { showToast(e.message || 'Could not schedule the interview'); }
+    finally { setBusyId(null); }
+  };
+
   const count = queue?.length ?? 0;
   return (
     <section style={{ padding: '26px 28px 40px' }}>
@@ -312,10 +327,16 @@ export function AVerifyQueue() {
             const busy = busyId === v.userId;
             return (
               <div key={v.userId} className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
-                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ width: 42, height: 42, borderRadius: '50%', background: palette[ix % palette.length], color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)' }}>{initials(v.name)}</span><div><div style={{ fontWeight: 700 }}>{v.name}</div><div className="text-muted" style={{ fontSize: 12 }}>{v.college} · Y{v.year}{v.branch ? ` · ${v.branch}` : ''}</div></div></div>
-                <div style={{ fontSize: 13 }}><div>📧 {v.email || '—'} <span className="tag tag-accent-2" style={{ padding: '1px 6px' }}>OTP ✓</span></div><div style={{ marginTop: 4 }}>🪪 Student ID <span className="tag tag-accent" style={{ padding: '1px 6px' }}>Uploaded</span></div></div>
-                <div style={{ height: 80, borderRadius: 12, background: 'var(--color-neutral-200)', display: 'grid', placeItems: 'center', fontSize: 12, color: 'var(--color-neutral-600)' }}>🪪 ID card preview</div>
-                <div style={{ display: 'flex', gap: 8 }}><Btn variant="pri" onClick={() => review(v, 'approve')} disabled={busy} style={{ flex: 1 }}>{busy ? '…' : 'Approve'}</Btn><Btn variant="sec" onClick={() => review(v, 'reject')} disabled={busy} style={{ flex: 1, color: '#a8442e' }}>Reject</Btn></div>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ width: 42, height: 42, borderRadius: '50%', background: palette[ix % palette.length], color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)' }}>{initials(v.name)}</span><div style={{ flex: 1 }}><div style={{ fontWeight: 700 }}>{v.name}</div><div className="text-muted" style={{ fontSize: 12 }}>{v.college} · Y{v.year}{v.branch ? ` · ${v.branch}` : ''}</div></div>{v.status === 'INTERVIEW' && <span className="tag tag-accent">📅 Interview</span>}</div>
+                <div style={{ fontSize: 13 }}>📧 {v.email || '—'} <span className="tag tag-accent-2" style={{ padding: '1px 6px' }}>OTP ✓</span> · 🪪 ID <span className="tag tag-accent" style={{ padding: '1px 6px' }}>Uploaded</span></div>
+                {v.status === 'INTERVIEW' && v.interviewAt && (
+                  <div style={{ background: 'var(--color-accent-100)', color: 'var(--color-accent-800)', borderRadius: 10, padding: '8px 11px', fontSize: 12.5 }}>Interview: <strong>{new Date(v.interviewAt).toLocaleString('en-IN', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</strong>{v.interviewLink && <> · <a href={v.interviewLink} target="_blank" rel="noreferrer">join link</a></>}</div>
+                )}
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <Btn variant="sec" onClick={() => schedule(v)} disabled={busy}>{v.status === 'INTERVIEW' ? 'Reschedule' : '📅 Interview'}</Btn>
+                  <Btn variant="pri" onClick={() => review(v, 'approve')} disabled={busy} style={{ flex: 1 }}>{busy ? '…' : 'Approve'}</Btn>
+                  <Btn variant="sec" onClick={() => review(v, 'reject')} disabled={busy} style={{ color: '#a8442e' }}>Reject</Btn>
+                </div>
               </div>
             );
           })}
@@ -356,30 +377,74 @@ export function AContent() {
   );
 }
 
-// ── Sessions Monitoring ───────────────────────────────────────────────────
+// A KPI tile + a session-status colour.
+function Kpi({ label, v, tone }) {
+  const bg = tone === 'ok' ? 'var(--color-accent-2-100)' : tone === 'accent' ? 'var(--color-accent-100)' : 'var(--color-surface)';
+  return <div className="card elev-sm" style={{ background: bg, minWidth: 140, flex: 1 }}><div className="card-kicker">{label}</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{v == null ? '—' : v}</div></div>;
+}
+const PAID_STATUSES = ['CONFIRMED', 'LIVE', 'ENDED', 'RATED'];
+function sessTone(status) {
+  if (['CONFIRMED', 'LIVE', 'ENDED', 'RATED'].includes(status)) return { background: 'var(--color-accent-2-100)', color: 'var(--color-accent-2-800)' };
+  if (['REQUESTED', 'ACCEPTED'].includes(status)) return { background: 'var(--color-accent-100)', color: 'var(--color-accent-800)' };
+  return CRIT;
+}
+const fmtWhenAdmin = (iso) => (iso ? new Date(iso).toLocaleString('en-IN', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '—');
+
+// ── Sessions Monitoring (real, from the booking service) ──────────────────
 export function ASessions() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(null);
+  const load = useCallback(async () => {
+    setLoading(true); setErr(null);
+    try { setData(await liveApi.adminBookings({ days: 14 })); }
+    catch (e) { setErr(e.message || 'Could not load sessions'); }
+    finally { setLoading(false); }
+  }, []);
+  useEffect(() => { load(); }, [load]);
+  const rows = data?.bookings || [];
+  const st = data?.stats;
   return (
     <section style={{ padding: '26px 28px 40px' }}>
-      <h1 style={{ margin: '0 0 12px', fontSize: 26 }}>Sessions monitoring</h1>
-      <BackendTODO source="the booking/sessions service (an admin sessions index is not yet exposed)" />
-      <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}><span className="tag tag-accent" style={{ cursor: 'pointer' }}>All</span><span className="tag tag-neutral" style={{ cursor: 'pointer' }}>Live now</span><span className="tag tag-neutral" style={{ cursor: 'pointer' }}>Flagged</span><span className="tag tag-neutral" style={{ cursor: 'pointer' }}>No-shows</span></div>
-      <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}><table className="table" style={{ minWidth: 600 }}><thead><tr><th>Session</th><th>Student</th><th>Mentor</th><th>Status</th><th></th></tr></thead><tbody>
-        <tr><td>#48213</td><td>Aditya</td><td>Aarav Sharma</td><td><span className="tag tag-accent-2">Completed</span></td><td><Btn variant="ghost" act="toast" msg="Session detail is an owner TODO">View</Btn></td></tr>
-        <tr><td>#48209</td><td>Riya</td><td>Priya Menon</td><td><span className="tag tag-accent">Live</span></td><td><Btn variant="ghost" act="toast" msg="Session detail is an owner TODO">View</Btn></td></tr>
-        <tr><td>#48201</td><td>Dev</td><td>Rohan Gupta</td><td><span className="tag" style={CRIT}>Flagged</span></td><td><Btn variant="ghost" act="toast" msg="Refunds are an owner TODO">Refund</Btn></td></tr>
-      </tbody></table></div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}><h1 style={{ margin: 0, fontSize: 26 }}>Sessions</h1><Btn variant="ghost" onClick={load}>↻ Refresh</Btn></div>
+      <p className="text-muted" style={{ fontSize: 14 }}>Every request → acceptance → confirmed session, last 14 days.</p>
+      {st && <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', margin: '8px 0 14px' }}><Kpi label="Sessions" v={st.total} /><Kpi label="Confirmed/paid" v={st.paid} tone="ok" /><Kpi label="Requests/other" v={st.unpaid} tone="accent" /></div>}
+      <Status loading={loading} err={err} empty={rows.length === 0} emptyMsg="No sessions in the last 14 days." onRetry={load}>
+        <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}><table className="table" style={{ minWidth: 660 }}>
+          <thead><tr><th>When</th><th>Mentor</th><th>Student</th><th>Status</th><th>₹</th></tr></thead>
+          <tbody>{rows.map((b) => <tr key={b.id}><td>{fmtWhenAdmin(b.startsAt || b.createdAt)}</td><td>{b.mentorName || (b.mentorId || '').slice(0, 8)}</td><td>{(b.studentId || '').slice(0, 8)}…</td><td><span className="tag" style={sessTone(b.status)}>{b.status}</span></td><td>{b.priceINR ?? '—'}</td></tr>)}</tbody>
+        </table></div>
+      </Status>
     </section>
   );
 }
 
-// ── Payments & Payouts ────────────────────────────────────────────────────
+// ── Payments (real paid/unpaid + revenue) ─────────────────────────────────
 export function APayments() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(null);
+  const load = useCallback(async () => {
+    setLoading(true); setErr(null);
+    try { setData(await liveApi.adminBookings({ days: 30 })); }
+    catch (e) { setErr(e.message || 'Could not load payments'); }
+    finally { setLoading(false); }
+  }, []);
+  useEffect(() => { load(); }, [load]);
+  const st = data?.stats;
+  const paid = (data?.bookings || []).filter((b) => PAID_STATUSES.includes(b.status));
+  const inr = (n) => `₹${(n || 0).toLocaleString('en-IN')}`;
   return (
     <section style={{ padding: '26px 28px 40px' }}>
-      <h1 style={{ margin: '0 0 12px', fontSize: 26 }}>Payments &amp; payouts</h1>
-      <BackendTODO source="the payments/ledger service (Razorpay + Phase 8 revenue rollups)" />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 14 }}><div className="card elev-sm" style={{ background: 'var(--color-accent-100)' }}><div className="card-kicker">Revenue (month)</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 24 }}>—</div></div><div className="card elev-sm" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Payouts due</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 24 }}>—</div></div><div className="card elev-sm" style={{ background: 'var(--color-surface)' }}><div className="card-kicker">Platform fee</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 24 }}>—</div></div></div>
-      <div className="card" style={{ background: 'var(--color-surface)' }}><div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 16 }}>Mentor payout queue</div><Btn variant="pri" act="toast" msg="Batch payout is an owner TODO">Process all</Btn></div><table className="table"><thead><tr><th>Mentor</th><th>Amount</th><th>Method</th><th></th></tr></thead><tbody><tr><td>Aarav Sharma</td><td>₹1,200</td><td>UPI</td><td><Btn variant="ghost" act="toast" msg="Payouts are an owner TODO">Pay</Btn></td></tr><tr><td>Priya Menon</td><td>₹960</td><td>UPI</td><td><Btn variant="ghost" act="toast" msg="Payouts are an owner TODO">Pay</Btn></td></tr></tbody></table></div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}><h1 style={{ margin: 0, fontSize: 26 }}>Payments</h1><Btn variant="ghost" onClick={load}>↻ Refresh</Btn></div>
+      <p className="text-muted" style={{ fontSize: 14 }}>Paid vs unpaid across the last 30 days. Revenue = confirmed sessions × price.</p>
+      {st && <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', margin: '8px 0 14px' }}><Kpi label="Revenue (30d)" v={inr(st.revenueINR)} tone="accent" /><Kpi label="Paid sessions" v={st.paid} tone="ok" /><Kpi label="Unpaid / pending" v={st.unpaid} /></div>}
+      <Status loading={loading} err={err} empty={paid.length === 0} emptyMsg="No payments in the last 30 days." onRetry={load}>
+        <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}><table className="table" style={{ minWidth: 640 }}>
+          <thead><tr><th>When</th><th>Mentor</th><th>Amount</th><th>Mentor cut (80%)</th><th>Status</th></tr></thead>
+          <tbody>{paid.map((b) => <tr key={b.id}><td>{fmtWhenAdmin(b.createdAt)}</td><td>{b.mentorName || (b.mentorId || '').slice(0, 8)}</td><td>{inr(b.priceINR)}</td><td>{inr(Math.round((b.priceINR || 0) * 0.8))}</td><td><span className="tag" style={sessTone(b.status)}>{b.status}</span></td></tr>)}</tbody>
+        </table></div>
+      </Status>
     </section>
   );
 }

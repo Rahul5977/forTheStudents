@@ -4,7 +4,7 @@
 // - GET /mentors: PUBLIC search (no authorizer — wired that way in infra)
 import { createApp } from '@sc/shared';
 import { apply, verifyEmail, verifyId, getProfile, putProfile, getAvailability, putAvailability } from './handlers/mentor';
-import { listPending, review } from './handlers/admin';
+import { listPending, review, scheduleInterview } from './handlers/admin';
 import { listMentors, mentorSlots } from './handlers/browse';
 
 export const app = createApp('marketplace');
@@ -21,6 +21,7 @@ app.put('/mentor/availability', putAvailability);
 // Admin verification queue.
 app.get('/admin/mentors/pending', listPending);
 app.post('/admin/mentors/:id/review', review);
+app.post('/admin/mentors/:id/interview', scheduleInterview);
 
 // Public search.
 app.get('/mentors', listMentors);

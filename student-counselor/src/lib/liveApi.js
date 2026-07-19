@@ -77,8 +77,12 @@ export const liveApi = {
   mentorVerifyEmail: (email, code) => call('/mentor/verify/email', { method: 'POST', body: code ? { email, code } : { email } }),
   mentorVerifyId: (docRef) => call('/mentor/verify/id', { method: 'POST', body: { docRef } }),
   mentorProfile: () => call('/mentor/profile'),
-  mentorPending: () => call('/admin/mentors/pending'), // admin
+  mentorPending: () => call('/admin/mentors/pending'), // admin (PENDING_REVIEW + INTERVIEW)
   mentorReview: (id, decision, note) => call(`/admin/mentors/${id}/review`, { method: 'POST', body: { decision, note } }),
+  mentorScheduleInterview: (id, interviewAt, interviewLink, note) => call(`/admin/mentors/${id}/interview`, { method: 'POST', body: { interviewAt, interviewLink, note } }),
+  // Admin session/payment tracking.
+  adminBookings: (params = {}) => call(`/admin/bookings?${new URLSearchParams(params).toString()}`),
+  adminMentorBookings: (mentorId) => call(`/admin/mentors/${encodeURIComponent(mentorId)}/bookings`),
 
   // Phase 5 — booking, payments & sessions.
   createBooking: (mentorId, slotId, idempKey) => call('/bookings', { method: 'POST', body: { mentorId, slotId }, headers: idempKey ? { 'idempotency-key': idempKey } : undefined }),

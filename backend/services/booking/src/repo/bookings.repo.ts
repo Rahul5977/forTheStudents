@@ -35,9 +35,12 @@ export interface Booking {
 }
 
 const strip = (i: Record<string, unknown>): Booking => {
-  const { PK, SK, gsi1pk, gsi1sk, gsi2pk, gsi2sk, ...rest } = i;
+  const { PK, SK, gsi1pk, gsi1sk, gsi2pk, gsi2sk, gsi3pk, gsi3sk, ...rest } = i;
   return rest as unknown as Booking;
 };
+
+/** Day partition key for the admin-by-day index: BK#YYYYMMDD from an ISO timestamp. */
+const dayPk = (iso: string) => `BK#${iso.slice(0, 10).replace(/-/g, '')}`;
 
 export const bookingsRepo = {
   async get(id: string): Promise<Booking | null> {
@@ -69,6 +72,7 @@ export const bookingsRepo = {
             ...key.booking(b.id), ...b,
             gsi1pk: `USER#${b.studentId}`, gsi1sk: b.createdAt,
             gsi2pk: `MENTOR#${b.mentorId}`, gsi2sk: b.createdAt,
+            gsi3pk: dayPk(b.createdAt), gsi3sk: `${b.createdAt}#${b.id}`, // admin by-day index
           },
         },
       },
@@ -182,6 +186,17 @@ export const bookingsRepo = {
       KeyConditionExpression: `${attr} = :pk`,
       ExpressionAttributeValues: { ':pk': pk },
       ScanIndexForward: false, // newest first
+    }));
+    return (res.Items ?? []).map((i) => strip(i));
+  },
+
+  /** ADMIN: all bookings created on one day (yyyymmdd) — small, non-hot partition. */
+  async listByDay(yyyymmdd: string): Promise<Booking[]> {
+    const res = await ddb.send(new QueryCommand({
+      TableName: TABLE(), IndexName: 'gsi3-byday',
+      KeyConditionExpression: 'gsi3pk = :pk',
+      ExpressionAttributeValues: { ':pk': `BK#${yyyymmdd}` },
+      ScanIndexForward: false,
     }));
     return (res.Items ?? []).map((i) => strip(i));
   },

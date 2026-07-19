@@ -37,6 +37,18 @@ export async function decline(c: Context<AppEnv>) {
   return c.json(await booking.decline(p, id));
 }
 
+/** GET /admin/bookings?days=&date=  (admin: recent sessions + payments) */
+export async function adminBookings(c: Context<AppEnv>) {
+  return c.json(await booking.adminListBookings(getPrincipal(c), c.req.query()));
+}
+
+/** GET /admin/mentors/:id/bookings  (admin: one mentor's sessions + revenue) */
+export async function adminMentorBookings(c: Context<AppEnv>) {
+  const id = c.req.param('id');
+  if (!id) throw ValidationError('Missing mentor id');
+  return c.json(await booking.adminMentorBookings(getPrincipal(c), id));
+}
+
 /** GET /bookings/:id  (booking + ledger, participants only) */
 export async function getOne(c: Context<AppEnv>) {
   const p = getPrincipal(c);

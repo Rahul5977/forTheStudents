@@ -36,6 +36,9 @@ export function fanout(type: string, detail: Record<string, unknown>): Fanned[] 
     case 'mentor.rejected':
       if (s('userId')) out.push({ userId: s('userId')!, type, title: 'Verification update', body: 'Your mentor application needs another look. Check your email for details.' });
       break;
+    case 'mentor.interview.scheduled':
+      if (s('userId')) out.push({ userId: s('userId')!, type, title: 'Mentor interview scheduled 📅', body: 'A short screening interview has been scheduled for your mentor application. Check your verification screen for the time + link.', link: s('interviewLink') });
+      break;
     case 'session.rated':
       if (s('mentorId')) out.push({ userId: s('mentorId')!, type, title: `New rating ⭐ ${detail.rating ?? ''}`.trim(), body: 'A student rated your session. Nice work!' });
       break;

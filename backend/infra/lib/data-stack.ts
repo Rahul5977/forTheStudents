@@ -93,6 +93,14 @@ export class DataStack extends Stack {
       sortKey: { name: 'gsi2sk', type: ddb.AttributeType.STRING },
       projectionType: ddb.ProjectionType.ALL,
     });
+    // gsi3-byday: admin console reads bookings per DAY (gsi3pk = BK#<yyyymmdd>) so admin
+    // queries hit small, non-hot partitions — scale-safe at peak, unlike a single ALL# key.
+    this.bookingsTable.addGlobalSecondaryIndex({
+      indexName: 'gsi3-byday',
+      partitionKey: { name: 'gsi3pk', type: ddb.AttributeType.STRING },
+      sortKey: { name: 'gsi3sk', type: ddb.AttributeType.STRING },
+      projectionType: ddb.ProjectionType.ALL,
+    });
 
     // Notifications (Phase 6): PK=USER#<id> SK=NOTIF#<ulid> | PREFS. In-app feed.
     // TTL expires old items (bounded storage). On-demand → ₹0 at idle.

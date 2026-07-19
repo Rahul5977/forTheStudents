@@ -407,7 +407,7 @@ export function VerifyStatus() {
 
   const status = mentor?.status;
   const approved = status === 'APPROVED';
-  const statusLabel = loading ? 'Checking…' : approved ? 'Approved' : status === 'PENDING_REVIEW' ? 'Under review' : status === 'DRAFT' ? 'Finish verification' : 'Under review';
+  const statusLabel = loading ? 'Checking…' : approved ? 'Approved' : status === 'INTERVIEW' ? 'Interview scheduled' : status === 'PENDING_REVIEW' ? 'Under review' : status === 'DRAFT' ? 'Finish verification' : 'Under review';
   const check = (done, pending, text) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, color: done ? undefined : 'var(--color-neutral-600)' }}>{done ? '✅' : pending ? '⏳' : '⬜'} {text}</div>
   );
@@ -426,8 +426,13 @@ export function VerifyStatus() {
             <div style={{ width: '100%', textAlign: 'left', background: 'var(--color-surface)', borderRadius: 16, padding: 14, fontSize: 13 }}>
               {check(!!mentor.emailVerified, !mentor.emailVerified, 'College email verified')}
               {check(!!mentor.idVerified, !mentor.idVerified, 'Student ID verified')}
-              {check(approved, !approved, approved ? 'Approved by our team' : 'Manual review in progress')}
+              {check(approved, !approved, approved ? 'Approved by our team' : status === 'INTERVIEW' ? 'Interview scheduled — approval after' : 'Manual review in progress')}
             </div>
+            {status === 'INTERVIEW' && mentor.interviewAt && (
+              <div style={{ width: '100%', textAlign: 'left', background: 'var(--color-accent-100)', color: 'var(--color-accent-800)', borderRadius: 14, padding: '11px 13px', fontSize: 13 }}>
+                📅 <strong>Interview scheduled</strong> for {new Date(mentor.interviewAt).toLocaleString('en-IN', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}.{mentor.interviewLink && <> <a href={mentor.interviewLink} target="_blank" rel="noreferrer">Join the call</a> at your time.</>}
+              </div>
+            )}
           </>
         ) : !loading ? (
           <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>We couldn&apos;t find an application on your account. Start your mentor application to get verified.</p>
@@ -435,7 +440,7 @@ export function VerifyStatus() {
           <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>One moment…</p>
         )}
         {mentor
-          ? <Btn variant="pri" go="mDashboard" block>Go to mentor dashboard</Btn>
+          ? <Btn variant="pri" go={approved ? 'mDashboard' : 'dashboard'} block>{approved ? 'Go to mentor dashboard' : 'Back to home'}</Btn>
           : !loading && <Btn variant="pri" go="mentorOnboarding" block>Start mentor application</Btn>}
       </div>
     </section>

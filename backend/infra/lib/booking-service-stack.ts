@@ -85,6 +85,8 @@ export class BookingServiceStack extends Stack {
       { path: '/sessions/{id}/join', method: apigw.HttpMethod.POST },
       { path: '/sessions/{id}/end', method: apigw.HttpMethod.POST },
       { path: '/sessions/{id}/rate', method: apigw.HttpMethod.POST },
+      { path: '/admin/bookings', method: apigw.HttpMethod.GET }, // admin sessions/payments (role-gated in domain)
+      { path: '/admin/mentors/{id}/bookings', method: apigw.HttpMethod.GET },
     ];
     for (const r of authed) httpApi.addRoutes({ path: r.path, methods: [r.method], integration, authorizer });
 

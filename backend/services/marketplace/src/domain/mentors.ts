@@ -125,18 +125,40 @@ export async function putAvailability(userId: string, input: Availability) {
 }
 
 // ── Admin review (verification queue) ───────────────────────────────────────────
+// The queue shows applications awaiting a decision — both PENDING_REVIEW and INTERVIEW.
 export async function listPending(p: Principal) {
   requireRole(p, 'admin');
-  return (await mentorsRepo.listByGsi(gsiPkFor('PENDING_REVIEW'))).map((m) => ({
-    userId: m.userId, name: m.name, college: m.college, branch: m.branch, year: m.year, email: m.email, createdAt: m.createdAt,
+  const [pending, interview] = await Promise.all([
+    mentorsRepo.listByGsi(gsiPkFor('PENDING_REVIEW')),
+    mentorsRepo.listByGsi(gsiPkFor('INTERVIEW')),
+  ]);
+  return [...pending, ...interview].map((m) => ({
+    userId: m.userId, name: m.name, college: m.college, branch: m.branch, year: m.year, email: m.email,
+    status: m.status, interviewAt: m.interviewAt, interviewLink: m.interviewLink, createdAt: m.createdAt,
   }));
+}
+
+/** Admin schedules the screening interview: PENDING_REVIEW → INTERVIEW (reschedulable). */
+export async function scheduleInterview(p: Principal, targetUserId: string, input: { interviewAt: string; interviewLink: string; note?: string }) {
+  requireRole(p, 'admin');
+  const target = await mentorsRepo.get(targetUserId);
+  if (!target) throw NotFoundError('Mentor not found.');
+  if (target.status !== 'PENDING_REVIEW' && target.status !== 'INTERVIEW') {
+    throw ConflictError(`Cannot schedule an interview for a ${target.status} application.`);
+  }
+  const updated = await mentorsRepo.update(targetUserId, {
+    status: 'INTERVIEW', gsi1pk: gsiPkFor('INTERVIEW'), gsi1sk: targetUserId,
+    interviewAt: input.interviewAt, interviewLink: input.interviewLink, reviewNote: input.note,
+  }, now());
+  await publish({ type: 'mentor.interview.scheduled', source: 'marketplace', detail: { userId: targetUserId, interviewAt: input.interviewAt, interviewLink: input.interviewLink } });
+  return updated;
 }
 
 export async function review(p: Principal, targetUserId: string, input: Review) {
   requireRole(p, 'admin');
   const target = await mentorsRepo.get(targetUserId);
   if (!target) throw NotFoundError('Mentor not found.');
-  if (target.status !== 'PENDING_REVIEW') throw ConflictError(`Cannot review a ${target.status} application.`);
+  if (target.status !== 'PENDING_REVIEW' && target.status !== 'INTERVIEW') throw ConflictError(`Cannot review a ${target.status} application.`);
 
   if (input.decision === 'approve') {
     const approved = await mentorsRepo.update(targetUserId, {

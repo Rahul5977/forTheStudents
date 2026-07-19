@@ -67,6 +67,7 @@ export class MarketplaceServiceStack extends Stack {
       { path: '/mentor/availability', method: apigw.HttpMethod.PUT },
       { path: '/admin/mentors/pending', method: apigw.HttpMethod.GET },
       { path: '/admin/mentors/{id}/review', method: apigw.HttpMethod.POST },
+      { path: '/admin/mentors/{id}/interview', method: apigw.HttpMethod.POST },
     ];
     for (const r of authed) httpApi.addRoutes({ path: r.path, methods: [r.method], integration, authorizer });
 

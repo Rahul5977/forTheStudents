@@ -26,6 +26,9 @@ export interface MentorProfile {
   emailVerified: boolean;
   idVerified: boolean;
   email?: string;
+  interviewAt?: string;   // scheduled screening-interview time (ISO)
+  interviewLink?: string; // meeting link for the interview
+  reviewNote?: string;
   ratingAvg: number;
   ratingCount: number;
   createdAt: string;

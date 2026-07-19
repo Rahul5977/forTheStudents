@@ -1,8 +1,8 @@
 // Transport DTOs (zod) + shared types for the marketplace-mentors service.
 import { z } from 'zod';
 
-/** Verification/approval state machine: DRAFT → PENDING_REVIEW → APPROVED|REJECTED. */
-export type MentorStatus = 'DRAFT' | 'PENDING_REVIEW' | 'APPROVED' | 'REJECTED';
+/** State machine: DRAFT → PENDING_REVIEW → INTERVIEW → APPROVED|REJECTED (interview optional). */
+export type MentorStatus = 'DRAFT' | 'PENDING_REVIEW' | 'INTERVIEW' | 'APPROVED' | 'REJECTED';
 
 const topics = z.array(z.string().min(1).max(40)).max(12);
 
@@ -49,11 +49,19 @@ export const AvailabilityInput = z.object({
   version: z.number().int().nonnegative().optional(),
 });
 
-/** POST /mentor/:id/review — admin decision on a pending application. */
+/** POST /mentor/:id/review — admin decision on a pending/interviewed application. */
 export const ReviewInput = z.object({
   decision: z.enum(['approve', 'reject']),
   note: z.string().max(300).optional(),
 });
+
+/** POST /admin/mentors/:id/interview — schedule the 10–15 min screening interview. */
+export const InterviewInput = z.object({
+  interviewAt: z.string().datetime(),
+  interviewLink: z.string().url().max(400),
+  note: z.string().max(300).optional(),
+});
+export type Interview = z.infer<typeof InterviewInput>;
 
 export type Apply = z.infer<typeof ApplyInput>;
 export type VerifyEmail = z.infer<typeof VerifyEmailInput>;

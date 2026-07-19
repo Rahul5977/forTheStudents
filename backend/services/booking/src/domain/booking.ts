@@ -6,7 +6,7 @@
 // Razorpay + the SFU are boilerplate/interfaces only (secrets never touch us) — see
 // the `// TODO(owner)` markers. The state machine + ledger are real and tested.
 import {
-  NotFoundError, ValidationError, ConflictError, ForbiddenError, newId, publish, createLogger, type Principal,
+  NotFoundError, ValidationError, ConflictError, ForbiddenError, newId, publish, createLogger, requireRole, type Principal,
 } from '@sc/shared';
 import { bookingsRepo, type Booking } from '../repo/bookings.repo';
 import { getMentor, getSlot } from '../repo/mentor.reader';
@@ -235,6 +235,42 @@ export async function endSession(p: Principal, id: string) {
   const out = await bookingsRepo.transition(b.id, ['LIVE', 'CONFIRMED'], 'ENDED');
   await publish({ type: 'session.ended', source: 'booking', detail: { bookingId: b.id } });
   return out;
+}
+
+// ── Admin visibility (role-gated; scale-safe reads) ──────────────────────────────
+const PAID = new Set<string>(['CONFIRMED', 'LIVE', 'ENDED', 'RATED']);
+
+function summarize(rows: Booking[], days?: number) {
+  const paid = rows.filter((b) => PAID.has(b.status));
+  return {
+    total: rows.length,
+    paid: paid.length,
+    unpaid: rows.length - paid.length,
+    revenueINR: paid.reduce((s, b) => s + (b.priceINR || 0), 0),
+    ...(days ? { days } : {}),
+  };
+}
+
+/** ADMIN: recent bookings folded over the last `days` days (default 7, max 31) via the
+ *  by-day index — each day is a small partition, so this stays cheap at season peak. */
+export async function adminListBookings(p: Principal, query: Record<string, string | undefined>) {
+  requireRole(p, 'admin');
+  const days = Math.min(31, Math.max(1, Number(query.days) || 7));
+  const base = query.date ? new Date(query.date) : new Date();
+  const all: Booking[] = [];
+  for (let i = 0; i < days; i++) {
+    const d = new Date(base.getTime() - i * 86_400_000);
+    all.push(...(await bookingsRepo.listByDay(d.toISOString().slice(0, 10).replace(/-/g, ''))));
+  }
+  all.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return { bookings: all, stats: summarize(all, days) };
+}
+
+/** ADMIN: one mentor's bookings (reuses the per-mentor index) + paid/revenue summary. */
+export async function adminMentorBookings(p: Principal, mentorId: string) {
+  requireRole(p, 'admin');
+  const rows = await bookingsRepo.listByGsi('gsi2-mentor', `MENTOR#${mentorId}`);
+  return { mentorId, bookings: rows, stats: summarize(rows) };
 }
 
 export async function rate(p: Principal, id: string, input: Rate) {
