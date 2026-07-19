@@ -458,8 +458,11 @@ export function AppProvider({ children }) {
   // ─── auth actions ──────────────────────────────────────────────────────────
   const doLogin = useCallback(async (email, password) => {
     const tok = await cognitoLogin(email, password); // throws on failure — callers show the error
-    await hydrateAuth(tok);
-    navigate('dashboard');
+    const me = await hydrateAuth(tok);
+    // Land admins/superadmins on the admin console; everyone else on the student app (the
+    // gate will still bounce a not-onboarded student to role-select).
+    const r = me?.role;
+    navigate(r === 'admin' || r === 'superadmin' ? 'aDashboard' : 'dashboard');
     return tok;
   }, [hydrateAuth, navigate]);
 

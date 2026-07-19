@@ -14,7 +14,7 @@ const MKT_LINKS = [
 ];
 
 // The signed-in landing screen for each role (used by role-aware nav links).
-const HOME_FOR = { student: 'dashboard', mentor: 'mDashboard', admin: 'aDashboard' };
+const HOME_FOR = { student: 'dashboard', mentor: 'mDashboard', admin: 'aDashboard', superadmin: 'aDashboard' };
 const homeFor = (role) => HOME_FOR[role] || 'dashboard';
 
 // First initial for the avatar chip (falls back to 'A' pre-hydration).
@@ -65,6 +65,7 @@ function TopNav() {
         </>
       ) : (
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 12 }}>
+          {(role === 'admin' || role === 'superadmin') && <Btn variant="sec" go="aDashboard" style={{ fontSize: 13 }} title="Open the admin console">🛠 Admin</Btn>}
           {isMentor && <Btn variant="sec" go="mDashboard" style={{ fontSize: 13 }} title="Switch to your mentor dashboard">🧑‍🏫 Mentor</Btn>}
           <span style={{ fontSize: 13 }} className="text-muted">Rank <strong style={{ color: 'var(--color-text)' }}>{profile.advRank || profile.mainRank || '—'}</strong> · {profile.category}</span>
           <span className="sc-btn ghost" onClick={() => navigate('notifications')} style={{ position: 'relative' }} title={unreadCount > 0 ? `${unreadCount} unread` : 'Notifications'}>

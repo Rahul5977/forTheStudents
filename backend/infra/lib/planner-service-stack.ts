@@ -34,8 +34,12 @@ export class PlannerServiceStack extends Stack {
       handler: 'handler',
       runtime: Runtime.NODEJS_20_X,
       architecture: Architecture.ARM_64,
-      memorySize: 256,
-      timeout: Duration.seconds(10),
+      // The List Doctor loads the full catalog snapshot (~9.6k cutoffs) into memory on the
+      // first call, then caches it. 256 MB (low CPU) made that load exceed the 10 s timeout →
+      // 500s. 1 GB gives ~4× CPU so the one-time load finishes in ~1–2 s, then warm calls are
+      // instant. (Mirrors the catalog service, which loads the same snapshot at 512 MB.)
+      memorySize: 1024,
+      timeout: Duration.seconds(25),
       tracing: Tracing.ACTIVE,
       bundling: { minify: true, sourceMap: true, target: 'node20' },
       environment: {

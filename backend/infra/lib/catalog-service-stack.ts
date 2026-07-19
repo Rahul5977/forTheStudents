@@ -36,7 +36,10 @@ export class CatalogServiceStack extends Stack {
       // loaded into memory once per cold start. More memory = proportionally more CPU/network,
       // which keeps that one-time load well under the timeout. Warm requests are ~30ms, so the
       // memory bump costs a negligible amount of billed-ms at steady state.
-      memorySize: 512,
+      // 1 GB (was 512) → ~2× CPU so the one-time cold-start snapshot load (~9.6k cutoffs) is
+      // ~1 s instead of ~2–3 s, making the FIRST predict noticeably snappier. Warm calls (in-
+      // memory snapshot + CloudFront + client-side memo) stay ~30 ms.
+      memorySize: 1024,
       timeout: Duration.seconds(20),
       tracing: Tracing.ACTIVE,
       bundling: { minify: true, sourceMap: true, target: 'node20' },
