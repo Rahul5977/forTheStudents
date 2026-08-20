@@ -322,3 +322,15 @@ pyrightconfig.json
 !backend/infra/lib/**
 !student-counselor/src/lib/
 !student-counselor/src/lib/**
+
+# --- JoSAA ORCR acquisition (backend/services/catalog/data/josaa) ---
+# The 140 per-partition scrapes are a resumable working directory, and `final-round/` is
+# derived from them. Both are regenerable via `pnpm --filter @sc/catalog josaa:fetch|josaa:build`.
+# What IS committed: by-year/*.csv.gz (the canonical dataset) + manifest.json (provenance
+# + sha256 per partition), so the data is versioned without carrying ~40MB of raw CSV.
+backend/services/catalog/data/josaa/csv/
+backend/services/catalog/data/josaa/final-round/
+# Per-type manifests are the scraper's resume state (they pair with the gitignored csv/ dir);
+# committing them would make a fresh clone believe partitions are cached when the CSVs are absent.
+# The merged manifest.json keeps the full provenance record incl. sha256 per partition.
+backend/services/catalog/data/josaa/manifest-*.json

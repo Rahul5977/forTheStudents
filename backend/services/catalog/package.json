@@ -9,6 +9,10 @@
     "test": "vitest run --passWithNoTests",
     "dev": "STAGE=dev AWS_REGION=ap-south-1 DDB_ENDPOINT=http://localhost:8000 TABLE_CATALOG=sc-dev-catalog PORT=8788 tsx watch src/dev/server.ts",
     "seed": "STAGE=dev AWS_REGION=ap-south-1 DDB_ENDPOINT=http://localhost:8000 TABLE_CATALOG=sc-dev-catalog tsx src/seed.ts",
+    "josaa:fetch": "tsx scripts/josaa-orcr.ts",
+    "josaa:rounds": "tsx scripts/josaa-orcr.ts --list-rounds",
+    "josaa:build": "tsx scripts/josaa-build.ts",
+    "josaa:verify": "tsx scripts/josaa-build.ts --verify",
     "lint": "echo 'lint: TODO(owner) wire eslint'"
   },
   "dependencies": {
