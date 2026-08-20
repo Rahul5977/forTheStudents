@@ -81,7 +81,8 @@ const BASE = {
   corsOrigins: [
     'http://localhost:3000', // local dev
     'https://main.d32971gyq5jq34.amplifyapp.com', // Amplify-hosted frontend
-    'https://counsellor.kodexa.in', // custom domain (once DNS is live)
+    'https://app.kodexa.in', // custom domain (Amplify)
+    'https://counsellor.kodexa.in', // legacy alias (CloudFront alias locked; kept harmless)
   ],
 };
 
