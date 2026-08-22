@@ -34,6 +34,7 @@
 12. [Getting started](#12-getting-started)
 13. [API surface](#13-api-surface)
 14. [Docs index](#14-docs-index)
+15. [Interview prep — likely questions from this project](#15-interview-prep--likely-questions-from-this-project)
 
 ---
 
@@ -424,6 +425,88 @@ Workflow contract: read `backend/docs/architecture.md` for the target, `backend/
 | `backend/docs/prediction-algorithm.md` | The Safe/Target/Reach algorithm, worked examples, honesty & limits |
 | `backend/docs/forecast-backtest.md` · `forecast-data-acquisition.md` | Backtest harness + the data-completeness experiment |
 | `backend/docs/analytics-athena.md` · `runbooks.md` · `go-live.md` | Athena DDL, operational runbooks, launch checklist |
+
+---
+
+## 15. Interview prep — likely questions from this project
+
+> Grouped by how interviewers actually drill: an opener, then follow-ups that test whether you built it or just described it. Answer pointers reference the sections above — the answers are all in this repo.
+
+### A. The resume-bullet openers (know these cold)
+
+1. **"Walk me through the predictor end-to-end — from a student typing a rank to the result."** → §5.3: filter to competition set → quota selection (AI → HS-if-home → OS) → exam mapping (Adv for IIT, Main for the rest) → ratio buckets → forecast-based chance %. Follow-up: *"Where does each step run — edge, Lambda, or DB?"*
+2. **"Your resume says 11,261 cutoffs across 121 institutes. Why is the dataset that small, and does size matter here?"** → It's the *served snapshot* (one year, final round). The point: the dataset being small and immutable-within-a-round is *the* architectural insight — it's why compute-not-query works. The full historical corpus behind the forecasts is 360,975 rows (§5.1).
+3. **"1.5M candidates, result-day spikes — what actually breaks first at 50k concurrent, and how do you know?"** → Nothing before the origin: ~90% of reads die at CloudFront. The earliest failure signal is a *cache hit-ratio drop*, not CPU. Then: Lambda account concurrency (raised pre-season), then DynamoDB — which is on-demand and mostly idle anyway.
+4. **"Why serverless? Defend it against a Fargate service behind an ALB."** → §2: scale-to-zero matches 10 idle months; spikes are predictable in *time* but not worth owning capacity for; small team. Concede honestly where containers win: steady 24×7 load, long-lived connections, WebSockets.
+
+### B. Caching & performance (your third bullet — expect the deepest drilling)
+
+5. "You cache predictor results at the CDN — but every student has a different rank. **How is personalized output cacheable?**" → The result is a pure function of (rank, category, state, filters), not identity; inputs are normalized into a stable cache key, so many students collapse onto one entry (§6).
+6. **"How do you invalidate when a new round publishes?"** → Immutable versioned snapshots + atomic `activeVersion` pointer flip + one CDN invalidation. Rollback = flip back. No per-key busting.
+7. **"What stops a cache stampede when that invalidation happens at peak?"** → `stale-while-revalidate`: the edge keeps serving stale while a single request revalidates; origin sees one miss, not 50k.
+8. **"Why Lambda module memory instead of Redis/ElastiCache? When would you add Redis?"** → ADR-008: ~11k rows fit in process memory; Redis has a ~$12+/mo idle floor buying nothing. Add it only if profiling shows cold-start snapshot loads hurt at real scale.
+9. **"What's your cold-start story, concretely?"** → ARM64 + esbuild bundles < 5 MB + lambdalith (fewer, warmer functions) + *scheduled* provisioned concurrency only for Jun–Jul, pre-warmed ahead of published round-result timestamps.
+10. **"A cold Lambda must load 11k rows from DynamoDB — what does that do to p99, and how would you measure it?"** → It's the known p99 tail; bounded by a single bulk read of one partition (`CUTOFF#<version>`). Measure: CloudWatch p99 vs p50 split by cold-start (init duration present), plus the load-test harness.
+11. **"Estimate the memory footprint of the snapshot and the per-request CPU cost."** → ~11k rows × a few hundred bytes ≈ single-digit MB; a request is a filter+sort over an in-memory array — microseconds to low ms. This is why misses are cheap and horizontal scaling is trivial.
+
+### C. System design & architecture
+
+12. **"Why one Lambda per bounded context instead of per-route functions or one monolith?"** → The middle ground: few enough to stay warm, separate enough for independent deploys, IAM surfaces, and blast radius (§2, §4).
+13. **"How do services talk to each other?"** → They don't, synchronously. Domain events on EventBridge → SQS (+DLQ) → consumers. Ask yourself *why*: spikes must not cascade; a slow notification consumer can't slow a booking.
+14. **"Design the booking flow. What are the failure modes?"** → Saga: REQUESTED → ACCEPTED → CONFIRMED(paid) → LIVE → ENDED → RATED. Payment only *after* mentor accept. Failures: double-submit (Idempotency-Key), payment-webhook replay (ledger keyed on provider event id), mentor no-show (state timeouts/TTL).
+15. **"Where would you add a queue you don't have today, and where is a queue the wrong tool?"** → Wrong on the predictor read path (latency-bound, cacheable); right anywhere write bursts exceed a downstream's comfort (already: notifications, analytics).
+16. **"The video calls — why isn't that on Lambda?"** → Media is long-lived, stateful, latency-sensitive — everything Lambda is bad at. Managed SFU carries media; Lambda only mints join tokens and handles webhooks.
+17. **"How would you take this multi-region?"** → Honest answer: you mostly don't need to — CloudFront is already global, the origin is regional-single. If forced: DynamoDB global tables to ap-south-2, Route 53 failover; the hard part is Cognito, which doesn't replicate cleanly.
+
+### D. DynamoDB & data modeling
+
+18. **"Why DynamoDB over Postgres? What did you give up?"** → Known, few access patterns + scale-to-zero + no connection pools from Lambda. Gave up: ad-hoc queries (recovered via Streams → S3 → Athena) and cross-item transactions beyond what `TransactWriteItems` covers.
+19. **"Walk me through the `bookings` table's GSIs. Why is one of them date-partitioned?"** → GSIs by student, by mentor, and `gsi3-byday` for admin views — partitioned by day so an admin console at 10k bookings/day never scans, and no single hot partition grows unbounded (§7).
+20. **"How do you avoid hot partitions on result day?"** → The hot *read* path never touches DynamoDB (snapshot in memory). Writes are per-user keys (naturally spread). The one shared key — the cutoff snapshot — is read once per cold start, not per request.
+21. **"How is the payments ledger idempotent?"** → Append-only events keyed `ACCT#id / EVT#ts#providerEvtId` + a GSI on the provider event id: a replayed webhook writes the same key → condition-failed → no double credit. Balance = fold over events.
+22. **"What's your backup/recovery story?"** → PITR on all tables; the catalog is trivially rebuildable from the committed corpus (reseed); analytics lake is append-only S3.
+
+### E. The algorithm & statistics (expect this if the interviewer is data-inclined)
+
+23. **"Why is your default sort closing-rank-ascending and not chance-descending?"** → JoSAA allots the *highest choice you clear*, so the UI should read like a choice list. Chance-sort floats your weakest backups to #1 — actively harmful (§5.3). This is the best "product sense" answer in the project.
+24. **"Your chance % — is it a real probability? Defend it."** → Two-tier honesty: when a forecast band exists, yes — P(admit) = Φ((R̂ − rank)/σ) against a backtested distribution (92.9% band coverage vs 80% target). The ratio fallback is explicitly a monotone communication aid, and the API labels which one you got (`chanceBasis`).
+25. **"Why can't you compare a rank of 10,000 in 2020 with one in 2025?"** → The candidate pool grew ~0.87M → ~1.3M; ranks are normalized to percentiles per year, trend-fit in logit space, and rescaled by the projected pool (§5.4).
+26. **"Why a median-of-six ensemble instead of one regression — or an LSTM?"** → ≤ 8 points per series: any deep model is theater. Six cheap estimators across two spaces (percentile vs absolute log-rank) hedge two failure modes: pool-growth distortion and ultra-elite seats whose absolute cutoff barely moves. Median = robust to any one estimator going wild.
+27. **"How do you handle COVID years and the EWS quota introduction?"** → Anomaly weights: 2020/21 × 0.45; EWS series drop pre-2019 entirely (the quota didn't exist) and get `limitedHistory` flagged.
+28. **"How did you validate the forecast? What surprised you?"** → Hold-out-a-year backtest. Surprise: filling the 2021–23 *data gap* cut median error 39.6% → 13.2% — data completeness beat every modeling idea (§5.5).
+29. **"What's a preparatory rank and why did it almost poison your model?"** → IIT `P`-suffixed ranks are a *separate rank list*; mirrors stripped the flag on 715 rows, making SC/ST/PwD cutoffs look ~100× better. Caught by cross-checking mirrors against the official archive (§5.1).
+30. **"Where does the model fail today?"** → Sparse series (new programs, PwD sub-pools), renamed institutes breaking series identity, home-state quota for GFTIs with thin curation, and it forecasts final-round only — round-to-round drift is unmodeled (the all-rounds corpus exists, unexploited).
+
+### F. Data engineering & the scraper
+
+31. **"The source has no API. How did you get the data?"** → Reverse-engineered the ASP.NET WebForms postback chain (`__VIEWSTATE`/`__EVENTVALIDATION` echoed per step, cascading dropdowns on one session cookie) — §5.2.
+32. **"How do you make a 140-request scrape reliable against a flaky government site?"** → Partition-level resumability (per-type manifest), exponential-backoff retries, sha256 recorded at fetch time and re-verified at build, politeness delay, live round discovery.
+33. **"Why commit the data to git instead of S3 or fetching at deploy time?"** → Immutable-once-published history: diffable, reviewable, versioned with the code that parses it; 3.6 MB gzipped. S3 adds a moving part for zero benefit at this size.
+34. **"How do you know your scrape is correct?"** → Cross-validation: 61,460 overlapping rows against an independently-sourced corpus, zero rank mismatches — and the diff *found* real defects in the other source (round mislabel, stripped P-flags), which is what a good validation should do.
+35. **"Two colleges renamed themselves across years. Why is that hard, and what's your fix?"** → Series identity is keyed on name; a rename splits one series into two short ones (worse forecasts). Fix: a curated alias crosswalk applied at parse time.
+
+### G. Auth, security & correctness
+
+36. **"Why Google-only login?"** → Users are minors: no password custody, no reset flows, no credential-stuffing surface. Cognito Hosted UI keeps OAuth out of our code.
+37. **"How is RBAC enforced — and where could a client bypass it?"** → `custom:role` claim in the JWT, hierarchy-aware middleware server-side (`superadmin ⊇ admin ⊇ student`); per-admin permission scopes. Frontend gating is UX only — every admin route re-checks server-side.
+38. **"A Razorpay webhook arrives twice, out of order, or forged — walk through each."** → Forged: signature verification. Twice: ledger idempotency key. Out of order: state machine only advances on legal transitions; stale events no-op.
+39. **"How do you prevent user enumeration at signup?"** → Cognito `preventUserExistenceErrors` + identical responses either way.
+40. **"Where are your secrets?"** → SSM Parameter Store (Google client secret); zero secrets in code or env-committed files; per-Lambda least-privilege IAM.
+
+### H. Operations, cost & testing
+
+41. **"What's on your dashboard, and which single metric pages you first?"** → API 5xx, Lambda errors/throttles, p95, DynamoDB throttles — but the *leading* indicator is CDN hit ratio; it degrades before anything else turns red.
+42. **"How do you keep an AWS bill near zero, mechanically?"** → No idle-cost services (no NAT, no Redis, no WAF off-season, no provisioned concurrency off-season), on-demand billing everywhere, plus a $10 AWS Budget alarm as the tripwire (§10).
+43. **"How would you load-test the result-day spike before the season?"** → k6/Artillery replaying the spike shape to 5k rps on the predictor with a realistic write mix; watch SLOs, hit ratio, throttles, cold-start p99, and *cost per 100k requests*.
+44. **"What do your tests cover, and what's deliberately untested?"** → Pure packages (predictor, forecast, stats) unit-tested; services integration-tested against DynamoDB Local on isolated tables; deployed e2e against the live API. Untested by choice: the scraper's HTML parsing beyond golden partitions (validated by checksums + cross-source instead).
+45. **"You deploy a bad cutoff dataset at peak. Recovery, step by step?"** → Snapshot versions are immutable: flip `activeVersion` back, one CDN invalidation, done in seconds. The bad version stays for forensics. This is the payoff of never mutating in place.
+
+### I. Trade-offs you should volunteer before they ask
+
+- **CAP-flavored:** predictor reads are eventually consistent by design (cached, versioned); payments are strongly consistent (conditional writes, ledger). Different flows, different consistency — deliberately.
+- **The dataset in Lambda memory is a scale ceiling** — at ~100× more rows, module memory stops working; the documented path is Redis (ADR-008 reversal) or precomputed shards.
+- **Single region** is accepted risk for a domestic, seasonal product; the mitigation is CDN + fast rebuild, not active-active.
+- **`chanceBasis` duality** — shipping a calibrated number and a heuristic number side-by-side, labeled, instead of pretending one method covers everything.
 
 ---
 
