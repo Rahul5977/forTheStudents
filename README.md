@@ -1,6 +1,6 @@
-# 🎓 Student‑Counselor — JEE / JoSAA Counselling Platform
+# 🎓 Student-Counselor — JEE/JoSAA Counselling Platform
 
-> **Predict → Plan → Talk.** A rank‑to‑seat companion for the ~8‑week JEE/JoSAA counselling window, built to sit idle at **≈ $0** for ten months and absorb **lakhs of students in minutes** when a round result drops.
+> **Predict → Plan → Talk.** A rank-to-seat companion for the ~8-week JEE/JoSAA counselling window — engineered to idle at **≈ $0** for ten months and absorb **lakhs of students in minutes** when a round result drops.
 
 <p>
   <img alt="stack" src="https://img.shields.io/badge/TypeScript-Node%2020-3178c6">
@@ -8,418 +8,425 @@
   <img alt="iac" src="https://img.shields.io/badge/IaC-AWS%20CDK-ff9900">
   <img alt="frontend" src="https://img.shields.io/badge/Frontend-Next.js%2014-000000">
   <img alt="region" src="https://img.shields.io/badge/Region-ap--south--1%20(Mumbai)-232f3e">
-  <img alt="status" src="https://img.shields.io/badge/Build-Phases%200%E2%80%937%20live-2ea44f">
+  <img alt="data" src="https://img.shields.io/badge/Data-Official%20JoSAA%20ORCR%202020--2025-2ea44f">
 </p>
 
 ---
 
 ## 📖 Table of contents
 
-- [In one paragraph](#-in-one-paragraph)
-- [Who it's for](#-whos-it-for-three-audiences-one-app)
-- [What it can do — the full feature tour](#-what-it-can-do--the-full-feature-tour)
-- [The 60‑second architecture](#-the-60second-architecture)
-- [The AWS flex — every service and why it's here](#-the-aws-flex--every-service-and-why-its-here)
-- [The nine bounded contexts (microservices)](#-the-nine-bounded-contexts-microservices)
-- [Why this scales to lakhs (and stays near‑free)](#-why-this-scales-to-lakhs-and-stays-nearfree)
-- [Data model](#-data-model)
-- [Security, privacy & safety](#-security-privacy--safety-many-users-are-minors)
-- [Cost model](#-cost-model--engineered-to-run-nearfree)
-- [Observability & operations](#-observability--operations)
-- [Repository layout](#-repository-layout)
-- [Tech stack](#-tech-stack)
-- [Getting started (local)](#-getting-started-local)
-- [Deploying to AWS](#-deploying-to-aws)
-- [API surface](#-api-surface)
-- [Build status by phase](#-build-status-by-phase)
-- [Live environment](#-live-environment-dev)
-- [Data attribution & disclaimer](#-data-attribution--disclaimer)
+1. [What this is](#1-what-this-is)
+2. [The defining constraint (and how it shaped everything)](#2-the-defining-constraint)
+3. [High-Level Design](#3-high-level-design)
+4. [The nine bounded contexts](#4-the-nine-bounded-contexts)
+5. [Data & methodology](#5-data--methodology)
+   - [5.1 The dataset — official JoSAA ORCR](#51-the-dataset--official-josaa-orcr-all-rounds-20202025)
+   - [5.2 Acquisition pipeline](#52-acquisition-pipeline)
+   - [5.3 The prediction algorithm](#53-the-prediction-algorithm-two-layers)
+   - [5.4 The forecast engine](#54-the-forecast-engine-projecting-cutoffs-forward)
+   - [5.5 Backtest validation](#55-backtest-validation)
+6. [Caching — why lakhs is cheap](#6-caching--why-lakhs-is-cheap)
+7. [Data model (DynamoDB single-table patterns)](#7-data-model)
+8. [Security & privacy](#8-security--privacy)
+9. [Tech stack — every choice and why](#9-tech-stack--every-choice-and-why)
+10. [Cost model](#10-cost-model)
+11. [Repository layout](#11-repository-layout)
+12. [Getting started](#12-getting-started)
+13. [API surface](#13-api-surface)
+14. [Docs index](#14-docs-index)
 
 ---
 
-## 🧭 In one paragraph
+## 1. What this is
 
-Every year ~1.5 million students take JEE and then face **JoSAA counselling** — a high‑stakes, multi‑round process where you order a list of college‑branch choices and an algorithm allots you a seat. Get the list wrong and you lose a year. **Student‑Counselor** turns that guesswork into a guided flow:
+Every year ~1.4 million students take JEE, and then face **JoSAA counselling** — a multi-round process where you submit an ordered list of college-branch choices and an allotment algorithm gives you the *highest choice you clear*. Order the list badly and you can lose a seat you deserved, or a year.
 
-1. **Predict** — type your rank, get your reachable colleges sorted into **Safe / Target / Reach**, computed over **11,261 official JoSAA 2024 cutoffs across 121 institutes** (23 IITs + 31 NITs + IIITs + GFTIs), with your **home‑state quota** advantage applied automatically.
-2. **Plan** — drag those colleges into an **ordered choice list**, and a server‑authoritative **"List Doctor"** flags the classic mistakes (no safe options, too few choices, a reach‑heavy top, duplicates) before you lock it in.
-3. **Talk** — book a **paid 1:1 video call** with a verified senior at your dream college to sanity‑check the plan.
+The product turns that into a guided flow:
 
-Under the hood it's a **serverless AWS backend** (Lambda + API Gateway + DynamoDB + CloudFront + Cognito) plus a **Next.js** frontend — architected around one brutal constraint: the product is **seasonal, spiky, and read‑dominated**, so it must cost almost nothing when idle and survive a **100× traffic cliff** the moment a result publishes.
-
----
-
-## 👥 Who's it for — three audiences, one app
-
-| Role | What they do | Where |
+| Pillar | What it does | Where it lives |
 |---|---|---|
-| 🎒 **Student** | Predict colleges, build & doctor a choice list, browse mentors, book & attend paid sessions, track deadlines | `dashboard`, `predictor`, `shortlist`, `choiceBuilder`, `marketplace`, `sessions` … |
-| 🎓 **Mentor** (verified senior) | Apply + get verified (`.ac.in` OTP + ID), set availability & price, run sessions, earn payouts | `mDashboard`, `mVerification`, `mAvailability`, `mEarnings` … |
-| 🛡️ **Super Admin** | Approve mentors, moderate, manage college data, run broadcasts, watch dashboards, handle support | `aDashboard`, `aVerifyQueue`, `aCollegeData`, `aBroadcast`, `aAnalytics` … |
+| **Predict** | Rank in → reachable colleges out, bucketed **Safe / Target / Reach**, with home-state quota applied and a calibrated chance % from a forecast model | `services/catalog` + `packages/catalog-core` + `packages/forecast` |
+| **Plan** | Drag colleges into an ordered choice list; a server-side **"List Doctor"** flags classic mistakes (no safe backups, reach-heavy top, duplicates, too-short lists) before you lock in | `services/planner`, `packages/catalog-core/src/doctor.ts` |
+| **Talk** | Paid 1:1 video sessions with verified seniors at the target colleges — application, interview gate, availability, booking saga, payments, ratings | `services/marketplace`, `services/booking` |
 
-The frontend ships **~70 screens** across these four contexts (marketing, student, mentor, admin) plus a system set (empty/loading/error/confirmation states).
-
----
-
-## ✨ What it can do — the full feature tour
-
-### 🔮 Predict — the college predictor *(the hottest path)*
-- Enter **rank + category + home state + filters** → get college‑branches bucketed **Safe / Target / Reach** with a per‑result **chance %**.
-- Runs over **real, official JoSAA 2024 data** — opening & closing ranks per **category / quota / gender‑pool**, for every institute type.
-- **Home‑State (HS) quota** is applied automatically: the engine picks the **All‑India** row, else the **home‑state** row when the institute is in your state (the real HS advantage, flagged `homeQuota`), else **Other‑State**.
-- Correct exam mapping — **IITs → JEE Advanced rank**, NITs/IIITs/GFTIs → **JEE Main rank**.
-- Enriched result cards: **city, state, NIRF rank, approximate fees**, quota badge, and a **"Live · official JoSAA"** trust badge.
-- **Predictions are public and shareable** → they're **cacheable at the CDN edge**, so millions of identical "rank 850, Open, Maharashtra" requests collapse onto one cached answer.
-- The math is **documented** (`backend/docs/prediction-algorithm.md`) and **locked by tests** (rank 850 → 12 Safe / 3 Target / 3 Reach).
-
-### 🧩 Plan — the choice‑list planner *(core)*
-- **Shortlist** the colleges you like, then drag them into an **ordered choice list** (order = your JoSAA priority).
-- **List Doctor** runs on the **server** (authoritative — the app and the API can't disagree) and warns on: **no safe option**, **too few choices**, **reach‑heavy top**, **duplicates**.
-- **Optimistic concurrency** — every save carries a `version`; a stale write (two tabs, a double‑tap) gets a clean **409** instead of silently clobbering your list.
-- **Export to PDF** for offline reference / filling on the JoSAA portal.
-
-### 🗣️ Talk — mentors, booking, payments & video *(core)*
-- **Marketplace** of verified seniors — search/filter by **college, branch, topic, price, rating, soonest slot**.
-- **Mentor verification** is the trust gate: `.ac.in` **email OTP** + **student‑ID upload** → `PENDING_REVIEW` → admin approve/reject; college/branch/year lock after approval.
-- **Booking ↔ Payment saga** — a slot is held (`PENDING_PAYMENT`, auto‑released by TTL), a **Razorpay** order is created, and only a **signature‑verified webhook** confirms the booking. **Idempotency keys** everywhere; money truth lives in an **append‑only ledger**.
-- **Video sessions** on a managed WebRTC SFU (**100ms**) — the Lambda only mints a **join token**; media never touches our compute. Recording captured to **S3** for safety.
-- **Ratings**, **receipts**, **refunds** (auto‑refund on mentor no‑show), and **mentor payouts** (₹80 of ₹100 after platform fee).
-
-### 🔔 Timeline & notifications
-- **Event‑driven** reminders off the counselling calendar (e.g. *"Round 2 choice‑filling closes in 24h"*).
-- Booking/mentor updates + **admin broadcasts** (segment by state / round) across **in‑app, email (SES), push (SNS/FCM), WhatsApp**.
-
-### 🛡️ Admin & ops console
-- **Verification queue**, **moderation** (trust & safety, extra care for minors), **CMS/content**, **college‑data management**, **support tickets**.
-- Dashboards read from **materialized rollups** (never scan live tables); every admin action is **audited** to an append‑only log.
+Plus college-analysis pages (multi-year cutoff trends + forecast bands), a notifications pipeline, and a role-scoped admin console.
 
 ---
 
-## 🏗️ The 60‑second architecture
+## 2. The defining constraint
 
-```mermaid
-graph TB
-    subgraph Clients
-      S["🎒 Student (PWA)"]
-      M["🎓 Mentor"]
-      A["🛡️ Admin"]
-    end
+Everything in this architecture follows from one observation about the load:
 
-    subgraph Edge["Edge"]
-      CF["CloudFront + WAF<br/>static · analysis · predictor slices"]
-    end
+> **The product is seasonal, spiky, and read-dominated.**
 
-    subgraph AWS["AWS · ap-south-1"]
-      GW["API Gateway (HTTP API)<br/>+ Cognito JWT authorizer"]
-      L["Service Lambdas (ARM64)<br/>one lambdalith per bounded context"]
-      DDB[("DynamoDB<br/>on-demand · PITR · Streams · TTL")]
-      S3[("S3<br/>uploads · recordings · exports")]
-      BUS["EventBridge + SQS<br/>async / decoupling"]
-    end
+- **Seasonal** — real usage is ~8 weeks (June–July). Ten months are near-idle. *Anything we pay for while idle is waste.*
+- **Spiky** — traffic is event-driven: the minute a round result publishes, lakhs of students open the predictor **within minutes**. But the spikes are *predictable in time* (JoSAA publishes the schedule), so we can scale ahead of them instead of reacting.
+- **Read-dominated & shareable** — predictor and analysis reads are computed over a **small dataset that is immutable within a round**. Most reads are identical across users → compute once, cache everywhere.
+- **Small transactional core** — payments/bookings are low-volume but must be correct to the paisa and safe (many users are minors).
 
-    subgraph Managed["Managed / 3rd-party"]
-      COG["Cognito<br/>Google + phone OTP"]
-      PAY["Razorpay<br/>UPI / cards"]
-      SFU["100ms<br/>video + recording"]
-      MSG["SES · SNS/FCM · WhatsApp"]
-    end
+### Scale targets & SLOs
 
-    S & M & A --> CF --> GW --> L
-    S -. auth .-> COG
-    L --> DDB & S3 & BUS
-    L <--> PAY
-    L --> SFU
-    BUS --> MSG
+| Metric | Target |
+|---|---|
+| Registered students / season | up to **5 lakh** |
+| Concurrent users at a round-result spike | ~**50k** bursting |
+| Predictor origin rate (post-cache) | **5k req/s** burst |
+| Predictor p95 (cache hit / miss) | **< 50 ms / < 300 ms** |
+| Writes (choice list, booking) p95 | **< 250 ms** |
+| In-season availability (core reads) | **99.9%** |
+| Payments correctness | **100%** — idempotent, reconciled |
+
+### The resulting stance (one line)
+
+> **Serverless-first, cache-hard, compute-not-query — with managed services for the two things Lambda is bad at (video media, heavy SQL analytics).**
+
+Why serverless won (argued honestly in `backend/docs/architecture.md §2`):
+
+1. **Scale-to-zero matches seasonality** — ten idle months cost ~₹0 of compute. A provisioned fleet burns money year-round or forces seasonal teardown. This alone justifies it.
+2. **Elasticity for free** — Lambda + DynamoDB on-demand absorb a 100× cliff with no capacity planning.
+3. **Ops simplicity** for a small team running a 2-month product.
+
+And where we deliberately **don't** use Lambda: video media runs on a managed WebRTC SFU (Lambda only mints join tokens); the scaling superpower is the caching ladder, not the compute. Alternatives (Fargate, Aurora-primary, EKS, self-hosted mediasoup, nano-lambda-per-route) were each considered and rejected — the middle ground chosen is **one "lambdalith" per bounded context**: few enough functions to stay warm, separate enough to own/deploy/scale independently.
+
+---
+
+## 3. High-Level Design
+
+```text
+                        ┌────────────────────────────────────────────────┐
+                        │                    AWS ap-south-1              │
+  Students / Mentors    │                                                │
+  ┌──────────────┐      │   ┌──────────────┐      ┌────────────────────┐ │
+  │  Next.js 14  │──────┼──▶│  CloudFront  │─────▶│ API Gateway (HTTP) │ │
+  │  (Amplify)   │      │   │  edge cache  │      └─────────┬──────────┘ │
+  └──────┬───────┘      │   └──────────────┘                │ JWT        │
+         │ OAuth        │                          ┌────────▼──────────┐ │
+  ┌──────▼───────┐      │                          │  Lambdaliths ×8   │ │
+  │Cognito Hosted│      │                          │  (Hono routers,   │ │
+  │ UI + Google  │      │                          │  ARM64, esbuild)  │ │
+  └──────────────┘      │                          └────────┬──────────┘ │
+                        │        ┌───────────────┬──────────┼──────────┐ │
+                        │  ┌─────▼─────┐  ┌──────▼───┐  ┌───▼────────┐ │ │
+                        │  │ DynamoDB  │  │EventBridge│ │ S3 + Athena│ │ │
+                        │  │ 8 tables  │  │→ SQS → λ  │ │ (analytics)│ │ │
+                        │  │ on-demand │  │ (+ DLQ)   │ └────────────┘ │ │
+                        │  └───────────┘  └───────────┘                │ │
+                        └────────────────────────────────────────────────┘
 ```
 
-**The caching ladder — a read climbs down only as far as it must:**
+**Request lifecycle — the caching ladder.** A read climbs down only as far as it must:
 
-```
-Client ─▶ CloudFront (edge cache)        ← ~90%+ of Analysis & popular predictor slices stop HERE
+```text
+Client ─▶ CloudFront (edge)        ← ~90%+ of analysis & popular predictor slices stop here
         └▶ API Gateway ─▶ Lambda
-                          ├▶ Lambda memory snapshot (warm)   ← the cutoff dataset, zero network
-                          └▶ DynamoDB (source of truth)      ← personalized / uncacheable only
+                          ├▶ Lambda module memory (cutoff snapshot)  ← nearly all misses stop here
+                          └▶ DynamoDB (source of truth)              ← cold start / writes only
 ```
 
-**Design stance, one line:**
-> **Serverless‑first, cache‑hard, compute‑not‑query** — with managed services for the two things Lambda is bad at (video media and heavy SQL analytics).
+**Write path & events.** Domain writes land in DynamoDB; domain events (`user.bootstrapped`, `booking.confirmed`, `payment.captured`, …) go to **EventBridge**, fan out through **SQS (+DLQ)** to consumers (notifications, analytics). DynamoDB **Streams** feed an S3 NDJSON lake queryable via **Athena** — analytics with zero always-on cost.
+
+**Environments.** CDK stages (`dev`/`staging`/`prod` context) — currently a single `dev` stage on AWS **is** the live environment. 12 stacks: foundation (HTTP API + CORS), data, auth, observability, scaling/warmup, and one stack per service. Deploys are `cdk deploy` per stack; routes added by service stacks synth into the foundation stack (deploy both).
 
 ---
 
-## ☁️ The AWS flex — every service and why it's here
+## 4. The nine bounded contexts
 
-This is an **all‑AWS, serverless‑native** build. Nothing runs 24×7; everything scales to zero.
+Each is an independent **lambdalith** (one Lambda, one Hono router, one deploy unit) owning its own table(s):
 
-| AWS service | Role in this system | Why it wins here |
+| Service | Owns | The interesting part |
 |---|---|---|
-| **AWS Lambda** (Node 20 on **ARM64 / Graviton**) | All compute — one **lambdalith per bounded context** (Hono router) | Scale‑to‑zero for 10 idle months; elastic to 100× spikes with **no capacity planning**; Graviton = cheaper + faster cold start |
-| **Amazon API Gateway** (HTTP API) | The front door; **Cognito JWT authorizer** validates tokens at the edge before code runs | Pay‑per‑request, no idle cost; auth offloaded from app code |
-| **Amazon Cognito** | Sign‑up/in via **Google + phone OTP**, JWT issuance, `custom:role` claim (student/mentor/admin) | Managed identity, free at current scale (with a documented $0 migration path to Firebase/Google‑direct at lakhs‑MAU) |
-| **Amazon DynamoDB** (on‑demand) | Primary datastore — **per‑service tables**; **PITR** backups, **Streams** for events/rollups, **TTL** for slot holds & OTPs | Scales to **zero and to lakhs** with no connection layer; single‑digit‑ms reads; on‑demand = no idle spend |
-| **Amazon CloudFront** | CDN for static assets, **College Analysis pages**, and **predictor result slices** (`s‑maxage` + `stale‑while‑revalidate`) | **1 TB egress always‑free**; absorbs the spike so origin sees a rounding error |
-| **AWS WAF** | Edge protection + rate limiting (feature‑flagged `enableWaf`, on for prod hardening) | Sheds abusive/bot load; kept **off** off‑season to stay near‑$0 |
-| **Amazon S3** | Uploads (mentor IDs), **session recordings**, PDF exports, dataset import files | Pennies/GB; lifecycle‑managed retention for privacy (DPDP) |
-| **Amazon EventBridge** | The event backbone — `booking.confirmed`, `mentor.approved`, `user.role_changed`, deadline schedules | Decouples services; **EventBridge Scheduler** fires deadline reminders & seasonal ramp jobs |
-| **Amazon SQS** (+ DLQ) | Load‑levels booking/payment/notification bursts; retries + dead‑letter | Smooths spikes into a drainable queue; nothing dropped |
-| **AWS Step Functions** | Cutoff‑dataset **validate → stage → publish** pipeline (schema, sanity, diff vs previous) | Reliable multi‑step ingestion without a 15‑min Lambda cap problem |
-| **Amazon SES / SNS / FCM** | Email, push, SMS/alerts — the notification channels | Managed, pay‑per‑send fan‑out |
-| **Amazon Athena** | Serverless SQL over **DynamoDB Streams → S3** for funnel/revenue/cohort analytics | Query‑in‑place, **scales to zero**, no Aurora idle cost |
-| **Amazon CloudWatch** | Structured JSON logs, **dashboards** (API/Lambda/DDB), **alarms → SNS email** (5xx, Lambda errors, throttles, p95) | Single pane of glass; alarms treat missing data as *not breaching* (quiet ≠ paging) |
-| **AWS X‑Ray** | Distributed tracing API GW → Lambda → DynamoDB | Root‑cause latency across the request path |
-| **AWS Budgets** + **Cost Anomaly Detection** | A **$10/mo** guardrail emailing at 50/80/100% | Unit‑economics discipline — *cost per 100k predictions*, *cost per paid session* |
-| **AWS Secrets Manager** | Razorpay keys, Google OAuth client secret | No secrets in code; least‑privilege reads |
-| **AWS KMS** | Encryption at rest + field‑level for sensitive IDs | DPDP‑aligned data protection |
-| **AWS Amplify Hosting** | Hosts the **Next.js** frontend (CloudFront‑backed, auto‑SSL, custom domain) | One‑command deploy of the static export; free tier |
-| **AWS CDK** (TypeScript) | **All infrastructure as code** — per‑service stacks, per‑env config, diffable & reviewable | Reproducible envs; `cdk deploy` = the whole platform |
-| **AWS IAM** | **Per‑service, table‑scoped, least‑privilege** roles (e.g. planner gets RW planner + **read‑only** catalog) | Blast‑radius containment |
+| `auth-identity` | Users table, Cognito wiring | Google-only Hosted-UI login; role claim (`custom:role`) synced to Cognito; bootstrap-on-first-login |
+| `catalog` | Cutoffs snapshot, predictor, college analysis | **The hottest path.** Compute-not-query: snapshot in Lambda memory, forecast bands precomputed at seed time (§5) |
+| `planner` | Shortlist + choice list per user | Server-authoritative **List Doctor** — validates list structure against the same cutoff data the predictor uses |
+| `marketplace` | Mentor profiles, verification, availability | Mentor state machine: applied → email/ID verified → **interview** → approved/rejected/suspended; public search with filters |
+| `booking` | Booking saga, sessions | REQUESTED → ACCEPTED → CONFIRMED (paid) → LIVE → ENDED → RATED (+ DECLINED/CANCELLED); Idempotency-Key on create; date-partitioned GSI for admin views at scale |
+| `payments` | Razorpay webhook, ledger | Signature-verified webhook; append-only event ledger; payment only *after* mentor accepts |
+| `notifications` | Per-user feed + prefs | EventBridge rule → SQS → consumer Lambda; 90-day TTL |
+| `admin` | Audit log, admin APIs | **RBAC hierarchy** superadmin ⊇ admin ⊇ student with per-admin permission scopes; append-only audit trail |
+| `analytics` | S3 lake, reconcile jobs | Streams → NDJSON → Athena DDL; daily reconcile Lambda |
 
-> **Managed 3rd‑party** (deliberately off‑AWS where a specialist wins): **Razorpay** (UPI‑first payments), **100ms** (India‑low‑latency video SFU; Amazon Chime SDK is the all‑AWS fallback), **WhatsApp BSP** (notifications).
+Shared packages: `@sc/shared` (auth principal, HTTP helpers), `@sc/config` (per-stage config), `@sc/catalog-core` (dataset types, parser, predictor — pure, unit-tested), `@sc/forecast` (the forecasting engine — pure, unit-tested).
 
 ---
 
-## 🧱 The nine bounded contexts (microservices)
+## 5. Data & methodology
 
-Each is a **lambdalith**: one Lambda, a **Hono** router, and a clean `handlers/ (HTTP) → domain/ (logic) → repo/ (data)` split.
+### 5.1 The dataset — official JoSAA ORCR, all rounds, 2020–2025
 
-| # | Service | Owns | Hot path? | Store |
-|---|---|---|---|---|
-| 1 | **auth‑identity** | sign‑up/in, Google/OTP, JWT, roles, profile & rank/prefs | login | Cognito + DynamoDB |
-| 2 | **catalog‑collegedata** | colleges, branches, **cutoffs**, analysis, reviews; admin ingest+publish | reads | DynamoDB + CDN + S3 |
-| 3 | **predictor** | rank → Safe/Target/Reach, filters, HS quota, result caching | 🔥 hottest | Lambda‑memory snapshot + CDN |
-| 4 | **planner** | shortlist, ordered choice list, List Doctor, PDF export | writes | DynamoDB + S3 |
-| 5 | **marketplace‑mentors** | mentor profiles, **verification workflow**, availability, search | medium | DynamoDB + S3 |
-| 6 | **booking‑sessions** | booking saga, lifecycle, video token, recording, ratings | medium | DynamoDB + EventBridge + SFU |
-| 7 | **payments‑payouts** | Razorpay, **append‑only ledger**, refunds, payouts | low‑vol / high‑value | DynamoDB + Razorpay |
-| 8 | **notifications** | deadline reminders, updates, broadcasts (in‑app/email/push/WhatsApp) | async | EventBridge/SQS + SES/SNS |
-| 9 | **admin‑ops** | dashboards, verify queue, moderation, CMS, support, audit | low | DynamoDB + Athena |
+The corpus is scraped **directly from the official JoSAA "Archive of Opening and Closing Rank"** (`josaa.admissions.nic.in`) — not from third-party mirrors.
 
-*(Phase‑2 note: catalog + predictor currently ship as **one** `catalog` lambdalith reading an in‑memory snapshot — the architecture splits the predictor into its own service when load justifies it.)*
+| | |
+|---|---|
+| **Coverage** | **360,975 rows** — every round of every year 2020–2025 (2024 ended at R5; others R1–R6), all four institute types |
+| **IIT** | 101,300 rows · 23 institutes · quota `AI` only |
+| **NIT** | 196,948 rows · 32 institutes (incl. IIEST Shibpur) · quotas `OS`/`HS`/`JK`/`GO`/`LA` |
+| **IIIT** | 28,137 rows · 26 institutes · `AI` only |
+| **GFTI** | 34,590 rows · 29→47 institutes (real roster churn) · `AI`/`HS`/`OS` |
+| **Schema** | `Institute, Program, Quota, Seat Type, Gender, Opening Rank, Closing Rank, Year, Round` |
+| **Integrity** | sha256 per partition recorded at fetch time; artifacts re-verified against it on every build |
+
+**Why a committed CSV artifact instead of fetching live:** a published round **never changes** — this is cold, append-only history, the ideal shape for a versioned, diffable, checksummed artifact and the worst possible shape for a live dependency (the source is a slow ASP.NET site, frequently down off-season, with no API). Scalability comes from the scraper being re-runnable per partition, not from fetching on demand.
+
+**Validation.** The official pull was cross-checked against the previously-used mirror corpus: **61,460 overlapping rows, zero rank disagreements** — and the diff surfaced real labelling defects in the mirrors (715 preparatory-rank `P` flags silently stripped; a 2024 file stamped Round 6 that is provably Round 5). Full provenance, validation chain, and per-year stats: `backend/docs/josaa-orcr-dataset.md`.
+
+### 5.2 Acquisition pipeline
+
+The source has no API — it's an ASP.NET WebForms page with cascading dropdowns. `services/catalog/scripts/josaa-orcr.ts` drives its stateful postback chain (echoing `__VIEWSTATE`/`__EVENTVALIDATION` at each step):
+
+```text
+GET page → ddlYear → ddlroundno → ddlInstype → ddlInstitute=ALL → ddlBranch=ALL
+         → ddlSeatType=ALL + Submit   ⇒   one HTML table = one (year, round, type) partition
+```
+
+- **140 partitions** (35 year-rounds × 4 types), one HTTP round-trip chain each
+- **Resumable & idempotent** — completed partitions are skipped via a per-type manifest; retries with exponential backoff; 1.2 s politeness delay
+- **Rounds discovered live** from the year dropdown (no hardcoded round counts)
+- `josaa-build.ts` re-verifies every partition against its recorded sha256, then folds them into per-year gzipped artifacts (**3.6 MB committed** for six years) + a merged provenance manifest
+
+Adding next season is one command per type, zero code changes:
+
+```bash
+pnpm --filter @sc/catalog josaa:fetch -- --type IIT --from 2026 --to 2026
+pnpm --filter @sc/catalog josaa:build
+```
+
+### 5.3 The prediction algorithm (two layers)
+
+**Inputs:** `advRank` (JEE Advanced — for IITs), `mainRank` (JEE Main — for NIT/IIIT/GFTI), `category` (JoSAA seat type), `home` state, `gender` pool, plus filters.
+
+**Layer 1 — request-time matching** (`packages/catalog-core/src/predict.ts`):
+
+1. **Filter** to your competition set: `seatType == category`, `gender == pool`, quota ∈ {AI, HS, OS}.
+2. **Quota selection** per institute+program: `AI` if present → else `HS` *if your home state matches the institute's* (the easier home-state cutoff, normalized matching: case/punctuation/`&`↔`and`) → else `OS`.
+3. **Exam mapping:** IIT rows compare `advRank`; everything else `mainRank`.
+4. **Ratio** = `yourRank / closingRank` → **Safe** (≤ 0.80) / **Target** (≤ 1.10) / **Reach**; only `0.2 ≤ ratio ≤ 1.6` is shown — hiding both hopeless reaches and colleges so far below your level that listing them is noise.
+5. **Sort = closing rank ascending by default** (best college first, NIRF tiebreak). Deliberate: JoSAA allots the *highest choice you clear*, so the result should read like a choice list. Sorting by "chance %" (the naive default) floats your weakest backups to #1.
+
+**Layer 2 — the forecast layer** decides the headline chance % (next section). Every result carries `chanceBasis: 'forecast' | 'ratio'` so the UI knows which method produced the number.
+
+### 5.4 The forecast engine (projecting cutoffs forward)
+
+`@sc/forecast` projects each series' closing rank to the target season with a calibrated uncertainty band. **Explainable statistics, no black-box ML** — every component can be printed and argued with. It runs **at seed time**, never per request; the request path only evaluates a normal CDF.
+
+Per series (institute + program + seat type + gender track across years):
+
+1. **Normalize for candidate-pool growth** — raw ranks aren't comparable across years (JEE Main "appeared" grew ~0.87 M → ~1.3 M over 2020–25), so each closing rank becomes a percentile `p = rank / poolSize(exam, year)`, then moves to **logit space** (unbounded, symmetric — safe for trend-fitting).
+2. **Weight** each year: recency decay `0.71^age` (half-life ≈ 2 years) × anomaly weight — COVID years 2020/21 × 0.45, pre-2019 EWS rows dropped entirely (the quota didn't exist).
+3. **Ensemble** — the **median of six estimators** drawn from two complementary spaces:
+   - *percentile space* (corrects for pool growth): weighted-least-squares trend, Theil–Sen (robust to outlier years), recency-weighted flat
+   - *absolute log-rank space* (stable for ultra-elite seats — top-IIT CSE cutoffs barely move even as the pool balloons): WLS trend, damped Holt, recency-flat
+
+   All slope methods are anchored at the last observed point with a **damped horizon** (φ = 0.85), so long extrapolations flatten instead of running away.
+4. **Back-transform** to a predicted closing rank **R̂**, rescaled by the *projected* target-year pool.
+5. **Uncertainty band** — σ combines trend-fit prediction SE with year-over-year volatility (horizon-grown, capped), widened by a small-sample **Student-t** multiplier into an 80 % interval, then capped at ×3/×5/×9 of R̂ by confidence tier (high/medium/low). Sparse series degrade to two-point or flat methods with `limitedHistory` flagged.
+
+**The chance number** (request time, `chance.ts`): the closing rank is modelled ~ Normal(R̂, σ), and
+
+> **P(admit) = Φ((R̂ − yourRank) / σ)** — ≥ 0.8 → Safe · ≥ 0.4 → Target · else Reach
+
+When a seat has no precomputed band, the ratio-based `pct` is the fallback — a smooth monotone map explicitly documented as a communication aid, not a probability.
+
+### 5.5 Backtest validation
+
+The engine is validated by holding out a year and forecasting it from earlier years only (`packages/forecast/src/backtest.ts`, results in `backend/docs/forecast-backtest.md` and `forecast-data-acquisition.md`):
+
+| Held-out 2024, trained on ≤2023 | Result |
+|---|---|
+| Median absolute % error | **13.2 %** (was 39.6 % before the 2021-23 gap was filled) |
+| Series within 25 % | **74.3 %** |
+| 80 % band coverage | **92.9 %** (slightly conservative — bands err wide, i.e. safe) |
+
+The single biggest accuracy lever was **data completeness**, not model sophistication — filling the 2021–2023 history gap cut the median error by two-thirds. That is why the acquisition pipeline (§5.2) is treated as first-class engineering.
 
 ---
 
-## 📈 Why this scales to lakhs (and stays near‑free)
+## 6. Caching — why lakhs is cheap
 
-The magic isn't Lambda — it's **caching + compute‑not‑query** for a **read‑dominated, shareable** workload:
+Three layers, each with a clear invalidation story:
 
-- **Reads dominate and are shared.** The predictor & Analysis pages are computed over a **small dataset that's static within a JoSAA round**. Thousands of students share the same *(rank‑bucket, category, state, filters)* → the answer is computed **once** and served from the **CloudFront edge** millions of times. Cache hit ratio is the master scaling dial.
-- **The predictor never touches the DB per request.** The active cutoff snapshot is loaded from DynamoDB into **Lambda module memory on cold start** and reused across warm invocations (ADR‑008 — deliberately **no Redis** to stay at $0). Compute is pure CPU over a small array, so even a cache miss is fast.
-- **Writes are small & per‑user** (choice list, booking) → DynamoDB **on‑demand** eats spikes with no capacity planning.
-- **Transactions are low‑volume, high‑value** → payments/video never become the bottleneck; **SQS** load‑levels the bursts.
-- **Invalidation is trivial.** The dataset is **immutable + versioned**; publishing a new round is an **atomic pointer flip** (`activeVersion=N`) + one CDN invalidation. Rollback = flip back. No cache stampede (SWR serves stale while one request revalidates).
-- **Seasonal automation.** **EventBridge‑scheduled** jobs ramp **provisioned concurrency** up before a known result‑publish time (we scale *ahead* of the cliff, not after) and back to near‑zero afterward. A `SEASON=on|off` flag gates the expensive knobs.
-- **Fails soft, never dark.** If payments or video are down, **Predict + Plan still work** — the core value survives. Circuit breakers around Razorpay/100ms; feature flags shed non‑core load.
+1. **CloudFront (edge)** — static assets, college-analysis pages (long TTL, identical for everyone), and predictor result slices (`s-maxage` + `stale-while-revalidate`, keyed by normalized inputs). Invalidated **only** on a cutoff publish — a handful of times per season.
+2. **Lambda module memory** — the active cutoff snapshot (~11 k rows) loads from DynamoDB **once per cold start** and is reused across warm invocations. The predictor is CPU-over-a-small-array; it never queries the DB per request. (Redis/DAX was considered and **deliberately deferred** — ADR-008 — because it costs ~$12+/mo idle while module memory achieves the same compute-not-query outcome for $0 at this dataset size.)
+3. **DynamoDB** — the durable, versioned system of record. Publish = write a new immutable snapshot version + atomic pointer flip; rollback = flip back. No fine-grained cache busting, no stampede (SWR serves stale while one request revalidates).
 
-**Scale targets it's designed for:** up to **5 lakh** registered/season, **~50k** concurrent at a result spike, **5k req/s** post‑cache predictor burst, p95 **< 50 ms** on a cache hit.
+**Cache-key normalization** makes personalization cacheable: "your chance %" is a pure function of (rank, category, state, filters) — not identity — so many students collapse onto one cache entry.
+
+Degradation is designed to **fail soft, never dark**: if payments or video are down, Predict + Plan (the core value) still work.
 
 ---
 
-## 🗄️ Data model
+## 7. Data model
 
-**Primary store: DynamoDB**, modeled as **per‑service tables** (clear ownership, independent scaling) rather than one giant single‑table.
+DynamoDB, on-demand billing, one table per aggregate, GSIs only for real access patterns:
 
-| Table | PK / SK | Key GSIs | Access patterns |
+| Table | Keys | GSIs | Access patterns |
 |---|---|---|---|
-| `Users` | `USER#<id>` / `PROFILE` | email, phone | get/update profile, lookup |
-| `Colleges` | `COLLEGE#<id>` / `META \| BRANCH#<b>` | type, state | college + branches, browse |
-| `Cutoffs` | `CUTOFF#<version>` / `<collegeBranch>#<cat>#<quota>#<pool>` | — | bulk‑load active snapshot |
-| `Content` | `COLLEGE#<id>` / `ANALYSIS \| REVIEW#<id>` | — | analysis page, reviews |
-| `Planner` | `USER#<id>` / `SHORTLIST \| CHOICELIST` | — | get/put per‑user lists (versioned) |
-| `Mentors` | `MENTOR#<id>` / `PROFILE \| AVAIL#<slot>` | status, college#topic, soonestSlot | search, availability, verify queue |
-| `Bookings` | `BOOKING#<id>` / `META` | user, mentor, status#time | my/mentor sessions, monitor |
-| `Ledger` | `ACCT#<id>` / `EVT#<ts>#<providerEvtId>` | providerEvtId (idempotency) | append event, fold balance, reconcile |
-| `Notifications` | `USER#<id>` / `NOTIF#<ts>` | unread | feed, mark read |
-| `Audit` | `ADMIN#<id>` / `ACT#<ts>` | entity | admin action trail |
+| `users` | `USER#<id>` / `PROFILE` | email, phone | profile CRUD, lookup by email |
+| `catalog` | `CUTOFF#<version>` / sort by series | — | bulk-load active snapshot version |
+| `planner` | `USER#<id>` / `SHORTLIST` \| `CHOICELIST` | — | per-user lists, single-digit RCUs |
+| `mentors` | `MENTOR#<id>` / `PROFILE` \| `AVAIL#<slot>` | status (sparse), college#topic | search, verification queue |
+| `bookings` | `BOOKING#<id>` | student, mentor, **day-partitioned** | my sessions, mentor's sessions, admin-by-day (scale-safe: no full scans) |
+| `ledger` | `ACCT#<id>` / `EVT#<ts>#<providerEvtId>` | providerEvtId | append-only; idempotent webhook ingestion; fold for balance |
+| `notifications` | `USER#<id>` / `NOTIF#<ts>` \| `PREFS` | — | feed + prefs, TTL 90 d |
+| `audit` | `ADMIN#<id>` / `ACT#<ts>` | entity | append-only admin trail |
 
-**Streams** on `Bookings`/`Ledger`/`Users` → EventBridge + analytics rollups. **PITR** on all tables. **TTL** auto‑releases `PENDING_PAYMENT` holds and ephemeral OTPs. The cutoff dataset is **versioned & immutable** — `CATALOG#<v>` rows + a `CONFIG/ACTIVE` pointer.
+Streams on bookings/ledger/users → EventBridge + the S3 analytics lake. PITR on all tables; TTL on ephemeral rows.
 
 ---
 
-## 🔒 Security, privacy & safety *(many users are minors)*
+## 8. Security & privacy
 
-- **AuthN/Z** — Cognito (Google + OTP), short‑lived JWTs verified **at API Gateway**; role travels as a verified `custom:role` claim; admin actions **audited**; anti‑enumeration (`preventUserExistenceErrors`).
-- **Least privilege** — per‑service IAM, **table‑scoped** grants; no secrets in code (Secrets Manager + env‑driven).
-- **PII minimization** — store the least (rank, category, state, contact); **KMS** encryption at rest, TLS in transit, field‑level encryption for sensitive IDs.
-- **Payments** — card data **never touches us** (Razorpay‑hosted); webhooks **signature‑verified**; PCI scope minimized.
-- **Trust & Safety** — mentor verification gate; **consented, access‑controlled, retention‑limited** session recordings; moderation queue; report/flag everywhere; special handling for minors.
-- **Input validation** — every route **zod‑validates** query/body; bad input → **400**, never a 500.
-- **Compliance posture** — aligned to India's **DPDP Act** (consent, retention, deletion requests).
+Many users are minors — this is treated as a design input, not an afterthought.
 
-Phases 0–1 passed a **full security review** (no secrets in code, least‑privilege IAM, parameterized DynamoDB, explicit CORS, no PII in logs, dev‑only conveniences gated to non‑prod).
+- **Auth:** Cognito Hosted UI, **Google-only** login in production posture (password path retained but gated off); JWTs verified at the API; refresh tokens 90 d with silent renewal.
+- **RBAC:** hierarchy `superadmin ⊇ admin ⊇ student`, enforced server-side (`requireRole` is hierarchy-aware); per-admin `permissions[]` scopes; superadmin-only admin management.
+- **Anti-enumeration:** `preventUserExistenceErrors` on Cognito; dev-only auth shims (`USER_PASSWORD_AUTH`, implicit grant, auto-confirm) are **stage-gated to non-prod**.
+- **Input hygiene:** zod-validated request bodies everywhere; parameterized DynamoDB expressions; no error-detail leakage; explicit CORS allowlist (no wildcards).
+- **Payments:** webhook signature verification, Idempotency-Key on booking creation, append-only ledger reconciled to the paisa.
+- **Least privilege:** every Lambda gets only its own table's IAM grants; no secrets in code (SSM for Google client secrets).
+- **Auditability:** every admin action lands in an append-only audit table.
+- Deferred to the hardening phase (documented, not forgotten): per-route throttling, prod password policy, WAF association.
 
 ---
 
-## 💰 Cost model — engineered to run near‑free
+## 9. Tech stack — every choice and why
 
-> During build / MVP / small launch this runs at **≈ $0** (free tiers). At **full lakhs‑scale peak** it's **low tens of dollars/month** if cost‑optimized — **not thousands**. Off‑season is **≈ $0** (scale‑to‑zero).
+### Languages & core
 
-| Scenario | Monthly cost |
+| Choice | Why |
 |---|---|
-| Now / build / MVP / small launch | **≈ $0** |
-| Off‑season (10 months) | **≈ $0** (scale‑to‑zero) |
-| Full peak season, cost‑optimized | **~$20–100/mo** for the ~2 peak months |
+| **TypeScript everywhere** (backend, infra, frontend, scripts) | One language across the whole repo → shared types travel from the CSV parser to the React component. `@sc/catalog-core` types are used by both the Lambda and the seed scripts. |
+| **Node 20 on ARM64 (Graviton)** | ~20 % cheaper per ms than x86 with equal-or-better latency; Node's cold starts are among the best of Lambda runtimes. |
+| **esbuild bundling** | Sub-5 MB bundles → fast cold starts; tree-shakes the AWS SDK v3 clients. |
 
-**The three levers that kill the big numbers:** (1) an auth **$0‑at‑any‑scale** migration path (Cognito → Firebase/Google‑direct JWT before high MAU); (2) **video is revenue‑funded** (₹15–20 SFU cost vs ₹100 session) and fully deferrable; (3) **fixed costs pinned to zero** — DynamoDB on‑demand (no idle), no Aurora/EC2, WAF off until it's actually protecting something, provisioned concurrency only scheduled for peak weeks. Guarded by **AWS Budgets + Cost Anomaly Detection**.
+### Backend
 
----
-
-## 🔭 Observability & operations
-
-- **Logs** — structured JSON (request id, user id hash, service, latency) → CloudWatch Logs.
-- **Traces** — X‑Ray across API GW → Lambda → DynamoDB.
-- **Dashboards** — RED per service (Rate/Errors/Duration), **cache hit ratio**, DynamoDB throttles, cold‑start p99, webhook lag, SQS depth/DLQ.
-- **Alarms → SNS email** — API 5xx, Lambda errors, throttles, p95 latency, DLQ non‑empty, payment‑reconciliation mismatch.
-- **Runbooks** — publish‑a‑round, spike‑response, payment‑reconciliation, refund, incident; PITR restore drill + region‑failover plan.
-
----
-
-## 📁 Repository layout
-
-```
-forTheStudents/                     # monorepo root
-├─ README.md                        # ← you are here
-├─ student-counselor/               # Next.js 14 frontend (~70 screens, static-exported)
-│  └─ src/
-│     ├─ app/[[...slug]]/           # single catch-all route → ScreenRouter
-│     ├─ screens/                   # marketing · student · mentor · admin · system
-│     ├─ components/                # Chrome, ScreenRouter, ui
-│     └─ lib/                       # store · routes · logic · liveApi · liveAuth · liveConfig
-│
-└─ backend/                         # serverless AWS backend (pnpm + Turborepo)
-   ├─ docs/                         # architecture.md · progress.md · prediction-algorithm.md
-   ├─ infra/                        # AWS CDK app
-   │  ├─ bin/app.ts                 # stack wiring (per stage)
-   │  └─ lib/                       # data · auth · foundation · *-service · observability stacks
-   ├─ packages/
-   │  ├─ shared/                    # logger · errors · http (Hono) · auth · ddb · ids · events · types
-   │  ├─ config/                    # zod-validated env + feature flags
-   │  └─ catalog-core/              # predictor math · parse · enrich · List Doctor (pure, tested)
-   └─ services/
-      ├─ auth-identity/             # Phase 1
-      ├─ catalog/                   # Phase 2 (catalog + predictor)
-      ├─ planner/                   # Phase 3
-      ├─ marketplace-mentors/       # Phase 4
-      ├─ booking-sessions/          # Phase 5
-      ├─ payments-payouts/          # Phase 5
-      ├─ notifications/             # Phase 6
-      └─ admin-ops/                 # Phase 7
-```
-
-Each service: `src/handlers/` (HTTP) → `src/domain/` (business logic) → `src/repo/` (data) → `src/events/` (pub/sub) → `test/`.
-
----
-
-## 🛠️ Tech stack
-
-**TypeScript** · **Node 20 (ARM64)** · **Hono** on AWS Lambda · **AWS CDK** (IaC) · **DynamoDB** (+ Athena) · **CloudFront** · **Cognito** · **EventBridge / SQS / Step Functions** · **Razorpay** · **100ms** · **SES / SNS / FCM / WhatsApp** · **Vitest** (unit + integration) · **esbuild** (bundle) · **pnpm + Turborepo** (monorepo) · **Next.js 14 / React 18** (frontend, static‑exported to Amplify).
-
----
-
-## 🚀 Getting started (local)
-
-```bash
-# Backend
-cd backend
-corepack enable && corepack prepare pnpm@9.7.0 --activate
-pnpm install
-pnpm typecheck && pnpm test          # build + unit/integration tests
-pnpm dev:db                          # DynamoDB Local on :8000 (needs Docker)
-
-# Run a service locally against DynamoDB Local (dev-auth shim, no AWS needed)
-pnpm --filter @sc/auth-identity dev  # auth on a local port
-pnpm --filter @sc/catalog     dev    # predictor/catalog
-pnpm --filter @sc/planner     dev    # planner (port 8789)
-```
-
-```bash
-# Frontend
-cd student-counselor
-npm install
-npm run dev                          # Next.js on http://localhost:3000
-# Visit /live to drive the real backend (dev-auth shim or Cognito Hosted-UI mode)
-```
-
-Local dev uses **DynamoDB Local** + a dev‑auth shim so the whole stack runs on your laptop with **no AWS account required**.
-
----
-
-## ☁️ Deploying to AWS
-
-Infrastructure is **100% AWS CDK** — one command stands up the platform.
-
-```bash
-cd backend
-pnpm --filter @sc/infra exec cdk bootstrap        # once per account/region
-pnpm diff:dev                                      # review the change set
-pnpm deploy:dev                                    # deploy all stacks to `dev`
-```
-
-This provisions (per stage): **DynamoDB** tables (PITR), **Cognito** user pool + client + Google IdP + Hosted UI, **API Gateway** HTTP API + JWT authorizer (+ optional **WAF**), the **service Lambdas** (ARM64) behind the authorizer with table‑scoped IAM, the **observability** stack (CloudWatch dashboard + alarms → SNS email + AWS Budget), and CORS/callback wiring. Frontend deploys to **AWS Amplify** from the static `out/` export.
-
-Stages: `dev` → `staging` → `prod` (prod uses `RemovalPolicy.RETAIN` so data survives stack deletes, and scheduled provisioned concurrency for the peak weeks).
-
----
-
-## 🌐 API surface
-
-```
-auth-identity        POST /auth/bootstrap · GET|PATCH /me · PATCH /me/rank-prefs · POST /me/role
-catalog + predictor  GET /predict · GET /predict/summary · GET /colleges · GET /colleges/:id          [public, cacheable]
-                     [admin] POST /admin/cutoffs/import|validate|publish · GET /admin/data/version
-planner              GET|PUT /shortlist · GET|PUT /choice-list · POST /choice-list/reorder
-                     GET /choice-list/doctor · POST /choice-list/export                                [authed, versioned]
-marketplace-mentors  POST /mentor/apply · POST /mentor/verify/email|id · GET|PUT /mentor/profile
-                     GET|PUT /mentor/availability · GET /mentors
-booking-sessions     POST /bookings · POST /bookings/:id/cancel · GET /sessions
-                     POST /sessions/:id/join · POST /sessions/:id/rate · POST /webhooks/sfu
-payments-payouts     POST /payments/order · POST /webhooks/razorpay · POST /refunds
-                     [admin] GET /payouts/queue · POST /payouts/process
-notifications        GET /notifications · POST /notifications/read · [admin] POST /broadcasts
-admin-ops            GET /admin/dashboard · GET /admin/verify-queue · POST /admin/verify/:id/(approve|reject)
-                     GET /admin/moderation · POST /admin/support/* · GET /admin/audit
-```
-
-Public predictor/catalog routes are **unauthenticated + cacheable**; everything personal sits **behind the Cognito JWT authorizer**. The frontend calls all of this through `student-counselor/src/lib/liveApi.js`.
-
----
-
-## 📊 Build status by phase
-
-| Phase | Name | Status |
-|---|---|---|
-| 0 | Foundations (monorepo, CDK, CI/CD, shared libs, observability) | ✅ Live |
-| 1 | Auth & Identity (Cognito, JWT, profile, roles) | ✅ Live |
-| 2 | **Catalog + Predictor** *(core)* — real JoSAA data, HS quota, CDN caching | ✅ Live |
-| 3 | **Planner** *(core)* — shortlist, choice list, List Doctor, optimistic concurrency | ✅ Live |
-| 4 | Marketplace & Mentors — verification workflow, availability, search | ✅ Live |
-| 5 | **Booking, Payments & Sessions** *(core)* — booking↔payment saga, video | ✅ Live |
-| 6 | Notifications & Timeline — event‑driven reminders, broadcasts | ✅ Live |
-| 7 | Admin & Ops — verify queue, moderation, CMS, audit, rollups | ✅ Live |
-| 8 | Analytics & Reporting — Streams → S3 → Athena | 🔜 Roadmap |
-| 9 | Hardening & Scale — load test to 5k rps, WAF‑on, runbooks, DR drill | 🔜 Roadmap |
-| 10 | Go‑live & Seasonal Ops — canary, ramp automation, on‑call | 🔜 Roadmap |
-
-> Full, always‑current status + the decision log (ADRs) live in **[`backend/docs/progress.md`](backend/docs/progress.md)**; the target design is **[`backend/docs/architecture.md`](backend/docs/architecture.md)**.
-
----
-
-## 🔗 Live environment (dev)
-
-| Key | Value |
+| Choice | Why |
 |---|---|
-| Region / account | `ap-south-1` (Mumbai) · `058264128057` |
-| API base URL | `https://7zumjbvms0.execute-api.ap-south-1.amazonaws.com` |
-| Predictor (public) | `GET {API}/predict · /predict/summary · /colleges · /colleges/:id` |
-| Cognito user pool | `ap-south-1_OQv6ssgbO` |
-| Frontend (Amplify) | `https://main.dy6751tudpsop.amplifyapp.com` |
-| Custom domain | `counsellor.kodexa.in` (Amplify → CloudFront) |
-| Catalog dataset | `josaa-2024.2` — **11,261 cutoffs · 121 institutes** |
+| **Hono** (router) | Tiny (~20 kB), zero-dependency, runs identically on Lambda and on a local Node server — the same `app.ts` serves production and `tsx watch` dev without a shim layer. Express-class DX at a fraction of the cold-start weight. |
+| **Lambdalith per bounded context** (not per-route nano-lambdas, not one mega-lambda) | Few enough functions to stay warm and keep cold starts rare; separate enough that each context owns its deploy, IAM surface, and blast radius. |
+| **DynamoDB on-demand** as primary store | Scales to zero (seasonality!) and to lakhs with no connection pool — the classic Lambda↔RDS connection-storm problem never exists. Single-digit-ms reads. The access patterns are known and few, which is exactly when DynamoDB shines. |
+| **No Redis** (ADR-008) | The hot dataset is ~11 k rows — it fits in Lambda module memory. ElastiCache's ~$12+/mo idle floor buys nothing here. Add it only if profiling at real scale proves cold-start dataset loads hurt. |
+| **EventBridge + SQS (+DLQ)** | Decouples domain events from consumers; SQS load-levels write bursts; DLQs make failures visible instead of silent. |
+| **S3 + Athena** for analytics (not Aurora) | Streams → NDJSON → SQL-on-demand. Zero always-on cost; ad-hoc SQL when needed. Aurora Serverless v2 stays a documented option if reporting outgrows it. |
+| **zod** | Runtime validation at the trust boundary with static types inferred from the same schema — one source of truth. |
+| **Vitest** | Fast, ESM-native, one test runner for pure packages and service integration tests (which run against DynamoDB Local on isolated tables). |
+
+### Infrastructure & delivery
+
+| Choice | Why |
+|---|---|
+| **AWS CDK (TypeScript)** | IaC in the same language as the app; stacks are diffable/reviewable; per-stage context (`--context stage=dev`) gives reproducible environments. 12 stacks: foundation, data, auth, observability, scaling, warmup + one per service. |
+| **pnpm workspaces + Turborepo** | Strict, fast installs; workspace protocol keeps internal deps honest; turbo caches typecheck/test across the monorepo. |
+| **API Gateway HTTP API** (not REST API) | ~70 % cheaper per million requests, lower latency, and JWT authorizers cover the need. |
+| **Amplify Hosting** for the frontend | Static export served via CloudFront with zero servers; manual-deploy jobs are sufficient for a solo cadence. Custom domain `counsellor.kodexa.in`. |
+| **CloudWatch dashboards + alarms → SNS email, AWS Budget** | Full-stack visibility (API 5xx, Lambda errors/throttles, p95, DynamoDB) and a $10/mo budget alarm — the guardrail that keeps "≈$0" honest. |
+
+### Frontend
+
+| Choice | Why |
+|---|---|
+| **Next.js 14 + React 18, static export** | The app is read-heavy and pre-renderable; `output:'export'` means no SSR servers to pay for or scale — CloudFront serves everything. Client-side data fetching hits the cached API. |
+| **Cognito Hosted UI + Google IdP** | Zero password-handling liability (users are minors); OAuth flows outsourced to Cognito. |
+
+### Data & scripts
+
+| Choice | Why |
+|---|---|
+| **Committed, versioned CSV artifacts** (gzipped per-year) + sha256 manifest | The data is immutable once published — cold history belongs in git, not behind a flaky government site (§5.1). 3.6 MB for six years. |
+| **tsx** for scripts | Run TypeScript scrapers/seeds directly, sharing the production parser — the seed pipeline and the Lambda parse the same bytes with the same code. |
+| **Explainable statistics over ML** for forecasting | Six-estimator ensemble of classical methods (WLS, Theil–Sen, damped Holt) — auditable, unit-testable, and honest about uncertainty. With ≤ 8 points per series, a neural anything would be theater. The backtest (§5.5) shows the accuracy lever is data completeness, not model complexity. |
 
 ---
 
-## 📚 Data attribution & disclaimer
+## 10. Cost model
 
-Cutoff data derives from **official JoSAA 2024** opening/closing ranks (via the JoSAA site + JIC report; sourced through the public *Quantum‑Codes/JoSAA_2024* dataset). **Every prediction is an estimate** — the app always says *"verify on josaa.nic.in"* before you fill your real choice list. NIRF ranks and fees are curated approximations for context, not official figures.
+Engineered near-free (ADR-007, full math in `architecture.md §11`):
+
+| Phase | Cost |
+|---|---|
+| Off-season / idle | **≈ $0/mo** — no WAF, no NAT, no Redis, no provisioned concurrency; DynamoDB on-demand; Cognito Lite; free-tier Lambda/API/CloudFront |
+| Build/dev (now) | ≈ $0 (only real fixed cost — WAF — was removed from dev) |
+| Full peak season, cost-optimized | ~**$20–100/mo** (provisioned concurrency for the spike weeks + traffic) |
+
+The three levers that kill the big numbers: CDN hit-ratio (the master dial), scheduled-not-permanent provisioned concurrency, and DynamoDB on-demand instead of provisioned floors.
 
 ---
 
-<p align="center"><em>Built for the students. 🎓 &nbsp;Serverless‑first, cache‑hard, near‑free — and ready for the June–July cliff.</em></p>
+## 11. Repository layout
+
+```text
+forTheStudents/
+├── backend/
+│   ├── infra/lib/            # CDK stacks (foundation, data, auth, per-service, observability…)
+│   ├── packages/
+│   │   ├── shared/           # auth principal, HTTP helpers
+│   │   ├── config/           # per-stage config
+│   │   ├── catalog-core/     # dataset types, CSV parser, predictor, list doctor  (pure, tested)
+│   │   └── forecast/         # forecast engine: stats, candidates, ensemble, backtest (pure, tested)
+│   ├── services/             # 8 lambdaliths: auth-identity, catalog, planner, marketplace,
+│   │   │                     #   booking, notifications, admin, analytics
+│   │   └── catalog/
+│   │       ├── data/josaa/   # official ORCR corpus: by-year/*.csv.gz + manifest.json (committed)
+│   │       └── scripts/      # josaa-orcr.ts (scraper) · josaa-build.ts (verify+build)
+│   └── docs/                 # architecture.md, progress.md, per-topic deep dives (see §14)
+└── student-counselor/        # Next.js 14 frontend (static export → Amplify)
+```
+
+---
+
+## 12. Getting started
+
+```bash
+# prerequisites: Node 20+, pnpm 9
+cd backend && pnpm install
+
+pnpm typecheck && pnpm test          # whole monorepo (turbo)
+
+# local dev loop (DynamoDB Local + dev-auth shim)
+pnpm --filter @sc/catalog seed       # seed local catalog
+pnpm --filter @sc/catalog dev        # catalog service on :8788
+
+# dataset operations
+pnpm --filter @sc/catalog josaa:rounds     # which rounds JoSAA published per year
+pnpm --filter @sc/catalog josaa:verify     # integrity + coverage of the corpus
+pnpm --filter @sc/catalog josaa:build      # rebuild committed artifacts from partitions
+
+# deploy (needs AWS creds)
+pnpm --filter @sc/infra run deploy:dev
+```
+
+Workflow contract: read `backend/docs/architecture.md` for the target, `backend/docs/progress.md` for current state; progress is logged and committed after every phase.
+
+---
+
+## 13. API surface
+
+| Area | Endpoints (HTTP API, JWT unless public) |
+|---|---|
+| Predictor (public) | `GET /predict` · `/predict/summary` · `/colleges` · `/colleges/:id` |
+| Auth | `POST /auth/bootstrap` · `GET /me` · `PUT /me/rank-prefs` |
+| Planner | `GET/PUT /shortlist` · `GET/PUT /choice-list` · `POST /choice-list/reorder` · `GET /choice-list/doctor` · `POST /choice-list/export` |
+| Mentors | `POST /mentor/apply` · `/mentor/verify/email\|id` · `GET/PUT /mentor/profile\|availability` · public `GET /mentors` + `/mentors/:id/slots` |
+| Booking | `POST /bookings` (Idempotency-Key) · `/bookings/:id/accept\|decline\|cancel` · `GET /sessions` · `POST /sessions/:id/join\|end\|rate` |
+| Payments | `POST /payments/webhook` (signature-verified) |
+| Notifications | `GET /notifications` · `POST /notifications/:id/read` · `/read-all` · `GET/PUT /notifications/prefs` |
+| Admin (role-gated) | `/admin/stats` · `/admin/audit` · `/admin/mentors/*` (queue, interview, review, suspend) · `/admin/bookings` · `/admin/admins` (superadmin) · `/admin/broadcast` |
+
+---
+
+## 14. Docs index
+
+| Doc | What's in it |
+|---|---|
+| `backend/docs/architecture.md` | The full HLD/LLD: requirements, trade-off brainstorm, per-service LLD, data model, caching, scaling levers, security, cost, ADRs |
+| `backend/docs/progress.md` | Current state + dated changelog of every phase (the workflow contract) |
+| `backend/docs/josaa-orcr-dataset.md` | The official-data acquisition: source, method, validation chain, cross-check results, promotion TODOs |
+| `backend/docs/prediction-algorithm.md` | The Safe/Target/Reach algorithm, worked examples, honesty & limits |
+| `backend/docs/forecast-backtest.md` · `forecast-data-acquisition.md` | Backtest harness + the data-completeness experiment |
+| `backend/docs/analytics-athena.md` · `runbooks.md` · `go-live.md` | Athena DDL, operational runbooks, launch checklist |
+
+---
+
+## ⚖️ Data attribution & disclaimer
+
+Cutoff data is sourced from the official **JoSAA Opening/Closing Rank archive** (`josaa.admissions.nic.in`), acquired with per-partition provenance and checksums. Predictions are **estimates for the coming season, not guarantees** — the UI always tells students to verify on josaa.nic.in. This project is not affiliated with JoSAA, NTA, or any institute.
