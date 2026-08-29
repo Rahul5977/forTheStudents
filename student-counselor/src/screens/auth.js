@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import { useApp } from '@/lib/store';
 import { liveApi } from '@/lib/liveApi';
 import { STATES } from '@/lib/data';
-import { Btn, Tile, Field, Input, Select, SegOpt } from '@/components/ui';
+import { Btn, Field, Input, Select, SegOpt } from '@/components/ui';
 
 const authWrap = { minHeight: '100%', display: 'grid', placeItems: 'center', padding: '40px 20px', background: 'var(--color-surface)' };
 const cardStyle = { background: 'var(--color-bg)', width: 'min(420px, 100%)', padding: 30 };
@@ -355,32 +355,30 @@ export function Onboarding() {
 const MENTOR_TOPICS = ['Branch choice', 'Placements', 'Hostel', 'Campus life'];
 
 export function MentorOnboarding() {
-  const { navigate, profile, showToast, loadMentorStatus } = useApp();
-  const [form, setForm] = useState({ name: profile?.name || '', college: '', branch: 'Computer Science', year: '3', bio: '', topics: ['Branch choice', 'Placements'], upi: '' });
+  const { navigate, profile, loadMentorStatus } = useApp();
+  const [form, setForm] = useState({ name: profile?.name || '', college: '', branch: 'Computer Science', year: '3', bio: '', topics: ['Branch choice', 'Placements'] });
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
   const set = (patch) => setForm((f) => ({ ...f, ...patch }));
   const toggleTopic = (t) => setForm((f) => ({ ...f, topics: f.topics.includes(t) ? f.topics.filter((x) => x !== t) : [...f.topics, t] }));
 
+  // Phase 11: this screen only opens the DRAFT. The full multi-step application (contact +
+  // OTP, ID documents, essays, consent) lives on the mentor Application screen (mVerification).
   const submit = async () => {
     setErr(null);
     if (!form.name.trim()) { setErr('Add your name.'); return; }
-    if (!form.college || !form.branch) { setErr('Add your college and branch.'); return; }
+    if (form.college.trim().length < 2 || form.branch.trim().length < 2) { setErr('Add your college and branch.'); return; }
     setBusy(true);
     try {
       await liveApi.mentorApply({
-        name: form.name.trim(),
-        college: form.college,
-        branch: form.branch,
-        year: Number(form.year) || 1,
+        name: form.name.trim(), college: form.college.trim(), branch: form.branch.trim(), year: Number(form.year) || 1,
         priceINR: 100, // fixed platform rate
-        topics: form.topics,
-        bio: form.bio,
+        topics: form.topics, bio: form.bio,
       });
-      await loadMentorStatus(); // now a mentor applicant → the app unlocks the mentor area on approval
-      navigate('verifyStatus');
+      await loadMentorStatus(); // now a DRAFT applicant → the mentor area's application screen unlocks
+      navigate('mVerification');
     } catch (e) {
-      setErr(e?.message || 'Could not submit your application. Are you signed in?');
+      setErr(e?.message || 'Could not start your application. Are you signed in?');
     } finally { setBusy(false); }
   };
 
@@ -389,14 +387,12 @@ export function MentorOnboarding() {
       <div style={{ maxWidth: 560, margin: '0 auto' }}>
         <Btn variant="ghost" go="roleSelect" style={{ paddingLeft: 0 }}>← Back</Btn>
         <h2 style={{ margin: '6px 0 2px' }}>Become a mentor</h2>
-        <p className="text-muted" style={{ fontSize: 14 }}>Complete these to get verified. Fixed rate: <strong style={{ color: 'var(--color-text)' }}>₹100 / 25 min</strong> (platform fee 20%).</p>
-        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 8 }}><div className="card-kicker">Step 1</div><div className="card-title">About you &amp; your college</div><Field label="Your name"><Input value={form.name} onChange={(e) => set({ name: e.target.value })} placeholder="e.g. Aarav Sharma" /></Field><Field label="College"><Input value={form.college} onChange={(e) => set({ college: e.target.value })} placeholder="e.g. IIT Bombay" /></Field><div style={{ display: 'flex', gap: 10 }}><Field label="Branch" style={{ flex: 1 }}><Input value={form.branch} onChange={(e) => set({ branch: e.target.value })} /></Field><Field label="Year" style={{ width: 120 }}><Select value={form.year} onChange={(e) => set({ year: e.target.value })}><option>1</option><option>3</option><option>4</option></Select></Field></div></div>
-        {/* Step 2 — email OTP + ID: the real .ac.in OTP + ID checks run on the verification screen after applying. */}
-        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 14 }}><div className="card-kicker">Step 2 · Verification</div><div className="card-title">Prove you study there</div><Field label="College email (.ac.in)"><div style={{ display: 'flex', gap: 8 }}><Input defaultValue="21b0xxx@iitb.ac.in" style={{ flex: 1 }} /><Btn variant="sec" onClick={() => showToast('You’ll verify your college email right after you submit.')}>Send OTP</Btn></div></Field><Tile onClick={() => showToast('Student ID upload happens on the next step.')} style={{ border: '1.5px dashed var(--color-divider)', borderRadius: 16, padding: 18, textAlign: 'center' }}><div style={{ fontSize: 22 }}>🪪</div><div style={{ fontSize: 13 }}>Upload your student ID card</div></Tile></div>
-        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 14 }}><div className="card-kicker">Step 3 · Profile</div><div className="card-title">How students see you</div><Field label="Short bio"><textarea className="input" placeholder="Tell juniors what you can help with…" value={form.bio} onChange={(e) => set({ bio: e.target.value })} /></Field><div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{MENTOR_TOPICS.map((t) => { const on = form.topics.includes(t); return <span key={t} className={on ? 'tag tag-accent' : 'tag tag-neutral'} onClick={() => toggleTopic(t)} style={{ cursor: 'pointer' }}>{t}{on ? ' ✓' : ''}</span>; })}</div></div>
-        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 14 }}><div className="card-kicker">Step 4 · Payouts</div><div className="card-title">Where you get paid</div><Field label="UPI ID"><Input placeholder="name@upi" value={form.upi} onChange={(e) => set({ upi: e.target.value })} /></Field><p className="text-muted" style={{ fontSize: 12, margin: 0 }}>Handled securely — we never store full bank details.</p></div>
+        <p className="text-muted" style={{ fontSize: 14 }}>Start with the basics — you&apos;ll finish the rest (college email, ID card, essays) on the next screen. Fixed rate: <strong style={{ color: 'var(--color-text)' }}>₹100 / 25 min</strong> (platform fee 20%).</p>
+        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 8 }}><div className="card-kicker">Step 1 of 6</div><div className="card-title">About you &amp; your college</div><Field label="Your name"><Input value={form.name} onChange={(e) => set({ name: e.target.value })} placeholder="e.g. Aarav Sharma" /></Field><Field label="College"><Input value={form.college} onChange={(e) => set({ college: e.target.value })} placeholder="e.g. IIT Bombay" /></Field><div style={{ display: 'flex', gap: 10 }}><Field label="Branch" style={{ flex: 1 }}><Input value={form.branch} onChange={(e) => set({ branch: e.target.value })} /></Field><Field label="Year" style={{ width: 120 }}><Select value={form.year} onChange={(e) => set({ year: e.target.value })}><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></Select></Field></div></div>
+        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 14 }}><div className="card-kicker">Profile</div><div className="card-title">How students see you</div><Field label="Short bio"><textarea className="input" placeholder="Tell juniors what you can help with…" value={form.bio} onChange={(e) => set({ bio: e.target.value })} /></Field><div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{MENTOR_TOPICS.map((t) => { const on = form.topics.includes(t); return <span key={t} className={on ? 'tag tag-accent' : 'tag tag-neutral'} onClick={() => toggleTopic(t)} style={{ cursor: 'pointer' }}>{t}{on ? ' ✓' : ''}</span>; })}</div></div>
+        <div className="card" style={{ background: 'var(--color-bg)', marginTop: 14 }}><div className="card-kicker">Next: verification</div><div style={{ fontSize: 13, lineHeight: 1.7 }}>🪪 College ID card upload · 📧 .ac.in email code · ✍️ two short essays · ✅ code of conduct. Every detail is checked by hand, then a 10–15 min interview.</div></div>
         {err && <div style={{ ...errStyle, marginTop: 14 }}>{err}</div>}
-        <Btn variant="pri" onClick={submit} disabled={busy} block style={{ padding: 13, marginTop: 16, opacity: busy ? 0.7 : 1 }}>{busy ? 'Submitting…' : 'Submit application'}</Btn>
+        <Btn variant="pri" onClick={submit} disabled={busy} block style={{ padding: 13, marginTop: 16, opacity: busy ? 0.7 : 1 }}>{busy ? 'Saving…' : 'Continue to the full application →'}</Btn>
       </div>
     </section>
   );
@@ -415,32 +411,47 @@ export function VerifyStatus() {
     return () => { on = false; };
   }, []);
 
+  // Phase 11 statuses: DRAFT → PENDING_REVIEW → DOCS_VERIFIED → INTERVIEW_SCHEDULED → APPROVED | REJECTED (SUSPENDED post-approval).
   const status = mentor?.status;
-  const approved = status === 'APPROVED';
-  const statusLabel = loading ? 'Checking…' : approved ? 'Approved' : status === 'INTERVIEW' ? 'Interview scheduled' : status === 'PENDING_REVIEW' ? 'Under review' : status === 'DRAFT' ? 'Finish verification' : 'Under review';
+  const approved = status === 'APPROVED' || status === 'SUSPENDED';
+  const rejected = status === 'REJECTED';
+  const draft = status === 'DRAFT';
+  const softReturned = draft && mentor?.rejection?.kind === 'soft';
+  const labelOf = { DRAFT: softReturned ? 'Needs a fix' : 'Finish your application', PENDING_REVIEW: 'Under review', DOCS_VERIFIED: 'Docs verified', INTERVIEW_SCHEDULED: 'Interview scheduled', APPROVED: 'Approved', SUSPENDED: 'Suspended', REJECTED: 'Not approved' };
+  const statusLabel = loading ? 'Checking…' : (labelOf[status] || 'Under review');
+  const idx = { PENDING_REVIEW: 1, DOCS_VERIFIED: 2, INTERVIEW_SCHEDULED: 3, APPROVED: 4, SUSPENDED: 4, REJECTED: 4 }[status] ?? 0;
   const check = (done, pending, text) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, color: done ? undefined : 'var(--color-neutral-600)' }}>{done ? '✅' : pending ? '⏳' : '⬜'} {text}</div>
   );
+  const iv = mentor?.interview;
+  const ivAt = iv?.interviewAt || mentor?.interviewAt;
+  const ivLink = iv?.meetUrl || mentor?.interviewLink;
+  const heading = loading ? 'Loading your application…' : !mentor ? 'No application yet' : rejected ? 'Application not approved' : approved ? 'You’re verified!' : draft ? (softReturned ? 'One more fix needed' : 'Almost there') : 'Application submitted';
 
   return (
     <section style={{ minHeight: '100%', display: 'grid', placeItems: 'center', padding: '40px 20px', background: 'var(--color-surface)' }}>
       <div className="card elev-lg" style={{ background: 'var(--color-bg)', width: 'min(480px, 100%)', padding: 32, alignItems: 'center', textAlign: 'center' }}>
-        <div style={{ width: 70, height: 70, borderRadius: '50%', background: approved ? 'var(--color-accent-2-100)' : 'var(--color-accent-100)', display: 'grid', placeItems: 'center', fontSize: 30 }}>{approved ? '🎉' : '⏳'}</div>
-        <span className={approved ? 'tag tag-accent-2' : 'tag tag-accent'}>{statusLabel}</span>
-        <h2 style={{ margin: '2px 0' }}>{loading ? 'Loading your application…' : mentor ? (approved ? 'You’re verified!' : 'Application submitted') : 'No application yet'}</h2>
+        <div style={{ width: 70, height: 70, borderRadius: '50%', background: rejected ? '#f7e2db' : approved ? 'var(--color-accent-2-100)' : 'var(--color-accent-100)', display: 'grid', placeItems: 'center', fontSize: 30 }}>{rejected ? '🚫' : approved ? '🎉' : draft ? '✍️' : '⏳'}</div>
+        <span className={rejected ? 'tag' : approved ? 'tag tag-accent-2' : 'tag tag-accent'} style={rejected ? { background: '#f7e2db', color: '#7a2d1a' } : undefined}>{statusLabel}</span>
+        <h2 style={{ margin: '2px 0' }}>{heading}</h2>
         {mentor ? (
           <>
-            <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>{approved
-              ? 'You now appear in the mentor marketplace. Head to your dashboard to set availability.'
-              : <>We&apos;re checking your college email and student ID. Most applications are reviewed within <strong style={{ color: 'var(--color-text)' }}>24–48 hours</strong>.</>}</p>
+            <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>{rejected
+              ? (mentor.rejection?.reason || mentor.reviewNote || 'The team could not approve this application. This decision is final for this account.')
+              : approved
+                ? 'You now appear in the mentor marketplace. Head to your dashboard to set availability.'
+                : draft
+                  ? (softReturned ? `Reviewer’s note: “${mentor.rejection?.reason || mentor.reviewNote}”. Fix it on your application and re-submit.` : 'Complete the remaining steps (college email, ID card, essays, consent) and submit.')
+                  : <>Every detail is verified by hand, then a short interview. Most applications are reviewed within <strong style={{ color: 'var(--color-text)' }}>24–48 hours</strong>.</>}</p>
             <div style={{ width: '100%', textAlign: 'left', background: 'var(--color-surface)', borderRadius: 16, padding: 14, fontSize: 13 }}>
-              {check(!!mentor.emailVerified, !mentor.emailVerified, 'College email verified')}
-              {check(!!mentor.idVerified, !mentor.idVerified, 'Student ID verified')}
-              {check(approved, !approved, approved ? 'Approved by our team' : status === 'INTERVIEW' ? 'Interview scheduled — approval after' : 'Manual review in progress')}
+              {check(idx >= 1, draft, draft ? `Submitted (${mentor.completeness?.missing?.length ?? 0} item${(mentor.completeness?.missing?.length ?? 0) === 1 ? '' : 's'} left)` : 'Submitted')}
+              {check(idx >= 2, idx === 1, 'Every detail & document verified by an admin')}
+              {check(idx >= 3, idx === 2, 'Screening interview scheduled')}
+              {check(status === 'APPROVED' || status === 'SUSPENDED', idx === 3, rejected ? 'Decision: not approved' : 'Approved by our team')}
             </div>
-            {status === 'INTERVIEW' && mentor.interviewAt && (
+            {status === 'INTERVIEW_SCHEDULED' && ivAt && (
               <div style={{ width: '100%', textAlign: 'left', background: 'var(--color-accent-100)', color: 'var(--color-accent-800)', borderRadius: 14, padding: '11px 13px', fontSize: 13 }}>
-                📅 <strong>Interview scheduled</strong> for {new Date(mentor.interviewAt).toLocaleString('en-IN', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}.{mentor.interviewLink && <> <a href={mentor.interviewLink} target="_blank" rel="noreferrer">Join the call</a> at your time.</>}
+                📅 <strong>Interview scheduled</strong> for {new Date(ivAt).toLocaleString('en-IN', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}.{ivLink && <> <a href={ivLink} target="_blank" rel="noreferrer">Join the call</a> at your time{iv?.provider === 'stub' ? ' (placeholder link — the real one arrives with your calendar invite)' : ''}.</>}
               </div>
             )}
           </>
@@ -450,7 +461,7 @@ export function VerifyStatus() {
           <p className="text-muted" style={{ fontSize: 14, margin: 0 }}>One moment…</p>
         )}
         {mentor
-          ? <Btn variant="pri" go={approved ? 'mDashboard' : 'dashboard'} block>{approved ? 'Go to mentor dashboard' : 'Back to home'}</Btn>
+          ? <Btn variant="pri" go={approved ? 'mDashboard' : rejected ? 'dashboard' : 'mVerification'} block>{approved ? 'Go to mentor dashboard' : rejected ? 'Back to the student app' : draft ? 'Continue my application' : 'Open application status'}</Btn>
           : !loading && <Btn variant="pri" go="mentorOnboarding" block>Start mentor application</Btn>}
       </div>
     </section>

@@ -1,44 +1,26 @@
 'use client';
 // ══════════════════════════════════════════════════════════════════════════
-// Super Admin — the owner's control panel (14 screens).
-// Wired to the live admin-ops + marketplace backend (Phase 7):
-//   • adminStats / adminAudit / mentorPending / mentorReview
-//   • adminSuspendMentor / adminReinstateMentor / adminBroadcast / mentors
+// Super Admin — the owner's control panel.
+// Wired to the live admin-ops + marketplace + identity + booking backends:
+//   • Phase 7: adminStats / adminAudit / adminSuspendMentor / adminReinstateMentor / adminBroadcast
+//   • Phase 11: the verification console (admin-verify.js), mentor directory + interview
+//     calendar (admin-mentors.js), audit log (admin-audit.js), shared helpers (admin-shared.js)
 // Screens without a backend surface yet render a tidy panel that names the real
-// source of truth (see // TODO(owner) markers). Visual design is untouched —
-// only data sources + action handlers changed.
+// source of truth (see // TODO(owner) markers). Visual design is untouched.
 // ══════════════════════════════════════════════════════════════════════════
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useApp } from '@/lib/store';
 import { liveApi } from '@/lib/liveApi';
 import { Btn, Input, Field, Select, SegOpt } from '@/components/ui';
 import { COLLEGES, FUNNEL, ADMIN_SCOPES } from '@/lib/data';
 import { typeStyle } from '@/lib/logic';
+import { CRIT, Note, Status, QUEUE_STATUSES, STATUS_META, durationLabel, stageAverages, useCounts } from './admin-shared';
 
-const CRIT = { background: '#f7e2db', color: '#7a2d1a' };
-
-// ── tiny shared UI helpers (kept local so ui.js is untouched) ────────────────
-function Note({ tone = 'neutral', children, style = {} }) {
-  const bg = tone === 'warn' ? '#f7e2db' : tone === 'ok' ? 'var(--color-accent-2-100)' : 'var(--color-neutral-100)';
-  const fg = tone === 'warn' ? '#7a2d1a' : tone === 'ok' ? 'var(--color-accent-2-800)' : 'var(--color-neutral-700)';
-  return (
-    <div style={{ background: bg, color: fg, borderRadius: 10, padding: '9px 12px', fontSize: 12.5, ...style }}>
-      {children}
-    </div>
-  );
-}
-
-// Standard loading / error / empty rendering for a data panel.
-function Status({ loading, err, empty, emptyMsg = 'Nothing here yet.', onRetry, children }) {
-  if (loading) return <p className="text-muted" style={{ fontSize: 13, margin: '6px 0' }}>Loading…</p>;
-  if (err) return (
-    <div className="card" style={{ background: '#f7e2db', color: '#7a2d1a', fontSize: 13 }}>
-      ⚠ {err}{onRetry && <> — <button className="sc-btn ghost" style={{ padding: '0 6px', color: '#7a2d1a' }} onClick={onRetry}>retry</button></>}
-    </div>
-  );
-  if (empty) return <p className="text-muted" style={{ fontSize: 13, margin: '6px 0' }}>{emptyMsg}</p>;
-  return children;
-}
+// Phase 11 screens live in their own files (split by concern); re-exported so the
+// screen registry keeps importing everything from `./admin`.
+export { AVerifyQueue } from './admin-verify';
+export { AMentors, AInterviews } from './admin-mentors';
+export { AAudit } from './admin-audit';
 
 // A "not-yet-wired" panel that names the real backend + leaves an owner TODO.
 function BackendTODO({ source }) {
@@ -55,22 +37,34 @@ export function ADashboard() {
   const { runAct } = useApp();
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState(null);
+  const [queueApps, setQueueApps] = useState(null); // loaded queue items → interviews this week + approx stage times
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
+  const { counts } = useCounts();
 
   const load = useCallback(async () => {
     setLoading(true); setErr(null);
     try {
-      // Users directory is best-effort — a stats failure shouldn't blank the whole page.
-      const [s, u] = await Promise.all([
+      // Users directory + queue are best-effort — a stats failure shouldn't blank the whole page.
+      const [s, u, q] = await Promise.all([
         liveApi.adminStats(),
         liveApi.adminUsers().catch(() => null),
+        Promise.all(QUEUE_STATUSES.map((st) => liveApi.adminMentorQueue({ status: st, limit: 100 }).then((r) => r.items || []).catch(() => []))).then((pages) => pages.flat()),
       ]);
-      setStats(s); setUsers(u);
+      setStats(s); setUsers(u); setQueueApps(q);
     } catch (e) { setErr(e.message || 'Could not load platform stats'); }
     finally { setLoading(false); }
   }, []);
   useEffect(() => { load(); }, [load]);
+
+  // Queue health (Phase 11): waiting per stage, interviews this week, approximate time per stage.
+  const health = useMemo(() => {
+    const apps = queueApps || [];
+    const now = Date.now(); const week = now + 7 * 86_400_000;
+    const interviewsThisWeek = apps.filter((a) => a.status === 'INTERVIEW_SCHEDULED' && a.interview?.interviewAt && Date.parse(a.interview.interviewAt) >= now - 3_600_000 && Date.parse(a.interview.interviewAt) <= week).length;
+    const oldest = apps.reduce((m, a) => { const t = Date.parse(a.waitingSince || a.submittedAt || 0); return t && (!m || t < m) ? t : m; }, 0);
+    return { interviewsThisWeek, oldestWait: oldest ? durationLabel(now - oldest) : '—', avg: stageAverages(apps) };
+  }, [queueApps]);
 
   const num = (v) => (v == null ? '—' : v.toLocaleString('en-IN'));
   const pending = stats?.mentors?.pendingReview;
@@ -83,14 +77,32 @@ export function ADashboard() {
       {err && <div className="card" style={{ background: '#f7e2db', color: '#7a2d1a', fontSize: 13, marginTop: 12 }}>⚠ {err} — <button className="sc-btn ghost" style={{ padding: '0 6px', color: '#7a2d1a' }} onClick={load}>retry</button></div>}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12, marginTop: 16 }}>
         <div className="card elev-sm" style={{ background: 'var(--color-surface)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aMentors' })}><div className="card-kicker">Approved mentors</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(approved)}</div><div className="text-muted" style={{ fontSize: 11 }}>live count</div></div>
-        <div className="card elev-sm" style={{ background: 'var(--color-accent-100)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aVerifyQueue' })}><div className="card-kicker">Pending review</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(pending)}</div><div className="text-muted" style={{ fontSize: 11 }}>verification queue</div></div>
+        <div className="card elev-sm" style={{ background: 'var(--color-accent-100)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aVerifyQueue' })}><div className="card-kicker">Pending review</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(counts?.PENDING_REVIEW ?? pending)}</div><div className="text-muted" style={{ fontSize: 11 }}>verification queue</div></div>
+        <div className="card elev-sm" style={{ background: 'var(--color-surface)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aInterviews' })}><div className="card-kicker">Interviews this week</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(health.interviewsThisWeek)}</div><div className="text-muted" style={{ fontSize: 11 }}>{counts ? `${num(counts.INTERVIEW_SCHEDULED)} scheduled in total` : 'scheduled'}</div></div>
         <div className="card elev-sm" style={{ background: 'var(--color-surface)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aModeration' })}><div className="card-kicker">Audit actions</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(auditN)}</div><div className="text-muted" style={{ fontSize: 11 }}>your trail</div></div>
         <div className="card elev-sm" style={{ background: 'var(--color-surface)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aStudents' })}><div className="card-kicker">Total users</div><div style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(users?.total)}</div><div className="text-muted" style={{ fontSize: 11 }}>signed-in accounts</div></div>
         <div className="card elev-sm" style={{ background: 'var(--color-accent-2-100)', cursor: 'pointer' }} onClick={() => runAct({ go: 'aStudents' })}><div className="card-kicker">Live now</div><div style={{ display: 'flex', alignItems: 'center', gap: 7 }}><span style={{ width: 9, height: 9, borderRadius: '50%', background: '#3fae6b', boxShadow: '0 0 0 3px rgba(63,174,107,.2)' }} /><span style={{ fontFamily: 'var(--font-heading)', fontSize: 26 }}>{loading ? '…' : num(users?.liveNow)}</span></div><div className="text-muted" style={{ fontSize: 11 }}>active in last 5 min</div></div>
       </div>
+      {/* Queue health (Phase 11) */}
+      <div className="card elev-sm" style={{ background: 'var(--color-surface)', marginTop: 14 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>Verification queue health</div>
+          <span className="text-muted" style={{ fontSize: 12 }}>oldest application waiting <strong>{health.oldestWait}</strong></span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: 10 }}>
+          {QUEUE_STATUSES.map((st) => (
+            <div key={st} className="sc-tile" onClick={() => runAct({ go: 'aVerifyQueue' })} style={{ background: 'var(--color-bg)', borderRadius: 12, padding: '10px 12px', cursor: 'pointer' }}>
+              <div className="card-kicker">{STATUS_META[st].label}</div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}><span style={{ fontFamily: 'var(--font-heading)', fontSize: 24 }}>{counts ? num(counts[st]) : '…'}</span><span className="text-muted" style={{ fontSize: 11.5 }}>waiting</span></div>
+              <div className="text-muted" style={{ fontSize: 11.5 }}>≈ {health.avg[st] != null ? durationLabel(health.avg[st]) : '—'} per application in this stage</div>
+            </div>
+          ))}
+        </div>
+        <Note>Stage times are <strong>approximate</strong> — averaged from the status history of the applications currently loaded (up to 100 per stage), not a full report.</Note>
+      </div>
       <div className="dash-2col" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 14, marginTop: 14 }}>
         <div className="card elev-sm" style={{ background: 'var(--color-surface)' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>Sessions &amp; revenue (14 days)</div><svg viewBox="0 0 520 180" style={{ width: '100%', height: 'auto' }}><polyline points="10,150 50,140 90,120 130,125 170,100 210,90 250,70 290,80 330,55 370,45 410,50 450,30 490,25 510,20" fill="none" stroke="var(--color-accent)" strokeWidth="3" /><polyline points="10,165 50,160 90,150 130,155 170,140 210,138 250,120 290,128 330,110 370,100 410,105 450,88 490,82 510,78" fill="none" stroke="var(--color-accent-2)" strokeWidth="3" strokeDasharray="4 4" /></svg><div style={{ display: 'flex', gap: 16, fontSize: 12 }}><span>▬ Revenue</span><span style={{ color: 'var(--color-accent-2-700)' }}>┄ Sessions</span></div><Note style={{ marginTop: 8 }}>Trend line is illustrative — revenue/session rollups are fed by Phase 8 DynamoDB Streams aggregates. {/* TODO(owner) */}</Note></div>
-        <div className="card elev-sm" style={{ background: '#f7e2db' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>⚠ Alerts</div><div className="sc-row" onClick={() => runAct({ go: 'aVerifyQueue' })} style={{ fontSize: 13, padding: 8, cursor: 'pointer' }}>🔴 {pending == null ? '—' : pending} mentor application{pending === 1 ? '' : 's'} pending review</div><div className="sc-row" onClick={() => runAct({ go: 'aModeration' })} style={{ fontSize: 13, padding: 8, cursor: 'pointer' }}>🟡 Review the moderation audit trail</div></div>
+        <div className="card elev-sm" style={{ background: '#f7e2db' }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>⚠ Alerts</div><div className="sc-row" onClick={() => runAct({ go: 'aVerifyQueue' })} style={{ fontSize: 13, padding: 8, cursor: 'pointer' }}>🔴 {(counts?.PENDING_REVIEW ?? pending) == null ? '—' : (counts?.PENDING_REVIEW ?? pending)} mentor application{(counts?.PENDING_REVIEW ?? pending) === 1 ? '' : 's'} pending review</div><div className="sc-row" onClick={() => runAct({ go: 'aInterviews' })} style={{ fontSize: 13, padding: 8, cursor: 'pointer' }}>🟠 {counts ? num(counts.DOCS_VERIFIED) : '—'} docs-verified, awaiting an interview slot</div><div className="sc-row" onClick={() => runAct({ go: 'aModeration' })} style={{ fontSize: 13, padding: 8, cursor: 'pointer' }}>🟡 Review the moderation audit trail</div></div>
       </div>
     </section>
   );
@@ -189,159 +201,6 @@ export function AStudents() {
         </div>
       </Status>
       {data?.capped && <Note style={{ marginTop: 10 }}>Over 5,000 users — the list is capped. {/* TODO(owner): move counts to a Streams-fed Stats rollup for exact totals at scale. */}</Note>}
-    </section>
-  );
-}
-
-// ── Mentor Management ─────────────────────────────────────────────────────
-// Live approved-mentor list. Suspend drops a mentor from public search; reinstate
-// restores them. Backend: liveApi.mentors() + adminSuspendMentor / adminReinstateMentor.
-export function AMentors() {
-  const { showToast } = useApp();
-  const [mentors, setMentors] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState(null);
-  const [busyId, setBusyId] = useState(null);
-  const [suspended, setSuspended] = useState({}); // userId -> true (session-local, since suspended rows leave the list)
-
-  const load = useCallback(async () => {
-    setLoading(true); setErr(null);
-    try { const r = await liveApi.mentors(); setMentors(r?.mentors ?? []); }
-    catch (e) { setErr(e.message || 'Could not load mentors'); }
-    finally { setLoading(false); }
-  }, []);
-  useEffect(() => { load(); }, [load]);
-
-  const doSuspend = async (m) => {
-    const reason = (typeof window !== 'undefined' && window.prompt(`Suspend ${m.name}? Optional reason (audited):`, '')) ?? null;
-    if (reason === null) return; // cancelled
-    setBusyId(m.userId);
-    try {
-      await liveApi.adminSuspendMentor(m.userId, reason || undefined);
-      setSuspended((s) => ({ ...s, [m.userId]: true }));
-      showToast(`${m.name} suspended`);
-    } catch (e) { showToast(e.message || 'Could not suspend mentor'); }
-    finally { setBusyId(null); }
-  };
-  const doReinstate = async (m) => {
-    setBusyId(m.userId);
-    try {
-      await liveApi.adminReinstateMentor(m.userId);
-      setSuspended((s) => { const n = { ...s }; delete n[m.userId]; return n; });
-      showToast(`${m.name} reinstated`);
-    } catch (e) { showToast(e.message || 'Could not reinstate mentor'); }
-    finally { setBusyId(null); }
-  };
-
-  return (
-    <section style={{ padding: '26px 28px 40px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 12 }}>
-        <h1 style={{ margin: 0, fontSize: 26 }}>Mentor management</h1>
-        <Btn variant="ghost" onClick={load}>↻ Refresh</Btn>
-      </div>
-      <Status loading={loading} err={err} empty={mentors?.length === 0} emptyMsg="No approved mentors yet — approvals happen in the verification queue." onRetry={load}>
-        <div className="card" style={{ background: 'var(--color-surface)', overflowX: 'auto' }}><table className="table" style={{ minWidth: 640 }}><thead><tr><th>Mentor</th><th>College</th><th>Branch</th><th>Status</th><th>Rating</th><th>Price</th><th></th></tr></thead><tbody>
-          {(mentors ?? []).map((m) => {
-            const isSusp = suspended[m.userId];
-            const busy = busyId === m.userId;
-            return (
-              <tr key={m.userId}>
-                <td>{m.name}</td>
-                <td>{m.college}</td>
-                <td>{m.branch}</td>
-                <td>{isSusp ? <span className="tag" style={CRIT}>Suspended</span> : <span className="tag tag-accent-2">Active</span>}</td>
-                <td>⭐ {(m.ratingAvg ?? 0).toFixed ? m.ratingAvg.toFixed(1) : m.ratingAvg} <span className="text-muted" style={{ fontSize: 11 }}>({m.ratingCount ?? 0})</span></td>
-                <td>₹{m.priceINR}</td>
-                <td>{isSusp
-                  ? <Btn variant="sec" onClick={() => doReinstate(m)} disabled={busy}>{busy ? '…' : 'Reinstate'}</Btn>
-                  : <Btn variant="ghost" style={{ color: '#a8442e' }} onClick={() => doSuspend(m)} disabled={busy}>{busy ? '…' : 'Suspend'}</Btn>}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody></table></div>
-      </Status>
-    </section>
-  );
-}
-
-// ── Mentor Verification Queue [CRITICAL] ──────────────────────────────────
-// Live pending applications → approve / reject via liveApi.mentorReview.
-export function AVerifyQueue() {
-  const { showToast } = useApp();
-  const [queue, setQueue] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState(null);
-  const [busyId, setBusyId] = useState(null);
-
-  const load = useCallback(async () => {
-    setLoading(true); setErr(null);
-    try { const r = await liveApi.mentorPending(); setQueue(Array.isArray(r) ? r : (r?.mentors ?? [])); }
-    catch (e) { setErr(e.message || 'Could not load the verification queue'); }
-    finally { setLoading(false); }
-  }, []);
-  useEffect(() => { load(); }, [load]);
-
-  const initials = (name = '') => name.split(' ').map((w) => w[0]).filter(Boolean).slice(0, 2).join('').toUpperCase() || '?';
-  const palette = ['#c0492e', '#728157', '#d67f48', '#7a5c8f', '#3f7a8c'];
-
-  const review = async (m, decision) => {
-    if (decision === 'reject') {
-      const note = (typeof window !== 'undefined' && window.prompt(`Reject ${m.name}? Reason (shown to the mentor):`, '')) ?? null;
-      if (note === null) return;
-      setBusyId(m.userId);
-      try { await liveApi.mentorReview(m.userId, 'reject', note || undefined); showToast(`${m.name} rejected`); await load(); }
-      catch (e) { showToast(e.message || 'Could not reject'); }
-      finally { setBusyId(null); }
-      return;
-    }
-    setBusyId(m.userId);
-    try { await liveApi.mentorReview(m.userId, 'approve'); showToast(`${m.name} approved`); await load(); }
-    catch (e) { showToast(e.message || 'Could not approve'); }
-    finally { setBusyId(null); }
-  };
-
-  // Schedule the short screening interview (moves the application to INTERVIEW).
-  const schedule = async (m) => {
-    if (typeof window === 'undefined') return;
-    const when = window.prompt(`Schedule interview for ${m.name}.\nDate & time (YYYY-MM-DD HH:MM, your local time):`, '');
-    if (!when) return;
-    const dt = new Date(when.trim().replace(' ', 'T'));
-    if (Number.isNaN(dt.getTime())) { showToast('Could not read that date/time.'); return; }
-    const link = window.prompt('Meeting link for the interview (Google Meet / Zoom):', 'https://meet.google.com/');
-    if (!link) return;
-    setBusyId(m.userId);
-    try { await liveApi.mentorScheduleInterview(m.userId, dt.toISOString(), link.trim()); showToast(`Interview scheduled for ${m.name}`); await load(); }
-    catch (e) { showToast(e.message || 'Could not schedule the interview'); }
-    finally { setBusyId(null); }
-  };
-
-  const count = queue?.length ?? 0;
-  return (
-    <section style={{ padding: '26px 28px 40px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}><h1 style={{ margin: 0, fontSize: 26 }}>Mentor verification queue</h1><span className="tag" style={CRIT}>CRITICAL · {loading ? '…' : count} pending</span><Btn variant="ghost" onClick={load}>↻ Refresh</Btn></div>
-      <p className="text-muted" style={{ fontSize: 14 }}>The trust gate for the whole marketplace. Review carefully.</p>
-      <Status loading={loading} err={err} empty={count === 0} emptyMsg="🎉 Queue is clear — no applications awaiting review." onRetry={load}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 14, marginTop: 8 }}>
-          {(queue ?? []).map((v, ix) => {
-            const busy = busyId === v.userId;
-            return (
-              <div key={v.userId} className="card elev-sm" style={{ background: 'var(--color-surface)' }}>
-                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}><span style={{ width: 42, height: 42, borderRadius: '50%', background: palette[ix % palette.length], color: '#fff', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-heading)' }}>{initials(v.name)}</span><div style={{ flex: 1 }}><div style={{ fontWeight: 700 }}>{v.name}</div><div className="text-muted" style={{ fontSize: 12 }}>{v.college} · Y{v.year}{v.branch ? ` · ${v.branch}` : ''}</div></div>{v.status === 'INTERVIEW' && <span className="tag tag-accent">📅 Interview</span>}</div>
-                <div style={{ fontSize: 13 }}>📧 {v.email || '—'} <span className="tag tag-accent-2" style={{ padding: '1px 6px' }}>OTP ✓</span> · 🪪 ID <span className="tag tag-accent" style={{ padding: '1px 6px' }}>Uploaded</span></div>
-                {v.status === 'INTERVIEW' && v.interviewAt && (
-                  <div style={{ background: 'var(--color-accent-100)', color: 'var(--color-accent-800)', borderRadius: 10, padding: '8px 11px', fontSize: 12.5 }}>Interview: <strong>{new Date(v.interviewAt).toLocaleString('en-IN', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</strong>{v.interviewLink && <> · <a href={v.interviewLink} target="_blank" rel="noreferrer">join link</a></>}</div>
-                )}
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  <Btn variant="sec" onClick={() => schedule(v)} disabled={busy}>{v.status === 'INTERVIEW' ? 'Reschedule' : '📅 Interview'}</Btn>
-                  <Btn variant="pri" onClick={() => review(v, 'approve')} disabled={busy} style={{ flex: 1 }}>{busy ? '…' : 'Approve'}</Btn>
-                  <Btn variant="sec" onClick={() => review(v, 'reject')} disabled={busy} style={{ color: '#a8442e' }}>Reject</Btn>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </Status>
     </section>
   );
 }
@@ -678,7 +537,8 @@ export function AAdmins() {
   return (
     <section style={{ maxWidth: 820, margin: '0 auto', padding: '26px 24px 40px' }}>
       <h1 style={{ margin: '0 0 4px', fontSize: 28 }}>Admins &amp; permissions</h1>
-      <p className="text-muted" style={{ fontSize: 14, marginBottom: 16 }}>You&apos;re the <strong>superadmin</strong>. Promote trusted users to admin and choose exactly what each one can do.</p>
+      <p className="text-muted" style={{ fontSize: 14, marginBottom: 8 }}>You&apos;re the <strong>superadmin</strong>. Promote trusted users to admin and choose exactly what each one can do.</p>
+      <Note style={{ marginBottom: 16 }}>🔑 Permissions travel inside the admin&apos;s sign-in token. A change you save here takes effect on their <strong>next sign-in</strong> (or the next silent token refresh) — until then the API still enforces their previous permissions. Every promotion, scope change and demotion is written to the audit log.</Note>
       {err && <div className="card" style={{ background: '#f7e2db', color: '#7a2d1a', marginBottom: 12 }}>{err}</div>}
 
       <div className="card" style={{ background: 'var(--color-surface)', marginBottom: 16 }}>
@@ -725,8 +585,8 @@ function AdminRow({ a, me, onChanged }) {
               <span key={s.key} className={scopes.includes(s.key) ? 'tag tag-accent' : 'tag tag-neutral'} onClick={() => toggle(s.key)} style={{ cursor: 'pointer' }} title={s.desc}>{s.label}{scopes.includes(s.key) ? ' ✓' : ''}</span>
             ))}
           </div>
-          <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
-            <Btn variant="pri" onClick={save} disabled={busy}>Save permissions</Btn>
+          <div style={{ display: 'flex', gap: 8, marginTop: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Btn variant="pri" onClick={save} disabled={busy}>Save permissions</Btn><span className="text-muted" style={{ fontSize: 11.5 }}>applies on their next sign-in</span>
             {a.userId !== me && <Btn variant="ghost" onClick={demote} disabled={busy} style={{ color: '#a8442e' }}>Demote to student</Btn>}
           </div>
         </>

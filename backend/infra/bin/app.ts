@@ -42,6 +42,7 @@ new AuthServiceStack(app, `sc-${stage}-svc-auth`, {
   httpApi: foundation.httpApi,
   authorizer: foundation.authorizer,
   usersTable: data.usersTable,
+  auditTable: data.auditTable,
   userPool: auth.userPool,
 });
 
@@ -70,6 +71,8 @@ new MarketplaceServiceStack(app, `sc-${stage}-svc-marketplace`, {
   httpApi: foundation.httpApi,
   authorizer: foundation.authorizer,
   mentorsTable: data.mentorsTable,
+  auditTable: data.auditTable,
+  mentorDocsBucket: data.mentorDocsBucket,
 });
 
 // Phase 5 — booking, payments & sessions (saga; reads mentors, owns bookings).
@@ -80,6 +83,7 @@ new BookingServiceStack(app, `sc-${stage}-svc-booking`, {
   authorizer: foundation.authorizer,
   bookingsTable: data.bookingsTable,
   mentorsTable: data.mentorsTable,
+  usersTable: data.usersTable,
 });
 
 // Phase 6 — notifications (feed API + EventBridge→SQS→consumer, event-driven).

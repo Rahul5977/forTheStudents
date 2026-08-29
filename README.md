@@ -407,11 +407,11 @@ Workflow contract: read `backend/docs/architecture.md` for the target, `backend/
 | Predictor (public) | `GET /predict` · `/predict/summary` · `/colleges` · `/colleges/:id` |
 | Auth | `POST /auth/bootstrap` · `GET /me` · `PUT /me/rank-prefs` |
 | Planner | `GET/PUT /shortlist` · `GET/PUT /choice-list` · `POST /choice-list/reorder` · `GET /choice-list/doctor` · `POST /choice-list/export` |
-| Mentors | `POST /mentor/apply` · `/mentor/verify/email\|id` · `GET/PUT /mentor/profile\|availability` · public `GET /mentors` + `/mentors/:id/slots` |
-| Booking | `POST /bookings` (Idempotency-Key) · `/bookings/:id/accept\|decline\|cancel` · `GET /sessions` · `POST /sessions/:id/join\|end\|rate` |
+| Mentors | `POST /mentor/apply` · `/mentor/verify/email` · `/mentor/documents/presign\|confirm` · `/mentor/submit` · `GET/PUT /mentor/profile\|availability` · public `GET /mentors` + `/mentors/:id/slots` |
+| Booking | `POST /bookings` (Idempotency-Key) · `/bookings/:id/accept\|decline\|cancel` · `GET /sessions` · `GET /sessions/:id/student-prep` (mentor) · `POST /sessions/:id/join\|end\|rate` |
 | Payments | `POST /payments/webhook` (signature-verified) |
 | Notifications | `GET /notifications` · `POST /notifications/:id/read` · `/read-all` · `GET/PUT /notifications/prefs` |
-| Admin (role-gated) | `/admin/stats` · `/admin/audit` · `/admin/mentors/*` (queue, interview, review, suspend) · `/admin/bookings` · `/admin/admins` (superadmin) · `/admin/broadcast` |
+| Admin (role **+ scope** gated) | `/admin/stats` · `/admin/audit` · `GET /admin/mentors[?status,q,cursor]` · `/admin/mentors/counts` · `/admin/mentors/:id` (+ `/documents/:docType/url`, `/fields/:field`, `/verify-docs`, `POST\|PATCH\|DELETE /interview`, `/review`, `/suspend\|reinstate`) · `/admin/bookings` · `/admin/users` · `/admin/admins` (superadmin) · `/admin/broadcast` |
 
 ---
 
@@ -425,6 +425,7 @@ Workflow contract: read `backend/docs/architecture.md` for the target, `backend/
 | `backend/docs/prediction-algorithm.md` | The Safe/Target/Reach algorithm, worked examples, honesty & limits |
 | `backend/docs/forecast-backtest.md` · `forecast-data-acquisition.md` | Backtest harness + the data-completeness experiment |
 | `backend/docs/analytics-athena.md` · `runbooks.md` · `go-live.md` | Athena DDL, operational runbooks, launch checklist |
+| `backend/docs/ai-counsellor/Plan.md` · `progress.md` | **AI Counsellor** (bounded context #11): agentic Claude counsellor over the platform tools — three design iterations, HLD/LLD, tool surface, cost&scale architecture for 1M students, evals, phases C0–C5 + tracker |
 
 ---
 

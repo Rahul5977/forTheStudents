@@ -1,6 +1,6 @@
 # Student-Counselor — Backend Architecture
 
-> **Status:** DRAFT — awaiting owner approval before any code is written.
+> **Status:** APPROVED (2026-07-14) and **BUILT — Phases 0–10 are live on AWS** (`dev` stage = production, `ap-south-1`); see `progress.md` for the phase tracker and deployed outputs. This document remains the target design; Phase 11 (mentor lifecycle, document store, Calendar integration) adds new sections as it lands.
 > **Region:** `ap-south-1` (Mumbai), DR in `ap-south-2` (Hyderabad).
 > **Author:** Claude (planning phase). **Owner:** Rahul.
 
@@ -306,24 +306,64 @@ sequenceDiagram
 **Endpoints:** `GET/PUT /shortlist`, `GET/PUT /choice-list`, `POST /choice-list/reorder`, `GET /choice-list/doctor`, `POST /choice-list/export`. **Notes:** List Doctor is pure logic over the list + predictor decoration → reuse predictor's `decorate()`. Optimistic concurrency (version attr) to survive double-taps.
 
 ### 5.5 marketplace-mentors
-**Responsibilities:** mentor profile, **verification workflow** (.ac.in OTP + student-ID upload → pending → approved/rejected), availability slots, search/filter.
+**Responsibilities:** the mentor application + **verification lifecycle** (Phase 11), profile, availability slots, public search/slots. Verification is the marketplace's trust gate: every submitted detail and document is checked **manually, per field**, by an admin holding the `mentors.manage` scope; a screening **interview** (Google Meet, `mentors.interview`) precedes the decision.
+
+```mermaid
+stateDiagram-v2
+    [*] --> DRAFT: POST /mentor/apply
+    DRAFT --> PENDING_REVIEW: POST /mentor/submit (complete only)
+    PENDING_REVIEW --> DOCS_VERIFIED: every required field VERIFIED → verify-docs
+    DOCS_VERIFIED --> PENDING_REVIEW: a field FLAGGED / un-verified
+    DOCS_VERIFIED --> INTERVIEW_SCHEDULED: interview (Calendar event + Meet)
+    INTERVIEW_SCHEDULED --> DOCS_VERIFIED: cancel interview
+    INTERVIEW_SCHEDULED --> APPROVED: review approve
+    PENDING_REVIEW --> REJECTED: hard reject (reason)
+    DOCS_VERIFIED --> REJECTED: hard reject (reason)
+    INTERVIEW_SCHEDULED --> REJECTED: hard reject (reason)
+    PENDING_REVIEW --> DRAFT: soft reject (reason visible, re-apply)
+    DOCS_VERIFIED --> DRAFT: soft reject
+    INTERVIEW_SCHEDULED --> DRAFT: soft reject
+    APPROVED --> SUSPENDED: admin suspend
+    SUSPENDED --> APPROVED: admin reinstate
+    REJECTED --> [*]
+```
+The machine is ONE pure module in `@sc/shared` (`mentor-state.ts`, ADR-012) used by marketplace and admin; every repo write of `status` is a DynamoDB conditional update on the current status (`transition()`), appends to the row's `history`, and re-keys `gsi1sk = <changedAt>#<userId>` so each status partition is a **time-ordered queue with a real cursor** (`GET /admin/mentors?status&q&cursor&limit`). Legacy `INTERVIEW` rows read as `INTERVIEW_SCHEDULED`.
+
+**The application (packet 3).** `ApplyInput` keeps the Phase-4 fields and adds identity (graduation year, roll number), contact (phone; the `.ac.in` email is verified by OTP bound to the signed-in user, rate-limited per user and per email, delivered via SES when `OTP_EMAIL_FROM` is set), profile (languages, own JEE rank/year), two required essays (100–800 chars) + one optional, and consent (code-of-conduct version + timestamp). `POST /mentor/submit` returns **every** missing item (`error.details.missing[]`), never just the first. `publicView` never exposes essays, documents, phone, email, roll number, reviewer notes or verification state.
+
+**Per-field verification (packet 4).** `fields[<key>] = { status: UNVERIFIED|VERIFIED|FLAGGED, by, at, note }` for `name, college, branch, year, gradYear, rollNumber, collegeEmail, phone, jeeRank, essayWhy, essayHow, doc_id_card` (+ optional `essayOther`, `doc_supporting`). `verify-docs` is legal only when all required items are VERIFIED (`verificationProgress()`); a later FLAG regresses to `PENDING_REVIEW`; a rejection always carries a reason (soft → `DRAFT`, hard → terminal + documents tagged for expiry). Every action: `requireScope` → state machine → atomic write → audit row → domain event (`mentor.verification.submitted`, `.docs.verified`, `.docs.unverified`, `.interview.scheduled|rescheduled|cancelled`, `.approved`, `.rejected`, `.revision_requested`), all mapped by notifications.
+
+**Key endpoints:** mentor `POST /mentor/apply · /mentor/verify/email · /mentor/documents/presign · /mentor/documents/confirm · /mentor/submit · GET|PUT /mentor/profile · GET|PUT /mentor/availability`; admin `GET /admin/mentors[?status,q,cursor,limit] · GET /admin/mentors/counts · GET /admin/mentors/:id · GET /admin/mentors/:id/documents/:docType/url · POST /admin/mentors/:id/fields/:field · POST /admin/mentors/:id/verify-docs · POST|PATCH|DELETE /admin/mentors/:id/interview · POST /admin/mentors/:id/review` (+ legacy `GET /admin/mentors/pending` for one release); public `GET /mentors · GET /mentors/:id/slots`.
+
+#### 5.5.1 Mentor document store (S3) — ADR-014
+Uploaded ID cards are sensitive personal data of (often) minors. Bucket `sc-<stage>-mentor-docs-<acct>`: block-all-public-access, SSE-S3, versioned, `enforceSSL`, CORS for the app origins only, lifecycle rules (`status=rejected`-tagged objects expire after 90 d; non-current versions after 30 d; incomplete multipart uploads aborted after 1 d).
 
 ```mermaid
 sequenceDiagram
-    actor M as Mentor
+    actor M as Mentor (browser)
     participant API as marketplace λ
-    participant DDB as DynamoDB
-    participant S3 as S3
-    participant BUS as EventBridge
-    M->>API: POST /mentor/apply (college, branch, bio)
-    M->>API: POST /mentor/verify/email  (.ac.in OTP)
-    M->>API: POST /mentor/verify/id  (S3 upload)
-    API->>DDB: status = PENDING_REVIEW
-    API->>BUS: emit mentor.verification.submitted
-    Note over API,DDB: Admin approves in verification queue → status=APPROVED
-    API->>BUS: emit mentor.approved (→ notify mentor)
+    participant S3 as S3 (private)
+    actor A as Admin
+    M->>API: POST /mentor/documents/presign {docType, contentType, sizeBytes}
+    API->>API: key = mentors/<userId>/<docType>/<ulid>.<ext> (server-minted; content-type in the signature)
+    API-->>M: presigned PUT (5 min)
+    M->>S3: PUT file
+    M->>API: POST /mentor/documents/confirm {key}
+    API->>S3: HeadObject (exists? size ≤ 5 MB? else delete)
+    API-->>M: document metadata (never the key/URL)
+    A->>API: GET /admin/mentors/:id/documents/:docType/url  (scope mentors.manage)
+    API->>API: audit row mentor.document.access
+    API-->>A: presigned GET (3 min) → inline preview
 ```
-**Endpoints:** `POST /mentor/apply`, `POST /mentor/verify/email|id`, `GET/PUT /mentor/profile`, `GET/PUT /mentor/availability`, `GET /mentors` (search: college/branch/topic/price/rating/soonest). **Notes:** locked fields (college/branch/year) become immutable post-approval. Search over a few-thousand-row set → DynamoDB GSIs (or in-memory filter of a cached mentor index).
+Rules: the client never chooses a key; a `confirm` for a key outside the caller's prefix is a 403; presign is rate-limited (20/h/user); no stored or long-lived URL ever reaches a browser; every admin read is audited. Local dev/tests run on an in-memory store with the same contract.
+
+#### 5.5.2 Calendar / Meet integration — ADR-015
+`CalendarProvider` (`@sc/shared calendar.ts`): `StubCalendarProvider` (default; deterministic `/lookup/` placeholder links, labelled as such in the UI) and `GoogleCalendarProvider` (Google Workspace **service account with domain-wide delegation**; OAuth2 JWT signed with `node:crypto`, `events.insert` with `conferenceData.createRequest.hangoutsMeet` + `conferenceDataVersion=1` + `sendUpdates=all`, so the **attendee invitation is the email invite**; creds `GOOGLE_SA_JSON` / `GOOGLE_CALENDAR_IMPERSONATE` in the SSM secrets blob — SSM, never Secrets Manager). Selected by `CALENDAR_PROVIDER`; `google` without creds fails loudly (503) rather than minting placeholders.
+
+Interviews (`DOCS_VERIFIED → INTERVIEW_SCHEDULED`): create the event → transition the row; if the row write fails the event is deleted (never orphaned); idempotent on `(mentorId, interviewAt)`; reschedule PATCHes the same event; cancel deletes it and returns to `DOCS_VERIFIED`; a rejection cancels any pending interview. Paid sessions mint their shared room through the same provider at payment confirmation and fall back to the placeholder if Calendar fails (a captured payment never fails). **Contract migration:** `POST …/interview` accepts `{interviewAt, durationMin?, note?}` (link server-generated) and, for one release, the legacy `{interviewLink}` (honoured, no event).
+
+#### 5.5.3 Superadmin bootstrap & permission scopes — ADR-010/011
+`POST /auth/bootstrap` promotes the caller to `superadmin` when the JWT's **verified** email (`email_verified` + `email` claims, never a body) matches `SUPERADMIN_EMAIL` case-insensitively — Cognito (`custom:role`, `custom:scopes`) first, then the users row, then an audit row; idempotent; a superadmin cannot `POST /me/role`. Admin permission scopes (`ADMIN_SCOPES`) ride in the JWT as `custom:scopes`; `requireScope(p, scope)` guards every scoped admin route (`mentors.manage`, `mentors.interview`, `broadcast.send`, `users.view`, `sessions.view`); superadmin satisfies all. Scope changes reach the API on the user's next token (the UI says so; a "sign in again" banner covers the Google implicit-flow case).
 
 ### 5.6 booking-sessions
 **Responsibilities:** slot booking, session lifecycle (`booked → live → ended → rated`), video **join token** (SFU), recording capture, ratings. This is where **booking + payment form a saga**.
@@ -411,7 +451,7 @@ sequenceDiagram
 | `Cutoffs` | `PK=CUTOFF#<version>` / `SK=<collegeBranch>#<cat>#<quota>#<pool>` | — | bulk-load snapshot per active version |
 | `Content` | `PK=COLLEGE#<id>` / `SK=ANALYSIS` \| `REVIEW#<id>` | — | analysis page, reviews |
 | `Planner` | `PK=USER#<id>` / `SK=SHORTLIST` \| `CHOICELIST` | — | get/put per-user lists |
-| `Mentors` | `PK=MENTOR#<id>` / `SK=PROFILE` \| `AVAIL#<slot>` | `GSI1: status`, `GSI2: college#topic`, `GSI3: soonestSlot` | search, availability, verification queue |
+| `Mentors` | `PK=MENTOR#<id>` / `SK=PROFILE` \| `AVAILABILITY` \| `EMAILOTP` (+ `PK=EMAILRL#<subject>` rate rows, TTL) | `gsi1-status`: `gsi1pk=MENTOR#<STATUS>`, `gsi1sk=<changedAt>#<userId>` (every status; time-ordered) | own application, public search (APPROVED), admin queues per status with cursor, counts |
 | `Bookings` | `PK=BOOKING#<id>` / `SK=META` | `GSI1: USER#<id>`, `GSI2: MENTOR#<id>`, `GSI3: status#time` | my sessions, mentor's sessions, monitor |
 | `Ledger` | `PK=ACCT#<id>` / `SK=EVT#<ts>#<providerEvtId>` | `GSI1: providerEvtId (idempotency)` | append event, fold balance, reconcile |
 | `Notifications` | `PK=USER#<id>` / `SK=NOTIF#<ts>` | `GSI1: unread` | feed, mark read |
@@ -586,9 +626,12 @@ catalog-collegedata  GET /colleges/:id · GET /colleges/:id/analysis · GET /col
                      [admin] POST /admin/cutoffs/import|validate|publish · GET /admin/data/version
 predictor            GET /predict · GET /predict/summary
 planner              GET|PUT /shortlist · GET|PUT /choice-list · GET /choice-list/doctor · POST /choice-list/export
-marketplace-mentors  POST /mentor/apply · POST /mentor/verify/email|id · GET|PUT /mentor/profile
-                     GET|PUT /mentor/availability · GET /mentors
-booking-sessions     POST /bookings · POST /bookings/:id/cancel · GET /sessions
+marketplace-mentors  POST /mentor/apply · POST /mentor/verify/email · POST /mentor/documents/presign|confirm · POST /mentor/submit
+                     GET|PUT /mentor/profile · GET|PUT /mentor/availability · GET /mentors · GET /mentors/:id/slots
+                     [admin] GET /admin/mentors[?status,q,cursor,limit] · GET /admin/mentors/counts · GET /admin/mentors/:id
+                     GET /admin/mentors/:id/documents/:docType/url · POST /admin/mentors/:id/fields/:field · POST /admin/mentors/:id/verify-docs
+                     POST|PATCH|DELETE /admin/mentors/:id/interview · POST /admin/mentors/:id/review
+booking-sessions     POST /bookings · POST /bookings/:id/cancel|accept|decline · GET /sessions · GET /sessions/:id/student-prep
                      POST /sessions/:id/join · POST /sessions/:id/rate · POST /webhooks/sfu
 payments-payouts     POST /payments/order · POST /webhooks/razorpay · POST /refunds
                      [admin] GET /payouts/queue · POST /payouts/process

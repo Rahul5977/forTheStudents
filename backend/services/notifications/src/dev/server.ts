@@ -35,7 +35,7 @@ async function fetchHandler(req: Request): Promise<Response> {
   if (url.pathname === '/dev/login' && req.method === 'POST') {
     const body = (await req.json().catch(() => ({}))) as { email?: string };
     if (!body.email) return Response.json({ error: 'email required' }, { status: 400, headers: ch });
-    return Response.json({ token: 'dev.' + b64url.encode({ sub: subFor(body.email), email: body.email, 'custom:role': 'student' }) }, { headers: ch });
+    return Response.json({ token: 'dev.' + b64url.encode({ sub: subFor(body.email), email: body.email, email_verified: true, 'custom:role': 'student' }) }, { headers: ch });
   }
 
   const auth = req.headers.get('authorization') ?? '';

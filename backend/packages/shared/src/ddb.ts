@@ -24,6 +24,8 @@ export const key = {
   mentor: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'PROFILE' as const }),
   mentorAvailability: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'AVAILABILITY' as const }),
   mentorEmailOtp: (userId: string) => ({ PK: `MENTOR#${userId}`, SK: 'EMAILOTP' as const }),
+  // Phase 11: per-EMAIL OTP send counter (TTL) — a second rate limit next to the per-user one.
+  mentorEmailRate: (email: string) => ({ PK: `EMAILRL#${email.toLowerCase()}`, SK: 'RL' as const }),
   // Booking (Phase 5).
   booking: (id: string) => ({ PK: `BOOKING#${id}`, SK: 'META' as const }),
   slotHold: (mentorId: string, slotId: string) => ({ PK: `SLOT#${mentorId}#${slotId}`, SK: 'HOLD' as const }),

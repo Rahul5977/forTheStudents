@@ -21,13 +21,15 @@ export interface AuthServiceStackProps extends StackProps {
   httpApi: apigw.HttpApi;
   authorizer: HttpUserPoolAuthorizer;
   usersTable: ddb.Table;
+  /** Phase 11: superadmin bootstrap + admin promotions are written to the audit trail. */
+  auditTable: ddb.Table;
   userPool: cognito.UserPool;
 }
 
 export class AuthServiceStack extends Stack {
   constructor(scope: Construct, id: string, props: AuthServiceStackProps) {
     super(scope, id, props);
-    const { cfg, httpApi, authorizer, usersTable, userPool } = props;
+    const { cfg, httpApi, authorizer, usersTable, auditTable, userPool } = props;
 
     const fn = new NodejsFunction(this, 'AuthIdentityFn', {
       functionName: `sc-${cfg.stage}-auth-identity`,
@@ -42,7 +44,10 @@ export class AuthServiceStack extends Stack {
       environment: {
         STAGE: cfg.stage,
         TABLE_USERS: usersTable.tableName,
+        TABLE_AUDIT: auditTable.tableName,
         COGNITO_USER_POOL_ID: userPool.userPoolId,
+        // Phase 11: the ONE account auto-promoted to superadmin on a verified-email match.
+        SUPERADMIN_EMAIL: cfg.superadminEmail,
         EVENT_BUS_NAME: 'default',
         POWERTOOLS_SERVICE_NAME: 'auth-identity',
         POWERTOOLS_METRICS_NAMESPACE: 'StudentCounselor',
@@ -50,6 +55,7 @@ export class AuthServiceStack extends Stack {
     });
 
     usersTable.grantReadWriteData(fn);
+    auditTable.grantWriteData(fn); // append-only: superadmin.bootstrap / admin.promote / admin.demote
 
     // switchRole writes `custom:role` back onto the Cognito user.
     fn.addToRolePolicy(

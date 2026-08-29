@@ -1,9 +1,11 @@
 // Phase 0/1 data: the Users table (DynamoDB, on-demand, PITR, stream).
 // Other services' tables (Planner, Mentors, Bookings, Ledger, …) get added in
 // their phases — see docs/architecture.md §6.
-import { Stack, type StackProps } from 'aws-cdk-lib';
+import { Stack, RemovalPolicy, type StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ddb from 'aws-cdk-lib/aws-dynamodb';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import { Duration, CfnOutput } from 'aws-cdk-lib';
 import type { StageConfig } from './config';
 
 export interface DataStackProps extends StackProps {
@@ -18,6 +20,8 @@ export class DataStack extends Stack {
   readonly bookingsTable: ddb.Table;
   readonly notificationsTable: ddb.Table;
   readonly auditTable: ddb.Table;
+  /** Phase 11: PRIVATE mentor ID-document store (presigned PUT/GET only). */
+  readonly mentorDocsBucket: s3.Bucket;
 
   constructor(scope: Construct, id: string, props: DataStackProps) {
     super(scope, id, props);
@@ -152,5 +156,33 @@ export class DataStack extends Stack {
       partitionKey: { name: 'phone', type: ddb.AttributeType.STRING },
       projectionType: ddb.ProjectionType.KEYS_ONLY,
     });
+
+    // Phase 11: mentor ID documents — sensitive personal data of (often) minors.
+    //   PRIVATE (block-all-public-access), SSE-S3, versioned, CORS for the app origins (the
+    //   browser PUTs straight to a presigned URL), lifecycle: objects tagged status=rejected
+    //   (hard-rejected applications) expire after 90 days; old versions after 30 days.
+    //   Keys are SERVER-generated: mentors/<userId>/<docType>/<ulid>.<ext>. Never a public URL.
+    this.mentorDocsBucket = new s3.Bucket(this, 'MentorDocs', {
+      bucketName: `sc-${cfg.stage}-mentor-docs-${this.account}`,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      enforceSSL: true,
+      versioned: true,
+      removalPolicy: cfg.removalPolicy,
+      autoDeleteObjects: cfg.removalPolicy === RemovalPolicy.DESTROY,
+      cors: [{
+        allowedMethods: [s3.HttpMethods.PUT, s3.HttpMethods.GET, s3.HttpMethods.HEAD],
+        allowedOrigins: cfg.corsOrigins,
+        allowedHeaders: ['*'],
+        exposedHeaders: ['ETag'],
+        maxAge: 3600,
+      }],
+      lifecycleRules: [
+        { id: 'expire-rejected', tagFilters: { status: 'rejected' }, expiration: Duration.days(90) },
+        { id: 'expire-old-versions', noncurrentVersionExpiration: Duration.days(30) },
+        { id: 'abort-incomplete-uploads', abortIncompleteMultipartUploadAfter: Duration.days(1) },
+      ],
+    });
+    new CfnOutput(this, 'MentorDocsBucketName', { value: this.mentorDocsBucket.bucketName });
   }
 }

@@ -147,6 +147,20 @@ function Dialog() {
   );
 }
 
+// Phase 11: the API authorises on the JWT; when the server-side role/permissions changed (e.g.
+// the owner was just promoted to superadmin, or an admin's scopes were edited) and the token
+// could not be renewed silently, ask for a fresh sign-in. UX only — the API enforces anyway.
+function RoleStaleBanner() {
+  const { roleStale, runAct } = useApp();
+  if (!roleStale) return null;
+  return (
+    <div style={{ background: 'var(--color-accent-100)', color: 'var(--color-accent-800)', padding: '9px 16px', fontSize: 13, display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+      <span>🔑 Your permissions changed. Sign in again to activate them.</span>
+      <Btn variant="pri" onClick={() => runAct({ act: 'logout' })} style={{ fontSize: 12, padding: '5px 12px' }}>Sign in again</Btn>
+    </div>
+  );
+}
+
 export default function Chrome({ children }) {
   const { ctx } = useApp();
   const topNav = ctx === 'marketing' || ctx === 'student';
@@ -155,6 +169,7 @@ export default function Chrome({ children }) {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'var(--font-body)', color: 'var(--color-text)', background: 'var(--color-bg)' }}>
+      <RoleStaleBanner />
       {topNav && <TopNav />}
       <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
         {sidebar && <Sidebar />}

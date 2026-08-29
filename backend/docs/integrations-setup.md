@@ -176,3 +176,16 @@ Google" now runs the real Hosted-UI federated flow and lands back on `/auth/call
 - [ ] Razorpay: `RAZORPAY_*` in `/sc-dev/secrets` → redeploy booking Lambda → dashboard webhook → test-mode dry run → go live
 - [ ] Email verification: SES sender verified + production access → `autoConfirmSignups:false` + `UserPoolEmail.withSES` → redeploy `sc-dev-auth`
 - [x] **Google (dev): DONE 2026-07-18** — OAuth client → `/sc-dev/google-client-secrets` **SSM** SecureString (free) → `googleOAuthParam` → deployed `sc-dev-auth` → `NEXT_PUBLIC_GOOGLE_AUTH=on` + frontend rebuilt (Amplify job 22). Prod: repeat with a `/sc-prod/...` param.
+
+
+---
+
+## Phase 11 — superadmin, mentor documents, OTP email, Google Calendar/Meet
+
+| Knob | Where | What it does |
+|---|---|---|
+| `superadminEmail` | `infra/lib/config.ts` (BASE) → `SUPERADMIN_EMAIL` on the auth-identity Lambda | The ONE account promoted to `superadmin` on `POST /auth/bootstrap` when its Cognito-**verified** email matches (case-insensitive). Idempotent, audited. Nothing else to do — sign in with Google once. If you were signed in via Google before the deploy, sign out/in once so the new `custom:role`/`custom:scopes` claims land in your token (the app shows a banner). |
+| Mentor documents bucket | created by `sc-<stage>-data` (`sc-<stage>-mentor-docs-<acct>`) | Private, SSE, versioned. No setup. CORS is built from `corsOrigins` — add any new frontend origin there. |
+| `otpEmailFrom` | `infra/lib/config.ts` → `OTP_EMAIL_FROM` on the marketplace Lambda | The verified SES sender for the mentor `.ac.in` OTP. Until set, non-prod returns a `devOtp` in the response and prod refuses with 503. Steps: verify the domain in SES (`ap-south-1`), request production access (leave the sandbox), set e.g. `no-reply@kodexa.in`, redeploy `sc-dev-svc-marketplace`. |
+| `calendarProvider` | `infra/lib/config.ts` → `CALENDAR_PROVIDER` on marketplace + booking | `stub` (default) mints placeholder `/lookup/` links. `google` creates real Calendar events with Meet links. |
+| `GOOGLE_SA_JSON`, `GOOGLE_CALENDAR_IMPERSONATE`, `GOOGLE_CALENDAR_ID` (optional) | the SSM SecureString `/sc-<stage>/secrets` (dotenv `KEY=VALUE` lines, same blob as Razorpay) | Google Workspace **service account** JSON (the whole file, single line) + the Workspace user to impersonate (domain-wide delegation must be granted for scope `https://www.googleapis.com/auth/calendar` in the Admin console → Security → API controls → Domain-wide delegation, using the SA's client id). Meet links require a human Workspace calendar, hence impersonation. Verify with the live contract test: `GOOGLE_SA_JSON='…' GOOGLE_CALENDAR_IMPERSONATE=ops@… pnpm --filter @sc/shared test`. Then flip `calendarProvider: 'google'` and redeploy marketplace + booking. |

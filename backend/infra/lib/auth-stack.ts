@@ -33,6 +33,10 @@ export class AuthStack extends Stack {
       customAttributes: {
         // App role travels in the JWT as "custom:role" (see shared/auth.ts getPrincipal).
         role: new cognito.StringAttribute({ mutable: true }),
+        // Phase 11 (ADR-011): admin permission scopes travel as "custom:scopes" — a
+        // comma-separated list written by auth-identity next to custom:role. Additive schema
+        // change (Cognito allows ADDING custom attributes to a live pool, never removing).
+        scopes: new cognito.StringAttribute({ mutable: true, maxLen: 2048 }),
       },
       // Phase 9: stronger password policy in PROD (min 12 + symbols + upper/lower/digits).
       // dev/staging keep the lighter min-8 for test-user convenience. Free.

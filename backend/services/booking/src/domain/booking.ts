@@ -6,11 +6,12 @@
 // Razorpay + the SFU are boilerplate/interfaces only (secrets never touch us) — see
 // the `// TODO(owner)` markers. The state machine + ledger are real and tested.
 import {
-  NotFoundError, ValidationError, ConflictError, ForbiddenError, newId, publish, createLogger, requireRole, type Principal,
+  NotFoundError, ValidationError, ConflictError, ForbiddenError, newId, publish, createLogger, requireScope, type Principal,
 } from '@sc/shared';
 import { bookingsRepo, type Booking } from '../repo/bookings.repo';
 import { getMentor, getSlot } from '../repo/mentor.reader';
-import { createMeeting } from './meeting';
+import { createMeeting, mintMeeting } from './meeting';
+import { getStudentPrep } from '../repo/users.reader';
 import { createOrder, createRefund, razorpayKeyId } from '../repo/razorpay';
 import type { CreateBooking, Webhook, Rate } from '../types';
 
@@ -44,8 +45,10 @@ export async function createBooking(p: Principal, input: CreateBooking, idempKey
   // Hold the slot for 24h while the mentor decides (no payment order yet — that's created
   // on accept()). The atomic hold means two students can't request the same slot.
   const holdTtl = nowSec() + REQUEST_HOLD_SEC;
+  // Phase 11: the mentor's screens show the student's FIRST name only (never full name/email).
+  const studentName = (await getStudentPrep(p.userId))?.firstName;
   const booking: Booking = {
-    id: newId('bk'), studentId: p.userId, mentorId: input.mentorId, mentorName: mentor.name,
+    id: newId('bk'), studentId: p.userId, mentorId: input.mentorId, mentorName: mentor.name, ...(studentName ? { studentName } : {}),
     slotId: input.slotId, startsAt: slot.startsAt, durationMin: slot.durationMin, priceINR: mentor.priceINR,
     status: 'REQUESTED', createdAt: nowIso(), updatedAt: nowIso(),
   };
@@ -128,9 +131,9 @@ export async function handleWebhook(input: Webhook) {
 
   if (b.status === 'ACCEPTED') {
     // Generate the shared meeting link NOW (post-payment) so both sides see it.
-    const meeting = createMeeting(b.id);
+    const meeting = await mintMeeting(b);
     const confirmed = await bookingsRepo.transition(b.id, ['ACCEPTED'], 'CONFIRMED', {
-      meetingUrl: meeting.url, meetingProvider: meeting.provider,
+      meetingUrl: meeting.url, meetingProvider: meeting.provider, ...(meeting.eventId ? { meetingEventId: meeting.eventId } : {}),
       razorpayPaymentId: input.providerPaymentId, // kept for refunds
     });
     await publish({ type: 'payment.succeeded', source: 'booking', detail: { bookingId: b.id, amountINR: b.priceINR } });
@@ -227,6 +230,21 @@ export async function join(p: Principal, id: string) {
   return { meetingUrl, meetingProvider: b.meetingProvider ?? 'stub', role: b.mentorId === p.userId ? 'host' : 'guest', startsAt: updated.startsAt };
 }
 
+/**
+ * Phase 11 (packet 6): the mentor's prep view of ONE booked student — first name + the
+ * counselling inputs. Only the MENTOR of a paid/booked session may read it; there is no
+ * browsable student directory. Never returns email/phone/full name.
+ */
+const PREP_VISIBLE = new Set<string>(['ACCEPTED', 'CONFIRMED', 'LIVE', 'ENDED', 'RATED']);
+export async function studentPrep(p: Principal, id: string) {
+  const b = await bookingsRepo.get(id);
+  if (!b) throw NotFoundError('Booking not found.');
+  if (b.mentorId !== p.userId) throw ForbiddenError('Only the mentor of this session can view the prep sheet.');
+  if (!PREP_VISIBLE.has(b.status)) throw ConflictError(`Prep is available once a session is accepted (this one is ${b.status}).`);
+  const prep = await getStudentPrep(b.studentId);
+  return { bookingId: b.id, startsAt: b.startsAt, status: b.status, student: prep ?? { firstName: b.studentName }, note: b.studentNote ?? null };
+}
+
 export async function endSession(p: Principal, id: string) {
   const b = await bookingsRepo.get(id);
   if (!b) throw NotFoundError('Booking not found.');
@@ -254,7 +272,7 @@ function summarize(rows: Booking[], days?: number) {
 /** ADMIN: recent bookings folded over the last `days` days (default 7, max 31) via the
  *  by-day index — each day is a small partition, so this stays cheap at season peak. */
 export async function adminListBookings(p: Principal, query: Record<string, string | undefined>) {
-  requireRole(p, 'admin');
+  requireScope(p, 'sessions.view');
   const days = Math.min(31, Math.max(1, Number(query.days) || 7));
   const base = query.date ? new Date(query.date) : new Date();
   const all: Booking[] = [];
@@ -268,7 +286,7 @@ export async function adminListBookings(p: Principal, query: Record<string, stri
 
 /** ADMIN: one mentor's bookings (reuses the per-mentor index) + paid/revenue summary. */
 export async function adminMentorBookings(p: Principal, mentorId: string) {
-  requireRole(p, 'admin');
+  requireScope(p, 'sessions.view');
   const rows = await bookingsRepo.listByGsi('gsi2-mentor', `MENTOR#${mentorId}`);
   return { mentorId, bookings: rows, stats: summarize(rows) };
 }

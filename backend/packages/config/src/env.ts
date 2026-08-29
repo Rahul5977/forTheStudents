@@ -32,6 +32,19 @@ const Schema = z.object({
   // Only the NAME lives here; values are fetched + decrypted at runtime.
   SECRETS_PARAM: z.string().optional(),
 
+  // Phase 11: the ONE account that is promoted to superadmin on bootstrap when its
+  // Cognito-VERIFIED email matches (case-insensitive). Undefined = nobody is auto-promoted.
+  SUPERADMIN_EMAIL: z.string().email().optional(),
+
+  // Phase 11: how interview / session meeting links are minted. 'stub' needs no creds.
+  CALENDAR_PROVIDER: z.enum(['stub', 'google']).default('stub'),
+
+  // Phase 11: private bucket for mentor ID documents (presigned PUT/GET only).
+  BUCKET_MENTOR_DOCS: z.string().optional(),
+  // Phase 11: verified SES sender for the .ac.in OTP email. Unset → no email is sent
+  // (non-prod returns a devOtp; prod refuses with 503 rather than silently dropping it).
+  OTP_EMAIL_FROM: z.string().email().optional(),
+
   // Feature flags
   SEASON: z.enum(['on', 'off']).default('on'),
 });

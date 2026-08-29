@@ -1,12 +1,11 @@
-// Business logic for admin-ops (Phase 7). EVERY action requires role=admin and is
-// recorded to the append-only audit trail. Metrics are CHEAP by design — status COUNTs
+// Business logic for admin-ops (Phase 7). EVERY action requires role=admin; mutating actions
+// additionally require the matching permission SCOPE (Phase 11 packet 2 — requireScope) and are
+// recorded to the append-only audit trail. stats/audit are readable by any admin (no scope). Metrics are CHEAP by design — status COUNTs
 // off the mentors GSI + the caller's own audit count — never a live table scan.
-import { NotFoundError, requireRole, publish, type Principal } from '@sc/shared';
+import { NotFoundError, requireRole, requireScope, publish, assertTransition, type Principal } from '@sc/shared';
 import { mentorsModRepo } from '../repo/mentors.repo';
 import { auditRepo } from '../repo/audit.repo';
 import type { Suspend, Broadcast } from '../types';
-
-const now = () => new Date().toISOString();
 
 // ── Platform metrics ──────────────────────────────────────────────────────────
 /**
@@ -41,19 +40,26 @@ export async function audit(p: Principal, limit: number) {
 // ── Moderation ────────────────────────────────────────────────────────────────
 /** POST /admin/mentors/:id/suspend — drop an approved mentor from public search. */
 export async function suspend(p: Principal, targetUserId: string, input: Suspend) {
-  requireRole(p, 'admin');
-  const mentor = await mentorsModRepo.suspend(targetUserId, now());
+  requireScope(p, 'mentors.manage');
+  const existing = await mentorsModRepo.get(targetUserId);
+  if (!existing) throw NotFoundError('Mentor not found.');
+  assertTransition(existing.status, 'SUSPENDED'); // APPROVED only (shared machine) → 409 otherwise
+  const mentor = await mentorsModRepo.transition(targetUserId, 'APPROVED', 'SUSPENDED', p.userId, input.reason);
   await auditRepo.append(p.userId, 'mentor.suspend', { target: targetUserId, detail: { reason: input.reason } });
+  await publish({ type: 'mentor.suspended', source: 'admin', detail: { userId: targetUserId, reason: input.reason } });
   return mentor;
 }
 
 /** POST /admin/mentors/:id/reinstate — restore a suspended mentor to public search. */
 export async function reinstate(p: Principal, targetUserId: string) {
-  requireRole(p, 'admin');
+  requireScope(p, 'mentors.manage');
   const existing = await mentorsModRepo.get(targetUserId);
   if (!existing) throw NotFoundError('Mentor not found.');
-  const mentor = await mentorsModRepo.reinstate(targetUserId, existing.college ?? '', now());
+  assertTransition(existing.status, 'APPROVED'); // SUSPENDED only
+  if (existing.status !== 'SUSPENDED') throw NotFoundError('Mentor is not suspended.');
+  const mentor = await mentorsModRepo.transition(targetUserId, 'SUSPENDED', 'APPROVED', p.userId);
   await auditRepo.append(p.userId, 'mentor.reinstate', { target: targetUserId });
+  await publish({ type: 'mentor.reinstated', source: 'admin', detail: { userId: targetUserId } });
   return mentor;
 }
 
@@ -64,7 +70,7 @@ export async function reinstate(p: Principal, targetUserId: string) {
  * We never write notifications directly — that keeps admin-ops decoupled and channel-agnostic.
  */
 export async function broadcast(p: Principal, input: Broadcast) {
-  requireRole(p, 'admin');
+  requireScope(p, 'broadcast.send');
   await publish({
     type: 'admin.broadcast',
     source: 'admin',

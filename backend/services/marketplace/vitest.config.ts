@@ -9,6 +9,7 @@ export default defineConfig({
       AWS_REGION: 'ap-south-1',
       DDB_ENDPOINT: 'http://localhost:8000',
       TABLE_MENTORS: 'sc-test-mentors',
+      TABLE_AUDIT: 'sc-test-marketplace-audit',
     },
   },
 });

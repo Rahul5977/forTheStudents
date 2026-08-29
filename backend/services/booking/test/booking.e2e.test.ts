@@ -7,9 +7,11 @@ import { ddb, key } from '@sc/shared';
 import { app } from '../src/app';
 import { ensureBookingsTable } from '../src/dev/local-table';
 import { ensureMentorsTable } from '../../marketplace/src/dev/local-table';
+import { ensureUsersTable } from '../../auth-identity/src/dev/local-table';
 
 const MENTORS = process.env.TABLE_MENTORS!;
 const BOOKINGS = process.env.TABLE_BOOKINGS!;
+const USERS = process.env.TABLE_USERS!;
 const MENTOR_ID = 'mentor_x';
 
 const authAs = (sub: string) =>
@@ -25,7 +27,11 @@ let refundId = '';
 beforeAll(async () => {
   await ensureBookingsTable();
   await ensureMentorsTable();
+  await ensureUsersTable();
   const nowIso = new Date().toISOString();
+  // Phase 11: the student's profile feeds the mentor's prep sheet (first name + rank inputs).
+  await ddb.send(new PutCommand({ TableName: USERS, Item: { ...key.user('stud_a'), userId: 'stud_a', role: 'student', name: 'Aditi Verma Sharma', email: 'aditi@example.com',
+    rankPrefs: { advRank: 0, mainRank: 14200, category: 'Open', home: 'Uttar Pradesh', gender: 'Female', pwd: false, branches: ['CSE', 'ECE'], priority: 'branch' }, createdAt: nowIso, updatedAt: nowIso } }));
   // Seed an approved mentor + two open slots (startsAt = now → inside the join window).
   await ddb.send(new PutCommand({ TableName: MENTORS, Item: { ...key.mentor(MENTOR_ID), userId: MENTOR_ID, name: 'Aarav S', status: 'APPROVED', priceINR: 100 } }));
   await ddb.send(new PutCommand({ TableName: MENTORS, Item: { ...key.mentorAvailability(MENTOR_ID), slots: [
@@ -39,11 +45,12 @@ beforeAll(async () => {
 });
 
 describe('booking-sessions saga (local DynamoDB)', () => {
-  it('POST /bookings holds a slot → PENDING_PAYMENT + payment intent', async () => {
+  it('POST /bookings holds a slot → REQUESTED (mentor decides; no payment order yet)', async () => {
     const r = await (await app.request('/bookings', post({ mentorId: MENTOR_ID, slotId: 's1' }, { 'idempotency-key': 'k1' }), A)).json();
-    expect(r.booking.status).toBe('PENDING_PAYMENT');
+    expect(r.booking.status).toBe('REQUESTED');
     expect(r.booking.priceINR).toBe(100);
     expect(r.payment.amountINR).toBe(100);
+    expect(r.payment.orderId).toBeNull(); // order is created on accept()
     bookingId = r.booking.id;
   });
 
@@ -55,6 +62,15 @@ describe('booking-sessions saga (local DynamoDB)', () => {
   it('a different student cannot double-book the held slot (409)', async () => {
     const res = await app.request('/bookings', post({ mentorId: MENTOR_ID, slotId: 's1' }), B);
     expect(res.status).toBe(409);
+  });
+
+  it('only the mentor can accept; accept → ACCEPTED + order.created in the ledger', async () => {
+    const forbidden = await app.request(`/bookings/${bookingId}/accept`, post(), B);
+    expect(forbidden.status).toBe(403);
+    const r = await (await app.request(`/bookings/${bookingId}/accept`, post(), authAs(MENTOR_ID))).json();
+    expect(r.booking.status).toBe('ACCEPTED');
+    const detail = await (await app.request(`/bookings/${bookingId}`, {}, A)).json();
+    expect(detail.ledger.some((l: { type: string }) => l.type === 'order.created')).toBe(true);
   });
 
   it('payment webhook (captured) confirms the booking + mints a shared meeting link', async () => {
@@ -100,6 +116,7 @@ describe('booking-sessions saga (local DynamoDB)', () => {
     // fresh booking on s2, confirm it, then try to rate while CONFIRMED
     const created = await (await app.request('/bookings', post({ mentorId: MENTOR_ID, slotId: 's2' }, { 'idempotency-key': 'k2' }), A)).json();
     refundId = created.booking.id;
+    await app.request(`/bookings/${refundId}/accept`, post(), authAs(MENTOR_ID));
     await app.request('/payments/webhook', post({ bookingId: refundId, providerPaymentId: 'pay_2', event: 'payment.captured' }), authAs('anon'));
     const res = await app.request(`/sessions/${refundId}/rate`, post({ rating: 4 }), A);
     expect(res.status).toBe(409); // CONFIRMED, not ENDED
@@ -110,6 +127,22 @@ describe('booking-sessions saga (local DynamoDB)', () => {
     expect(r.status).toBe('REFUNDED');
     const detail = await (await app.request(`/bookings/${refundId}`, {}, A)).json();
     expect(detail.ledger.some((l: { type: string }) => l.type === 'refund.issued')).toBe(true);
+  });
+
+  it('student-prep: the mentor sees first name + rank inputs (never email); the student and strangers are 403', async () => {
+    const mentorAuth = authAs(MENTOR_ID);
+    const r = await (await app.request(`/sessions/${bookingId}/student-prep`, {}, mentorAuth)).json();
+    expect(r.student.firstName).toBe('Aditi');
+    expect(r.student.mainRank).toBe(14200);
+    expect(r.student.home).toBe('Uttar Pradesh');
+    expect(r.student.branches).toEqual(['CSE', 'ECE']);
+    expect(JSON.stringify(r)).not.toContain('aditi@example.com');
+    expect(JSON.stringify(r)).not.toContain('Verma');
+    expect((await app.request(`/sessions/${bookingId}/student-prep`, {}, A)).status).toBe(403);
+    expect((await app.request(`/sessions/${bookingId}/student-prep`, {}, C)).status).toBe(403);
+    // The booking row itself carries only the first name.
+    const mine = (await (await app.request('/sessions', {}, mentorAuth)).json()).sessions.find((s: { id: string }) => s.id === bookingId);
+    expect(mine.studentName).toBe('Aditi');
   });
 
   it('GET /sessions lists my bookings', async () => {

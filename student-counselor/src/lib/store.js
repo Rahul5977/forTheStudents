@@ -19,7 +19,7 @@ import { createContext, useContext, useState, useRef, useEffect, useCallback } f
 import { usePathname, useRouter } from 'next/navigation';
 import { idToPath, slugToId, ctxOf } from './routes';
 import { liveApi } from './liveApi';
-import { getToken, captureCognitoRedirect, loginWithGoogle as googleRedirect, hostedLogoutUrl } from './liveAuth';
+import { getToken, decodeToken, captureCognitoRedirect, loginWithGoogle as googleRedirect, hostedLogoutUrl } from './liveAuth';
 import { GOOGLE_AUTH } from './liveConfig';
 import {
   login as cognitoLogin, signUp as cognitoSignUp, confirm as cognitoConfirm, logout as cognitoLogout,
@@ -225,8 +225,20 @@ export function AppProvider({ children }) {
       await liveApi.bootstrap();
       const me = await liveApi.getMe();
       const prof = profileFromMe(me);
+      // Phase 11: role + permission scopes are written to Cognito server-side (superadmin
+      // bootstrap, admin promotion) but only reach the JWT on the NEXT token — and the API
+      // authorises on the token. If /me disagrees with the token, renew silently when a
+      // refresh token exists (email/password sign-in); the Google/Hosted-UI implicit flow has
+      // none → flag it so the chrome asks the user to sign in again. Never a security control:
+      // the API enforces regardless.
+      let roleStale = false;
+      const claimRole = decodeToken(tok)?.['custom:role'] || 'student';
+      if (me?.role && me.role !== claimRole) {
+        const fresh = await refreshSession().catch(() => null);
+        if (fresh && (decodeToken(fresh)?.['custom:role'] || 'student') === me.role) tok = fresh; else roleStale = true;
+      }
       setState((s) => ({
-        ...s, token: tok, loggedIn: true, role: me?.role || 'student', profile: prof, authReady: true,
+        ...s, token: tok, loggedIn: true, role: me?.role || 'student', profile: prof, authReady: true, roleStale,
         // Default the predictor's seat pool to the student's gender so a female sees her
         // Female-only (supernumerary) advantage without having to toggle it on.
         filters: { ...s.filters, gender: /female/i.test(prof.gender || '') ? 'Female-only (including Supernumerary)' : 'Gender-Neutral' },

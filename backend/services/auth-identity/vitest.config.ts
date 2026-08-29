@@ -15,6 +15,9 @@ export default defineConfig({
       DDB_ENDPOINT: 'http://localhost:8000',
       // Isolated table so tests never mutate the dev data you inspect in the console.
       TABLE_USERS: 'sc-test-users',
+      TABLE_AUDIT: 'sc-test-auth-audit',
+      // Phase 11: the superadmin bootstrap tests match against this (verified-email, case-insensitive).
+      SUPERADMIN_EMAIL: 'Owner.Person@Example.com',
     },
   },
 });

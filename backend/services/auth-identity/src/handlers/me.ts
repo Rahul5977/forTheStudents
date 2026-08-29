@@ -31,5 +31,5 @@ export async function postRole(c: Context<AppEnv>) {
   const p = getPrincipal(c);
   const parsed = SwitchRoleInput.safeParse(await c.req.json().catch(() => ({})));
   if (!parsed.success) throw ValidationError('Invalid role', parsed.error.flatten());
-  return c.json(await profile.switchRole(p.userId, parsed.data.role));
+  return c.json(await profile.switchRole(p, parsed.data.role));
 }

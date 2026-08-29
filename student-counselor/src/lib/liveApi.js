@@ -75,11 +75,32 @@ export const liveApi = {
   mentors: (params = {}) => call(`/mentors?${new URLSearchParams(params).toString()}`), // public
   mentorApply: (body) => call('/mentor/apply', { method: 'POST', body }),
   mentorVerifyEmail: (email, code) => call('/mentor/verify/email', { method: 'POST', body: code ? { email, code } : { email } }),
-  mentorVerifyId: (docRef) => call('/mentor/verify/id', { method: 'POST', body: { docRef } }),
   mentorProfile: () => call('/mentor/profile'),
-  mentorPending: () => call('/admin/mentors/pending'), // admin (PENDING_REVIEW + INTERVIEW)
-  mentorReview: (id, decision, note) => call(`/admin/mentors/${id}/review`, { method: 'POST', body: { decision, note } }),
-  mentorScheduleInterview: (id, interviewAt, interviewLink, note) => call(`/admin/mentors/${id}/interview`, { method: 'POST', body: { interviewAt, interviewLink, note } }),
+  mentorUpdateProfile: (body) => call('/mentor/profile', { method: 'PUT', body }),
+  // Phase 11 — documents: presign → browser PUT straight to S3 → confirm. The server picks the key.
+  mentorPresignDocument: (docType, contentType, sizeBytes) => call('/mentor/documents/presign', { method: 'POST', body: { docType, contentType, sizeBytes } }),
+  mentorConfirmDocument: (key) => call('/mentor/documents/confirm', { method: 'POST', body: { key } }),
+  /** Upload a File for the given docType end-to-end. Resolves to the updated own application. */
+  mentorUploadDocument: async (docType, file) => {
+    const pre = await call('/mentor/documents/presign', { method: 'POST', body: { docType, contentType: file.type, sizeBytes: file.size } });
+    const put = await fetch(pre.url, { method: pre.method || 'PUT', headers: pre.headers || { 'content-type': file.type }, body: file });
+    if (!put.ok) throw new Error(`Upload failed (${put.status})`);
+    return call('/mentor/documents/confirm', { method: 'POST', body: { key: pre.key } });
+  },
+  mentorSubmit: () => call('/mentor/submit', { method: 'POST' }),
+  // Phase 11 — admin verification console (scope: mentors.manage / mentors.interview).
+  adminMentorQueue: (params = {}) => call(`/admin/mentors?${new URLSearchParams(params).toString()}`), // { status, q, cursor, limit }
+  adminMentorCounts: () => call('/admin/mentors/counts'),
+  adminMentor: (id) => call(`/admin/mentors/${encodeURIComponent(id)}`),
+  adminMentorDocumentUrl: (id, docType) => call(`/admin/mentors/${encodeURIComponent(id)}/documents/${docType}/url`),
+  adminMentorField: (id, field, status, note) => call(`/admin/mentors/${encodeURIComponent(id)}/fields/${field}`, { method: 'POST', body: { status, note } }),
+  adminMentorVerifyDocs: (id) => call(`/admin/mentors/${encodeURIComponent(id)}/verify-docs`, { method: 'POST' }),
+  mentorPending: () => call('/admin/mentors/pending'), // LEGACY flat queue (one release)
+  mentorReview: (id, decision, note, kind) => call(`/admin/mentors/${id}/review`, { method: 'POST', body: { decision, note, ...(kind ? { kind } : {}) } }),
+  // NEW shape: the Meet link is server-generated (Calendar). Pass { interviewAt, durationMin, note }.
+  mentorScheduleInterview: (id, { interviewAt, durationMin, note } = {}) => call(`/admin/mentors/${id}/interview`, { method: 'POST', body: { interviewAt, durationMin, note } }),
+  mentorRescheduleInterview: (id, { interviewAt, durationMin, note } = {}) => call(`/admin/mentors/${id}/interview`, { method: 'PATCH', body: { interviewAt, durationMin, note } }),
+  mentorCancelInterview: (id) => call(`/admin/mentors/${id}/interview`, { method: 'DELETE' }),
   // Admin session/payment tracking.
   adminBookings: (params = {}) => call(`/admin/bookings?${new URLSearchParams(params).toString()}`),
   adminMentorBookings: (mentorId) => call(`/admin/mentors/${encodeURIComponent(mentorId)}/bookings`),
@@ -92,6 +113,8 @@ export const liveApi = {
   declineBooking: (id) => call(`/bookings/${id}/decline`, { method: 'POST' }), // mentor declines a request
   mentorSlots: (mentorId) => call(`/mentors/${encodeURIComponent(mentorId)}/slots`), // public: a mentor's open slots
   sessions: () => call('/sessions'),
+  // Phase 11 — the mentor's prep view of a BOOKED student (rank/category/state/branches/note). Mentor of that session only.
+  sessionStudentPrep: (id) => call(`/sessions/${id}/student-prep`),
   joinSession: (id) => call(`/sessions/${id}/join`, { method: 'POST' }),
   endSession: (id) => call(`/sessions/${id}/end`, { method: 'POST' }),
   rateSession: (id, rating, comment) => call(`/sessions/${id}/rate`, { method: 'POST', body: { rating, comment } }),
@@ -106,7 +129,7 @@ export const liveApi = {
   // Mentor availability (per-mentor weekly slots). GET reads the mentor's own
   // schedule; PUT replaces it. Shape: { slots: [{ id, day, time, ... }] }.
   mentorAvailability: () => call('/mentor/availability'),
-  putMentorAvailability: (slots) => call('/mentor/availability', { method: 'PUT', body: { slots } }),
+  putMentorAvailability: (slots, version) => call('/mentor/availability', { method: 'PUT', body: { slots, ...(typeof version === 'number' ? { version } : {}) } }),
 
   // Phase 7 — admin console. All require role==='admin'.
   adminStats: () => call('/admin/stats'),

@@ -1,7 +1,7 @@
 // Superadmin-only management of the admin team: list admins, promote a user to admin
 // with a set of permission scopes, edit those scopes, and demote back to student.
 // The superadmin (rahul) is set out-of-band; regular admins can never reach these routes.
-import { requireSuperadmin, ForbiddenError, NotFoundError, ValidationError, ADMIN_SCOPES, type Principal } from '@sc/shared';
+import { requireSuperadmin, ForbiddenError, NotFoundError, ValidationError, ADMIN_SCOPES, auditRepo, type Principal } from '@sc/shared';
 import { usersRepo } from '../repo/users.repo';
 import { setUserRoleAttribute } from '../cognito';
 
@@ -32,8 +32,11 @@ export async function setAdmin(p: Principal, targetUserId: string, permissions: 
   const target = await usersRepo.get(targetUserId);
   if (!target) throw NotFoundError('User not found — they must sign in at least once first.');
   if (target.role === 'superadmin') throw ForbiddenError('The superadmin is managed out-of-band.');
-  await setUserRoleAttribute(targetUserId, 'admin'); // Cognito custom:role → admin (takes effect on their next token)
-  return usersRepo.setRoleAndPermissions(targetUserId, 'admin', scopes, nowIso());
+  // Cognito custom:role + custom:scopes → take effect on the target's NEXT token (ADR-011).
+  await setUserRoleAttribute(targetUserId, 'admin', scopes);
+  const updated = await usersRepo.setRoleAndPermissions(targetUserId, 'admin', scopes, nowIso());
+  await auditRepo.append(p.userId, target.role === 'admin' ? 'admin.scopes' : 'admin.promote', { target: targetUserId, detail: { scopes } });
+  return updated;
 }
 
 /** Demote an admin back to student. Superadmin only; cannot demote self or another superadmin. */
@@ -43,6 +46,8 @@ export async function demoteAdmin(p: Principal, targetUserId: string) {
   const target = await usersRepo.get(targetUserId);
   if (!target) throw NotFoundError('User not found.');
   if (target.role === 'superadmin') throw ForbiddenError('Cannot demote a superadmin.');
-  await setUserRoleAttribute(targetUserId, 'student');
-  return usersRepo.setRoleAndPermissions(targetUserId, 'student', [], nowIso());
+  await setUserRoleAttribute(targetUserId, 'student', []);
+  const updated = await usersRepo.setRoleAndPermissions(targetUserId, 'student', [], nowIso());
+  await auditRepo.append(p.userId, 'admin.demote', { target: targetUserId });
+  return updated;
 }

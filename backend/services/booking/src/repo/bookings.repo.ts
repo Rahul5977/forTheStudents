@@ -18,6 +18,8 @@ export interface Booking {
   studentId: string;
   mentorId: string;
   mentorName?: string;
+  studentName?: string; // FIRST name only (Phase 11) — what the mentor's screens show
+  studentNote?: string; // optional note the student left when booking (TODO(owner): expose in CreateBookingInput)
   slotId: string;
   startsAt: string;
   durationMin: number;
@@ -26,6 +28,7 @@ export interface Booking {
   videoRoomId?: string;
   meetingUrl?: string; // shared Google Meet link, set at payment confirmation
   meetingProvider?: string; // 'google' | 'stub'
+  meetingEventId?: string; // Calendar event id when provider=google (reschedule/cancel)
   razorpayOrderId?: string; // the Razorpay order for this booking's payment
   razorpayPaymentId?: string; // the captured payment id (used for refunds)
   rating?: number;

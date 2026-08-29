@@ -59,6 +59,24 @@ export interface StageConfig {
   /** Allowed browser origin(s) for CORS. TODO(owner): set your real frontend URLs. */
   corsOrigins: string[];
   /**
+   * Phase 11: the ONE account promoted to superadmin on `POST /auth/bootstrap` when the
+   * Cognito-VERIFIED email matches case-insensitively. Idempotent; audited. Matched on the
+   * verified claim only — never on a client-supplied body.
+   */
+  superadminEmail: string;
+  /**
+   * Phase 11: interview / session meeting links. 'stub' = placeholder links, no creds.
+   * 'google' = real Calendar events + Meet links via a Workspace service account whose JSON
+   * lives in the SSM secrets blob (`GOOGLE_SA_JSON`, `GOOGLE_CALENDAR_IMPERSONATE`).
+   */
+  calendarProvider: 'stub' | 'google';
+  /**
+   * Phase 11: verified SES sender for the mentor .ac.in OTP email. Undefined = no email is
+   * sent (non-prod returns a devOtp; prod refuses with 503). Set once SES is out of the
+   * sandbox with a verified domain (see docs/integrations-setup.md).
+   */
+  otpEmailFrom?: string;
+  /**
    * Name of the SSM Parameter Store SecureString holding the Google OAuth creds.
    * Read + parsed at DEPLOY (synth) time (see lib/google-creds.ts) — accepts JSON
    * ({ "clientId": "...", "clientSecret": "..." }) OR dotenv (GOOGLE_CLIENT_ID=… /
@@ -77,6 +95,11 @@ const BASE = {
   // raise for the Jun–Jul season, lower off-season. (Phase 9.)
   apiRateLimit: 200,
   apiBurstLimit: 400,
+  // Phase 11: superadmin account (verified-email match on bootstrap).
+  superadminEmail: 'rahul.raj9237@gmail.com',
+  // Phase 11: stub until the owner stores the Google service-account creds in SSM.
+  calendarProvider: 'stub' as const,
+  otpEmailFrom: undefined as string | undefined, // TODO(owner): e.g. 'no-reply@kodexa.in' once SES is verified
   // Origins allowed for CORS + used to build Cognito callback/logout URLs.
   corsOrigins: [
     'http://localhost:3000', // local dev

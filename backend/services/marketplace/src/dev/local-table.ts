@@ -8,6 +8,7 @@ const client = new DynamoDBClient({
   credentials: { accessKeyId: 'local', secretAccessKey: 'local' },
 });
 const TABLE = process.env.TABLE_MENTORS ?? 'sc-dev-mentors';
+const AUDIT = process.env.TABLE_AUDIT ?? 'sc-dev-audit';
 
 export async function ensureMentorsTable(): Promise<void> {
   try {
@@ -41,4 +42,18 @@ export async function ensureMentorsTable(): Promise<void> {
     if ((err as { name?: string }).name !== 'ResourceInUseException') throw err;
   }
   await client.send(new DescribeTableCommand({ TableName: TABLE }));
+}
+
+/** Phase 11: marketplace writes verification decisions + document access to the audit trail. */
+export async function ensureAuditTable(): Promise<void> {
+  try {
+    await client.send(new CreateTableCommand({
+      TableName: AUDIT, BillingMode: 'PAY_PER_REQUEST',
+      AttributeDefinitions: [{ AttributeName: 'PK', AttributeType: 'S' }, { AttributeName: 'SK', AttributeType: 'S' }],
+      KeySchema: [{ AttributeName: 'PK', KeyType: 'HASH' }, { AttributeName: 'SK', KeyType: 'RANGE' }],
+    }));
+  } catch (err) {
+    if ((err as { name?: string }).name !== 'ResourceInUseException') throw err;
+  }
+  await client.send(new DescribeTableCommand({ TableName: AUDIT }));
 }

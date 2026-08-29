@@ -1,9 +1,12 @@
 // Business logic for identity/profile. Handlers call these; repos do the I/O.
 // Every function documents its input and output.
-import { NotFoundError, ValidationError, publish } from '@sc/shared';
+import { NotFoundError, ValidationError, ForbiddenError, publish, auditRepo, ADMIN_SCOPES, createLogger } from '@sc/shared';
 import type { Principal, RankPrefs, Role, UserProfile } from '@sc/shared';
+import { getEnv } from '@sc/config';
 import { usersRepo } from '../repo/users.repo';
 import { setUserRoleAttribute } from '../cognito';
+
+const logger = createLogger('auth-identity.profile');
 
 const nowIso = () => new Date().toISOString();
 
@@ -36,8 +39,13 @@ export async function bootstrap(p: Principal): Promise<UserProfile> {
   // "last seen" heartbeat that powers the admin live/active view. Best-effort.
   await usersRepo.touchLastSeen(p.userId, nowIso());
 
-  const profile = await usersRepo.get(p.userId);
+  let profile = await usersRepo.get(p.userId);
   if (!profile) throw NotFoundError('Profile could not be created');
+
+  // Phase 11 (packet 1): deterministic, idempotent superadmin bootstrap. See isSuperadminAccount().
+  if (profile.role !== 'superadmin' && isSuperadminAccount(p)) {
+    profile = await promoteToSuperadmin(p.userId);
+  }
 
   // Emit once, only on the FIRST bootstrap (before === null), for the welcome
   // notification (Phase 6) and funnel analytics (Phase 8). Never throws.
@@ -48,6 +56,33 @@ export async function bootstrap(p: Principal): Promise<UserProfile> {
       detail: { userId: profile.userId, role: profile.role, email: profile.email, at: profile.createdAt },
     });
   }
+  return profile;
+}
+
+/**
+ * Is this principal THE configured superadmin account?
+ *   - `SUPERADMIN_EMAIL` must be configured (undefined → nobody is ever auto-promoted);
+ *   - the email must come from the JWT (`p.email`, verified by API Gateway) — never a body;
+ *   - Cognito must have VERIFIED it (`email_verified`): an unverified email/password
+ *     sign-up with the owner's address must NOT be promoted;
+ *   - exact match after trim + lower-case (so `Rahul.Raj@…` matches, `rahul.raj9237+x@…` doesn't).
+ */
+export function isSuperadminAccount(p: Pick<Principal, 'email' | 'emailVerified'>): boolean {
+  const configured = getEnv().SUPERADMIN_EMAIL?.trim().toLowerCase();
+  if (!configured) return false;
+  if (!p.emailVerified) return false;
+  const email = p.email?.trim().toLowerCase();
+  return !!email && email === configured;
+}
+
+/** Cognito FIRST (authoritative for the next JWT), then the users row, then the audit trail. */
+async function promoteToSuperadmin(userId: string): Promise<UserProfile> {
+  const scopes = [...ADMIN_SCOPES];
+  await setUserRoleAttribute(userId, 'superadmin', scopes);
+  const profile = await usersRepo.setRoleAndPermissions(userId, 'superadmin', scopes, nowIso());
+  await auditRepo.append(userId, 'superadmin.bootstrap', { target: userId, detail: { scopes: scopes.length } })
+    .catch((err: unknown) => logger.error('audit append failed (superadmin.bootstrap)', err as Error));
+  logger.info('superadmin bootstrapped', { userId });
   return profile;
 }
 
@@ -125,7 +160,14 @@ export async function updateRankPrefs(userId: string, rankPrefs: RankPrefs): Pro
  * @param role    'student' | 'mentor'
  * @returns       the updated UserProfile
  */
-export async function switchRole(userId: string, role: Role): Promise<UserProfile> {
+export async function switchRole(p: Principal, role: Role): Promise<UserProfile> {
+  const userId = p.userId;
+  // Phase 11: a superadmin can NOT switch to student/mentor here — that would lock the one
+  // privileged account out (and there is no in-band way back). Checked on BOTH the token
+  // role and the stored role, so a stale token cannot bypass it either way.
+  if (p.role === 'superadmin') throw ForbiddenError('The superadmin role cannot be changed from the app.');
+  const current = await usersRepo.get(userId);
+  if (current?.role === 'superadmin') throw ForbiddenError('The superadmin role cannot be changed from the app.');
   await setUserRoleAttribute(userId, role); // no-op locally / when no pool configured
   const profile = await usersRepo.setRole(userId, role, nowIso());
   await publish({ type: 'user.role_changed', source: 'auth-identity', detail: { userId, role, at: profile.updatedAt } });

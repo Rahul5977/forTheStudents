@@ -3,7 +3,7 @@
 // - POST /payments/webhook   : PUBLIC (provider callback; signature-verified in the handler)
 import { createApp } from '@sc/shared';
 import { create, cancel, getOne, accept, decline, adminBookings, adminMentorBookings } from './handlers/bookings';
-import { list, join, end, rate } from './handlers/sessions';
+import { list, join, end, rate, studentPrep } from './handlers/sessions';
 import { webhook } from './handlers/payments';
 
 export const app = createApp('booking');
@@ -19,6 +19,7 @@ app.get('/admin/bookings', adminBookings);
 app.get('/admin/mentors/:id/bookings', adminMentorBookings);
 
 app.get('/sessions', list);
+app.get('/sessions/:id/student-prep', studentPrep); // mentor-only prep sheet (Phase 11)
 app.post('/sessions/:id/join', join);
 app.post('/sessions/:id/end', end);
 app.post('/sessions/:id/rate', rate);

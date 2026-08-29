@@ -10,7 +10,7 @@
 import { serve } from '@hono/node-server';
 import { app } from '../app';
 import type { LambdaBindings } from '@sc/shared';
-import { ensureMentorsTable } from './local-table';
+import { ensureMentorsTable, ensureAuditTable } from './local-table';
 
 const PORT = Number(process.env.PORT ?? 8790);
 const b64url = {
@@ -49,9 +49,11 @@ async function fetchHandler(req: Request): Promise<Response> {
   }
 
   if (url.pathname === '/dev/login' && req.method === 'POST') {
-    const body = (await req.json().catch(() => ({}))) as { email?: string; name?: string; role?: string };
+    const body = (await req.json().catch(() => ({}))) as { email?: string; name?: string; role?: string; scopes?: string[] };
     if (!body.email) return Response.json({ error: 'email required' }, { status: 400, headers: ch });
-    const claims: Record<string, unknown> = { sub: subFor(body.email), email: body.email, 'custom:role': body.role ?? 'student' };
+    const claims: Record<string, unknown> = { sub: subFor(body.email), email: body.email, email_verified: true, 'custom:role': body.role ?? 'student' };
+    // Phase 11: admin permission scopes ride in the token as `custom:scopes` (comma-separated).
+    if (Array.isArray((body as { scopes?: string[] }).scopes)) claims['custom:scopes'] = ((body as { scopes?: string[] }).scopes ?? []).join(',');
     if (body.name) claims.name = body.name;
     return Response.json({ token: 'dev.' + b64url.encode(claims), claims }, { headers: ch });
   }
@@ -76,11 +78,12 @@ async function fetchHandler(req: Request): Promise<Response> {
 
 async function main() {
   await ensureMentorsTable();
+  await ensureAuditTable();
   serve({ fetch: fetchHandler, port: PORT });
   // eslint-disable-next-line no-console
   console.log(`\n  marketplace DEV server  →  http://localhost:${PORT}`);
   // eslint-disable-next-line no-console
-  console.log('  Flow: apply → verify/email (devOtp) → verify/id → admin review → GET /mentors\n');
+  console.log('  Flow: apply → verify/email (devOtp) → documents/presign+confirm → submit → admin fields/verify-docs/interview/review → GET /mentors\n');
 }
 
 void main();

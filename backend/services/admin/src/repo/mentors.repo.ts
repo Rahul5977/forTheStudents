@@ -1,27 +1,34 @@
 // Moderation access to the Mentors table (owned by @sc/marketplace — see
 // services/marketplace/src/repo/mentors.repo.ts for the full shape). We touch ONLY the
-// MENTOR#<id>/PROFILE row and the sparse `gsi1-status` index (gsi1pk=`MENTOR#<STATUS>`):
+// MENTOR#<id>/PROFILE row and the sparse `gsi1-status` index (gsi1pk=`MENTOR#<STATUS>`,
+// gsi1sk=`<statusChangedAt>#<userId>` — Phase 11 time-ordered shape):
 //   - cheap status COUNTs for /admin/stats (never a table scan)
-//   - GUARDED status flips for suspend / reinstate (drop from / restore to public search)
+//   - GUARDED status flips for suspend / reinstate through the SHARED state machine
+//     (APPROVED → SUSPENDED → APPROVED), written atomically with a ConditionExpression,
+//     appending to the row's status history exactly like marketplace does.
 import { GetCommand, UpdateCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
-import { ddb, key, ConflictError, NotFoundError } from '@sc/shared';
+import { ddb, key, ConflictError, NotFoundError, normalizeMentorStatus, type MentorStatus } from '@sc/shared';
 import { getEnv } from '@sc/config';
 
 const TABLE = () => getEnv().TABLE_MENTORS;
 
-/** Mirrors the marketplace profile row (only the fields moderation cares about). */
+/** Mirrors the marketplace profile row (only the fields moderation cares about). STRICTLY typed status. */
 export interface MentorRow {
   userId: string;
   name?: string;
   college?: string;
   branch?: string;
-  status: string;
+  status: MentorStatus;
+  statusChangedAt?: string;
+  history?: { from: MentorStatus | null; to: MentorStatus; by: string; at: string; note?: string }[];
   updatedAt?: string;
 }
 
 const strip = (item: Record<string, unknown>): MentorRow => {
   const { PK, SK, gsi1pk, gsi1sk, ...rest } = item;
-  return rest as unknown as MentorRow;
+  const row = rest as unknown as MentorRow;
+  row.status = normalizeMentorStatus(row.status) ?? row.status;
+  return row;
 };
 
 export const mentorsModRepo = {
@@ -31,7 +38,7 @@ export const mentorsModRepo = {
   },
 
   /** Cheap COUNT over the status GSI (Query + Select COUNT — never scans the table). */
-  async countByStatus(status: string): Promise<number> {
+  async countByStatus(status: MentorStatus): Promise<number> {
     let count = 0;
     let ExclusiveStartKey: Record<string, unknown> | undefined;
     do {
@@ -50,56 +57,31 @@ export const mentorsModRepo = {
   },
 
   /**
-   * Suspend: status=SUSPENDED + REMOVE gsi1pk/gsi1sk → the mentor drops out of the public
-   * search index immediately. GUARDED: only an APPROVED mentor can be suspended (condition).
+   * ATOMIC guarded flip `from` → `to` (the domain has already run assertTransition on the
+   * shared machine; this is the DB-level twin). Re-keys the GSI + appends to `history`.
    */
-  async suspend(userId: string, now: string): Promise<MentorRow> {
+  async transition(userId: string, from: MentorStatus, to: MentorStatus, by: string, note?: string): Promise<MentorRow> {
+    const now = new Date().toISOString();
     try {
       const res = await ddb.send(new UpdateCommand({
         TableName: TABLE(),
         Key: key.mentor(userId),
-        UpdateExpression: 'SET #s = :suspended, #u = :now REMOVE gsi1pk, gsi1sk',
-        ExpressionAttributeNames: { '#s': 'status', '#u': 'updatedAt' },
-        ExpressionAttributeValues: { ':suspended': 'SUSPENDED', ':now': now, ':approved': 'APPROVED' },
-        ConditionExpression: 'attribute_exists(PK) AND #s = :approved',
-        ReturnValues: 'ALL_NEW',
-      }));
-      return strip(res.Attributes as Record<string, unknown>);
-    } catch (err) {
-      if ((err as { name?: string }).name === 'ConditionalCheckFailedException') {
-        // Either no such mentor, or not currently APPROVED — disambiguate for a clean 404/409.
-        const existing = await this.get(userId);
-        if (!existing) throw NotFoundError('Mentor not found.');
-        throw ConflictError(`Cannot suspend a ${existing.status} mentor — only APPROVED ones.`);
-      }
-      throw err;
-    }
-  },
-
-  /**
-   * Reinstate: status=APPROVED + restore gsi1pk='MENTOR#APPROVED', gsi1sk=`<college>#<id>`
-   * (same shape marketplace writes on approval) → back in public search. GUARDED to SUSPENDED.
-   */
-  async reinstate(userId: string, college: string, now: string): Promise<MentorRow> {
-    try {
-      const res = await ddb.send(new UpdateCommand({
-        TableName: TABLE(),
-        Key: key.mentor(userId),
-        UpdateExpression: 'SET #s = :approved, #u = :now, gsi1pk = :gpk, gsi1sk = :gsk',
-        ExpressionAttributeNames: { '#s': 'status', '#u': 'updatedAt' },
+        UpdateExpression: 'SET #s = :to, #u = :now, statusChangedAt = :sk, gsi1pk = :gpk, gsi1sk = :sk, #h = list_append(if_not_exists(#h, :empty), :entry)',
+        ExpressionAttributeNames: { '#s': 'status', '#u': 'updatedAt', '#h': 'history' },
         ExpressionAttributeValues: {
-          ':approved': 'APPROVED', ':now': now,
-          ':gpk': 'MENTOR#APPROVED', ':gsk': `${college}#${userId}`, ':suspended': 'SUSPENDED',
+          ':to': to, ':from': from, ':now': now, ':gpk': `MENTOR#${to}`, ':sk': `${now}#${userId}`,
+          ':empty': [], ':entry': [{ from, to, by, at: now, ...(note ? { note } : {}) }],
         },
-        ConditionExpression: 'attribute_exists(PK) AND #s = :suspended',
+        ConditionExpression: 'attribute_exists(PK) AND #s = :from',
         ReturnValues: 'ALL_NEW',
       }));
       return strip(res.Attributes as Record<string, unknown>);
     } catch (err) {
       if ((err as { name?: string }).name === 'ConditionalCheckFailedException') {
+        // Either no such mentor, or not currently `from` — disambiguate for a clean 404/409.
         const existing = await this.get(userId);
         if (!existing) throw NotFoundError('Mentor not found.');
-        throw ConflictError(`Cannot reinstate a ${existing.status} mentor — only SUSPENDED ones.`);
+        throw ConflictError(`Cannot move a ${existing.status} mentor to ${to}.`);
       }
       throw err;
     }

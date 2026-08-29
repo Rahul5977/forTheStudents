@@ -34,3 +34,11 @@ export async function rate(c: Context<AppEnv>) {
   if (!parsed.success) throw ValidationError('Invalid rating', parsed.error.flatten());
   return c.json(await booking.rate(p, id, parsed.data));
 }
+
+/** GET /sessions/:id/student-prep — mentor-only prep sheet for a booked student (Phase 11) */
+export async function studentPrep(c: Context<AppEnv>) {
+  const p = getPrincipal(c);
+  const id = c.req.param('id');
+  if (!id) throw ValidationError('Missing session id');
+  return c.json(await booking.studentPrep(p, id));
+}

@@ -4,15 +4,16 @@
 
 ---
 
-## 🟡 Current status: **Phase 0 + Phase 1 scaffolded (boilerplate)** — owner to fill logic
+## 🟡 Current status: **Phases 0–10 LIVE on AWS (`dev` stage = production) · Phase 11 in progress**
 
-Architecture **approved with defaults** (2026-07-14). Phase 0 (Foundations) and Phase 1
-(Auth & Identity) are scaffolded as boilerplate with `// TODO(owner)` markers. Not yet
-deployed (needs AWS creds + `cdk bootstrap` + the Google OAuth / SMS TODOs filled).
+Everything through Phase 10 is built, deployed to `ap-south-1` and verified (see the phase tracker +
+the deployed-outputs section below). The AI Counsellor (bounded context #11) is planned separately in
+`docs/ai-counsellor/`. **Phase 11 — Mentor Onboarding, Mentor Dashboard & Admin Console** is being
+built packet-by-packet (see the Phase 11 section) from `CLAUDE_CODE_LOOP_PROMPT.md` at the repo root.
 
 **Next actions:**
-1. Owner: fill `// TODO(owner)` blocks in `services/auth-identity` + `infra/lib/*` (Google OAuth secret, SMS/SNS for OTP, CORS/callback URLs), run `pnpm install && pnpm typecheck && pnpm test`, then `pnpm deploy:dev`.
-2. Then start **Phase 2 (Catalog + Predictor)** — the CORE hook.
+1. Finish the open Phase 11 packet (lowest-numbered unchecked task), `pnpm typecheck && pnpm test`, tick it here.
+2. Owner: Google Workspace service-account credential for packet 5 (Calendar/Meet) → SSM secrets blob (`GOOGLE_SA_JSON`, `GOOGLE_CALENDAR_IMPERSONATE`). Until then the stub provider is used.
 
 ---
 
@@ -41,6 +42,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 | 7 | Admin & Ops | ✅ | `@sc/admin`: stats, append-only audit, moderation (suspend/reinstate), broadcast→notifications. **Deployed + e2e 7/7** (RBAC 403, moderation, broadcast, audit). Admin *console UI* = frontend TODO |
 | 8 | Analytics & Reporting | ✅ | `@sc/analytics`: DynamoDB Streams→Lambda→S3 (NDJSON, date-partitioned) + Athena DDL (partition projection, no crawler) + daily ledger reconciliation. **Deployed + verified** (writes land in S3). Razorpay settlement = TODO(owner) |
 | 9 | Hardening & Scale | ✅ | API throttling on the stage; WAF/provisioned-concurrency **season-gated OFF by default**; `ScalingStack` (no-op unless `provisionedConcurrency>0`); k6 load-test + `runbooks.md`. Synth + cost-audit PASS |
+| 11 | Mentor Onboarding, Dashboard & Admin Console | 🟡 | packets 0–7 ✅ + packet 8 except the DEPLOY (owner go-ahead pending: new S3 bucket, additive Cognito attribute, new routes — see `cdk diff` in the changelog). Superadmin bootstrap · scope enforcement · rich application + S3 uploads · verification state machine · Calendar/Meet interviews · mentor dashboard · admin console · hardening |
 | 10 | Go-live & Seasonal Ops | ✅ | `go-live.md` (go/no-go, canary strategy, PITR drill), guarded `deploy.sh`, optional `WarmupStack` (OFF by default), and **`ui-testing-guide.md`**. Canary CodeDeploy wiring = TODO(owner) |
 
 ### Phase 0 — Foundations
@@ -138,6 +140,89 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] e2e: `pnpm --filter @sc/auth-identity test` (9 ✓) + full HTTP loop (login → token → bootstrap → /me → rank-prefs → role) + frontend `/live` page live
 - [ ] Real-Cognito login e2e on AWS — **blocked on owner AWS credentials** (Task 14)
 
+### Phase 11 — Mentor Onboarding, Mentor Dashboard & Admin Console *(building now)*
+
+Spec: `CLAUDE_CODE_LOOP_PROMPT.md` (repo root). **FIRST RUN (2026-08-29): every GROUND TRUTH claim §0–§12 verified against the code.** Conflicts / deviations found and how they are handled:
+- **Booking local baseline is NOT 11/11.** `services/booking/test/booking.e2e.test.ts` still drives the pre-accept saga (`PENDING_PAYMENT`) while the domain has the mentor accept/decline step (`REQUESTED → ACCEPTED`); 9 of 11 fail before any Phase 11 change. → Pre-work: bring the test up to the current saga so the regression baseline is real (marketplace 12 · booking 11 · admin 8 · auth 9).
+- **Audit table is admin-owned but packets 1 & 3 must write to it** (superadmin promotions in auth-identity; document access in marketplace). → The append-only audit repo moves to `@sc/shared` (`audit.ts`); each service gets `TABLE_AUDIT` + a write grant. Admin's `audit.repo.ts` re-exports it.
+- **Packet 6 "Students & prep" needs the student's rank/category/state**, which only the users table holds and the booking service cannot read today. → New read-only access pattern: booking Lambda gets `TABLE_USERS` + read grant; `GET /sessions/:id/student-prep` (mentor of a booked session only).
+- **Google/Hosted-UI sign-in uses the implicit flow (no refresh token)** (see 2026-07-18 changelog). Role/scope claims written to Cognito therefore only reach the JWT on the user's *next* sign-in. → Frontend detects a claim/DB mismatch after bootstrap, silently refreshes when it can, otherwise shows a "sign in again to activate" banner.
+- **Packet 4 makes approval post-interview only**; the existing marketplace test approves straight from `PENDING_REVIEW` and the deployed `AVerifyQueue` shows `INTERVIEW`. → Test updated; `INTERVIEW` kept as a read alias of `INTERVIEW_SCHEDULED`; the legacy `GET /admin/mentors/pending` route stays for one release.
+- **Spec lists four scope↔route pairs**; the deployed nav also gates Sessions/Payments/Analytics on `sessions.view`/`payments.view`. → Those admin booking reads get `sessions.view` too, so UI and API agree everywhere.
+
+**Packet 0 — baseline repair (pre-work)**
+- [x] Update `booking.e2e.test.ts` to the accept/decline saga (mentor accepts → student pays) so 11/11 pass locally
+
+**Packet 1 — Superadmin bootstrap + doc correction**
+- [x] `SUPERADMIN_EMAIL` in `packages/config` (zod, optional), `.env.example`, `infra/lib/config.ts` → auth-identity env
+- [x] `getPrincipal` exposes `emailVerified` (from the `email_verified` claim); bootstrap promotes only on a VERIFIED, case-insensitive exact match → `role=superadmin` in Cognito (`custom:role` + `custom:scopes`) and the users row (all scopes). Idempotent.
+- [x] Close the self-demotion hole: `POST /me/role` is 403 for a superadmin (token role OR stored role)
+- [x] Audit every promotion (`superadmin.bootstrap`, `admin.promote`, `admin.scopes`, `admin.demote`) via the shared audit repo; auth-identity gets `TABLE_AUDIT` + write grant
+- [x] Fix stale headers in `architecture.md` + `progress.md`
+- [x] Tests: correct email promoted · different casing promoted · unverified email NOT promoted · lookalike NOT promoted · second run no-op · superadmin `POST /me/role` → 403
+- [x] Frontend: after bootstrap, if the token's `custom:role` ≠ `/me.role` → refresh session (or "sign in again" banner when no refresh token)
+
+**Packet 2 — Backend scope enforcement**
+- [x] ADR: scopes ride in the JWT as `custom:scopes` (comma-separated), mirroring `custom:role` (ADR-005); changes apply on the next token
+- [x] `hasScope(p, scope)` / `requireScope(p, scope)` in `packages/shared/src/auth.ts` (superadmin satisfies every scope; admin hierarchy respected) + unit tests
+- [x] Cognito: `custom:scopes` attribute (auth-stack); `setUserRoleAttribute` writes role + scopes; setAdmin/demote/superadmin-bootstrap keep Cognito and the users row in sync
+- [x] Apply: `mentors.manage` (queue/review/verify/suspend/reinstate/documents), `mentors.interview` (schedule/reschedule/cancel), `broadcast.send`, `users.view`, `sessions.view` (admin booking reads)
+- [x] Dev servers + test helpers accept `scopes`; admin UI copy says scope changes apply on next sign-in
+- [x] Tests: admin with scope passes · without → 403 · superadmin passes with no scopes
+
+**Packet 3 — Rich mentor application + real ID upload**
+- [x] Extend `ApplyInput` (identity/contact/profile/essays/consent) — existing fields unchanged; DRAFT accepts partial data
+- [x] Private S3 bucket `sc-<stage>-mentor-docs-<acct>` (SSE, versioned, block-public, CORS for the app origins, lifecycle: rejected-tagged objects expire) in `data-stack`; marketplace grants
+- [x] `POST /mentor/documents/presign` (server-generated key `mentors/<userId>/<docType>/<ulid>.<ext>`, image/PDF ≤ 5 MB, short-TTL PUT) · `POST /mentor/documents/confirm` (HeadObject check, prefix check) · admin `GET /admin/mentors/:id/documents/:docType/url` (short-TTL GET, audited)
+- [x] `.ac.in` OTP bound to the signed-in `userId`; per-user + per-email rate limits; SES delivery when configured (prod), `devOtp` only outside prod
+- [x] `POST /mentor/submit` — `DRAFT → PENDING_REVIEW` only when complete; the 400 names EVERY missing item
+- [x] `publicView` unchanged + a leak test (no essay/document/phone/email)
+- [x] Tests: each missing requirement blocks with a precise message · presign rejects bad content-type / oversize · cross-mentor presign/read denied · public leak check
+
+**Packet 4 — Verification state machine**
+- [x] `packages/shared/src/mentor-state.ts`: `MentorStatus` incl. `DOCS_VERIFIED`, `INTERVIEW_SCHEDULED`, `SUSPENDED`; `INTERVIEW` legacy alias; one pure `canTransition/assertTransition`; exhaustive unit tests
+- [x] Per-field verification `{status: UNVERIFIED|VERIFIED|FLAGGED, by, at, note}` on every submitted detail + document; `POST /admin/mentors/:id/fields/:field`; `POST /admin/mentors/:id/verify-docs` only when all required items are VERIFIED
+- [x] Rejection requires a reason; soft (→ `DRAFT`, notes visible, re-apply) vs hard (`REJECTED`, terminal); approval only from `INTERVIEW_SCHEDULED`
+- [x] Status history on the row; every transition = audit entry + event (spy-asserted)
+- [x] Admin queue `GET /admin/mentors?status=&q=&cursor=&limit=` on a time-ordered `gsi1sk = <changedAt>#<userId>` with a real cursor (never whole-table-in-memory); `GET /admin/mentors/counts`; `GET /admin/mentors/:id` full application; legacy `/admin/mentors/pending` kept
+- [x] Admin service: `MentorRow.status` typed strictly; suspend/reinstate go through the shared machine
+
+**Packet 5 — Interview scheduling (Google Calendar + Meet)**
+- [x] `CalendarProvider` in `@sc/shared` (`calendar.ts`): `StubCalendarProvider` + `GoogleCalendarProvider` (service account w/ domain-wide delegation, JWT signed with node `crypto`, no extra deps; creds from the SSM secrets blob); selected by `CALENDAR_PROVIDER`
+- [x] Booking `meeting.ts` implemented on the provider (stub by default)
+- [x] Interview contract migration: accept `{interviewAt, durationMin, note}` AND legacy `{interviewLink}` for one release; link server-generated otherwise; `liveApi.mentorScheduleInterview` + admin screen moved to the new shape
+- [x] `DOCS_VERIFIED → INTERVIEW_SCHEDULED` with `{eventId, meetUrl, interviewAt, durationMin, scheduledBy}`; attendees = mentor + interviewing admin; emits `mentor.interview.scheduled`
+- [x] `PATCH …/interview` reschedule (same event) · `DELETE …/interview` cancel (deletes event → `DOCS_VERIFIED`) · idempotent on `(mentorId, interviewAt)` · calendar failure never half-commits
+- [x] Post-interview `POST /admin/mentors/:id/review {decision, note}`; contract test for the Google provider skips without creds
+
+**Packet 6 — Mentor dashboard (extend `screens/mentor.js`)**
+- [x] Application status timeline (Submitted → Docs verified → Interview → Decision) with blockers, next step, interview date + Meet link; rejection reason + re-apply
+- [x] Multi-step application form (all packet-3 fields, document upload via presign, essays, consent) replacing the thin verification form
+- [x] Profile: editable bio/topics/price/languages; identity fields locked after approval with a "request a change" path
+- [x] Availability 409 → "changed elsewhere, reload"
+- [x] Sessions with student first name + Meet link + join/end
+- [x] Students & prep (rank/category/state/branches/note) — booked sessions only
+- [x] Earnings from the booking ledger; pending vs released honest; payouts "coming soon"
+- [x] Ratings & feedback (avg, distribution, trend)
+- [x] Gating: unapproved → screens 1–2; approved → all; suspended → banner + read-only
+
+**Packet 7 — Admin console (extend `screens/admin.js`)**
+- [x] Verification queue: status filter, oldest-first, wait time; application detail with every field/essay + inline document preview (presigned GET), per-field Verify/Flag, "N of M verified", legal actions only
+- [x] Mentor directory (all statuses, suspend/reinstate, status history)
+- [x] Interview calendar (upcoming first, reschedule/cancel)
+- [x] Admin team (superadmin): promote/edit scopes/demote + "applies on next sign-in" copy
+- [x] Audit log (filter by actor/action/date, visibly read-only)
+- [x] Overview: queue health (waiting, avg time per stage, interviews this week)
+- [x] Confirm step on every state-changing action; every new action audited
+
+**Packet 8 — Hardening**
+- [ ] Deployed-stage e2e: superadmin sign-in → apply with real upload → verify each field → schedule (stub) → approve → mentor dashboard → booking still green
+- [x] No local regressions — final pass: shared 17 (+1 live-skip) · marketplace 23 · admin 9 · booking 18 · auth 17 · notifications 6 · planner 7 · catalog 15 · analytics 6; `pnpm typecheck` 13/13; `next build` ✓ (76 paths)
+- [x] CloudWatch alarms: no NEW Lambdas were added (all Phase 11 routes live in the existing marketplace/booking/auth/admin lambdaliths, already covered by `ObservabilityStack` error/throttle/duration alarms); marketplace timeout raised 10→15 s for the Calendar round-trip. Audit coverage: `superadmin.bootstrap`, `admin.promote|scopes|demote`, `mentor.field.verify`, `mentor.docs.verified`, `mentor.interview.schedule|reschedule|cancel`, `mentor.review.approve|reject`, `mentor.document.access`, `mentor.suspend|reinstate`
+- [x] `architecture.md`: §5.5 rewritten (state diagram, application, per-field verification) + new §5.5.1 document store, §5.5.2 Calendar/Meet, §5.5.3 superadmin & scopes; §6.1 Mentors row + §14 API surface updated; README §13 + `integrations-setup.md` Phase 11 owner knobs
+- [ ] Security pass: no public/long-lived document URL; no essay/email/phone/document in any public response; every new route role- AND scope-gated; OTP + presign rate-limited; static-export gating never a security control
+- [ ] `progress.md`: Phase 11 complete, ADRs, changelog
+
 ---
 
 ## Production-readiness checklist (through Phase 2)
@@ -220,6 +305,15 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 
 ## Decision log (ADRs)
 
+- **2026-08-29 · ADR-010 · Superadmin is bootstrapped from a VERIFIED-email match, not seeded.** `POST /auth/bootstrap` promotes the caller iff `email_verified` and `email` (JWT claims, never a body) equal `SUPERADMIN_EMAIL` case-insensitively; writes Cognito `custom:role`+`custom:scopes` FIRST, then the users row, then an audit row. Idempotent. A superadmin cannot `POST /me/role` (token OR stored role). *Alternative:* a one-off script — rejected: not reproducible across redeploys (Cognito ids change on every `cdk deploy` from scratch).
+- **2026-08-29 · ADR-011 · Admin permission scopes ride in the JWT as `custom:scopes`** (comma-separated), written next to `custom:role` (ADR-005) and parsed in `getPrincipal` → `p.scopes`; `requireScope(p, scope)` = `requireRole(p,'admin')` + `hasScope`; superadmin satisfies every scope. **Scope changes reach the API on the user's NEXT token** (silent refresh for email/password sign-in; Google/Hosted-UI implicit flow → "sign in again" banner). *Alternative:* load scopes from the users row per request — rejected: every scoped service would need a cross-service read grant + a users reader + test fixtures, for admin traffic that is tiny; token-carried scopes mirror the existing role design and stay scale-free.
+- **2026-08-29 · ADR-012 · ONE mentor state machine in `@sc/shared` (`mentor-state.ts`).** `DRAFT → PENDING_REVIEW → DOCS_VERIFIED → INTERVIEW_SCHEDULED → APPROVED ⇄ SUSPENDED`, hard `REJECTED` terminal, soft reject = back to `DRAFT`; `INTERVIEW` legacy alias mapped on read. Marketplace AND admin call `assertTransition` and their repos enforce the same edge atomically (`ConditionExpression` on the current status) → a lost race is a 409, never a half-write. Every transition appends to the row's `history` and re-keys `gsi1sk = <changedAt>#<userId>` (time-ordered queue with a real cursor; EVERY status is indexed now).
+- **2026-08-29 · ADR-013 · Per-field manual verification, not one Approve button.** Each submitted detail/document carries `{status: UNVERIFIED|VERIFIED|FLAGGED, by, at, note}`; `DOCS_VERIFIED` is reachable only when every REQUIRED item is VERIFIED; a later FLAG drops the application back to `PENDING_REVIEW`; approval is legal only after the interview.
+- **2026-08-29 · ADR-014 · Mentor ID documents: private S3, server-minted keys, presigned URLs only, audited reads.** Bucket `sc-<stage>-mentor-docs-<acct>` (block-public, SSE, versioned, CORS for the app origins, lifecycle: `status=rejected`-tagged objects expire after 90 d). Key = `mentors/<userId>/<docType>/<ulid>.<ext>`; content-type is part of the PUT signature; size is enforced at confirm (HeadObject; oversize → deleted). Admin preview = 3-min presigned GET minted per click + `mentor.document.access` audit row. Local/tests use an in-memory store with the same contract.
+- **2026-08-29 · ADR-015 · Meeting links through a `CalendarProvider` (`@sc/shared calendar.ts`).** `StubCalendarProvider` (default, deterministic `/lookup/` placeholders) vs `GoogleCalendarProvider` (service account + domain-wide delegation, JWT signed with `node:crypto`, plain `fetch`, no SDK; creds `GOOGLE_SA_JSON` + `GOOGLE_CALENDAR_IMPERSONATE` in the SSM secrets blob). Interviews: create event → then DB transition; DB failure → compensating cancel (never an orphaned event); idempotent on `(mentorId, interviewAt)`; reschedule PATCHes the same event; cancel deletes it. Paid sessions fall back to the placeholder on a Calendar failure (a captured payment must never fail). `CALENDAR_PROVIDER=google` without creds → 503, never silent placeholders.
+- **2026-08-29 · ADR-016 · The append-only audit repo moved to `@sc/shared`** so auth-identity (promotions), marketplace (verification, document access) and admin (moderation) write one trail; each Lambda gets `TABLE_AUDIT` + a write grant.
+- **2026-08-29 · ADR-017 · Interview endpoint contract migration in two steps.** `POST /admin/mentors/:id/interview` accepts `{interviewAt, durationMin?, note?}` (link server-generated) AND the legacy `{interviewLink}` for one release; `liveApi.mentorScheduleInterview` moved to the new shape; `interviewLink` is dropped from the schema next release. The deployed caller never breaks mid-deploy.
+
 > Short, append-only. One entry per real decision. Format: date · decision · why · alternatives.
 
 - **2026-07-14 · ADR-000 · Docs-driven workflow.** `architecture.md` = target, `progress.md` = status; update both on every change. *Why:* keep design and code from drifting across sessions.
@@ -236,6 +330,9 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 ---
 
 ## Changelog
+- **2026-08-29** — **Phase 11 packets 6–7 (frontend) + packet 8 hardening (except deploy).** Mentor app: `mentor.js` split into `mentor-shared/application/students/money.js` — application status timeline + 6-step application form (OTP inline, presigned document uploads, essays with counters, consent), profile with locked identity fields, availability 409 handling, sessions with student first name + Meet link, new `mStudents` prep sheet, honest earnings (released/pending, payouts "coming soon"), ratings distribution/trend, `useMentorGate` gating + suspended banner, inline confirm modals; `MentorOnboarding`/`VerifyStatus` updated. Admin console: `admin.js` split into `admin-shared/verify/mentors/audit.js` — status-tabbed oldest-first verification queue with cursor + wait time, application detail with per-field Verify/Flag, audited inline document preview, "N of M verified", `legalActions`-driven buttons, interview schedule/reschedule/cancel forms, soft/hard reject with reason; mentor directory with history + suspend/reinstate; new `aInterviews` calendar and `aAudit` log; Admins page states next-sign-in scope activation; overview queue health. All `window.prompt`s removed. Docs: architecture §5.5 + 5.5.1–5.5.3, README §13, `integrations-setup.md` Phase 11 knobs; `readme_sc.md` removed (superseded). **Deploy footprint (`cdk diff`, not applied):** `sc-dev-data` +S3 bucket; `sc-dev-auth` ~UserPool (+`custom:scopes`); `sc-dev-foundation` +19 routes / −`POST /mentor/verify/id`; Lambda code + IAM updates on auth/marketplace/booking/admin/notifications/catalog/planner. Then frontend Amplify deploy.
+- **2026-08-29** — **Phase 11 packets 0–5 built + green locally (backend + infra).** Packet 0: booking suite brought up to the accept/decline saga (was 2/11 before any change). Packet 1: `SUPERADMIN_EMAIL` (config + infra), verified-email superadmin bootstrap (idempotent, audited), self-demotion guard, `custom:scopes` Cognito attribute, frontend role-stale banner, stale doc headers fixed. Packet 2: `hasScope/requireScope` in `@sc/shared` (+ unit tests) applied to every scoped admin route across marketplace/admin/auth-identity/booking; dev servers + test helpers carry scopes. Packet 3: rich `ApplyInput` (identity/contact/profile/essays/consent), private S3 bucket + presign/confirm/admin-URL document flow (in-memory store locally), OTP bound to the signed-in user with per-user + per-email rate limits and SES delivery when configured, `POST /mentor/submit` listing EVERY missing item. Packet 4: shared state machine (exhaustive unit test), per-field verification, `verify-docs`, soft/hard rejection with reasons, status history, cursor-paged time-ordered admin queue + counts + full application + legacy `/pending`. Packet 5: `CalendarProvider` (stub + Google, fake-fetch unit tests + skip-without-creds live contract test), interview schedule/reschedule/cancel with compensation + idempotency, booking Meet links on the provider, `GET /sessions/:id/student-prep`. Notifications map every new mentor event. **Suites:** shared 17 · marketplace 22 · admin 9 · booking 18 · auth 17 · notifications 6 · planner 7 · catalog 15 · analytics 6; `pnpm typecheck` 13/13. Not deployed yet (packet 8).
+- **2026-08-29** — **AI Counsellor planned** (bounded context #11). `docs/ai-counsellor/Plan.md` (v3, three design iterations: RAG → tool-grounded agent → + cost/scale/safety/evals) + `docs/ai-counsellor/progress.md` (phase tracker C0–C5, AC-ADRs, open decisions). Awaiting owner approval; no code.
 
 - **2026-08-20** — **Official JoSAA ORCR corpus acquired: all rounds, all institute types, 2020–2025.** Re-derived the cutoff corpus from the **official** JoSAA *Archive of Opening and Closing Rank* (`josaa.admissions.nic.in`) instead of the third-party GitHub mirrors used in `docs/forecast-data-acquisition.md`, and widened it from **one round per year to every round** — **360,975 rows / 140 of 140 partitions / 0 gaps / all checksum-clean** (IIT 101,300 · NIT 196,948 · IIIT 28,137 · GFTI 34,590). The source has no API (ASP.NET WebForms), so **`scripts/josaa-orcr.ts`** drives its cascading-dropdown postback chain — one request per (year, round, instype) with institute/branch/seatType=`ALL`; resumable, sha256-checksummed at fetch time, rounds discovered live from the dropdown, 1.2s throttle. **`scripts/josaa-build.ts`** re-verifies every partition against its recorded hash and folds them into per-year gzipped artifacts (**3.6MB committed**; the 140 raw partitions are a gitignored working dir). Adding 2026 is one command per type — no code change. **Cross-checked against the mirror data in production: 61,460 overlapping rows, ZERO rank disagreements** — the served numbers are faithful. Defects found are in *labelling and identity*: (1) **715 preparatory ranks lost their `P` flag** in the 2021/2022/2023/2025 mirrors — `num()` strips non-digits so `687P` reads as rank 687, making SC/ST/PwD cutoffs look 1–2 orders of magnitude better than reality; (2) **`josaa24.csv` is Round 5 stamped Round 6** (2024 had no R6) — proven, R5 matches with 0 mismatches vs 870 for R1; (3) **`instituteId()`'s 46-char truncation fuses distinct colleges** (IIIT Bhubaneswar ≡ IIIT Naya Raipur, NIELIT ×5, NIFTEM ×3) — pre-existing, highest severity; (4) **IIEST Shibpur** is `NIT` per JoSAA but `GFTI` per `deriveType()`. Also: IITs/IIITs are 100% `AI` quota, NITs carry **no `AI` at all** (OS/HS/JK/GO/LA), and the archive caps closing ranks just under 1,000,000. **Nothing served changed** — `seed.ts` untouched, no `DATASET_VERSION` bump, no reseed; promotion + the four fixes are `TODO(owner)` in **`docs/josaa-orcr-dataset.md` §7**. New scripts: `pnpm --filter @sc/catalog josaa:rounds|josaa:fetch|josaa:verify|josaa:build`. Typecheck ✓.
 - **2026-07-19** — **Full stack RE-DEPLOYED from scratch (Google-only auth) + ~$0 posture.** After the same-day teardown, re-bootstrapped CDK and re-deployed all 12 `sc-dev-*` stacks to ap-south-1 (acct 058264128057). Reseeded catalog `josaa-2026f.2` (11,261 cutoffs). **New IDs:** API `https://um9t7ip0g9.execute-api.ap-south-1.amazonaws.com`, Cognito pool `ap-south-1_ubGSCKVZz`, client `5ijb4moldr63q261m1esr0qitb`, Hosted-UI unchanged (`sc-dev-058264128057.auth…`). **Google-only login:** Google creds restored to SSM `/sc-dev/google-client-secrets` (from `backend/.env`); Cognito Google IdP redeployed + verified (`/oauth2/authorize` → 302 accounts.google.com); frontend email/password UI hidden behind `PASSWORD_LOGIN=false` in `screens/auth.js` (reversible; Cognito native path retained, unused). **Frontend:** fresh Amplify app `d32971gyq5jq34` (old one was deleted) → `https://main.d32971gyq5jq34.amplifyapp.com` (job 1 SUCCEED); `.env.local` regenerated for new IDs; `corsOrigins` updated + `sc-dev-auth`/`sc-dev-foundation` redeployed so the new origin is an allowed callback/CORS origin. **Custom domain:** re-associated `counsellor.kodexa.in` → new CloudFront `d2u66q58y4x03k.cloudfront.net` (owner updates 2 Hostinger CNAMEs; ACM validation record is identical to before). **Cost:** WAF off, all DynamoDB on-demand, no provisioned concurrency/warmers → ~$0 idle. **Verified e2e** (throwaway users, USER_PASSWORD_AUTH): student bootstrap/`me` 200; mentor apply → profile `DRAFT`; RBAC student→403 vs admin→200 on `/admin/stats` + `/admin/mentors/pending`. **Owner actions pending:** (1) update Hostinger DNS, (2) log in via Google once → then set `rahul.raj9237@gmail.com` to `custom:role=superadmin` + `sc-dev-users role=superadmin`.

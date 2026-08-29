@@ -10,6 +10,7 @@ export default defineConfig({
       DDB_ENDPOINT: 'http://localhost:8000',
       TABLE_BOOKINGS: 'sc-test-bookings',
       TABLE_MENTORS: 'sc-test-bookings-mentors',
+      TABLE_USERS: 'sc-test-bookings-users',
     },
   },
 });

@@ -23,12 +23,14 @@ export interface BookingServiceStackProps extends StackProps {
   authorizer: HttpUserPoolAuthorizer;
   bookingsTable: ddb.Table;
   mentorsTable: ddb.Table;
+  /** Phase 11: read-only — student first name + rank inputs for the mentor's prep sheet. */
+  usersTable: ddb.Table;
 }
 
 export class BookingServiceStack extends Stack {
   constructor(scope: Construct, id: string, props: BookingServiceStackProps) {
     super(scope, id, props);
-    const { cfg, httpApi, authorizer, bookingsTable, mentorsTable } = props;
+    const { cfg, httpApi, authorizer, bookingsTable, mentorsTable, usersTable } = props;
 
     const fn = new NodejsFunction(this, 'BookingFn', {
       functionName: `sc-${cfg.stage}-booking`,
@@ -44,6 +46,8 @@ export class BookingServiceStack extends Stack {
         STAGE: cfg.stage,
         TABLE_BOOKINGS: bookingsTable.tableName,
         TABLE_MENTORS: mentorsTable.tableName,
+        TABLE_USERS: usersTable.tableName,
+        CALENDAR_PROVIDER: cfg.calendarProvider, // session Meet links (stub | google)
         EVENT_BUS_NAME: 'default',
         SECRETS_PARAM: `/sc-${cfg.stage}/secrets`, // SSM param holding Razorpay keys (name only)
         POWERTOOLS_SERVICE_NAME: 'booking',
@@ -53,6 +57,7 @@ export class BookingServiceStack extends Stack {
 
     bookingsTable.grantReadWriteData(fn);
     mentorsTable.grantReadData(fn); // read-only: mentor price + availability slot
+    usersTable.grantReadData(fn); // read-only: student prep sheet (Phase 11)
     fn.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ['events:PutEvents'],
@@ -82,6 +87,7 @@ export class BookingServiceStack extends Stack {
       { path: '/bookings/{id}/accept', method: apigw.HttpMethod.POST },
       { path: '/bookings/{id}/decline', method: apigw.HttpMethod.POST },
       { path: '/sessions', method: apigw.HttpMethod.GET },
+      { path: '/sessions/{id}/student-prep', method: apigw.HttpMethod.GET }, // Phase 11 mentor prep sheet
       { path: '/sessions/{id}/join', method: apigw.HttpMethod.POST },
       { path: '/sessions/{id}/end', method: apigw.HttpMethod.POST },
       { path: '/sessions/{id}/rate', method: apigw.HttpMethod.POST },

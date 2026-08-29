@@ -12,7 +12,7 @@
 import { serve } from '@hono/node-server';
 import { app } from '../app';
 import type { LambdaBindings } from '@sc/shared';
-import { ensureUsersTable } from './local-table';
+import { ensureUsersTable, ensureAuditTable } from './local-table';
 
 const PORT = Number(process.env.PORT ?? 8787);
 const b64url = {
@@ -57,12 +57,15 @@ async function fetchHandler(req: Request): Promise<Response> {
 
   // ── Fake login: email -> dev token (base64url of the claims Cognito would mint) ──
   if (url.pathname === '/dev/login' && req.method === 'POST') {
-    const body = (await req.json().catch(() => ({}))) as { email?: string; name?: string; role?: string };
+    const body = (await req.json().catch(() => ({}))) as { email?: string; name?: string; role?: string; scopes?: string[] };
     if (!body.email) return Response.json({ error: 'email required' }, { status: 400, headers: ch });
     const claims: Record<string, unknown> = {
       sub: subFor(body.email),
       email: body.email,
+      email_verified: true,
       'custom:role': body.role ?? 'student',
+      // Phase 11: admin permission scopes ride in the token as `custom:scopes` (comma-separated).
+      ...(Array.isArray((body as { scopes?: string[] }).scopes) ? { 'custom:scopes': ((body as { scopes?: string[] }).scopes ?? []).join(',') } : {}),
     };
     if (body.name) claims.name = body.name;
     const token = 'dev.' + b64url.encode(claims);
@@ -92,6 +95,7 @@ async function fetchHandler(req: Request): Promise<Response> {
 
 async function main() {
   await ensureUsersTable();
+  await ensureAuditTable();
   serve({ fetch: fetchHandler, port: PORT });
   // eslint-disable-next-line no-console
   console.log(`\n  auth-identity DEV server  →  http://localhost:${PORT}`);

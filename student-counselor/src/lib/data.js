@@ -247,11 +247,11 @@ export const GALLERY_GROUPS = [
   },
   {
     title: 'Counsellor / Mentor App',
-    items: [['mDashboard', 'Mentor Dashboard', ''], ['mProfile', 'Profile Editor', ''], ['mAvailability', 'Availability', ''], ['mVerification', 'Verification Center', ''], ['mBookings', 'Session Requests', ''], ['mSession', 'Session Room', 'CORE'], ['mEarnings', 'Earnings & Payouts', ''], ['mReviews', 'Reviews', ''], ['mNotifications', 'Notifications', ''], ['mSettings', 'Settings', '']],
+    items: [['mDashboard', 'Mentor Dashboard', ''], ['mProfile', 'Profile Editor', ''], ['mAvailability', 'Availability', ''], ['mVerification', 'Verification Center', ''], ['mBookings', 'Session Requests', ''], ['mSession', 'Session Room', 'CORE'], ['mStudents', 'Students & Prep', ''], ['mEarnings', 'Earnings & Payouts', ''], ['mReviews', 'Reviews', ''], ['mNotifications', 'Notifications', ''], ['mSettings', 'Settings', '']],
   },
   {
     title: 'Super Admin',
-    items: [['aDashboard', 'Admin Dashboard', ''], ['aStudents', 'Student Mgmt', ''], ['aMentors', 'Mentor Mgmt', ''], ['aVerifyQueue', 'Verification Queue', 'CRIT'], ['aCollegeData', 'College & Cutoff Data', 'CRIT'], ['aContent', 'College Content', ''], ['aSessions', 'Sessions Monitor', ''], ['aPayments', 'Payments & Payouts', ''], ['aModeration', 'Trust & Safety', ''], ['aSupport', 'Support Tickets', ''], ['aCms', 'Content / CMS', ''], ['aBroadcast', 'Broadcast', ''], ['aAnalytics', 'Analytics', ''], ['aSettings', 'Platform Config', '']],
+    items: [['aDashboard', 'Admin Dashboard', ''], ['aStudents', 'Student Mgmt', ''], ['aMentors', 'Mentor Mgmt', ''], ['aVerifyQueue', 'Verification Queue', 'CRIT'], ['aInterviews', 'Interview Calendar', ''], ['aAudit', 'Audit Log', ''], ['aCollegeData', 'College & Cutoff Data', 'CRIT'], ['aContent', 'College Content', ''], ['aSessions', 'Sessions Monitor', ''], ['aPayments', 'Payments & Payouts', ''], ['aModeration', 'Trust & Safety', ''], ['aSupport', 'Support Tickets', ''], ['aCms', 'Content / CMS', ''], ['aBroadcast', 'Broadcast', ''], ['aAnalytics', 'Analytics', ''], ['aSettings', 'Platform Config', '']],
   },
   {
     title: 'Public & Marketing',
@@ -270,6 +270,7 @@ export const GALLERY_GROUPS = [
 export const ADMIN_LINKS = [
   ['aDashboard', 'Dashboard', '▦', null],
   ['aVerifyQueue', 'Verification', '✔', 'mentors.manage'],
+  ['aInterviews', 'Interviews', '📅', 'mentors.interview'],
   ['aMentors', 'Mentors', '🎓', 'mentors.manage'],
   ['aSessions', 'Sessions', '🎥', 'sessions.view'],
   ['aPayments', 'Payments', '₹', 'payments.view'],
@@ -278,6 +279,7 @@ export const ADMIN_LINKS = [
   ['aBroadcast', 'Broadcast', '📣', 'broadcast.send'],
   ['aCollegeData', 'College Data', '🏛', 'content.manage'],
   ['aAnalytics', 'Analytics', '📈', 'sessions.view'],
+  ['aAudit', 'Audit log', '📜', null],
   ['aAdmins', 'Admins', '👑', 'super'],
   ['aSettings', 'Settings', '⚙', 'super'],
 ];
@@ -293,7 +295,7 @@ export const ADMIN_SCOPES = [
   { key: 'content.manage', label: 'Content', desc: 'Manage college data & content' },
 ];
 export const MENTOR_LINKS = [
-  ['mDashboard', 'Dashboard', '▦'], ['mBookings', 'Bookings', '📅'], ['mAvailability', 'Availability', '🕑'], ['mEarnings', 'Earnings', '₹'], ['mReviews', 'Reviews', '⭐'], ['mProfile', 'Profile', '👤'], ['mVerification', 'Verification', '✔'], ['mNotifications', 'Notifications', '🔔'], ['mSettings', 'Settings', '⚙'],
+  ['mDashboard', 'Dashboard', '▦'], ['mBookings', 'Bookings', '📅'], ['mStudents', 'Students', '🎒'], ['mAvailability', 'Availability', '🕑'], ['mEarnings', 'Earnings', '₹'], ['mReviews', 'Reviews', '⭐'], ['mProfile', 'Profile', '👤'], ['mVerification', 'Verification', '✔'], ['mNotifications', 'Notifications', '🔔'], ['mSettings', 'Settings', '⚙'],
 ];
 export const BOTTOM_NAV = [
   ['dashboard', 'Home', '🏠'], ['predictor', 'Predict', '🎯'], ['choiceBuilder', 'My List', '📋'], ['marketplace', 'Talk', '💬'], ['profile', 'Profile', '👤'],

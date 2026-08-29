@@ -1,7 +1,7 @@
 // Admin directory of platform users + presence ("live/active") — role-gated.
 // The predictor is public/unauthed, so this table holds only SIGNED-IN users; a scan
 // is fine at that volume and this endpoint is called infrequently from the admin console.
-import { requireRole } from '@sc/shared';
+import { requireScope } from '@sc/shared';
 import type { Principal } from '@sc/shared';
 import { usersRepo } from '../repo/users.repo';
 
@@ -34,9 +34,9 @@ export interface AdminUsersResponse {
   generatedAt: string;
 }
 
-/** GET /admin/users — directory + live/active counts. Requires role=admin. */
+/** GET /admin/users — directory + live/active counts. Requires role=admin + scope users.view. */
 export async function listUsers(p: Principal): Promise<AdminUsersResponse> {
-  requireRole(p, 'admin');
+  requireScope(p, 'users.view');
   const now = Date.now();
   const { rows, capped } = await usersRepo.scanUsers(SCAN_CAP);
 

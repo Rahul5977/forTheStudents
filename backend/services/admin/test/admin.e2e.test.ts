@@ -13,11 +13,16 @@ import { auditRepo } from '../src/repo/audit.repo';
 const MENTORS = process.env.TABLE_MENTORS!;
 const AUDIT = process.env.TABLE_AUDIT!;
 
-const authAs = (sub: string, role = 'student') =>
-  ({ event: { requestContext: { authorizer: { jwt: { claims: { sub, email: `${sub}@x.com`, 'custom:role': role } } } } } }) as unknown as Parameters<typeof app.request>[2];
+// Phase 11: admins carry permission scopes in the token (`custom:scopes`); the default ADMIN
+// has every scope, NOADMIN is an admin with none (must be 403 on every scoped route).
+const ALL_SCOPES = ['mentors.manage','mentors.interview','sessions.view','payments.view','users.view','broadcast.send','content.manage'];
+const authAs = (sub: string, role = 'student', scopes: string[] = role === 'admin' ? ALL_SCOPES : []) =>
+  ({ event: { requestContext: { authorizer: { jwt: { claims: { sub, email: `${sub}@x.com`, 'custom:role': role, 'custom:scopes': scopes.join(',') } } } } } }) as unknown as Parameters<typeof app.request>[2];
 
 const ADMIN = authAs('admin_1', 'admin');
 const STUDENT = authAs('student_1', 'student');
+const NOSCOPE = authAs('admin_noscope', 'admin', []);
+const SUPER = authAs('super_1', 'superadmin', []);
 const jpost = (body: unknown) => ({ method: 'POST', body: JSON.stringify(body) });
 
 const seedMentor = (userId: string, college: string, status: 'APPROVED' | 'PENDING_REVIEW') =>
@@ -52,6 +57,14 @@ describe('admin-ops (local DynamoDB)', () => {
     expect((await app.request('/admin/audit', {}, STUDENT)).status).toBe(403);
     expect((await app.request('/admin/mentors/m_appr1/suspend', jpost({}), STUDENT)).status).toBe(403);
     expect((await app.request('/admin/broadcast', jpost({ title: 'Hi', body: 'Yo', userIds: ['u1'] }), STUDENT)).status).toBe(403);
+  });
+
+  it('scope enforcement (packet 2): an admin with NO scopes reads stats but cannot act; superadmin can', async () => {
+    expect((await app.request('/admin/stats', {}, NOSCOPE)).status).toBe(200); // any admin
+    expect((await app.request('/admin/mentors/m_appr2/suspend', jpost({}), NOSCOPE)).status).toBe(403);
+    expect((await app.request('/admin/broadcast', jpost({ title: 'Hi', body: 'Yo', userIds: ['u1'] }), NOSCOPE)).status).toBe(403);
+    const r = await (await app.request('/admin/broadcast', jpost({ title: 'Hi', body: 'Yo', userIds: ['u1'] }), SUPER)).json();
+    expect(r.ok).toBe(true);
   });
 
   it('stats reports mentor counts from the status GSI', async () => {

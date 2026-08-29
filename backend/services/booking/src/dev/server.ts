@@ -48,7 +48,9 @@ async function fetchHandler(req: Request): Promise<Response> {
   if (url.pathname === '/dev/login' && req.method === 'POST') {
     const body = (await req.json().catch(() => ({}))) as { email?: string; role?: string };
     if (!body.email) return Response.json({ error: 'email required' }, { status: 400, headers: ch });
-    const claims = { sub: subFor(body.email), email: body.email, 'custom:role': body.role ?? 'student' };
+    const claims: Record<string, unknown> = { sub: subFor(body.email), email: body.email, email_verified: true, 'custom:role': body.role ?? 'student' };
+    // Phase 11: admin permission scopes ride in the token as `custom:scopes` (comma-separated).
+    if (Array.isArray((body as { scopes?: string[] }).scopes)) claims['custom:scopes'] = ((body as { scopes?: string[] }).scopes ?? []).join(',');
     return Response.json({ token: 'dev.' + b64url.encode(claims), claims }, { headers: ch });
   }
 

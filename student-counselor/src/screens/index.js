@@ -65,6 +65,7 @@ export const SCREENS = {
   mVerification: ME.MVerification,
   mBookings: ME.MBookings,
   mSession: ME.MSession,
+  mStudents: ME.MStudents, // Phase 11: students & prep
   mEarnings: ME.MEarnings,
   mReviews: ME.MReviews,
   mNotifications: ME.MNotifications,
@@ -75,6 +76,8 @@ export const SCREENS = {
   aStudents: AD.AStudents,
   aMentors: AD.AMentors,
   aVerifyQueue: AD.AVerifyQueue,
+  aInterviews: AD.AInterviews, // Phase 11: interview calendar
+  aAudit: AD.AAudit,           // Phase 11: audit log
   aCollegeData: AD.ACollegeData,
   aContent: AD.AContent,
   aSessions: AD.ASessions,

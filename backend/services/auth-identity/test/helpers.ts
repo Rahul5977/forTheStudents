@@ -16,6 +16,7 @@ const client = new DynamoDBClient({
 });
 
 const TABLE = process.env.TABLE_USERS ?? 'sc-dev-users';
+export { ensureAuditTable } from '../src/dev/local-table';
 
 /**
  * Create the Users table in DynamoDB Local if it isn't there yet.

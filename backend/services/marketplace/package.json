@@ -11,7 +11,10 @@
     "lint": "echo 'lint: TODO(owner) wire eslint'"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1087.0",
+    "@aws-sdk/client-ses": "^3.620.0",
     "@aws-sdk/lib-dynamodb": "^3.620.0",
+    "@aws-sdk/s3-request-presigner": "^3.1087.0",
     "@sc/config": "workspace:*",
     "@sc/shared": "workspace:*",
     "hono": "^4.5.0",
