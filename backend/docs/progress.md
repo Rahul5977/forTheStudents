@@ -4,16 +4,17 @@
 
 ---
 
-## 🟡 Current status: **Phases 0–10 LIVE on AWS (`dev` stage = production) · Phase 11 in progress**
+## ✅ Current status: **Phases 0–11 LIVE on AWS (`dev` stage = production)**
 
 Everything through Phase 10 is built, deployed to `ap-south-1` and verified (see the phase tracker +
 the deployed-outputs section below). The AI Counsellor (bounded context #11) is planned separately in
 `docs/ai-counsellor/`. **Phase 11 — Mentor Onboarding, Mentor Dashboard & Admin Console** is being
 built packet-by-packet (see the Phase 11 section) from `CLAUDE_CODE_LOOP_PROMPT.md` at the repo root.
 
-**Next actions:**
-1. Finish the open Phase 11 packet (lowest-numbered unchecked task), `pnpm typecheck && pnpm test`, tick it here.
-2. Owner: Google Workspace service-account credential for packet 5 (Calendar/Meet) → SSM secrets blob (`GOOGLE_SA_JSON`, `GOOGLE_CALENDAR_IMPERSONATE`). Until then the stub provider is used.
+**Next actions (owner):**
+1. Sign out/in once with Google so the token carries `superadmin` + all scopes (the app shows a banner until then); the users row is already promoted on first bootstrap.
+2. Set the Phase 11 knobs when ready: SES OTP sender (`otpEmailFrom`) and Google Calendar creds (`calendarProvider: 'google'` + `GOOGLE_SA_JSON`/`GOOGLE_CALENDAR_IMPERSONATE` in SSM) — see `integrations-setup.md`. Until then: devOtp in responses, stub Meet links.
+3. Next build: the AI Counsellor (`docs/ai-counsellor/`) once its §14 decisions are made.
 
 ---
 
@@ -42,7 +43,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 | 7 | Admin & Ops | ✅ | `@sc/admin`: stats, append-only audit, moderation (suspend/reinstate), broadcast→notifications. **Deployed + e2e 7/7** (RBAC 403, moderation, broadcast, audit). Admin *console UI* = frontend TODO |
 | 8 | Analytics & Reporting | ✅ | `@sc/analytics`: DynamoDB Streams→Lambda→S3 (NDJSON, date-partitioned) + Athena DDL (partition projection, no crawler) + daily ledger reconciliation. **Deployed + verified** (writes land in S3). Razorpay settlement = TODO(owner) |
 | 9 | Hardening & Scale | ✅ | API throttling on the stage; WAF/provisioned-concurrency **season-gated OFF by default**; `ScalingStack` (no-op unless `provisionedConcurrency>0`); k6 load-test + `runbooks.md`. Synth + cost-audit PASS |
-| 11 | Mentor Onboarding, Dashboard & Admin Console | 🟡 | packets 0–7 ✅ + packet 8 except the DEPLOY (owner go-ahead pending: new S3 bucket, additive Cognito attribute, new routes — see `cdk diff` in the changelog). Superadmin bootstrap · scope enforcement · rich application + S3 uploads · verification state machine · Calendar/Meet interviews · mentor dashboard · admin console · hardening |
+| 11 | Mentor Onboarding, Dashboard & Admin Console | ✅ | all 8 packets; **deployed 2026-08-30** (10 CDK stacks + Amplify) and deployed e2e green. Owner knobs still unset: SES OTP sender, Google Calendar creds (stub links meanwhile) — see `integrations-setup.md` | Superadmin bootstrap · scope enforcement · rich application + S3 uploads · verification state machine · Calendar/Meet interviews · mentor dashboard · admin console · hardening |
 | 10 | Go-live & Seasonal Ops | ✅ | `go-live.md` (go/no-go, canary strategy, PITR drill), guarded `deploy.sh`, optional `WarmupStack` (OFF by default), and **`ui-testing-guide.md`**. Canary CodeDeploy wiring = TODO(owner) |
 
 ### Phase 0 — Foundations
@@ -140,7 +141,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 - [x] e2e: `pnpm --filter @sc/auth-identity test` (9 ✓) + full HTTP loop (login → token → bootstrap → /me → rank-prefs → role) + frontend `/live` page live
 - [ ] Real-Cognito login e2e on AWS — **blocked on owner AWS credentials** (Task 14)
 
-### Phase 11 — Mentor Onboarding, Mentor Dashboard & Admin Console *(building now)*
+### Phase 11 — Mentor Onboarding, Mentor Dashboard & Admin Console *(✅ complete, deployed 2026-08-30)*
 
 Spec: `CLAUDE_CODE_LOOP_PROMPT.md` (repo root). **FIRST RUN (2026-08-29): every GROUND TRUTH claim §0–§12 verified against the code.** Conflicts / deviations found and how they are handled:
 - **Booking local baseline is NOT 11/11.** `services/booking/test/booking.e2e.test.ts` still drives the pre-accept saga (`PENDING_PAYMENT`) while the domain has the mentor accept/decline step (`REQUESTED → ACCEPTED`); 9 of 11 fail before any Phase 11 change. → Pre-work: bring the test up to the current saga so the regression baseline is real (marketplace 12 · booking 11 · admin 8 · auth 9).
@@ -221,7 +222,7 @@ Spec: `CLAUDE_CODE_LOOP_PROMPT.md` (repo root). **FIRST RUN (2026-08-29): every 
 - [x] CloudWatch alarms: no NEW Lambdas were added (all Phase 11 routes live in the existing marketplace/booking/auth/admin lambdaliths, already covered by `ObservabilityStack` error/throttle/duration alarms); marketplace timeout raised 10→15 s for the Calendar round-trip. Audit coverage: `superadmin.bootstrap`, `admin.promote|scopes|demote`, `mentor.field.verify`, `mentor.docs.verified`, `mentor.interview.schedule|reschedule|cancel`, `mentor.review.approve|reject`, `mentor.document.access`, `mentor.suspend|reinstate`
 - [x] `architecture.md`: §5.5 rewritten (state diagram, application, per-field verification) + new §5.5.1 document store, §5.5.2 Calendar/Meet, §5.5.3 superadmin & scopes; §6.1 Mentors row + §14 API surface updated; README §13 + `integrations-setup.md` Phase 11 owner knobs
 - [ ] Security pass: no public/long-lived document URL; no essay/email/phone/document in any public response; every new route role- AND scope-gated; OTP + presign rate-limited; static-export gating never a security control
-- [ ] `progress.md`: Phase 11 complete, ADRs, changelog
+- [x] `progress.md`: Phase 11 complete, ADRs (010–017), changelog
 
 ---
 
@@ -330,6 +331,7 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 ---
 
 ## Changelog
+- **2026-08-30** — **Phase 11 DEPLOYED.** `cdk deploy` of sc-dev-data (+ private bucket `sc-dev-mentor-docs-058264128057`), sc-dev-auth (+`custom:scopes`), sc-dev-foundation (+19 routes, −`POST /mentor/verify/id`), svc-auth/marketplace/booking/admin/notifications/catalog/planner — all UPDATE_COMPLETE, ~4 min total. Frontend Amplify job 3 (static export incl. `m-students`, `a-interviews`, `a-audit`). Deployed e2e green (see packet 8); throwaway users/rows/objects purged. Live probes: new routes 401 (auth-gated), removed route 404, bucket + Cognito attribute present.
 - **2026-08-29** — **Phase 11 packets 6–7 (frontend) + packet 8 hardening (except deploy).** Mentor app: `mentor.js` split into `mentor-shared/application/students/money.js` — application status timeline + 6-step application form (OTP inline, presigned document uploads, essays with counters, consent), profile with locked identity fields, availability 409 handling, sessions with student first name + Meet link, new `mStudents` prep sheet, honest earnings (released/pending, payouts "coming soon"), ratings distribution/trend, `useMentorGate` gating + suspended banner, inline confirm modals; `MentorOnboarding`/`VerifyStatus` updated. Admin console: `admin.js` split into `admin-shared/verify/mentors/audit.js` — status-tabbed oldest-first verification queue with cursor + wait time, application detail with per-field Verify/Flag, audited inline document preview, "N of M verified", `legalActions`-driven buttons, interview schedule/reschedule/cancel forms, soft/hard reject with reason; mentor directory with history + suspend/reinstate; new `aInterviews` calendar and `aAudit` log; Admins page states next-sign-in scope activation; overview queue health. All `window.prompt`s removed. Docs: architecture §5.5 + 5.5.1–5.5.3, README §13, `integrations-setup.md` Phase 11 knobs; `readme_sc.md` removed (superseded). **Deploy footprint (`cdk diff`, not applied):** `sc-dev-data` +S3 bucket; `sc-dev-auth` ~UserPool (+`custom:scopes`); `sc-dev-foundation` +19 routes / −`POST /mentor/verify/id`; Lambda code + IAM updates on auth/marketplace/booking/admin/notifications/catalog/planner. Then frontend Amplify deploy.
 - **2026-08-29** — **Phase 11 packets 0–5 built + green locally (backend + infra).** Packet 0: booking suite brought up to the accept/decline saga (was 2/11 before any change). Packet 1: `SUPERADMIN_EMAIL` (config + infra), verified-email superadmin bootstrap (idempotent, audited), self-demotion guard, `custom:scopes` Cognito attribute, frontend role-stale banner, stale doc headers fixed. Packet 2: `hasScope/requireScope` in `@sc/shared` (+ unit tests) applied to every scoped admin route across marketplace/admin/auth-identity/booking; dev servers + test helpers carry scopes. Packet 3: rich `ApplyInput` (identity/contact/profile/essays/consent), private S3 bucket + presign/confirm/admin-URL document flow (in-memory store locally), OTP bound to the signed-in user with per-user + per-email rate limits and SES delivery when configured, `POST /mentor/submit` listing EVERY missing item. Packet 4: shared state machine (exhaustive unit test), per-field verification, `verify-docs`, soft/hard rejection with reasons, status history, cursor-paged time-ordered admin queue + counts + full application + legacy `/pending`. Packet 5: `CalendarProvider` (stub + Google, fake-fetch unit tests + skip-without-creds live contract test), interview schedule/reschedule/cancel with compensation + idempotency, booking Meet links on the provider, `GET /sessions/:id/student-prep`. Notifications map every new mentor event. **Suites:** shared 17 · marketplace 22 · admin 9 · booking 18 · auth 17 · notifications 6 · planner 7 · catalog 15 · analytics 6; `pnpm typecheck` 13/13. Not deployed yet (packet 8).
 - **2026-08-29** — **AI Counsellor planned** (bounded context #11). `docs/ai-counsellor/Plan.md` (v3, three design iterations: RAG → tool-grounded agent → + cost/scale/safety/evals) + `docs/ai-counsellor/progress.md` (phase tracker C0–C5, AC-ADRs, open decisions). Awaiting owner approval; no code.
