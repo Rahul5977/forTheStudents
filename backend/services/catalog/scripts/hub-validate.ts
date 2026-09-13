@@ -6,7 +6,7 @@
  *   • every institute directory is a roster id (and reports roster ids with no directory)
  *   • `instituteId` inside each file equals its directory name
  *   • aggregator hosts are never cited as `official`
- *   • `asOf` years are plausible (2015 .. next year)
+ *   • `asOf` years are plausible (1950 .. next year — alumni/history facts may cite old sources)
  *   • a non-null seat matrix has > 0 seats
  *   • `_meta.json`, when present, parses
  * Writes `data/colleges/coverage.json` (per institute × section, % of fact leaves filled) and
@@ -66,10 +66,10 @@ function checkSection(id: string, section: HubSection, value: unknown, problems:
     if (isAgg && src.confidence === 'official') problems.push({ id, file, message: `${path}: ${host} cannot be cited as "official" (aggregator → use "secondary")` });
   }
   for (const { path, asOf } of asOfIn(data)) {
-    const m = /(20\d{2})/.exec(asOf);
+    const m = /((?:19|20)\d{2})/.exec(asOf);
     if (m) {
       const y = Number(m[1]);
-      if (y < 2015 || y > THIS_YEAR + 1) problems.push({ id, file, message: `${path}: implausible asOf year ${y}` });
+      if (y < 1950 || y > THIS_YEAR + 1) problems.push({ id, file, message: `${path}: implausible asOf year ${y}` });
     }
   }
   if (section === 'seat-matrix' && data) {
