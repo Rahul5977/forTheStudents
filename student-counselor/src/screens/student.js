@@ -17,6 +17,7 @@ import { Btn, Tile, Tag, ChanceChip, TypeBadge, Avatar, Field, Input, Select, Se
 import { chipStyle } from '@/lib/logic';
 import { ROUNDS, FAQS, SETTING_GROUPS, SLOT_LIST, STATES, GENDERS } from '@/lib/data';
 import { liveApi } from '@/lib/liveApi';
+import { HubSections } from './collegeHub';
 
 const REACH_BG = '#f7e2db';
 const REACH_FG = '#7a2d1a';
@@ -828,15 +829,6 @@ function BranchRow({ b, rank }) {
   );
 }
 
-function ComingSoon({ icon, title, note }) {
-  return (
-    <div className="card" style={{ background: 'var(--color-surface)', gap: 6 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span style={{ fontSize: 18 }}>{icon}</span><div style={{ fontFamily: 'var(--font-heading)', fontSize: 17 }}>{title}</div><Tag tone="outline" style={{ marginLeft: 'auto', fontSize: 11 }}>Coming soon</Tag></div>
-      <p className="text-muted" style={{ fontSize: 13, margin: 0 }}>{note}</p>
-    </div>
-  );
-}
-
 // ── AI Counsellor — upcoming feature (teaser + notify) ───────────────────────
 export function AICounsellor() {
   const { showToast } = useApp();
@@ -921,8 +913,8 @@ export function CollegeExplorer() {
         </div>
         <div style={{ display: 'flex', gap: 22, flexWrap: 'wrap', padding: '14px 22px', fontSize: 13 }}>
           <div><span className="text-muted">Branches</span> <strong>{data.branchCount}</strong></div>
-          <div><span className="text-muted">Approx fees</span> <strong>₹{inst.feesLakh}L</strong></div>
-          <div><span className="text-muted">Admission via</span> <strong>{inst.exam === 'adv' ? 'JEE Advanced' : 'JEE Main'}</strong></div>
+          {inst.feesLakh != null && <div><span className="text-muted">Approx fees</span> <strong>₹{inst.feesLakh}L</strong></div>}
+          <div><span className="text-muted">Admission via</span> <strong>{inst.exam === 'adv' ? 'JEE Advanced' : inst.exam === 'other' ? 'Own entrance' : 'JEE Main'}</strong></div>
           {inst.nirf && <div><span className="text-muted">NIRF 2024</span> <strong>#{inst.nirf}</strong></div>}
         </div>
       </div>
@@ -948,14 +940,9 @@ export function CollegeExplorer() {
         <div className="card" style={{ background: 'var(--color-surface)', textAlign: 'center', padding: 30 }}><p className="text-muted" style={{ margin: 0 }}>No branches match your category/gender pool at this college.</p></div>
       )}
 
-      {/* Content layer — Phase 3 (curated + NIRF + Wikimedia) */}
+      {/* Content layer — Phase 12 College Data Hub (sourced sections; "coming soon" until collected) */}
       <div style={{ fontFamily: 'var(--font-heading)', fontSize: 20, margin: '24px 0 10px' }}>More about {inst.short}</div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14 }}>
-        <ComingSoon icon="💰" title="Fee structure" note="Tuition, hostel & mess split with the full-degree total and category waivers — sourced from NIRF data & official brochures." />
-        <ComingSoon icon="🪑" title="Seat matrix" note="Seats per branch × category × gender pool, so you can see supply alongside the cutoffs." />
-        <ComingSoon icon="📊" title="Placements" note="Average / median / highest package with year and top recruiters — official, year-labelled figures." />
-        <ComingSoon icon="🏫" title="Campus & photos" note="About the institute, how to reach, and licensed campus photos (Wikimedia Commons, with credit)." />
-      </div>
+      <HubSections hub={data.content?.hub} inst={inst} />
 
       <div className="card" style={{ background: '#f7e2db', marginTop: 18 }}><div style={{ fontFamily: 'var(--font-heading)', fontSize: 15 }}>⚠ Forecasts are estimates</div><p style={{ fontSize: 13, margin: 0 }}>Cutoffs are official JoSAA figures (2018–2024). The 2026 projection is a trend-based estimate with an uncertainty band — a planning aid, not a guarantee. Always verify on josaa.nic.in.</p></div>
 
