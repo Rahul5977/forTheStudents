@@ -73,6 +73,38 @@ const CURATED: [string, string, string, string, number | null, number][] = [
   ['Design & Manufacturing, Kancheepuram', 'IIITDM Kancheepuram', 'Chennai', 'Tamil Nadu', 74, 6.0],
   ['Design & Manufacture Jabalpur', 'IIITDM Jabalpur', 'Jabalpur', 'Madhya Pradesh', null, 5.8],
   ['Information Technology (IIIT), Sri City', 'IIIT Sri City', 'Chittoor', 'Andhra Pradesh', null, 7.6],
+  // ── Remaining JoSAA IIITs (Phase 12 hub roster): a curated row per institute so every id is a
+  // stable, collision-free slug. Signatures are case-sensitive substrings of the official JoSAA
+  // name, gated by type (so 'Guwahati' here cannot match IIT Guwahati). NIRF null = not in the
+  // 2024 engineering top-100 or unverified; fees = the IIIT type default (no new figures invented).
+  ['Nagpur', 'IIIT Nagpur', 'Nagpur', 'Maharashtra', null, 6.0],
+  ['Pune', 'IIIT Pune', 'Pune', 'Maharashtra', null, 6.0],
+  ['Ranchi', 'IIIT Ranchi', 'Ranchi', 'Jharkhand', null, 6.0],
+  ['Kota', 'IIIT Kota', 'Kota', 'Rajasthan', null, 6.0],
+  ['Bhagalpur', 'IIIT Bhagalpur', 'Bhagalpur', 'Bihar', null, 6.0],
+  ['Technology Bhopal', 'IIIT Bhopal', 'Bhopal', 'Madhya Pradesh', null, 6.0],
+  ['Kurnool', 'IIITDM Kurnool', 'Kurnool', 'Andhra Pradesh', null, 6.0],
+  ['Guwahati', 'IIIT Guwahati', 'Guwahati', 'Assam', null, 6.0],
+  ['Lucknow', 'IIIT Lucknow', 'Lucknow', 'Uttar Pradesh', null, 6.0],
+  ['Manipur', 'IIIT Senapati Manipur', 'Imphal', 'Manipur', null, 6.0], // 2020–23 spelling
+  ['MANIPUR', 'IIIT Senapati Manipur', 'Imphal', 'Manipur', null, 6.0], // 2024+ (upper-case) spelling
+  ['Srirangam', 'IIIT Tiruchirappalli', 'Tiruchirappalli', 'Tamil Nadu', null, 6.0], // 2020 name
+  ['Technology Tiruchirappalli', 'IIIT Tiruchirappalli', 'Tiruchirappalli', 'Tamil Nadu', null, 6.0],
+  ['Technology Surat', 'IIIT Surat', 'Surat', 'Gujarat', null, 6.0],
+  ['Dharwad', 'IIIT Dharwad', 'Dharwad', 'Karnataka', null, 6.0],
+  ['Kalyani', 'IIIT Kalyani', 'Kalyani', 'West Bengal', null, 6.0],
+  ['Sonepat', 'IIIT Sonepat', 'Sonepat', 'Haryana', null, 6.0],
+  ['Kottayam', 'IIIT Kottayam', 'Kottayam', 'Kerala', null, 6.0],
+  ['Una, Himachal', 'IIIT Una', 'Una', 'Himachal Pradesh', null, 6.0],
+  ['Vadodara, Gujrat', 'IIIT Vadodara', 'Gandhinagar', 'Gujarat', null, 6.0], // campus is in Gandhinagar
+  ['Campus Diu', 'IIIT Vadodara ICD', 'Diu', 'Daman and Diu', null, 6.0],
+  ['Technology, Agartala', 'IIIT Agartala', 'Agartala', 'Tripura', null, 6.0],
+  ['Raichur', 'IIIT Raichur', 'Raichur', 'Karnataka', null, 6.0],
+  ['Technology, Bhubaneswar', 'IIIT Bhubaneswar', 'Bhubaneswar', 'Odisha', null, 6.0],
+  ['Naya Raipur', 'IIIT Naya Raipur', 'Naya Raipur', 'Chhattisgarh', null, 6.0],
+  // ── IIEST Shibpur — JoSAA lists it with the NITs; deriveType() files it as GFTI (no "NIT" in the
+  // name), so this row's implied type is GFTI too. Curated only so its hub id is stable.
+  ['Engineering Science and Technology, Shibpur', 'IIEST Shibpur', 'Howrah', 'West Bengal', null, 4.5],
 ];
 
 // City → state, for institutes not in the curated list (best-effort).

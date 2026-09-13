@@ -7,3 +7,4 @@ export * from './predict';
 export * from './doctor';
 export * from './validate';
 export * from './content';
+export * from './hub';

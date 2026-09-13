@@ -4,7 +4,7 @@
 
 ---
 
-## ✅ Current status: **Phases 0–11 LIVE on AWS (`dev` stage = production)**
+## ✅ Current status: **Phases 0–11 LIVE on AWS (`dev` stage = production)** · 🟡 **Phase 12 College Data Hub in progress**
 
 Everything through Phase 10 is built, deployed to `ap-south-1` and verified (see the phase tracker +
 the deployed-outputs section below). The AI Counsellor (bounded context #11) is planned separately in
@@ -14,7 +14,8 @@ built packet-by-packet (see the Phase 11 section) from `CLAUDE_CODE_LOOP_PROMPT.
 **Next actions (owner):**
 1. Sign out/in once with Google so the token carries `superadmin` + all scopes (the app shows a banner until then); the users row is already promoted on first bootstrap.
 2. Set the Phase 11 knobs when ready: SES OTP sender (`otpEmailFrom`) and Google Calendar creds (`calendarProvider: 'google'` + `GOOGLE_SA_JSON`/`GOOGLE_CALENDAR_IMPERSONATE` in SSM) — see `integrations-setup.md`. Until then: devOtp in responses, stub Meet links.
-3. Next build: the AI Counsellor (`docs/ai-counsellor/`) once its §14 decisions are made.
+3. **Phase 12 — College Data Hub** is being built (`docs/college-data-hub.md`): 12a foundations landed 2026-09-13; the 6-institute pilot collection runs next, then owner review of `data/colleges/coverage.json` before the 10-institute batches.
+4. Then: the AI Counsellor (`docs/ai-counsellor/`) once its §14 decisions are made — its `get_college` tool reads the hub (`hubFor()`).
 
 ---
 
@@ -44,6 +45,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done · ⛔ blocked
 | 8 | Analytics & Reporting | ✅ | `@sc/analytics`: DynamoDB Streams→Lambda→S3 (NDJSON, date-partitioned) + Athena DDL (partition projection, no crawler) + daily ledger reconciliation. **Deployed + verified** (writes land in S3). Razorpay settlement = TODO(owner) |
 | 9 | Hardening & Scale | ✅ | API throttling on the stage; WAF/provisioned-concurrency **season-gated OFF by default**; `ScalingStack` (no-op unless `provisionedConcurrency>0`); k6 load-test + `runbooks.md`. Synth + cost-audit PASS |
 | 11 | Mentor Onboarding, Dashboard & Admin Console | ✅ | all 8 packets; **deployed 2026-08-30** (10 CDK stacks + Amplify) and deployed e2e green. Owner knobs still unset: SES OTP sender, Google Calendar creds (stub links meanwhile) — see `integrations-setup.md` | Superadmin bootstrap · scope enforcement · rich application + S3 uploads · verification state machine · Calendar/Meet interviews · mentor dashboard · admin console · hardening |
+| 12 | College Data Hub (sourced IIT/NIT/IIIT dataset → AI counsellor corpus) | 🟡 | **12a foundations ✅ 2026-09-13**: zod contract (`catalog-core/src/hub`), 86-row roster (`data/institutes.json`), `hub:validate` / `hub:build`, 23 IIIT + IIEST curated ids (fixes the Bhubaneswar/Naya Raipur collision). Next: pilot collection (6) → owner review → 12b batches → 12c serving (`profile.content.hub`, `/colleges/:id/hub/:section`, reseed as `josaa-2026f.3`). Doc: `college-data-hub.md` |
 | 10 | Go-live & Seasonal Ops | ✅ | `go-live.md` (go/no-go, canary strategy, PITR drill), guarded `deploy.sh`, optional `WarmupStack` (OFF by default), and **`ui-testing-guide.md`**. Canary CodeDeploy wiring = TODO(owner) |
 
 ### Phase 0 — Foundations
@@ -226,6 +228,27 @@ Spec: `CLAUDE_CODE_LOOP_PROMPT.md` (repo root). **FIRST RUN (2026-08-29): every 
 
 ---
 
+### Phase 12 — College Data Hub *(🟡 in progress — see `docs/college-data-hub.md`)*
+**12a — foundations** ✅ 2026-09-13
+- [x] `@sc/catalog-core/src/hub/schema.ts` — zod contract: 11 sections, every fact record carries `sources[]` + `asOf`, facts nullable-never-optional, strict keys, aggregator hosts never `official`, social-media scope limits; `HUB_SECTIONS` registry, `CollegeHub`, `HubMeta`, `RosterRow`, `HubBundle` (11 tests)
+- [x] `hub/index.ts` — `loadHubBundle()` / `hubFor()` / `hubSection()` / `rosterFor()` (pure, in-memory)
+- [x] `enrich.ts` — curated rows for the 23 uncurated JoSAA IIITs + IIEST Shibpur → stable ids; `deriveType()` files "International Institute of Information Technology" as IIIT (regression tests)
+- [x] `scripts/hub-roster.ts` → `data/institutes.json` (86: 23 IIT · 32 NIT · 31 IIIT incl. own-entrance IIIT-H/B/D); `hub-validate.ts` (schema + cross-file rules + `coverage.json`); `hub-build.ts` (→ `hub.bundle.json`)
+- [x] `docs/college-data-hub.md` — layout, contract, source priority, the agent `RULES`, workflow, refresh cadence
+- [ ] Seat-matrix step: one agent over the latest JoSAA seat matrix → `seat-matrix.json` for every roster id
+- [ ] **Pilot collection** — 6 institutes (`pilot: true`) via the Workflow tool (4 collectors + 1 verifier each) → `hub:validate` clean
+- [ ] Owner review of pilot coverage + two spot-checked source URLs; adjust `RULES` / schema if needed
+
+**12b — batches** ⬜ IITs (23) · NITs (32) · IIITs (31) in runs of ≤ 10; `hub:validate` + commit after each
+
+**12c — serving** ⬜
+- [ ] `services/catalog/src/domain/hub.ts` imports `hub.bundle.json`, `loadHubBundle()` at init; `getCollegeProfile()` → `content.hub`; own-entrance institutes return 200 with `branches: []`
+- [ ] `GET /colleges/:id/hub/:section` (+ CDK route); bump `DATASET_VERSION` → `josaa-2026f.3`, reseed (new IIIT ids/types)
+- [ ] Frontend College Explorer: fees / seat matrix / placements / campus sections with source footers
+- [ ] `ai-counsellor/Plan.md` tool 3 `get_college` reads `hubFor()`
+
+---
+
 ## Production-readiness checklist (through Phase 2)
 
 What "production-ready till Phase 2" means here — the auth + predictor slice a real student can use.
@@ -314,6 +337,7 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 - **2026-08-29 · ADR-015 · Meeting links through a `CalendarProvider` (`@sc/shared calendar.ts`).** `StubCalendarProvider` (default, deterministic `/lookup/` placeholders) vs `GoogleCalendarProvider` (service account + domain-wide delegation, JWT signed with `node:crypto`, plain `fetch`, no SDK; creds `GOOGLE_SA_JSON` + `GOOGLE_CALENDAR_IMPERSONATE` in the SSM secrets blob). Interviews: create event → then DB transition; DB failure → compensating cancel (never an orphaned event); idempotent on `(mentorId, interviewAt)`; reschedule PATCHes the same event; cancel deletes it. Paid sessions fall back to the placeholder on a Calendar failure (a captured payment must never fail). `CALENDAR_PROVIDER=google` without creds → 503, never silent placeholders.
 - **2026-08-29 · ADR-016 · The append-only audit repo moved to `@sc/shared`** so auth-identity (promotions), marketplace (verification, document access) and admin (moderation) write one trail; each Lambda gets `TABLE_AUDIT` + a write grant.
 - **2026-08-29 · ADR-017 · Interview endpoint contract migration in two steps.** `POST /admin/mentors/:id/interview` accepts `{interviewAt, durationMin?, note?}` (link server-generated) AND the legacy `{interviewLink}` for one release; `liveApi.mentorScheduleInterview` moved to the new shape; `interviewLink` is dropped from the schema next release. The deployed caller never breaks mid-deploy.
+- **2026-09-13 · ADR-018 · College Data Hub = committed, sourced JSON per institute-section, served from a bundled snapshot — no DynamoDB content table (yet).** Research agents write `data/colleges/<id>/<section>.json` against a zod contract (every fact carries `sources[]` + `asOf`; no source → `null`); `hub:build` folds them into `hub.bundle.json`, which the catalog Lambda imports and serves from memory (`profile.content.hub`, `/colleges/:id/hub/:section`). *Why:* read-only, a few MB, changes a few times a year, reviewable in git, zero infra, and loadable in-process — which is what the AI Counsellor's `get_college` tool needs. *Alternatives:* DynamoDB `college_content` items (deferred until admin editing exists), S3+CloudFront JSON (deferred), RAG/vector store (rejected by AC-ADR-001). Also: `CURATED` in `enrich.ts` now covers every JoSAA IIIT + IIEST so `instituteId` is collision-free; those ids/types change at the next reseed.
 
 > Short, append-only. One entry per real decision. Format: date · decision · why · alternatives.
 
@@ -331,6 +355,8 @@ _All decisions approved 2026-07-14 ("go with the defaults")._
 ---
 
 ## Changelog
+
+- **2026-09-13** — **Phase 12a: College Data Hub foundations.** New `@sc/catalog-core/src/hub` (zod contract + in-memory loader, 11 tests), curated ids for all 23 uncurated JoSAA IIITs + IIEST Shibpur (fixes `josaa-orcr-dataset.md` §7.1 Bhubaneswar/Naya Raipur collision; Manipur + Tiruchirappalli renames merged; `deriveType()` files "International Institute of Information Technology" as IIIT), `scripts/hub-roster.ts` → `data/institutes.json` (86 institutes), `hub-validate.ts` (schema + cross-file rules + coverage), `hub-build.ts` (bundle), `docs/college-data-hub.md`. Owner decisions: pilot 6 → batches of 10; IIIT scope = JoSAA + IIIT-H/B/D; social media = official handles + public creators ≥10k only. ADR-018.
 - **2026-08-30** — **Phase 11 DEPLOYED.** `cdk deploy` of sc-dev-data (+ private bucket `sc-dev-mentor-docs-058264128057`), sc-dev-auth (+`custom:scopes`), sc-dev-foundation (+19 routes, −`POST /mentor/verify/id`), svc-auth/marketplace/booking/admin/notifications/catalog/planner — all UPDATE_COMPLETE, ~4 min total. Frontend Amplify job 3 (static export incl. `m-students`, `a-interviews`, `a-audit`). Deployed e2e green (see packet 8); throwaway users/rows/objects purged. Live probes: new routes 401 (auth-gated), removed route 404, bucket + Cognito attribute present.
 - **2026-08-29** — **Phase 11 packets 6–7 (frontend) + packet 8 hardening (except deploy).** Mentor app: `mentor.js` split into `mentor-shared/application/students/money.js` — application status timeline + 6-step application form (OTP inline, presigned document uploads, essays with counters, consent), profile with locked identity fields, availability 409 handling, sessions with student first name + Meet link, new `mStudents` prep sheet, honest earnings (released/pending, payouts "coming soon"), ratings distribution/trend, `useMentorGate` gating + suspended banner, inline confirm modals; `MentorOnboarding`/`VerifyStatus` updated. Admin console: `admin.js` split into `admin-shared/verify/mentors/audit.js` — status-tabbed oldest-first verification queue with cursor + wait time, application detail with per-field Verify/Flag, audited inline document preview, "N of M verified", `legalActions`-driven buttons, interview schedule/reschedule/cancel forms, soft/hard reject with reason; mentor directory with history + suspend/reinstate; new `aInterviews` calendar and `aAudit` log; Admins page states next-sign-in scope activation; overview queue health. All `window.prompt`s removed. Docs: architecture §5.5 + 5.5.1–5.5.3, README §13, `integrations-setup.md` Phase 11 knobs; `readme_sc.md` removed (superseded). **Deploy footprint (`cdk diff`, not applied):** `sc-dev-data` +S3 bucket; `sc-dev-auth` ~UserPool (+`custom:scopes`); `sc-dev-foundation` +19 routes / −`POST /mentor/verify/id`; Lambda code + IAM updates on auth/marketplace/booking/admin/notifications/catalog/planner. Then frontend Amplify deploy.
 - **2026-08-29** — **Phase 11 packets 0–5 built + green locally (backend + infra).** Packet 0: booking suite brought up to the accept/decline saga (was 2/11 before any change). Packet 1: `SUPERADMIN_EMAIL` (config + infra), verified-email superadmin bootstrap (idempotent, audited), self-demotion guard, `custom:scopes` Cognito attribute, frontend role-stale banner, stale doc headers fixed. Packet 2: `hasScope/requireScope` in `@sc/shared` (+ unit tests) applied to every scoped admin route across marketplace/admin/auth-identity/booking; dev servers + test helpers carry scopes. Packet 3: rich `ApplyInput` (identity/contact/profile/essays/consent), private S3 bucket + presign/confirm/admin-URL document flow (in-memory store locally), OTP bound to the signed-in user with per-user + per-email rate limits and SES delivery when configured, `POST /mentor/submit` listing EVERY missing item. Packet 4: shared state machine (exhaustive unit test), per-field verification, `verify-docs`, soft/hard rejection with reasons, status history, cursor-paged time-ordered admin queue + counts + full application + legacy `/pending`. Packet 5: `CalendarProvider` (stub + Google, fake-fetch unit tests + skip-without-creds live contract test), interview schedule/reschedule/cancel with compensation + idempotency, booking Meet links on the provider, `GET /sessions/:id/student-prep`. Notifications map every new mentor event. **Suites:** shared 17 · marketplace 22 · admin 9 · booking 18 · auth 17 · notifications 6 · planner 7 · catalog 15 · analytics 6; `pnpm typecheck` 13/13. Not deployed yet (packet 8).

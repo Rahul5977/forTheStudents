@@ -261,6 +261,9 @@ sequenceDiagram
 ```
 **Key endpoints:** `GET /colleges/:id` (CDN), `GET /colleges/:id/analysis` (CDN, long TTL), admin: `POST /admin/cutoffs/import|validate|publish`, `GET /admin/data/version`, `POST /admin/spot-check`. **Notes:** dataset is **versioned & immutable**; "publish" is an atomic pointer flip → instant rollback. Analysis pages are per-college-branch and identical for all users → CDN with `stale-while-revalidate`.
 
+#### 5.2.1 College Data Hub (Phase 12) — the sourced content layer
+**Responsibilities:** deep, sourced facts per institute (profile, academics, placements, seat matrix, fees, campus life, hostels, alumni, social, rankings, FAQs) for every IIT / NIT / IIIT — the corpus the College Explorer pages and the AI Counsellor's `get_college` tool read. **Not** a scraper: parallel research agents write one JSON file per (institute, section) under `services/catalog/data/colleges/<instituteId>/`, against the zod contract in `@sc/catalog-core/src/hub/schema.ts`. Every fact record carries `sources[]` (≥1, with `confidence` and `accessedOn`) and `asOf`; no source → `null`, never a guess; prose is original own-words only. `hub:validate` gates the dataset (schema, cross-file rules, aggregator hosts never `official`, coverage table); `hub:build` folds it into `hub.bundle.json`, which the catalog Lambda imports and serves from module memory (**ADR-018** — no DynamoDB content table until admin editing exists). Served as `GET /colleges/:id/profile → content.hub` and `GET /colleges/:id/hub/:section` (CDN-cacheable, no new query params). The canonical roster is `data/institutes.json` (86 rows; own-entrance IIITs carry `inCutoffs:false` and get a profile without cutoff rows). Full spec, agent rules and refresh cadence: `docs/college-data-hub.md`.
+
 ### 5.3 predictor — *the hottest path*
 **Responsibilities:** given `(examRank, category, homeState, filters)` return college-branches bucketed Safe/Target/Reach. **No per-request DB.** The active cutoff snapshot lives in Redis (and warm in Lambda memory); results are computed in-process and cached as **slices** keyed by a normalized input hash, served from CDN.
 
@@ -450,6 +453,7 @@ sequenceDiagram
 | `Colleges` | `PK=COLLEGE#<id>` / `SK=META` \| `BRANCH#<b>` | `GSI1: type`, `GSI2: state` | college + its branches, browse by type/state |
 | `Cutoffs` | `PK=CUTOFF#<version>` / `SK=<collegeBranch>#<cat>#<quota>#<pool>` | — | bulk-load snapshot per active version |
 | `Content` | `PK=COLLEGE#<id>` / `SK=ANALYSIS` \| `REVIEW#<id>` | — | analysis page, reviews |
+| *Hub bundle (Phase 12)* | file `data/colleges/hub.bundle.json` — **no table (ADR-018)** | — | sourced per-institute sections, loaded into Lambda memory; `hubFor(id)` / `hubSection(id, s)` |
 | `Planner` | `PK=USER#<id>` / `SK=SHORTLIST` \| `CHOICELIST` | — | get/put per-user lists |
 | `Mentors` | `PK=MENTOR#<id>` / `SK=PROFILE` \| `AVAILABILITY` \| `EMAILOTP` (+ `PK=EMAILRL#<subject>` rate rows, TTL) | `gsi1-status`: `gsi1pk=MENTOR#<STATUS>`, `gsi1sk=<changedAt>#<userId>` (every status; time-ordered) | own application, public search (APPROVED), admin queues per status with cursor, counts |
 | `Bookings` | `PK=BOOKING#<id>` / `SK=META` | `GSI1: USER#<id>`, `GSI2: MENTOR#<id>`, `GSI3: status#time` | my sessions, mentor's sessions, monitor |
@@ -622,7 +626,7 @@ Each service: `src/handlers/` (HTTP), `src/domain/` (**your `// TODO(owner)` log
 
 ```
 auth-identity        POST /auth/bootstrap · GET|PATCH /me · PATCH /me/rank-prefs · POST /me/role
-catalog-collegedata  GET /colleges/:id · GET /colleges/:id/analysis · GET /colleges/:id/reviews
+catalog-collegedata  GET /colleges · GET /colleges/:id · GET /colleges/:id/profile (→ content.hub) · GET /colleges/:id/hub/:section · GET /colleges/compare
                      [admin] POST /admin/cutoffs/import|validate|publish · GET /admin/data/version
 predictor            GET /predict · GET /predict/summary
 planner              GET|PUT /shortlist · GET|PUT /choice-list · GET /choice-list/doctor · POST /choice-list/export

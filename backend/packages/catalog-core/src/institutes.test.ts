@@ -1,7 +1,7 @@
 // Phase 0/1: canonical institute identity + multi-year series building.
 import { describe, it, expect } from 'vitest';
 import { instituteId } from './enrich';
-import { parseCutoffs, parseCorpus } from './parse';
+import { parseCutoffs, parseCorpus, deriveType } from './parse';
 import { distinctInstitutes, buildSeries, seriesForInstitute, latestYear } from './institutes';
 
 const H = 'Institute,Academic Program Name,Quota,Seat Type,Gender,Opening Rank,Closing Rank';
@@ -26,6 +26,27 @@ describe('canonical instituteId', () => {
     // merged series). The type guard in enrich() keeps them distinct.
     expect(instituteId('Indian Institute of Technology Delhi', 'IIT')).toBe('iit-delhi');
     expect(instituteId('National Institute of Technology Delhi', 'NIT')).toBe('nit-delhi');
+  });
+
+  it('gives every JoSAA IIIT its own collision-free id across name churn (Phase 12 roster)', () => {
+    // Regression: the uncurated fallback truncated to 46 chars and fused Bhubaneswar with Naya Raipur.
+    expect(instituteId('International Institute of Information Technology, Bhubaneswar', 'IIIT')).toBe('iiit-bhubaneswar');
+    expect(instituteId('International Institute of Information Technology, Naya Raipur', 'IIIT')).toBe('iiit-naya-raipur');
+    expect(deriveType('International Institute of Information Technology, Bhubaneswar')).toBe('IIIT');
+    // Renames / case changes across years collapse to one id.
+    expect(instituteId('Indian Institute of Information Technology Manipur', 'IIIT')).toBe('iiit-senapati-manipur');
+    expect(instituteId('INDIAN INSTITUTE OF INFORMATION TECHNOLOGY SENAPATI MANIPUR', 'IIIT')).toBe('iiit-senapati-manipur');
+    expect(instituteId('Indian Institute of Information Technology Srirangam, Tiruchirappalli', 'IIIT')).toBe('iiit-tiruchirappalli');
+    expect(instituteId('Indian Institute of Information Technology Tiruchirappalli', 'IIIT')).toBe('iiit-tiruchirappalli');
+    // Same-city IIT/NIT rows stay distinct from the IIIT rows (type gate).
+    expect(instituteId('Indian Institute of Information Technology Guwahati', 'IIIT')).toBe('iiit-guwahati');
+    expect(instituteId('Indian Institute of Technology Guwahati', 'IIT')).toBe('iit-guwahati');
+    expect(instituteId('Indian Institute of Information Technology, Agartala', 'IIIT')).toBe('iiit-agartala');
+    expect(instituteId('National Institute of Technology Agartala', 'NIT')).toBe('nit-agartala');
+    expect(instituteId('Indian Institute of Information Technology(IIIT), Vadodara, Gujrat', 'IIIT')).toBe('iiit-vadodara');
+    expect(instituteId('Indian Institute of Information Technology, Vadodara International Campus Diu (IIITVICD)', 'IIIT')).toBe('iiit-vadodara-icd');
+    expect(instituteId('Indian Institute of Information Technology(IIIT) Kottayam', 'IIIT')).toBe('iiit-kottayam');
+    expect(instituteId('Indian Institute of Information Technology (IIIT)Kota, Rajasthan', 'IIIT')).toBe('iiit-kota');
   });
 });
 

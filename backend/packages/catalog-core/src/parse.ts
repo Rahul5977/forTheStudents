@@ -22,7 +22,9 @@ function splitCsvLine(line: string): string[] {
 
 /** Classify by name. IIIT is checked BEFORE IIT ("Information Technology" ⊃ "Technology"). */
 export function deriveType(institute: string): CollegeType {
-  if (/Indian Institute of Information Technology|IIIT/i.test(institute)) return 'IIIT';
+  // "International Institute of Information Technology" (Bhubaneswar, Naya Raipur) is filed under
+  // IIIT by JoSAA (instype 3IT) — classify it the same way, not as GFTI.
+  if (/(Indian|International) Institute of Information Technology|IIIT/i.test(institute)) return 'IIIT';
   if (/Indian Institute of Technology|^IIT\b/i.test(institute)) return 'IIT';
   if (/National Institute of Technology|^[MSV]?NIT\b|^MN?NIT\b/i.test(institute)) return 'NIT';
   return 'GFTI';

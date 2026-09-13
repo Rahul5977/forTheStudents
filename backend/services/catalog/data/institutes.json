@@ -1,0 +1,1460 @@
+[
+  {
+    "id": "iit-bhu-varanasi",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology (BHU) Varanasi",
+    "short": "IIT (BHU) Varanasi",
+    "city": "Varanasi",
+    "state": "Uttar Pradesh",
+    "website": "https://www.iitbhu.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology (BHU) Varanasi"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-ism-dhanbad",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology (ISM) Dhanbad",
+    "short": "IIT (ISM) Dhanbad",
+    "city": "Dhanbad",
+    "state": "Jharkhand",
+    "website": "https://www.iitism.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology (ISM) Dhanbad"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-bhilai",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Bhilai",
+    "short": "IIT Bhilai",
+    "city": "Bhilai",
+    "state": "Chhattisgarh",
+    "website": "https://www.iitbhilai.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Bhilai"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-bhubaneswar",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Bhubaneswar",
+    "short": "IIT Bhubaneswar",
+    "city": "Bhubaneswar",
+    "state": "Odisha",
+    "website": "https://www.iitbbs.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Bhubaneswar"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-bombay",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Bombay",
+    "short": "IIT Bombay",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "website": "https://www.iitb.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Bombay"
+    ],
+    "nirfId": null,
+    "pilot": true
+  },
+  {
+    "id": "iit-delhi",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Delhi",
+    "short": "IIT Delhi",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "website": "https://home.iitd.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Delhi"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-dharwad",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Dharwad",
+    "short": "IIT Dharwad",
+    "city": "Dharwad",
+    "state": "Karnataka",
+    "website": "https://www.iitdh.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Dharwad"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-gandhinagar",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Gandhinagar",
+    "short": "IIT Gandhinagar",
+    "city": "Gandhinagar",
+    "state": "Gujarat",
+    "website": "https://www.iitgn.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Gandhinagar"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-goa",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Goa",
+    "short": "IIT Goa",
+    "city": "Ponda",
+    "state": "Goa",
+    "website": "https://www.iitgoa.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Goa"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-guwahati",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Guwahati",
+    "short": "IIT Guwahati",
+    "city": "Guwahati",
+    "state": "Assam",
+    "website": "https://www.iitg.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Guwahati"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-hyderabad",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Hyderabad",
+    "short": "IIT Hyderabad",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "website": "https://www.iith.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Hyderabad"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-indore",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Indore",
+    "short": "IIT Indore",
+    "city": "Indore",
+    "state": "Madhya Pradesh",
+    "website": "https://www.iiti.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Indore"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-jammu",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Jammu",
+    "short": "IIT Jammu",
+    "city": "Jammu",
+    "state": "Jammu and Kashmir",
+    "website": "https://www.iitjammu.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Jammu"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-jodhpur",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Jodhpur",
+    "short": "IIT Jodhpur",
+    "city": "Jodhpur",
+    "state": "Rajasthan",
+    "website": "https://www.iitj.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Jodhpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-kanpur",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Kanpur",
+    "short": "IIT Kanpur",
+    "city": "Kanpur",
+    "state": "Uttar Pradesh",
+    "website": "https://www.iitk.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Kanpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-kharagpur",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Kharagpur",
+    "short": "IIT Kharagpur",
+    "city": "Kharagpur",
+    "state": "West Bengal",
+    "website": "https://www.iitkgp.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Kharagpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-madras",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Madras",
+    "short": "IIT Madras",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "website": "https://www.iitm.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Madras"
+    ],
+    "nirfId": null,
+    "pilot": true
+  },
+  {
+    "id": "iit-mandi",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Mandi",
+    "short": "IIT Mandi",
+    "city": "Mandi",
+    "state": "Himachal Pradesh",
+    "website": "https://www.iitmandi.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Mandi"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-palakkad",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Palakkad",
+    "short": "IIT Palakkad",
+    "city": "Palakkad",
+    "state": "Kerala",
+    "website": "https://www.iitpkd.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Palakkad"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-patna",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Patna",
+    "short": "IIT Patna",
+    "city": "Patna",
+    "state": "Bihar",
+    "website": "https://www.iitp.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Patna"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-roorkee",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Roorkee",
+    "short": "IIT Roorkee",
+    "city": "Roorkee",
+    "state": "Uttarakhand",
+    "website": "https://www.iitr.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Roorkee"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-ropar",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Ropar",
+    "short": "IIT Ropar",
+    "city": "Rupnagar",
+    "state": "Punjab",
+    "website": "https://www.iitrpr.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Ropar"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iit-tirupati",
+    "type": "IIT",
+    "officialName": "Indian Institute of Technology Tirupati",
+    "short": "IIT Tirupati",
+    "city": "Tirupati",
+    "state": "Andhra Pradesh",
+    "website": "https://www.iittp.ac.in",
+    "admissionRoute": "jee-adv-direct",
+    "inCutoffs": true,
+    "josaaType": "IIT",
+    "josaaNames": [
+      "Indian Institute of Technology Tirupati"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiest-shibpur",
+    "type": "NIT",
+    "officialName": "Indian Institute of Engineering Science and Technology, Shibpur",
+    "short": "IIEST Shibpur",
+    "city": "Howrah",
+    "state": "West Bengal",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "Indian Institute of Engineering Science and Technology, Shibpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "manit-bhopal",
+    "type": "NIT",
+    "officialName": "Maulana Azad National Institute of Technology Bhopal",
+    "short": "MANIT Bhopal",
+    "city": "Bhopal",
+    "state": "Madhya Pradesh",
+    "website": "https://www.manit.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "Maulana Azad National Institute of Technology Bhopal"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "mnit-jaipur",
+    "type": "NIT",
+    "officialName": "Malaviya National Institute of Technology Jaipur",
+    "short": "MNIT Jaipur",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "website": "https://www.mnit.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "Malaviya National Institute of Technology Jaipur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "mnnit-allahabad",
+    "type": "NIT",
+    "officialName": "Motilal Nehru National Institute of Technology Allahabad",
+    "short": "MNNIT Allahabad",
+    "city": "Prayagraj",
+    "state": "Uttar Pradesh",
+    "website": "https://www.mnnit.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "Motilal Nehru National Institute of Technology Allahabad"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-agartala",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Agartala",
+    "short": "NIT Agartala",
+    "city": "Agartala",
+    "state": "Tripura",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Agartala"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-andhra-pradesh",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Andhra Pradesh",
+    "short": "NIT Andhra Pradesh",
+    "city": "Tadepalligudem",
+    "state": "Andhra Pradesh",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Andhra Pradesh"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-arunachal-pradesh",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Arunachal Pradesh",
+    "short": "NIT Arunachal Pradesh",
+    "city": "Jote",
+    "state": "Arunachal Pradesh",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Arunachal Pradesh"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-calicut",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Calicut",
+    "short": "NIT Calicut",
+    "city": "Kozhikode",
+    "state": "Kerala",
+    "website": "https://www.nitc.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Calicut"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-delhi",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Delhi",
+    "short": "NIT Delhi",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Delhi"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-durgapur",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Durgapur",
+    "short": "NIT Durgapur",
+    "city": "Durgapur",
+    "state": "West Bengal",
+    "website": "https://www.nitdgp.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Durgapur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-goa",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Goa",
+    "short": "NIT Goa",
+    "city": "Ponda",
+    "state": "Goa",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Goa"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-hamirpur",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Hamirpur",
+    "short": "NIT Hamirpur",
+    "city": "Hamirpur",
+    "state": "Himachal Pradesh",
+    "website": "https://www.nith.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Hamirpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-jalandhar",
+    "type": "NIT",
+    "officialName": "Dr. B R Ambedkar National Institute of Technology, Jalandhar",
+    "short": "NIT Jalandhar",
+    "city": "Jalandhar",
+    "state": "Punjab",
+    "website": "https://www.nitj.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "Dr. B R Ambedkar National Institute of Technology, Jalandhar"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-jamshedpur",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Jamshedpur",
+    "short": "NIT Jamshedpur",
+    "city": "Jamshedpur",
+    "state": "Jharkhand",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Jamshedpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-kurukshetra",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Kurukshetra",
+    "short": "NIT Kurukshetra",
+    "city": "Kurukshetra",
+    "state": "Haryana",
+    "website": "https://www.nitkkr.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Kurukshetra"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-manipur",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Manipur",
+    "short": "NIT Manipur",
+    "city": "Imphal",
+    "state": "Manipur",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Manipur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-meghalaya",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Meghalaya",
+    "short": "NIT Meghalaya",
+    "city": "Shillong",
+    "state": "Meghalaya",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Meghalaya"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-mizoram",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Mizoram",
+    "short": "NIT Mizoram",
+    "city": "Aizawl",
+    "state": "Mizoram",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Mizoram"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-nagaland",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Nagaland",
+    "short": "NIT Nagaland",
+    "city": "Dimapur",
+    "state": "Nagaland",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Nagaland"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-patna",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Patna",
+    "short": "NIT Patna",
+    "city": "Patna",
+    "state": "Bihar",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Patna"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-puducherry",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Puducherry",
+    "short": "NIT Puducherry",
+    "city": "Karaikal",
+    "state": "Puducherry",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Puducherry"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-raipur",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Raipur",
+    "short": "NIT Raipur",
+    "city": "Raipur",
+    "state": "Chhattisgarh",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Raipur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-rourkela",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Rourkela",
+    "short": "NIT Rourkela",
+    "city": "Rourkela",
+    "state": "Odisha",
+    "website": "https://www.nitrkl.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Rourkela"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-sikkim",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Sikkim",
+    "short": "NIT Sikkim",
+    "city": "Ravangla",
+    "state": "Sikkim",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Sikkim"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-silchar",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Silchar",
+    "short": "NIT Silchar",
+    "city": "Silchar",
+    "state": "Assam",
+    "website": "https://www.nits.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Silchar"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-srinagar",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Srinagar",
+    "short": "NIT Srinagar",
+    "city": "Srinagar",
+    "state": "Jammu and Kashmir",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Srinagar"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-surathkal",
+    "type": "NIT",
+    "officialName": "National Institute of Technology Karnataka, Surathkal",
+    "short": "NIT Surathkal",
+    "city": "Mangalore",
+    "state": "Karnataka",
+    "website": "https://www.nitk.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology Karnataka, Surathkal"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-trichy",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Tiruchirappalli",
+    "short": "NIT Trichy",
+    "city": "Tiruchirappalli",
+    "state": "Tamil Nadu",
+    "website": "https://www.nitt.edu",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Tiruchirappalli"
+    ],
+    "nirfId": null,
+    "pilot": true
+  },
+  {
+    "id": "nit-uttarakhand",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Uttarakhand",
+    "short": "NIT Uttarakhand",
+    "city": "Srinagar (Garhwal)",
+    "state": "Uttarakhand",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Uttarakhand"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "nit-warangal",
+    "type": "NIT",
+    "officialName": "National Institute of Technology, Warangal",
+    "short": "NIT Warangal",
+    "city": "Warangal",
+    "state": "Telangana",
+    "website": "https://www.nitw.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "National Institute of Technology, Warangal"
+    ],
+    "nirfId": null,
+    "pilot": true
+  },
+  {
+    "id": "svnit-surat",
+    "type": "NIT",
+    "officialName": "Sardar Vallabhbhai National Institute of Technology, Surat",
+    "short": "SVNIT Surat",
+    "city": "Surat",
+    "state": "Gujarat",
+    "website": "https://www.svnit.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "Sardar Vallabhbhai National Institute of Technology, Surat"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "vnit-nagpur",
+    "type": "NIT",
+    "officialName": "Visvesvaraya National Institute of Technology, Nagpur",
+    "short": "VNIT Nagpur",
+    "city": "Nagpur",
+    "state": "Maharashtra",
+    "website": "https://www.vnit.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "NIT",
+    "josaaNames": [
+      "Visvesvaraya National Institute of Technology, Nagpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-agartala",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology, Agartala",
+    "short": "IIIT Agartala",
+    "city": "Agartala",
+    "state": "Tripura",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology, Agartala"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-allahabad",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology, Allahabad",
+    "short": "IIIT Allahabad",
+    "city": "Prayagraj",
+    "state": "Uttar Pradesh",
+    "website": "https://www.iiita.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology, Allahabad"
+    ],
+    "nirfId": null,
+    "pilot": true
+  },
+  {
+    "id": "iiit-bangalore",
+    "type": "IIIT",
+    "officialName": "International Institute of Information Technology Bangalore",
+    "short": "IIIT Bangalore",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "website": "https://www.iiitb.ac.in",
+    "admissionRoute": "own-entrance",
+    "inCutoffs": false,
+    "josaaType": null,
+    "josaaNames": [],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-bhagalpur",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology Bhagalpur",
+    "short": "IIIT Bhagalpur",
+    "city": "Bhagalpur",
+    "state": "Bihar",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology Bhagalpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-bhopal",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology Bhopal",
+    "short": "IIIT Bhopal",
+    "city": "Bhopal",
+    "state": "Madhya Pradesh",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology Bhopal"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-bhubaneswar",
+    "type": "IIIT",
+    "officialName": "International Institute of Information Technology, Bhubaneswar",
+    "short": "IIIT Bhubaneswar",
+    "city": "Bhubaneswar",
+    "state": "Odisha",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "International Institute of Information Technology, Bhubaneswar"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-delhi",
+    "type": "IIIT",
+    "officialName": "Indraprastha Institute of Information Technology Delhi",
+    "short": "IIIT Delhi",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "website": "https://www.iiitd.ac.in",
+    "admissionRoute": "own-entrance",
+    "inCutoffs": false,
+    "josaaType": null,
+    "josaaNames": [],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-dharwad",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology(IIIT) Dharwad",
+    "short": "IIIT Dharwad",
+    "city": "Dharwad",
+    "state": "Karnataka",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology(IIIT) Dharwad"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-guwahati",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology Guwahati",
+    "short": "IIIT Guwahati",
+    "city": "Guwahati",
+    "state": "Assam",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology Guwahati"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-hyderabad",
+    "type": "IIIT",
+    "officialName": "International Institute of Information Technology, Hyderabad",
+    "short": "IIIT Hyderabad",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "website": "https://www.iiit.ac.in",
+    "admissionRoute": "own-entrance",
+    "inCutoffs": false,
+    "josaaType": null,
+    "josaaNames": [],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-kalyani",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology(IIIT) Kalyani, West Bengal",
+    "short": "IIIT Kalyani",
+    "city": "Kalyani",
+    "state": "West Bengal",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology(IIIT) Kalyani, West Bengal"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-kota",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology (IIIT)Kota, Rajasthan",
+    "short": "IIIT Kota",
+    "city": "Kota",
+    "state": "Rajasthan",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology (IIIT)Kota, Rajasthan"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-kottayam",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology(IIIT) Kottayam",
+    "short": "IIIT Kottayam",
+    "city": "Kottayam",
+    "state": "Kerala",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology(IIIT) Kottayam"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-lucknow",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology Lucknow",
+    "short": "IIIT Lucknow",
+    "city": "Lucknow",
+    "state": "Uttar Pradesh",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology Lucknow"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-nagpur",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology (IIIT) Nagpur",
+    "short": "IIIT Nagpur",
+    "city": "Nagpur",
+    "state": "Maharashtra",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology (IIIT) Nagpur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-naya-raipur",
+    "type": "IIIT",
+    "officialName": "International Institute of Information Technology, Naya Raipur",
+    "short": "IIIT Naya Raipur",
+    "city": "Naya Raipur",
+    "state": "Chhattisgarh",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "International Institute of Information Technology, Naya Raipur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-pune",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology (IIIT) Pune",
+    "short": "IIIT Pune",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology (IIIT) Pune"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-raichur",
+    "type": "IIIT",
+    "officialName": "Indian institute of information technology, Raichur, Karnataka",
+    "short": "IIIT Raichur",
+    "city": "Raichur",
+    "state": "Karnataka",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian institute of information technology, Raichur, Karnataka"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-ranchi",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology (IIIT) Ranchi",
+    "short": "IIIT Ranchi",
+    "city": "Ranchi",
+    "state": "Jharkhand",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology (IIIT) Ranchi"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-senapati-manipur",
+    "type": "IIIT",
+    "officialName": "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY SENAPATI MANIPUR",
+    "short": "IIIT Senapati Manipur",
+    "city": "Imphal",
+    "state": "Manipur",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY SENAPATI MANIPUR",
+      "Indian Institute of Information Technology Manipur"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-sonepat",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology(IIIT) Kilohrad, Sonepat, Haryana",
+    "short": "IIIT Sonepat",
+    "city": "Sonepat",
+    "state": "Haryana",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology(IIIT) Kilohrad, Sonepat, Haryana"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-sri-city",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology (IIIT), Sri City, Chittoor",
+    "short": "IIIT Sri City",
+    "city": "Chittoor",
+    "state": "Andhra Pradesh",
+    "website": "https://www.iiits.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology (IIIT), Sri City, Chittoor"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-surat",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology Surat",
+    "short": "IIIT Surat",
+    "city": "Surat",
+    "state": "Gujarat",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology Surat"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-tiruchirappalli",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology Tiruchirappalli",
+    "short": "IIIT Tiruchirappalli",
+    "city": "Tiruchirappalli",
+    "state": "Tamil Nadu",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology Srirangam, Tiruchirappalli",
+      "Indian Institute of Information Technology Tiruchirappalli"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-una",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology(IIIT) Una, Himachal Pradesh",
+    "short": "IIIT Una",
+    "city": "Una",
+    "state": "Himachal Pradesh",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology(IIIT) Una, Himachal Pradesh"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-vadodara",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology(IIIT), Vadodara, Gujrat",
+    "short": "IIIT Vadodara",
+    "city": "Gandhinagar",
+    "state": "Gujarat",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology(IIIT), Vadodara, Gujrat"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiit-vadodara-icd",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology, Vadodara International Campus Diu (IIITVICD)",
+    "short": "IIIT Vadodara ICD",
+    "city": "Diu",
+    "state": "Daman and Diu",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology, Vadodara International Campus Diu (IIITVICD)"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiitdm-jabalpur",
+    "type": "IIIT",
+    "officialName": "Pt. Dwarka Prasad Mishra Indian Institute of Information Technology, Design & Manufacture Jabalpur",
+    "short": "IIITDM Jabalpur",
+    "city": "Jabalpur",
+    "state": "Madhya Pradesh",
+    "website": "https://www.iiitdmj.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Pt. Dwarka Prasad Mishra Indian Institute of Information Technology, Design & Manufacture Jabalpur"
+    ],
+    "nirfId": null,
+    "pilot": true
+  },
+  {
+    "id": "iiitdm-kancheepuram",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology, Design & Manufacturing, Kancheepuram",
+    "short": "IIITDM Kancheepuram",
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "website": "https://www.iiitdm.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology, Design & Manufacturing, Kancheepuram"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiitdm-kurnool",
+    "type": "IIIT",
+    "officialName": "Indian Institute of Information Technology Design & Manufacturing Kurnool, Andhra Pradesh",
+    "short": "IIITDM Kurnool",
+    "city": "Kurnool",
+    "state": "Andhra Pradesh",
+    "website": null,
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Indian Institute of Information Technology Design & Manufacturing Kurnool, Andhra Pradesh"
+    ],
+    "nirfId": null,
+    "pilot": false
+  },
+  {
+    "id": "iiitm-gwalior",
+    "type": "IIIT",
+    "officialName": "Atal Bihari Vajpayee Indian Institute of Information Technology & Management Gwalior",
+    "short": "IIITM Gwalior",
+    "city": "Gwalior",
+    "state": "Madhya Pradesh",
+    "website": "https://www.iiitm.ac.in",
+    "admissionRoute": "josaa",
+    "inCutoffs": true,
+    "josaaType": "IIIT",
+    "josaaNames": [
+      "Atal Bihari Vajpayee Indian Institute of Information Technology & Management Gwalior"
+    ],
+    "nirfId": null,
+    "pilot": false
+  }
+]

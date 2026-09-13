@@ -150,6 +150,12 @@ Deliberately not done here; each changes what users see.
    54 official GFTI names → 47 ids. Two large, popular IIITs currently share one catalog identity.
    This is pre-existing and independent of this dataset.
 
+   **Partly resolved 2026-09-13 (Phase 12a):** `CURATED` now has a row for every JoSAA IIIT and IIEST
+   Shibpur, and `deriveType()` files "International Institute of Information Technology" as IIIT — so
+   Bhubaneswar (`iiit-bhubaneswar`) and Naya Raipur (`iiit-naya-raipur`) are distinct, and the Manipur /
+   Tiruchirappalli renames merge into one id each. Takes effect in the served data at the next reseed
+   (`josaa-2026f.3`). The NIELIT ×5 and NIFTEM ×3 GFTI collisions remain (out of the hub's scope).
+
 2. **Take institute type from the source, not from the name.** `deriveType()` infers type by regex.
    It is *correct* on all 54 official GFTI names (verified — `International …` and `National
    Institute of Electronics and Information Technology` do not match its patterns). But the official

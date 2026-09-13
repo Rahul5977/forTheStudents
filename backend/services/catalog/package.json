@@ -13,6 +13,9 @@
     "josaa:rounds": "tsx scripts/josaa-orcr.ts --list-rounds",
     "josaa:build": "tsx scripts/josaa-build.ts",
     "josaa:verify": "tsx scripts/josaa-build.ts --verify",
+    "hub:roster": "tsx scripts/hub-roster.ts",
+    "hub:validate": "tsx scripts/hub-validate.ts",
+    "hub:build": "tsx scripts/hub-build.ts",
     "lint": "echo 'lint: TODO(owner) wire eslint'"
   },
   "dependencies": {
