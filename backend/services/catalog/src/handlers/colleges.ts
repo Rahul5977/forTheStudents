@@ -3,6 +3,7 @@ import type { Context } from 'hono';
 import { ValidationError } from '@sc/shared';
 import * as domain from '../domain/predictor';
 import { compare } from '../domain/compare';
+import { getHubSection } from '../domain/hub';
 
 const CACHEABLE = { 'cache-control': 'public, s-maxage=300, stale-while-revalidate=600' };
 
@@ -28,4 +29,12 @@ export async function getCollegeProfile(c: Context) {
   const id = String(c.req.param('id') || '').trim().toLowerCase();
   if (!/^[a-z0-9-]{2,64}$/.test(id)) throw ValidationError('Invalid college id');
   return c.json(await domain.getCollegeProfile(id, c.req.query()), 200, CACHEABLE);
+}
+
+// GET /colleges/:id/hub/:section — one College Data Hub section (Phase 12), CDN-cacheable.
+export async function getCollegeHubSection(c: Context) {
+  const id = String(c.req.param('id') || '').trim().toLowerCase();
+  if (!/^[a-z0-9-]{2,64}$/.test(id)) throw ValidationError('Invalid college id');
+  const section = String(c.req.param('section') || '').trim().toLowerCase();
+  return c.json(getHubSection(id, section), 200, CACHEABLE);
 }

@@ -60,6 +60,7 @@ export class CatalogServiceStack extends Stack {
       { path: '/colleges', method: apigw.HttpMethod.GET },
       { path: '/colleges/{id}', method: apigw.HttpMethod.GET },
       { path: '/colleges/{id}/profile', method: apigw.HttpMethod.GET }, // deep college page
+      { path: '/colleges/{id}/hub/{section}', method: apigw.HttpMethod.GET }, // Phase 12 College Data Hub section
     ];
     for (const r of routes) {
       // No `authorizer` → public routes.

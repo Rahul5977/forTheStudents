@@ -4,6 +4,7 @@ import { predict as computePredict, analyze, normalizeInput, distinctInstitutes,
 import type { EnrichedCutoff, PredictInput } from '@sc/catalog-core';
 import { NotFoundError } from '@sc/shared';
 import { loadSnapshot } from '../repo/catalog.repo';
+import { hubFor, rosterFor, hubVersion, institutFromRoster } from './hub';
 
 /** GET /predict — real Safe/Target/Reach over the active JoSAA snapshot. */
 export async function predict(query: Record<string, string | undefined>) {
@@ -50,7 +51,23 @@ function facets(rows: EnrichedCutoff[]) {
 export async function getCollegeProfile(instituteId: string, query: Record<string, string | undefined>) {
   const snap = await loadSnapshot();
   const rows = snap.cutoffs.filter((c) => c.instituteId === instituteId);
-  if (rows.length === 0) throw NotFoundError('College not found');
+  const hub = hubFor(instituteId);
+  if (rows.length === 0) {
+    // Phase 12: institutes that do not counsel through JoSAA (own-entrance IIITs) have a hub
+    // record + roster identity but no cutoff rows → serve the profile without branches.
+    const roster = rosterFor(instituteId);
+    if (!hub || !roster) throw NotFoundError('College not found');
+    return {
+      version: snap.version,
+      hubVersion: hubVersion(),
+      institute: institutFromRoster(roster),
+      facets: { seatTypes: [], genders: [], quotas: [] },
+      branchCount: 0,
+      branches: [],
+      summary: { resultCount: 0, safeCount: 0, targetCount: 0, reachCount: 0 },
+      content: { ...(contentFor(instituteId) ?? nullContent()), hub },
+    };
+  }
 
   // Profile shows EVERY branch (no realistic-window filter), up to a high cap.
   const input: PredictInput = { ...normalizeInput(query), limit: 500, applyWindow: false };
@@ -72,23 +89,29 @@ export async function getCollegeProfile(instituteId: string, query: Record<strin
 
   return {
     version: snap.version,
+    hubVersion: hubVersion(),
     institute: info,
     facets: facets(rows),
     branchCount: new Set(rows.map((r) => r.program)).size,
     // The student-scoped, forecast-decorated branch list (best reachable first).
     branches: pred.results,
     summary: { resultCount: pred.resultCount, safeCount: pred.safeCount, targetCount: pred.targetCount, reachCount: pred.reachCount },
-    // ── content layer (Phase 3) — curated FACTS (established/website/NIRF) for targeted
-    // institutes; falls back to the null/[] shape (with a note) when none is curated yet. ──
-    content: contentFor(instituteId) ?? {
-      about: null as string | null,
-      established: null as number | null,
-      website: null as string | null,
-      fees: null,
-      seatMatrix: null,
-      placements: null,
-      photos: [] as unknown[],
-      note: 'Fees / seat matrix / placements / photos land in Phase 3 (curated + NIRF + Wikimedia).',
-    },
+    // ── content layer — Phase 3 curated FACTS (established/website/NIRF) + the Phase 12
+    // College Data Hub record (`hub`: sourced sections, null until collected — ADR-018). ──
+    content: { ...(contentFor(instituteId) ?? nullContent()), hub },
+  };
+}
+
+/** The empty Phase-3 content shape (no fabricated values), used when nothing is curated. */
+function nullContent() {
+  return {
+    about: null as string | null,
+    established: null as number | null,
+    website: null as string | null,
+    fees: null,
+    seatMatrix: null,
+    placements: null,
+    photos: [] as unknown[],
+    note: 'Curated facts pending; see content.hub for the sourced College Data Hub sections.',
   };
 }

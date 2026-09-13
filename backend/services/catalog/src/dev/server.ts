@@ -27,7 +27,7 @@ async function main() {
     },
   });
   // eslint-disable-next-line no-console
-  console.log(`\n  catalog DEV server → http://localhost:${PORT}   (GET /predict, /colleges, /colleges/:id)\n`);
+  console.log(`\n  catalog DEV server → http://localhost:${PORT}   (GET /predict, /colleges, /colleges/:id, /colleges/:id/profile, /colleges/:id/hub/:section)\n`);
 }
 
 void main();

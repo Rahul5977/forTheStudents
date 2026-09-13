@@ -242,8 +242,9 @@ Spec: `CLAUDE_CODE_LOOP_PROMPT.md` (repo root). **FIRST RUN (2026-08-29): every 
 **12b — batches** ⬜ IITs (23) · NITs (32) · IIITs (31) in runs of ≤ 10; `hub:validate` + commit after each
 
 **12c — serving** ⬜
-- [ ] `services/catalog/src/domain/hub.ts` imports `hub.bundle.json`, `loadHubBundle()` at init; `getCollegeProfile()` → `content.hub`; own-entrance institutes return 200 with `branches: []`
-- [ ] `GET /colleges/:id/hub/:section` (+ CDK route); bump `DATASET_VERSION` → `josaa-2026f.3`, reseed (new IIIT ids/types)
+- [x] `services/catalog/src/domain/hub.ts` imports `hub.bundle.json` (placeholder `hub-0` until the first `hub:build`), `loadHubBundle()` at init; `getCollegeProfile()` → `content.hub` (+ `hubVersion`); own-entrance institutes return 200 with `branches: []` (2026-09-13)
+- [x] `GET /colleges/:id/hub/:section` (400 on unknown section, 404 on unknown institute) + CDK route; `test/hub.unit.test.ts` (2026-09-13)
+- [ ] bump `DATASET_VERSION` → `josaa-2026f.3`, reseed + deploy (new IIIT ids/types) — owner-visible, after pilot review
 - [ ] Frontend College Explorer: fees / seat matrix / placements / campus sections with source footers
 - [ ] `ai-counsellor/Plan.md` tool 3 `get_college` reads `hubFor()`
 

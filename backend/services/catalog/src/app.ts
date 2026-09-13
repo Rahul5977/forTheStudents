@@ -1,7 +1,7 @@
 // Route table for the catalog lambdalith (Phase 2). All routes public.
 import { createApp } from '@sc/shared';
 import { predict, predictSummary } from './handlers/predict';
-import { listColleges, getCollege, getCollegeProfile, compareColleges } from './handlers/colleges';
+import { listColleges, getCollege, getCollegeProfile, compareColleges, getCollegeHubSection } from './handlers/colleges';
 
 export const app = createApp('catalog');
 
@@ -13,4 +13,6 @@ app.get('/colleges', listColleges);
 app.get('/colleges/compare', compareColleges);
 // More specific route first: /colleges/:id/profile (canonical slug) vs /colleges/:id (row id).
 app.get('/colleges/:id/profile', getCollegeProfile);
+// Phase 12: one College Data Hub section (fees, placements, campus-life, …) by canonical slug.
+app.get('/colleges/:id/hub/:section', getCollegeHubSection);
 app.get('/colleges/:id', getCollege);
