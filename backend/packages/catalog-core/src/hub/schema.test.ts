@@ -50,7 +50,7 @@ describe('records carry sources; facts are nullable, never missing', () => {
   it('bounds prose lengths and enforces the slug shape', () => {
     const profile = {
       instituteId: 'iit-bombay', officialName: 'Indian Institute of Technology Bombay', short: 'IIT Bombay', type: 'IIT',
-      established: 1958, website: 'https://www.iitb.ac.in', about: 'x'.repeat(601), location: null, admissionRoutes: [],
+      established: 1958, website: 'https://www.iitb.ac.in', about: 'x'.repeat(801), location: null, admissionRoutes: [],
       sources: [src()], asOf: null,
     };
     expect(Profile.safeParse(profile).success).toBe(false);

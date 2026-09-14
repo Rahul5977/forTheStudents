@@ -100,7 +100,7 @@ export const Profile = z
     type: Enums.instituteType,
     established: z.number().int().min(1800).max(2100).nullable(),
     website: httpUrl.nullable(),
-    about: ownWords(600), // 2–4 original sentences
+    about: ownWords(800), // 2–5 original sentences
     location: z
       .object({
         city: z.string().min(1).max(60),
@@ -108,7 +108,7 @@ export const Profile = z
         campusAcres: z.number().positive().nullable(),
         nearestAirport: z.string().max(80).nullable(),
         nearestRailway: z.string().max(80).nullable(),
-        connectivityNote: ownWords(300),
+        connectivityNote: ownWords(400),
         ...sourced,
       })
       .strict()
@@ -118,7 +118,7 @@ export const Profile = z
         .object({
           route: Enums.admissionRoute,
           programs: z.array(z.string().min(1).max(80)), // e.g. ["B.Tech", "B.Tech + M.Tech dual"]
-          note: ownWords(200),
+          note: ownWords(300),
           ...sourced,
         })
         .strict(),
@@ -149,8 +149,8 @@ export const Academics = z
         .strict(),
     ),
     facultyCount: z.object({ value: nonNegInt, ...sourced }).strict().nullable(),
-    curriculumHighlights: z.array(z.object({ text: ownWords(200), ...sourced }).strict()).max(8),
-    research: z.object({ note: ownWords(400), phdCount: nonNegInt.nullable(), ...sourced }).strict().nullable(),
+    curriculumHighlights: z.array(z.object({ text: ownWords(320), ...sourced }).strict()).max(8),
+    research: z.object({ note: ownWords(600), phdCount: nonNegInt.nullable(), ...sourced }).strict().nullable(),
   })
   .strict();
 
@@ -230,8 +230,8 @@ export const Fees = z
       z
         .object({
           name: z.string().min(1).max(120),
-          eligibility: ownWords(200),
-          benefit: ownWords(200),
+          eligibility: ownWords(300),
+          benefit: ownWords(300),
           ...sourced,
         })
         .strict(),
@@ -242,13 +242,13 @@ export const Fees = z
 export const CampusLife = z
   .object({
     instituteId: instituteIdSchema,
-    summary: z.object({ text: ownWords(500), ...sourced }).strict().nullable(),
+    summary: z.object({ text: ownWords(700), ...sourced }).strict().nullable(),
     clubs: z.array(
       z
         .object({
           name: z.string().min(1).max(100),
           category: Enums.clubCategory,
-          note: ownWords(120),
+          note: ownWords(160),
           url: httpUrl.nullable(),
           ...sourced,
         })
@@ -275,8 +275,8 @@ export const Hostels = z
     instituteId: instituteIdSchema,
     count: nonNegInt.nullable(),
     capacity: nonNegInt.nullable(),
-    occupancy: ownWords(120), // "single rooms from 3rd year; 2-sharing for freshers"
-    messNote: ownWords(200),
+    occupancy: ownWords(200), // "single rooms from 3rd year; 2-sharing for freshers"
+    messNote: ownWords(300),
     hostels: z.array(z.object({ name: z.string().min(1).max(80), gender: Enums.hostelGender }).strict()),
     ...sourced,
   })
@@ -367,7 +367,7 @@ export const Faqs = z
   .object({
     instituteId: instituteIdSchema,
     items: z
-      .array(z.object({ q: z.string().min(5).max(160), a: ownWords(500), ...sourced }).strict())
+      .array(z.object({ q: z.string().min(5).max(160), a: ownWords(700), ...sourced }).strict())
       .min(5)
       .max(15),
   })
