@@ -334,3 +334,5 @@ backend/services/catalog/data/josaa/final-round/
 # committing them would make a fresh clone believe partitions are cached when the CSVs are absent.
 # The merged manifest.json keeps the full provenance record incl. sha256 per partition.
 backend/services/catalog/data/josaa/manifest-*.json
+# JoSAA seat-matrix raw HTML cache (~9 MB, resumable); manifest.json + parsed output are committed
+backend/services/catalog/data/josaa/seat-matrix/raw/

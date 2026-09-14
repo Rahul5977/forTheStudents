@@ -1,0 +1,437 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "josaaYear": 2026,
+  "rows": [
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 84
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 21
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 31
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 16
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 57
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 21
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 6
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 9
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 13
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 42
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 16
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 28
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 11
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 6
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 21
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 14
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 6
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 21
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 14
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 5
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Smart Manufacturing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 4
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+      "title": "JoSAA 2026 Seat Matrix — Seat Information (Indian Institute of Information Technology)",
+      "publisher": "JoSAA",
+      "accessedOn": "2026-09-14",
+      "asOf": "2026",
+      "confidence": "official"
+    }
+  ],
+  "asOf": "2026"
+}

@@ -1,0 +1,444 @@
+{
+  "instituteId": "iiit-surat",
+  "josaaYear": 2026,
+  "rows": [
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "B.Tech in Mathematics and Computing (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 48
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 12
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 18
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 9
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 32
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 9
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 7
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 17
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 12
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Artificial Intelligence and Machine Learning) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 17
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 12
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (Cyber Security) (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 28
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 10
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 19
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 6
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 4
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+      "title": "JoSAA 2026 Seat Matrix — Seat Information (Indian Institute of Information Technology)",
+      "publisher": "JoSAA",
+      "accessedOn": "2026-09-14",
+      "asOf": "2026",
+      "confidence": "official"
+    }
+  ],
+  "asOf": "2026"
+}

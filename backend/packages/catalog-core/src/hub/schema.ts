@@ -195,7 +195,7 @@ export const SeatMatrix = z
     rows: z.array(
       z
         .object({
-          program: z.string().min(1).max(160), // JoSAA "Academic Program Name"
+          program: z.string().min(1).max(240), // JoSAA "Academic Program Name" (dual-degree names run long)
           quota: Enums.quota,
           seatType: Enums.seatType,
           gender: Enums.gender,

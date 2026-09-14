@@ -1,0 +1,486 @@
+{
+  "instituteId": "iiit-allahabad",
+  "josaaYear": 2026,
+  "rows": [
+    {
+      "program": "B. Tech. Information Technology-Business Informatics (IT- BIn) - Master of Business Administration (MBA) (5 Years, Bachelor of Technology and MBA (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "B. Tech. Information Technology-Business Informatics (IT- BIn) - Master of Business Administration (MBA) (5 Years, Bachelor of Technology and MBA (Dual Degree))",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "B. Tech. Information Technology-Business Informatics (IT- BIn) - Master of Business Administration (MBA) (5 Years, Bachelor of Technology and MBA (Dual Degree))",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "B. Tech. Information Technology-Business Informatics (IT- BIn) - Master of Business Administration (MBA) (5 Years, Bachelor of Technology and MBA (Dual Degree))",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "B. Tech. Information Technology-Business Informatics (IT- BIn) - Master of Business Administration (MBA) (5 Years, Bachelor of Technology and MBA (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "B. Tech. Information Technology-Business Informatics (IT- BIn) - Master of Business Administration (MBA) (5 Years, Bachelor of Technology and MBA (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "B. Tech. Information Technology-Business Informatics (IT- BIn) - Master of Business Administration (MBA) (5 Years, Bachelor of Technology and MBA (Dual Degree))",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. Information Technology-Business Informatics (IT- BIn) - Master of Business Administration (MBA) (5 Years, Bachelor of Technology and MBA (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 38
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 9
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 14
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 25
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 9
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 6
+    },
+    {
+      "program": "Electronics and Communication Engineering (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Electronics and Communication Engineering (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 74
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 18
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 28
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 14
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 50
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 19
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 5
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 7
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 12
+    },
+    {
+      "program": "Information Technology (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 12
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Information Technology-Business Informatics (4 Years, Bachelor of Technology)",
+      "quota": "AI",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+      "title": "JoSAA 2026 Seat Matrix — Seat Information (Indian Institute of Information Technology)",
+      "publisher": "JoSAA",
+      "accessedOn": "2026-09-14",
+      "asOf": "2026",
+      "confidence": "official"
+    }
+  ],
+  "asOf": "2026"
+}

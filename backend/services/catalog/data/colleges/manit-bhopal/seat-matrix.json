@@ -1,0 +1,2075 @@
+{
+  "instituteId": "manit-bhopal",
+  "josaaYear": 2026,
+  "rows": [
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 15
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 10
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 15
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 10
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Architecture (5 Years, Bachelor of Architecture)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "B. Tech. and M. Tech. in Engineering and Computational Mechanics (Dual Degree) (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Chemical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 16
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 10
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 15
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 10
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Civil Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 35
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 12
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 24
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 10
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 5
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 35
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 13
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 24
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 9
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 5
+    },
+    {
+      "program": "Computer Science and Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 16
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 5
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 16
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electrical Engineering with E Mobility (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 26
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 10
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 18
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 6
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 3
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 27
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 10
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 18
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 7
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Electronics and Communication Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Energy and Electrical Vehicle Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Materials and Metallurgical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mathematics and Data Science (5 Years, Bachelor and Master of Technology (Dual Degree))",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 29
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 6
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 4
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 19
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 7
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 4
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 29
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 7
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 11
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 19
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 6
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OPEN (PwD)",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Mechanical Engineering (4 Years, Bachelor of Technology)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 5
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "OPEN (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "OBC-NCL (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "EWS",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "HS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "GN",
+      "seats": 8
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "EWS",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "GN",
+      "seats": 3
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "SC (PwD)",
+      "gender": "GN",
+      "seats": 1
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "ST",
+      "gender": "GN",
+      "seats": 2
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "GN",
+      "seats": 5
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "OPEN",
+      "gender": "F",
+      "seats": 2
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "SC",
+      "gender": "F",
+      "seats": 1
+    },
+    {
+      "program": "Planning (4 Years, Bachelor of Planning)",
+      "quota": "OS",
+      "seatType": "OBC-NCL",
+      "gender": "F",
+      "seats": 2
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+      "title": "JoSAA 2026 Seat Matrix — Seat Information (National Institute of Technology)",
+      "publisher": "JoSAA",
+      "accessedOn": "2026-09-14",
+      "asOf": "2026",
+      "confidence": "official"
+    }
+  ],
+  "asOf": "2026"
+}

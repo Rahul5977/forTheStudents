@@ -1,0 +1,46 @@
+{
+  "IIT": {
+    "type": "IIT",
+    "file": "raw/IIT.html",
+    "sha256": "bc37a511fe93c76946d19b7684e9d759a28987179565a18e6a5a466d1fb33d5f",
+    "bytes": 1954053,
+    "fetchedAt": "2026-09-13T06:30:48.857Z",
+    "source": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+    "josaaYear": 2026,
+    "rows": 3820,
+    "institutes": 24
+  },
+  "IIIT": {
+    "type": "IIIT",
+    "file": "raw/IIIT.html",
+    "sha256": "1b2f9b6b836653e8b99fb7e66c7fdadac3b2e385414926a2ea6f698bcb3c062d",
+    "bytes": 786818,
+    "fetchedAt": "2026-09-13T06:31:14.931Z",
+    "source": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+    "josaaYear": 2026,
+    "rows": 1453,
+    "institutes": 26
+  },
+  "NIT": {
+    "type": "NIT",
+    "file": "raw/NIT.html",
+    "sha256": "a3477172436608a7fe59a9bd7ab69c4f3f6910059efb9a8b24fd519ff771ecfe",
+    "bytes": 4250579,
+    "fetchedAt": "2026-09-14T05:18:20.526Z",
+    "source": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+    "josaaYear": 2026,
+    "rows": 7090,
+    "institutes": 32
+  },
+  "GFTI": {
+    "type": "GFTI",
+    "file": "raw/GFTI.html",
+    "sha256": "f9326203e1e2e36665e39926110322d6cd67f7c954d02660a4381f4eaaf09d31",
+    "bytes": 1813669,
+    "fetchedAt": "2026-09-14T05:18:20.560Z",
+    "source": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+    "josaaYear": 2026,
+    "rows": 1880,
+    "institutes": 56
+  }
+}
