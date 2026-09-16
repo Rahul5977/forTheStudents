@@ -1,0 +1,567 @@
+{
+  "instituteId": "nit-trichy",
+  "official": [
+    {
+      "platform": "facebook",
+      "handle": "NITT.Official",
+      "url": "https://www.facebook.com/NITT.Official/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/",
+          "title": "NIT Tiruchirappalli – home page footer",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "ReachNITT",
+      "url": "https://twitter.com/ReachNITT",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/",
+          "title": "NIT Tiruchirappalli – home page footer",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "UCEPOEe5azp3FbUjvMwttPqw",
+      "url": "https://www.youtube.com/channel/UCEPOEe5azp3FbUjvMwttPqw",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/",
+          "title": "NIT Tiruchirappalli – home page footer",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "NITTAlumniOffic",
+      "url": "https://twitter.com/NITTAlumniOffic",
+      "owner": "Alumni Office",
+      "sources": [
+        {
+          "url": "https://alumni.nitt.edu/",
+          "title": "NIT Trichy Alumni – Office of Institutional Development & Alumni Relations",
+          "publisher": "NIT Trichy Alumni Office",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "pragyan_nitt",
+      "url": "https://www.instagram.com/pragyan_nitt/",
+      "owner": "Pragyan (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/pragyan/",
+          "title": "Pragyan – Technical Festival (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "pragyan_nitt",
+      "url": "https://twitter.com/pragyan_nitt",
+      "owner": "Pragyan (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/pragyan/",
+          "title": "Pragyan – Technical Festival (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "pragyan.nitt",
+      "url": "https://www.facebook.com/pragyan.nitt/",
+      "owner": "Pragyan (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/pragyan/",
+          "title": "Pragyan – Technical Festival (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "pragyan.nitt",
+      "url": "https://www.linkedin.com/company/pragyan.nitt/",
+      "owner": "Pragyan (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/pragyan/",
+          "title": "Pragyan – Technical Festival (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "UC9JkwyxT1Imal6d0FzaPnxA",
+      "url": "https://www.youtube.com/channel/UC9JkwyxT1Imal6d0FzaPnxA",
+      "owner": "Pragyan (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/pragyan/",
+          "title": "Pragyan – Technical Festival (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "festember",
+      "url": "https://www.instagram.com/festember/",
+      "owner": "Festember (cultural fest)",
+      "sources": [
+        {
+          "url": "https://festember.com/",
+          "title": "Festember '26 – official fest site (footer links)",
+          "publisher": "Festember, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "festember",
+      "url": "https://www.facebook.com/festember",
+      "owner": "Festember (cultural fest)",
+      "sources": [
+        {
+          "url": "https://festember.com/",
+          "title": "Festember '26 – official fest site (footer links)",
+          "publisher": "Festember, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "festember",
+      "url": "https://x.com/festember",
+      "owner": "Festember (cultural fest)",
+      "sources": [
+        {
+          "url": "https://festember.com/",
+          "title": "Festember '26 – official fest site (footer links)",
+          "publisher": "Festember, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "festembernittrichy",
+      "url": "https://www.youtube.com/c/festembernittrichy",
+      "owner": "Festember (cultural fest)",
+      "sources": [
+        {
+          "url": "https://festember.com/",
+          "title": "Festember '26 – official fest site (footer links)",
+          "publisher": "Festember, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "sportsfete.nitt",
+      "url": "https://www.instagram.com/sportsfete.nitt/",
+      "owner": "Sportsfete (sports fest)",
+      "sources": [
+        {
+          "url": "https://sportsfete.nitt.edu/",
+          "title": "Sportsfete '26 – official site",
+          "publisher": "Sportsfete, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "Sportsfete",
+      "url": "https://www.facebook.com/Sportsfete/",
+      "owner": "Sportsfete (sports fest)",
+      "sources": [
+        {
+          "url": "https://sportsfete.nitt.edu/",
+          "title": "Sportsfete '26 – official site",
+          "publisher": "Sportsfete, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "sportsfete-nit-trichy",
+      "url": "https://www.linkedin.com/company/sportsfete-nit-trichy/",
+      "owner": "Sportsfete (sports fest)",
+      "sources": [
+        {
+          "url": "https://sportsfete.nitt.edu/",
+          "title": "Sportsfete '26 – official site",
+          "publisher": "Sportsfete, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "delta_nitt",
+      "url": "https://www.instagram.com/delta_nitt/",
+      "owner": "Delta Force (programming club)",
+      "sources": [
+        {
+          "url": "https://delta.nitt.edu/",
+          "title": "Delta Force – the official programming club and web cell of NIT Trichy",
+          "publisher": "Delta Force, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "delta-force",
+      "url": "https://www.linkedin.com/company/delta-force",
+      "owner": "Delta Force (programming club)",
+      "sources": [
+        {
+          "url": "https://delta.nitt.edu/",
+          "title": "Delta Force – the official programming club and web cell of NIT Trichy",
+          "publisher": "Delta Force, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "@DeltaForceNITT",
+      "url": "https://www.youtube.com/@DeltaForceNITT",
+      "owner": "Delta Force (programming club)",
+      "sources": [
+        {
+          "url": "https://delta.nitt.edu/",
+          "title": "Delta Force – the official programming club and web cell of NIT Trichy",
+          "publisher": "Delta Force, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "spider_nitt",
+      "url": "https://www.instagram.com/spider_nitt/",
+      "owner": "Spider R&D",
+      "sources": [
+        {
+          "url": "https://spider.nitt.edu/",
+          "title": "Spider R&D – official site",
+          "publisher": "Spider R&D, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "spider-r-d",
+      "url": "https://www.linkedin.com/company/spider-r-d/",
+      "owner": "Spider R&D",
+      "sources": [
+        {
+          "url": "https://spider.nitt.edu/",
+          "title": "Spider R&D – official site",
+          "publisher": "Spider R&D, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "rmi_nitt",
+      "url": "https://www.instagram.com/rmi_nitt/",
+      "owner": "RMI (robotics club)",
+      "sources": [
+        {
+          "url": "https://rmi.nitt.edu/",
+          "title": "RMI – Robotics and Machine Intelligence, NIT Trichy",
+          "publisher": "RMI, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "rmi-nitt",
+      "url": "https://www.linkedin.com/company/rmi-nitt/",
+      "owner": "RMI (robotics club)",
+      "sources": [
+        {
+          "url": "https://rmi.nitt.edu/",
+          "title": "RMI – Robotics and Machine Intelligence, NIT Trichy",
+          "publisher": "RMI, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "RMIRoboticsandMachineIntelligenceNITT",
+      "url": "https://www.youtube.com/c/RMIRoboticsandMachineIntelligenceNITT",
+      "owner": "RMI (robotics club)",
+      "sources": [
+        {
+          "url": "https://rmi.nitt.edu/",
+          "title": "RMI – Robotics and Machine Intelligence, NIT Trichy",
+          "publisher": "RMI, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "nakshatra_nitt",
+      "url": "https://www.instagram.com/nakshatra_nitt/",
+      "owner": "Nakshatra (astronomy club)",
+      "sources": [
+        {
+          "url": "https://nakshatra.nitt.edu/",
+          "title": "Nakshatra – the official astronomy and science club of NIT Trichy",
+          "publisher": "Nakshatra, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "UCetB13q6XVirl8Ijf8tJToA",
+      "url": "https://www.youtube.com/channel/UCetB13q6XVirl8Ijf8tJToA",
+      "owner": "Nakshatra (astronomy club)",
+      "sources": [
+        {
+          "url": "https://nakshatra.nitt.edu/",
+          "title": "Nakshatra – the official astronomy and science club of NIT Trichy",
+          "publisher": "Nakshatra, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "sigma_nitt",
+      "url": "https://www.instagram.com/sigma_nitt/",
+      "owner": "Sigma (business club)",
+      "sources": [
+        {
+          "url": "https://sigma.nitt.edu/",
+          "title": "SIGMA – The Business Club of NITT",
+          "publisher": "Sigma, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "sigma-the-business-club-of-nitt",
+      "url": "https://www.linkedin.com/company/sigma-the-business-club-of-nitt/",
+      "owner": "Sigma (business club)",
+      "sources": [
+        {
+          "url": "https://sigma.nitt.edu/",
+          "title": "SIGMA – The Business Club of NITT",
+          "publisher": "Sigma, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "profnitt",
+      "url": "https://www.instagram.com/profnitt/",
+      "owner": "ProfNITT (finance club)",
+      "sources": [
+        {
+          "url": "https://profnitt.nitt.edu/",
+          "title": "ProfNITT – the finance and investments club of NIT Trichy",
+          "publisher": "ProfNITT, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "profnitt",
+      "url": "https://www.linkedin.com/company/profnitt/",
+      "owner": "ProfNITT (finance club)",
+      "sources": [
+        {
+          "url": "https://profnitt.nitt.edu/",
+          "title": "ProfNITT – the finance and investments club of NIT Trichy",
+          "publisher": "ProfNITT, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "lakshya_nitt",
+      "url": "https://www.instagram.com/lakshya_nitt/",
+      "owner": "Lakshya (NCC defence & civil services fest)",
+      "sources": [
+        {
+          "url": "https://lakshya.nitt.edu/",
+          "title": "Lakshya – Defence and Civil Services Festival of NIT Trichy",
+          "publisher": "Lakshya (NCC A-Flight), NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "@lakshyanittrichy3063",
+      "url": "https://www.youtube.com/@lakshyanittrichy3063",
+      "owner": "Lakshya (NCC defence & civil services fest)",
+      "sources": [
+        {
+          "url": "https://lakshya.nitt.edu/",
+          "title": "Lakshya – Defence and Civil Services Festival of NIT Trichy",
+          "publisher": "Lakshya (NCC A-Flight), NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "graphique.nitt",
+      "url": "https://www.instagram.com/graphique.nitt/",
+      "owner": "Graphique (design club)",
+      "sources": [
+        {
+          "url": "https://festember.com/",
+          "title": "Festember '26 – official fest site (footer links)",
+          "publisher": "Festember, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "creators": []
+}

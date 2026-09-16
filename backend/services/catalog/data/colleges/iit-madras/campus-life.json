@@ -1,0 +1,1122 @@
+{
+  "instituteId": "iit-madras",
+  "summary": {
+    "text": "Student life at IIT Madras is organised around 20 river-named hostels that compete all year in inter-hostel literary, technical and sports leagues. The student-run Centre for Innovation houses a dozen tinkering clubs and competition teams, the Sangam umbrella runs the cultural and literary clubs, and January brings back-to-back flagship fests: Shaastra (technical) and Saarang (cultural). The wooded 617-acre campus, shared with deer and blackbuck, adds a very different backdrop to an engineering degree.",
+    "sources": [
+      {
+        "url": "https://www.iitm.ac.in/campus-life/overview",
+        "title": "Campus Life Overview | IIT Madras",
+        "publisher": "IIT Madras",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iitm.ac.in/campus-life/hostel-life",
+        "title": "Hostel Life | IIT Madras",
+        "publisher": "IIT Madras",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+        "title": "Campus Festivals | IIT Madras",
+        "publisher": "IIT Madras",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "clubs": [
+    {
+      "name": "Centre for Innovation (CFI)",
+      "category": "technical",
+      "note": "Round-the-clock student lab, set up in 2008, that hosts the tech clubs and competition teams below.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Aero Club",
+      "category": "technical",
+      "note": "CFI club for aircraft, drone and aerodynamics projects.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Programming Club",
+      "category": "technical",
+      "note": "CFI club for competitive coding and software projects.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Electronics Club",
+      "category": "technical",
+      "note": "CFI club for circuits, embedded systems and hardware builds.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Product Design Club",
+      "category": "technical",
+      "note": "CFI club focused on designing and prototyping physical products.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "iBot Club",
+      "category": "technical",
+      "note": "CFI robotics club; builds bots and runs robotics workshops.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "3D Printing Club",
+      "category": "technical",
+      "note": "CFI club for additive manufacturing and printed mechanisms.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Webops and Blockchain Club",
+      "category": "technical",
+      "note": "CFI club for web development, DevOps and blockchain projects.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Cybersecurity Club",
+      "category": "technical",
+      "note": "CFI club for CTFs, security research and ethical hacking.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "AI Club",
+      "category": "technical",
+      "note": "CFI club for machine learning and AI projects.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Raftar Formula Racing",
+      "category": "technical",
+      "note": "Student Formula-style race car team; competed at Formula Student Germany in 2019.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Team Abhiyaan",
+      "category": "technical",
+      "note": "Autonomous ground vehicle team; placed 2nd at IGVC 2019.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Team Anveshak",
+      "category": "technical",
+      "note": "Mars-rover team; 12th at the 2019 University Rover Challenge and winner of the Indian Rover Challenge.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Team Avishkar Hyperloop",
+      "category": "technical",
+      "note": "Hyperloop pod team; the only Asian entry in the 2019 SpaceX final design round.",
+      "url": "https://cfi.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Team Sahaay",
+      "category": "social",
+      "note": "Builds low-cost assistive technology for people with disabilities, including an electrolarynx.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/social-conciousness",
+          "title": "Social Consciousness | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Entrepreneurship Cell (E-Cell)",
+      "category": "entrepreneurship",
+      "note": "Student body for startup mentoring and events; organises the annual E-Summit.",
+      "url": "https://ecell.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Nirmaan",
+      "category": "entrepreneurship",
+      "note": "Pre-incubation programme (2017) for student startups; institute cites 20+ teams and over $1M raised.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Music Club",
+      "category": "cultural",
+      "note": "Sangam club for vocal and instrumental music, bands and performances.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Choreo Club",
+      "category": "cultural",
+      "note": "Sangam dance and choreography club.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Thespian Club",
+      "category": "cultural",
+      "note": "Sangam drama and theatre club.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Fine Arts Club",
+      "category": "cultural",
+      "note": "Sangam club for painting, sketching and visual art.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Classical Arts Club",
+      "category": "cultural",
+      "note": "Sangam club for Indian classical music and dance forms.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Quiz Club",
+      "category": "literary",
+      "note": "Sangam quizzing club; feeds the inter-hostel Lit Soc league.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Oratory Club",
+      "category": "literary",
+      "note": "Sangam club for debating and public speaking.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Writing Club",
+      "category": "literary",
+      "note": "Sangam club for creative writing and poetry.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Media Club",
+      "category": "media",
+      "note": "Sangam club for photography, video and campus media production.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Design & VFX Club",
+      "category": "media",
+      "note": "Sangam club for graphic design, animation and visual effects.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/clubs",
+          "title": "Clubs | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "The Fifth Estate (T5E)",
+      "category": "media",
+      "note": "Official student news and magazine body covering institute events, interviews and features.",
+      "url": "https://www.t5eiitm.org/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-publications",
+          "title": "Campus Publications | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "National Service Scheme (NSS)",
+      "category": "social",
+      "note": "Community-service wing; one of the mandatory first-year options alongside NCC, NSO and NCA.",
+      "url": "http://www.nss.iitm.ac.in",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/student-activities",
+          "title": "Student Activities | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "IIT for Villages (IViL)",
+      "category": "social",
+      "note": "Student platform for rural-development projects and discussion.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/social-conciousness",
+          "title": "Social Consciousness | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Sustainability Network (S-Net)",
+      "category": "social",
+      "note": "Student group working on campus water, energy, food-waste and waste-management issues.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/social-conciousness",
+          "title": "Social Consciousness | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "fests": [
+    {
+      "name": "Shaastra",
+      "type": "technical",
+      "month": "January",
+      "footfall": 60000,
+      "url": "https://www.shaastra.org/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.shaastra.org/",
+          "title": "Shaastra 2026 | IIT Madras",
+          "publisher": "Shaastra, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Saarang",
+      "type": "cultural",
+      "month": "January",
+      "footfall": 50000,
+      "url": "https://www.saarang.org/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "E-Summit",
+      "type": "entrepreneurship",
+      "month": null,
+      "footfall": null,
+      "url": "https://ecell.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/technology-and-innovation",
+          "title": "Technology and Innovation | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "IIT Madras Sports Fest",
+      "type": "sports",
+      "month": "September",
+      "footfall": null,
+      "url": "https://sports.iitm.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://sports.iitm.ac.in/",
+          "title": "IIT Madras Sports Committee",
+          "publisher": "IIT Madras Sports Committee",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Exebit",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Mechanica",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Amalgam",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Chemclave",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "CEA Fest",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Wavez",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Forays",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Bhoutics",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Biofest",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Elec Fest",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Samanvay",
+      "type": "other",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-festivals",
+          "title": "Campus Festivals | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "sports": [
+    {
+      "facility": "Olympic-standard swimming pool",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://sports.iitm.ac.in/",
+          "title": "IIT Madras Sports Committee",
+          "publisher": "IIT Madras Sports Committee",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Athletics stadium with synthetic track",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://sports.iitm.ac.in/",
+          "title": "IIT Madras Sports Committee",
+          "publisher": "IIT Madras Sports Committee",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "K.S. Narayanan Centre for Cricketing Excellence",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "IIT-Chemplast cricket ground",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Manohar Watsa stadium",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Sangam ground",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Students' Activities Centre (indoor sports)",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Four synthetic-surface tennis courts",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Wood-floored badminton courts",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Two basketball courts",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Two volleyball courts",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Two squash courts",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Floodlit hockey and football fields",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Gymnasium with professional instructors",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Weightlifting arena",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Table tennis hall",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Skating rink",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/sports",
+          "title": "Sports | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

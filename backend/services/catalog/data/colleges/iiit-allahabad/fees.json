@@ -1,0 +1,139 @@
+{
+  "instituteId": "iiit-allahabad",
+  "years": [
+    {
+      "year": "2026-27",
+      "program": null,
+      "tuition": 198000,
+      "hostel": 28820,
+      "mess": null,
+      "other": 51400,
+      "totalYear": 278220,
+      "currency": "INR",
+      "asOf": "2026",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/Fee%20Structure%20B.Tech.%20(New%20Batch%202026)%20updated.pdf",
+          "title": "Four Year Fee Structure – B.Tech (IT, EC & BI) Batch-2026, Categories: Gen/OBC/EWS",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2027-28",
+      "program": null,
+      "tuition": 198000,
+      "hostel": 31740,
+      "mess": null,
+      "other": 25700,
+      "totalYear": 255440,
+      "currency": "INR",
+      "asOf": "2026",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/Fee%20Structure%20B.Tech.%20(New%20Batch%202026)%20updated.pdf",
+          "title": "Four Year Fee Structure – B.Tech (IT, EC & BI) Batch-2026, Categories: Gen/OBC/EWS",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2028-29",
+      "program": null,
+      "tuition": 198000,
+      "hostel": 34980,
+      "mess": null,
+      "other": 28350,
+      "totalYear": 261330,
+      "currency": "INR",
+      "asOf": "2026",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/Fee%20Structure%20B.Tech.%20(New%20Batch%202026)%20updated.pdf",
+          "title": "Four Year Fee Structure – B.Tech (IT, EC & BI) Batch-2026, Categories: Gen/OBC/EWS",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2029-30",
+      "program": null,
+      "tuition": 198000,
+      "hostel": 38520,
+      "mess": null,
+      "other": 31250,
+      "totalYear": 267770,
+      "currency": "INR",
+      "asOf": "2026",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/Fee%20Structure%20B.Tech.%20(New%20Batch%202026)%20updated.pdf",
+          "title": "Four Year Fee Structure – B.Tech (IT, EC & BI) Batch-2026, Categories: Gen/OBC/EWS",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ]
+    }
+  ],
+  "scholarships": [
+    {
+      "name": "SC/ST/PwD Tuition Fee Waiver",
+      "eligibility": "Applies automatically to B.Tech students admitted under the SC, ST, or PwD reservation categories, as shown separately in the institute's official fee schedule.",
+      "benefit": "Full waiver of the semester tuition fee (marked NA in the fee schedule) across all four years; hostel, mess, and other semester dues still apply.",
+      "asOf": "2026",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/Fee%20Structure%20B.Tech.%20(New%20Batch%202026)%20updated.pdf",
+          "title": "Four Year Fee Structure – B.Tech (IT, EC & BI) Batch-2026, Categories: SC/ST/PwD",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Institute Merit-cum-Means Scholarship",
+      "eligibility": "Open to UG students whose cumulative SGPA over a two-semester window is at least 8.50 and whose parental income is below Rs 5 lakh a year; capped at about 3% of each program's strength.",
+      "benefit": "Rs 36,000 a year, credited directly to the student's Aadhaar-linked bank account under the DBT scheme rather than as cash or cheque.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://establishment.iiita.ac.in/scholarship.php",
+          "title": "Scholarship Schemes – Establishment Section",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Institute Merit Incentive Award",
+      "eligibility": "Open to UG students whose cumulative SGPA over a two-semester window reaches 9.00 or higher, limited to about 2% of each program's strength; recipients cannot also hold the Merit-cum-Means Scholarship in the same period.",
+      "benefit": "Rs 36,000 a year, disbursed the same way as the Merit-cum-Means Scholarship.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://establishment.iiita.ac.in/scholarship.php",
+          "title": "Scholarship Schemes – Establishment Section",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    }
+  ]
+}

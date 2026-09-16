@@ -1,0 +1,171 @@
+{
+  "instituteId": "iiit-allahabad",
+  "items": [
+    {
+      "q": "What is IIIT Allahabad, and when was it set up?",
+      "a": "IIIT Allahabad is a public technical institute in Prayagraj, Uttar Pradesh, built around information technology and its allied fields. It started in 1999 as a centre of excellence in IT, was given deemed-university status in 2000, and Parliament's IIIT Act made it an Institute of National Importance from 1 December 2014, putting it on the same statutory footing as the other MHRD-funded IIITs.",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/",
+          "title": "IIIT Allahabad home page",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Allahabad",
+          "title": "Indian Institute of Information Technology, Allahabad",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2014"
+    },
+    {
+      "q": "How do I get admission into the B.Tech program at IIIT Allahabad?",
+      "a": "There is no separate institute-level entrance test for the B.Tech programmes. Seats are filled through JEE (Main) rank via JoSAA's central counselling, the same process used for NITs and other IIITs, and any seats left after the JoSAA rounds are offered through the CSAB special round.",
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/InstProfile.aspx?instcd=309",
+          "title": "Institute Profile - IIIT Allahabad (Institute Code 309)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "Which B.Tech branches does IIIT Allahabad offer, and how big is each one?",
+      "a": "The four-year B.Tech is offered in three branches: Electronics & Communication Engineering (121 seats), Information Technology (242 seats) and Information Technology-Business Informatics (40 seats), per the JoSAA seat matrix. These are the branch names and seat counts JoSAA allots against for this institute; actual availability can shift a little year to year as the authority updates the matrix.",
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/InstProfile.aspx?instcd=309",
+          "title": "Institute Profile - IIIT Allahabad (Institute Code 309)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "Does IIIT Allahabad offer a 5-year integrated degree?",
+      "a": "Yes. Besides the standalone four-year B.Tech branches, JoSAA also allots seats to three five-year dual-degree tracks run by the institute: B.Tech + M.Tech in Electronics & Communication Engineering (11 seats), B.Tech + M.Tech in Information Technology (25 seats), and B.Tech (IT-Business Informatics) + MBA (22 seats). A student who wants the extra postgraduate credential without a separate admission cycle applies to one of these tracks directly through JoSAA rather than converting later.",
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/InstProfile.aspx?instcd=309",
+          "title": "Institute Profile - IIIT Allahabad (Institute Code 309)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "Where exactly is the IIIT Allahabad campus?",
+      "a": "The campus sits at Devghat, Jhalwa, in Prayagraj (formerly Allahabad), Uttar Pradesh, PIN 211015 - a locality on the western side of the city, away from the older University of Allahabad campus. The institute's own contact page lists this address and a Prayagraj landline for enquiries, and all official correspondence uses this location.",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/",
+          "title": "IIIT Allahabad home page",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "What are the hostel arrangements like for students?",
+      "a": "There are eight hostels in all: five for men (BH-1 to BH-5) and three for women (GH-1 to GH-3), run by the institute's Council of Wardens. Freshers usually start in triple-sharing rooms and move to double or single rooms as they move up the years, subject to availability. Every hostel has a centralised mess serving breakfast, lunch, evening snacks and dinner on a fixed daily schedule, along with round-the-clock caretaker support, Wi-Fi, a common recreation area and laundry facilities.",
+      "sources": [
+        {
+          "url": "https://cow.iiita.ac.in/hostels.html",
+          "title": "Hostels & Living - Council of Wardens",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "How are M.Tech admissions conducted at IIIT Allahabad?",
+      "a": "Most M.Tech programmes admit through CCMT (Centralized Counselling for M.Tech/M.Arch/M.Plan) and require a valid GATE score; the discipline of the candidate's GATE paper does not have to match the M.Tech specialisation applied for. Sponsored candidates and NRI/foreign nationals are screened differently - through work experience plus a qualifying degree, or GRE scores, instead of GATE. A few specialised programmes run their own process: the M.Tech in Data Science and Analytics, for instance, sets no minimum GATE score at all and instead selects candidates through its own two-hour, 100-mark online admission test followed by an interview.",
+      "sources": [
+        {
+          "url": "https://hci.iiita.ac.in/admission.html",
+          "title": "Admissions - Human Computer Interaction, IIIT Allahabad",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://dsa.iiita.ac.in/index.php/faq/",
+          "title": "Frequently Asked Questions - M.Tech in Data Science and Analytics",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "What does it take to get into a PhD program at IIIT Allahabad?",
+      "a": "The regular PhD route needs a qualifying score in GATE, NET-JRF, CSIR-NET, CAT or a similar national exam (M.Tech-holders are exempt from GATE), together with at least 60% marks or a 6.0 CGPA at the postgraduate level - or 70%/7.0 CGPA for direct entry straight after a four-year undergraduate degree. Candidates who did their qualifying degree abroad can offer GRE or GMAT scores instead. Separately, the institute runs a Working Professionals PhD track that waives the qualifying-exam requirement altogether for candidates already employed in relevant industry or academic roles.",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/uploads/FINAL_Master%20Advertisement%20PhD%20Admission595.pdf",
+          "title": "Advertisement for Admission in PhD Programs",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "How have IIIT Allahabad's placements been doing recently?",
+      "a": "In the institute's own 2026 placement statistics, 535 of 615 students who registered across UG and PG programmes were placed, an overall rate of about 87%. Looking at B.Tech alone, 433 of 470 registrants were placed (about 92%), with an average CTC of Rs 33.35 lakh per annum and a highest offer of Rs 150 LPA. For the M.Tech/MBA cohort, 102 of 145 registrants were placed (about 70%), averaging Rs 18.24 LPA with a top offer of Rs 47 LPA.",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/placement-statistics",
+          "title": "Placement Statistics",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "Does IIIT Allahabad have specialised research centres beyond its regular departments?",
+      "a": "Yes. Alongside its four core academic departments - Information Technology, Electronics & Communication Engineering, Applied Sciences and Management Studies - the institute runs a set of dedicated research centres, including the Rekhi Centre for Science of Happiness, the Centre for Intelligent Robotics and the Centre for Cognitive Computing, that host cross-department research outside the standard degree structure.",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/",
+          "title": "IIIT Allahabad home page",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

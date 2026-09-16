@@ -1,0 +1,575 @@
+{
+  "instituteId": "iit-madras",
+  "years": [
+    {
+      "year": "2025-26",
+      "avgLpa": null,
+      "medianLpa": null,
+      "highestLpa": null,
+      "pctPlaced": null,
+      "offers": null,
+      "ppos": 281,
+      "higherStudiesPct": null,
+      "topRecruiters": [],
+      "branchWise": null,
+      "asOf": "2025-26",
+      "sources": [
+        {
+          "url": "https://internship.iitm.ac.in/downloads/Internship_Report_2025-26.pdf",
+          "title": "Internship Report 2025-26 — Placement & Internship Cell, Career Pathway Centre, IIT Madras (PPO statistics: 281 offered, 230 accepted)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iitm.ac.in/",
+          "title": "Placement — IIT Madras (Career Pathway Centre placement portal; statistics and report links)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2024-25",
+      "avgLpa": null,
+      "medianLpa": null,
+      "highestLpa": null,
+      "pctPlaced": null,
+      "offers": null,
+      "ppos": 255,
+      "higherStudiesPct": null,
+      "topRecruiters": [],
+      "branchWise": [
+        {
+          "program": "B.Tech — Aerospace Engineering",
+          "avgLpa": 17.1,
+          "medianLpa": 16.2,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Chemical Engineering",
+          "avgLpa": 18.8,
+          "medianLpa": 17.4,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Civil Engineering",
+          "avgLpa": 17.5,
+          "medianLpa": 17.2,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Computer Science and Engineering",
+          "avgLpa": 53.2,
+          "medianLpa": 46.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Electrical Engineering",
+          "avgLpa": 28.8,
+          "medianLpa": 22.5,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Mechanical Engineering",
+          "avgLpa": 16.9,
+          "medianLpa": 15.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Metallurgical and Materials Engineering",
+          "avgLpa": 18.4,
+          "medianLpa": 16.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Ocean Engineering",
+          "avgLpa": 16.5,
+          "medianLpa": 16.7,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Physics (Engineering Physics)",
+          "avgLpa": 34.1,
+          "medianLpa": 18.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Aerospace Engineering",
+          "avgLpa": 54.8,
+          "medianLpa": 25.2,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Biotechnology",
+          "avgLpa": 22.8,
+          "medianLpa": 22.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Chemical Engineering",
+          "avgLpa": 27.2,
+          "medianLpa": 24.5,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Civil Engineering",
+          "avgLpa": 17.4,
+          "medianLpa": 18.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Electrical Engineering",
+          "avgLpa": 43.5,
+          "medianLpa": 38.2,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Engineering Design",
+          "avgLpa": 22.8,
+          "medianLpa": 21.7,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Mechanical Engineering",
+          "avgLpa": 25.7,
+          "medianLpa": 22.2,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Metallurgical and Materials Engineering",
+          "avgLpa": 23.4,
+          "medianLpa": 22.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Ocean Engineering",
+          "avgLpa": 24.1,
+          "medianLpa": 20.4,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Physics",
+          "avgLpa": 22.8,
+          "medianLpa": 20.0,
+          "pctPlaced": null
+        }
+      ],
+      "asOf": "2024-25",
+      "sources": [
+        {
+          "url": "https://placement.iitm.ac.in/downloads/CPC_REPORT_2024_25.pdf",
+          "title": "Career Pathway Centre Annual Report 2024-25 — CTC Summary (department × programme median and average CTC)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://internship.iitm.ac.in/downloads/Internship_Report_2024-25.pdf",
+          "title": "Internship Report 2024-25 — Placement & Internship Cell, IIT Madras (PPO statistics: 255 offered, 202 accepted)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2023-24",
+      "avgLpa": 22.0,
+      "medianLpa": 19.6,
+      "highestLpa": null,
+      "pctPlaced": 80,
+      "offers": null,
+      "ppos": 300,
+      "higherStudiesPct": 21.4,
+      "topRecruiters": [],
+      "branchWise": [
+        {
+          "program": "B.Tech — Aerospace Engineering",
+          "avgLpa": 16.08,
+          "medianLpa": 17.5,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Biotechnology",
+          "avgLpa": 30.3,
+          "medianLpa": 30.3,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Chemical Engineering",
+          "avgLpa": 18.45,
+          "medianLpa": 16.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Civil Engineering",
+          "avgLpa": 17.73,
+          "medianLpa": 16.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Computer Science and Engineering",
+          "avgLpa": 52.32,
+          "medianLpa": 37.5,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Electrical Engineering",
+          "avgLpa": 27.28,
+          "medianLpa": 25.45,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Mechanical Engineering",
+          "avgLpa": 18.5,
+          "medianLpa": 16.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Metallurgical and Materials Engineering",
+          "avgLpa": 14.28,
+          "medianLpa": 13.1,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Ocean Engineering",
+          "avgLpa": 18.12,
+          "medianLpa": 16.5,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech — Physics (Engineering Physics)",
+          "avgLpa": 20.39,
+          "medianLpa": 15.92,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Aerospace Engineering",
+          "avgLpa": 18.06,
+          "medianLpa": 16.5,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Biotechnology",
+          "avgLpa": 16.51,
+          "medianLpa": 14.62,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Chemical Engineering",
+          "avgLpa": 28.06,
+          "medianLpa": 20.58,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Civil Engineering",
+          "avgLpa": 19.44,
+          "medianLpa": 19.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Computer Science and Engineering",
+          "avgLpa": 84.0,
+          "medianLpa": 84.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Electrical Engineering",
+          "avgLpa": 38.71,
+          "medianLpa": 39.27,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Engineering Design",
+          "avgLpa": 23.27,
+          "medianLpa": 20.15,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Mechanical Engineering",
+          "avgLpa": 23.2,
+          "medianLpa": 19.8,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Metallurgical and Materials Engineering",
+          "avgLpa": 21.12,
+          "medianLpa": 17.6,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Ocean Engineering",
+          "avgLpa": 24.42,
+          "medianLpa": 23.08,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree — Physics",
+          "avgLpa": 29.51,
+          "medianLpa": 22.0,
+          "pctPlaced": null
+        }
+      ],
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-more-80-btechdual-degree-students-75-masters",
+          "title": "IIT Madras: More than 80% of BTech/dual degree students, 75% of master's students placed (press release, 16 May 2024: 1,091 placed via 256 companies; 300 PPOs; median Rs 19.6 LPA, average Rs 22 LPA)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-04-30",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iitm.ac.in/downloads/CPC_REPORT_2023_24.pdf",
+          "title": "Career Pathway Centre Annual Report 2023-24 — CTC Summary (department × programme median and average CTC, as on convocation date)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iitm.ac.in/downloads/Placement_&_Internship_Brochure_2024-25.pdf",
+          "title": "Placement & Internship Brochure 2024-25 — Internships at IITM 2023-24: 300 PPOs offered",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0456.pdf",
+          "title": "NIRF 2025 Engineering data — IIT Madras [IR-E-U-0456]: UG 4-year batch graduating 2023-24 — 714 graduated in minimum time, 549 placed, median salary Rs 17,50,000, 153 selected for higher studies",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2022-23",
+      "avgLpa": null,
+      "medianLpa": 17.0,
+      "highestLpa": 131.64,
+      "pctPlaced": null,
+      "offers": 1612,
+      "ppos": 350,
+      "higherStudiesPct": 15.0,
+      "topRecruiters": [
+        {
+          "name": "Microsoft",
+          "sector": "software"
+        },
+        {
+          "name": "Google",
+          "sector": "software"
+        },
+        {
+          "name": "Amazon",
+          "sector": "software"
+        },
+        {
+          "name": "Apple",
+          "sector": "software"
+        },
+        {
+          "name": "Adobe",
+          "sector": "software"
+        },
+        {
+          "name": "Flipkart",
+          "sector": "software"
+        },
+        {
+          "name": "Qualcomm",
+          "sector": "core"
+        },
+        {
+          "name": "Texas Instruments",
+          "sector": "core"
+        },
+        {
+          "name": "Intel",
+          "sector": "core"
+        },
+        {
+          "name": "Samsung Research Bangalore",
+          "sector": "core"
+        },
+        {
+          "name": "Airbus",
+          "sector": "core"
+        },
+        {
+          "name": "Tata Steel",
+          "sector": "core"
+        },
+        {
+          "name": "Larsen & Toubro",
+          "sector": "core"
+        },
+        {
+          "name": "Reliance Industries",
+          "sector": "core"
+        },
+        {
+          "name": "ExxonMobil",
+          "sector": "core"
+        },
+        {
+          "name": "Bajaj Auto",
+          "sector": "core"
+        },
+        {
+          "name": "TVS Motor Company",
+          "sector": "core"
+        },
+        {
+          "name": "Mercedes-Benz R&D",
+          "sector": "core"
+        },
+        {
+          "name": "Goldman Sachs",
+          "sector": "finance"
+        },
+        {
+          "name": "JPMorgan Chase",
+          "sector": "finance"
+        },
+        {
+          "name": "Morgan Stanley",
+          "sector": "finance"
+        },
+        {
+          "name": "DE Shaw",
+          "sector": "finance"
+        },
+        {
+          "name": "Optiver",
+          "sector": "finance"
+        },
+        {
+          "name": "Graviton Research Capital",
+          "sector": "finance"
+        },
+        {
+          "name": "McKinsey & Company",
+          "sector": "consulting"
+        },
+        {
+          "name": "Boston Consulting Group",
+          "sector": "consulting"
+        },
+        {
+          "name": "Bain & Company",
+          "sector": "consulting"
+        },
+        {
+          "name": "Tiger Analytics",
+          "sector": "analytics"
+        },
+        {
+          "name": "Oil & Natural Gas Corporation",
+          "sector": "psu"
+        },
+        {
+          "name": "Ather Energy",
+          "sector": "startup"
+        }
+      ],
+      "branchWise": [
+        {
+          "program": "B.Tech / Dual Degree / IDDD — Aerospace Engineering",
+          "avgLpa": null,
+          "medianLpa": 14.1,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree / IDDD — Biotechnology",
+          "avgLpa": null,
+          "medianLpa": 16.0,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech / Dual Degree / IDDD — Civil Engineering",
+          "avgLpa": null,
+          "medianLpa": 15.76,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech / Dual Degree / IDDD — Chemical Engineering",
+          "avgLpa": null,
+          "medianLpa": 15.92,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech / Dual Degree / IDDD — Computer Science and Engineering",
+          "avgLpa": null,
+          "medianLpa": 30.37,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech / Dual Degree / IDDD — Electrical Engineering",
+          "avgLpa": null,
+          "medianLpa": 21.28,
+          "pctPlaced": null
+        },
+        {
+          "program": "Dual Degree / IDDD — Engineering Design",
+          "avgLpa": null,
+          "medianLpa": 15.75,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech / IDDD — Engineering Physics",
+          "avgLpa": null,
+          "medianLpa": 22.06,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech / Dual Degree / IDDD — Mechanical Engineering",
+          "avgLpa": null,
+          "medianLpa": 15.92,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech / Dual Degree / IDDD — Metallurgical and Materials Engineering",
+          "avgLpa": null,
+          "medianLpa": 15.3,
+          "pctPlaced": null
+        },
+        {
+          "program": "B.Tech / Dual Degree / IDDD — Ocean Engineering",
+          "avgLpa": null,
+          "medianLpa": 17.0,
+          "pctPlaced": null
+        }
+      ],
+      "asOf": "2022-23",
+      "sources": [
+        {
+          "url": "https://placement.iitm.ac.in/downloads/P&I%20Report%2022-23.pdf",
+          "title": "Placement & Internship Report 2022-23 — IIT Madras (1612 full-time offers from 480+ companies; UG median CTC Rs 17,00,000, max Rs 1,31,63,530; 350 PPOs; programme-wise CTC; company list)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2022-23",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0456.pdf",
+          "title": "NIRF 2025 Engineering data — IIT Madras [IR-E-U-0456]: UG 4-year batch graduating 2022-23 — 639 graduated in minimum time, 496 placed, median salary Rs 16,63,440, 96 selected for higher studies",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2022-23",
+          "confidence": "official"
+        }
+      ]
+    }
+  ]
+}

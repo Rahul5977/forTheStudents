@@ -1,0 +1,123 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "years": [
+    {
+      "year": "2023-24",
+      "avgLpa": 21.63,
+      "medianLpa": null,
+      "highestLpa": 82,
+      "pctPlaced": null,
+      "offers": 350,
+      "ppos": null,
+      "higherStudiesPct": null,
+      "topRecruiters": [
+        { "name": "Flipkart", "sector": "software" },
+        { "name": "Infosys", "sector": "software" },
+        { "name": "TCS", "sector": "software" },
+        { "name": "Oracle", "sector": "software" },
+        { "name": "Cognizant", "sector": "software" },
+        { "name": "Autodesk", "sector": "software" },
+        { "name": "Atlassian", "sector": "software" },
+        { "name": "LinkedIn", "sector": "software" },
+        { "name": "American Express", "sector": "finance" },
+        { "name": "Axis Bank", "sector": "finance" },
+        { "name": "State Street", "sector": "finance" },
+        { "name": "PwC", "sector": "consulting" },
+        { "name": "Deloitte", "sector": "consulting" },
+        { "name": "Capgemini", "sector": "consulting" },
+        { "name": "NVIDIA", "sector": "core" },
+        { "name": "Intel", "sector": "core" },
+        { "name": "Samsung", "sector": "core" },
+        { "name": "Synopsys", "sector": "core" },
+        { "name": "BEL", "sector": "psu" },
+        { "name": "JSW", "sector": "core" },
+        { "name": "Tata Power", "sector": "core" },
+        { "name": "ITC", "sector": "other" },
+        { "name": "CRED", "sector": "startup" },
+        { "name": "Paytm", "sector": "startup" }
+      ],
+      "branchWise": null,
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://placement.iiitdmj.ac.in/downloads/Placement%20Brochure%202023-2024%20Batch.pdf",
+          "title": "Placement Brochure 2023-2024",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2025-26",
+      "avgLpa": 18.69,
+      "medianLpa": null,
+      "highestLpa": 75,
+      "pctPlaced": null,
+      "offers": 386,
+      "ppos": 36,
+      "higherStudiesPct": null,
+      "topRecruiters": [
+        { "name": "Google", "sector": "software" },
+        { "name": "Amazon", "sector": "software" },
+        { "name": "Harness", "sector": "software" },
+        { "name": "CRED", "sector": "startup" },
+        { "name": "NVIDIA", "sector": "core" },
+        { "name": "Palo Alto Networks", "sector": "software" },
+        { "name": "UiPath", "sector": "software" },
+        { "name": "Myntra", "sector": "software" },
+        { "name": "Meesho", "sector": "startup" },
+        { "name": "Cisco", "sector": "software" },
+        { "name": "Deloitte", "sector": "consulting" },
+        { "name": "Morgan Stanley", "sector": "finance" },
+        { "name": "Oracle", "sector": "software" },
+        { "name": "Infosys", "sector": "software" },
+        { "name": "TCS", "sector": "software" },
+        { "name": "HCL", "sector": "software" },
+        { "name": "IBM", "sector": "software" },
+        { "name": "Delhivery", "sector": "startup" },
+        { "name": "Accenture", "sector": "consulting" },
+        { "name": "Flipkart", "sector": "software" },
+        { "name": "L&T", "sector": "core" },
+        { "name": "Goldman Sachs", "sector": "finance" },
+        { "name": "JSW Steel", "sector": "core" },
+        { "name": "Intuit", "sector": "software" },
+        { "name": "Godrej", "sector": "other" },
+        { "name": "Addverb Technologies", "sector": "core" },
+        { "name": "Walmart", "sector": "software" },
+        { "name": "BEL", "sector": "psu" },
+        { "name": "Hyundai", "sector": "core" },
+        { "name": "Maruti", "sector": "core" }
+      ],
+      "branchWise": null,
+      "asOf": "2025-26",
+      "sources": [
+        {
+          "url": "https://placement.iiitdmj.ac.in/",
+          "title": "Placement Cell — Campus Placement Report, Session 2025-26",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iiitdmj.ac.in/downloads/Placement%20Satistics.jpg",
+          "title": "Placement Statistics 2025-26 (as on date)",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iiitdmj.ac.in/downloads/CTC%20breakup%20Pg2.jpg",
+          "title": "CTC Breakup, Placement Statistics 2025-26",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ]
+    }
+  ]
+}

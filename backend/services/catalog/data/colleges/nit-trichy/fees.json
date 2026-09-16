@@ -1,0 +1,321 @@
+{
+  "instituteId": "nit-trichy",
+  "years": [
+    {
+      "year": "2026-27",
+      "program": "B.Tech",
+      "tuition": 125000,
+      "hostel": 64300,
+      "mess": 48000,
+      "other": 63050,
+      "totalYear": 300350,
+      "currency": "INR",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/ug_courses_fee_structure/B.Tech%202026.pdf",
+          "title": "Institute Fees Structure for 2026 Admission Batch, B.Tech., category OPEN/OPEN-EWS/OBC-NCL \u2014 tuition Rs 62,500 per semester; first-year annual fee Rs 27,750 + one-time fee Rs 35,300 (includes Rs",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/HOSTEL_FEES_ODD_SEM_2026-27_UG_FY.pdf",
+          "title": "Hostel Fees for Odd Semester 2026-27, UG newly admitted students \u2014 admission fee Rs 3,600, caution deposit Rs 4,000 (refundable), establishment fee Rs 10,650, rent/electricity/water/service Rs",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/HOSTEL-FEES-EVEN-SEMESTER-2025-26.pdf",
+          "title": "Hostel Fees for Even Semester (January session) 2025-26 \u2014 the even-semester charges (establishment + rent + 5-month mess advance) repeat the odd-semester rates; the 2026-27 even semester is assumed",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "inferred"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/",
+          "title": "Fees Section, Academic Office \u2014 UG fee structures, current fee circulars and the Institute Fee Circular for the July Session 2026-27",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "year": "2025-26",
+      "program": "B.Tech",
+      "tuition": 125000,
+      "hostel": 58900,
+      "mess": 48000,
+      "other": 60450,
+      "totalYear": 292350,
+      "currency": "INR",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/ug_courses_fee_structure/B.Tech%202025.pdf",
+          "title": "Institute Fees Structure for 2025 Admission Batch, B.Tech., category OPEN/OPEN-EWS/OBC-NCL \u2014 tuition Rs 62,500 per semester; first-year annual fee Rs 25,150 + one-time fee Rs 35,300 (includes Rs",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/Hostel_Fees_UG_FY_ODD_SEM_2025-26_Updated.pdf",
+          "title": "Hostel Fees for Odd Semester 2025-26, UG newly admitted students \u2014 admission fee Rs 3,300, caution deposit Rs 4,000 (refundable), establishment fee Rs 9,700, rent/electricity/water/service Rs 16,100",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/HOSTEL-FEES-EVEN-SEMESTER-2025-26.pdf",
+          "title": "Hostel Fees for Even Semester (January session) 2025-26, UG 2025-26 batch \u2014 establishment fee Rs 9,700, rent/electricity/water/service Rs 16,100, mess advance Rs 24,000 for 5 months; total Rs 49,800",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    }
+  ],
+  "scholarships": [
+    {
+      "name": "Income-based Tuition Fee Remission (B.Tech / B.Arch)",
+      "eligibility": "B.Tech and B.Arch students admitted under the Open, Open-EWS or OBC-NCL categories whose family income is below Rs 5 lakh a year. A valid family income certificate from the competent state authority (issued on or after 1 April of the admission year) has to be produced every year; an EWS certificate",
+      "benefit": "Family income under Rs 1 lakh a year: the entire tuition fee of Rs 62,500 per semester is remitted. Income between Rs 1 lakh and Rs 5 lakh: two-thirds of the tuition (Rs 41,667 per semester) is remitted. For the first semester the fee is refunded after payment; from the second semester the",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/ug_courses_fee_structure/B.Tech%202026.pdf",
+          "title": "Institute Fees Structure for 2026 Admission Batch, B.Tech. \u2014 tuition fee waiver notes (a) and (b): full remission below Rs 1 lakh, 2/3rd remission for Rs 1-5 lakh",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/Notice_Income_based_Tuition_Fee_Remission_2026_Admitted_B.Tech._B.Arch..pdf",
+          "title": "Notice for Income-Based Tuition Fee Remission for 2026 Admitted B.Tech. & B.Arch. (NITT/AO/FEES/2026/047, 27.08.2026)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Tuition Fee Exemption for SC / ST / PwD students",
+      "eligibility": "B.Tech students admitted in the SC or ST categories, and all students with a benchmark disability (PwD), from the 2026 admission batch.",
+      "benefit": "No tuition fee is charged in any of the eight semesters. Only the annual fee and one-time fees are payable: Rs 63,050 in the first semester (of which Rs 9,100 is refundable deposits), then Rs 30,450, Rs 33,450 and Rs 36,800 at the start of the second, third and fourth years.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/ug_courses_fee_structure/B.Tech%202026.pdf",
+          "title": "Institute Fees Structure for 2026 Admission Batch, B.Tech., category SC/ST/ALL PWD \u2014 tuition fee shown as nil in every semester",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "RECT'78 Alumni Scholarship",
+      "eligibility": "Indian citizens in the second year of B.Tech (not admitted through DASA or as foreign nationals) who cleared every first-year course in the first attempt and are not already drawing another scholarship (a fee concession alone does not disqualify). Preference goes to students from rural areas",
+      "benefit": "About Rs 45,000 per scholar per year (subject to the endowment's interest income), paid through the second, third and fourth years as long as the student keeps clearing all courses without arrears and the head of department endorses the renewal.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/scholarships/RECT78-ALUMNI-SCHOLARSHIPS-DEC2023-v2.pdf",
+          "title": "RECT'78 Alumni Scholarship \u2014 call for applications from second-year B.Tech students, Office of the Dean (ID&AR): mission, eligibility, amount (~Rs 45,000 per scholar per year) and renewal conditions",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/id/scholarship/Declaration_results_RECT-1978_RECT-1978_EWS_Scholarship_2026-27.pdf",
+          "title": "Declaration of the Results of RECT'78 Alumni Scholarship and RECT'78 EWS Alumni Scholarship (AY 2026-27), 11-08-2026",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "RECT'78 EWS Alumni Scholarship",
+      "eligibility": "Economically disadvantaged B.Tech students, identified in the second year (third semester). Two students were selected for 2026-27; earlier beneficiaries continue to be supported until they graduate.",
+      "benefit": "Tuition fee support funded by the 1978 batch endowment, continuing from the second year until graduation.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/id/scholarship/Declaration_results_RECT-1978_RECT-1978_EWS_Scholarship_2026-27.pdf",
+          "title": "Declaration of the Results of RECT'78 EWS Alumni Scholarship (AY 2026-27), Dean ID&AR, 11-08-2026 \u2014 objective, selection stage and continuation of earlier beneficiaries",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "RECT'89 Student Aid Fund",
+      "eligibility": "Economically deserving B.Tech students picked on a merit-cum-means basis from the second year onward, under an MoU between the 1989 batch's governing council and the institute. Six beneficiaries across the second, third and fourth years were named for 2026-27, plus two additional second-year women",
+      "benefit": "Comprehensive support that covers tuition, one-time institute fees and hostel and mess charges from the second year until the programme is completed.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/id/scholarship/Declaration_results_RECT-1989_Student_Aid_Fund_2026-27.pdf",
+          "title": "Declaration of the Results of RECT'89 Student Aid Fund (AY 2026-27), Dean (Institutional Development & Alumni Relations)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Student Aid Fund and Alumni Scholarships (Students Financial Support)",
+      "eligibility": "Regular UG and PG students beyond the first year who are Indian citizens, receive no other stipend or scholarship, and whose parents' annual income is at most Rs 6 lakh (individual alumni scholarships may set their own limits). Applications go through the institute scholarship portal with a",
+      "benefit": "Need-based financial assistance from the institute's Student Aid Fund, RECAL and other alumni scholarships, sized by family income and academic record. Awardees put in about 20 hours per semester on student-related administrative work.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/righttoinfoact/Students-Financial-Support-2022.pdf",
+          "title": "Students Financial Support - AY 2022/2023 circular (NITT/SW/SAF-FY/2022-23), Office of the Dean (Students Welfare) \u2014 Student Aid Fund, RECAL and other alumni scholarships: conditions and portal",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2022-23",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/scholarships/",
+          "title": "Scholarships \u2014 Academic section, NIT Trichy (list of institute, alumni, central and state scholarships with circulars)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2022-23"
+    },
+    {
+      "name": "RECAL Scholarships (NIT Trichy Alumni Association)",
+      "eligibility": "NIT Trichy students of any branch or gender who meet the criteria of a given RECAL scheme: strong academic records for the merit scholarships, demonstrated financial need for the means scholarships. Applications are made on the scholarship portal in the October-November window and shortlisted",
+      "benefit": "Alumni-funded support for tuition and academic expenses plus a certificate signed by institute officials and RECAL office bearers. For 2025-26 RECAL announced 134 awardees sharing Rs 49.45 lakh; the institute's own count shows 211 RECAL scholarship recipients in 2023-24.",
+      "sources": [
+        {
+          "url": "https://www.nittrichyalumni.org/page/SCHOLARSHIP25.dz",
+          "title": "RECAL Scholarships 2025-26 \u2014 RECAL Alumni Network: who can apply, benefits, how to apply, 134 awardees / Rs 49.45 lakh total",
+          "publisher": "RECAL (NIT Trichy Alumni Association)",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/scholarship_section/Scholarship%20Details.pdf",
+          "title": "Scholarship Details, Academic Office \u2014 scheme-wise recipient counts 2022-23 to 2024-25 (Recal Scholarship: 211 recipients in 2023-24)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Central and State Scholarships via the National Scholarship Portal (NSP)",
+      "eligibility": "Students who qualify for any central or state scheme hosted on NSP, including the Central Sector Scheme of Scholarships for College and University Students, Top Class Education for SC students, PM YASASVI for OBC/EBC/DNT students, scholarships for students with disabilities, PMSSS and the Prime",
+      "benefit": "Scheme-specific cash support paid by the sponsoring ministry or state; the institute verifies applications and issues the bonafide certificate, and a scholarship once granted runs until the course ends. NSP scholarships were the largest single channel on campus, with 397 recipients in 2024-25.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/notices/01.%20NSP%202026-27%20Scholarship%20circular.pdf",
+          "title": "NSP 2026-27 Scholarship circular (NITT/AO/SCHOLARSHIP/2026, 14.07.2026) \u2014 documents, deadlines and list of schemes available on NSP",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/scholarship_section/",
+          "title": "Scholarship and Stipend Section, Academic Office \u2014 central and state scholarship links, year-wise scholarship counts (895 in 2022-23, 900 in 2023-24, 839 in 2024-25)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/scholarship_section/Scholarship%20Details.pdf",
+          "title": "Scholarship Details, Academic Office \u2014 NSP National Scholarship Portal recipients: 375 (2022-23), 347 (2023-24), 397 (2024-25)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "National Fellowship and Scholarship for Higher Education of ST Students (Top Class Education)",
+      "eligibility": "Scheduled Tribe students admitted to a notified institute and course (NIT Trichy hosts the guidelines) whose total family income from all sources does not exceed Rs 6 lakh a year. Students taking this award cannot draw any other central or state scholarship for the same study.",
+      "benefit": "A Central Sector scheme of the Ministry of Tribal Affairs that funds the approved course costs in full, continuing for the whole course duration as long as the institute certifies satisfactory performance.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/scholarship_section/Guidelines%20Scholarship%20-%20Top%20Class%20Part%20-%20B.pdf",
+          "title": "Guidelines \u2014 National Fellowship & Scholarship for Higher Education of Scheduled Tribe Students [Central Sector Scheme] 2021-22 to 2025-26, Part B National Scholarship (income ceiling Rs 6 lakh, 100%",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Engineers India Limited (EIL) Scholarship for SC/ST students",
+      "eligibility": "SC and ST students in the first year of a full-time B.Tech in Civil, Mechanical, Electrical, Electronics, Computer Science, Industrial, Chemical or Instrumentation engineering, who apply through the institute's scholarship section with caste and income certificates.",
+      "benefit": "A scholarship of Rs 3,000 paid by EIL through each of the four years of the degree, subject to the conditions in EIL's scheme.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/scholarships/EIL_SCHOLARSHIP.pdf",
+          "title": "Circular \u2014 Award of Engineers India Limited (EIL) Scholarship to SC & ST students pursuing full-time undergraduate engineering, financial year 2020-2021 (NITT/SCHOLARSHIP/2020-2021, 21.12.2020)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2020-21",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2020-21"
+    },
+    {
+      "name": "PM-Vidyalaxmi Education Loan Scheme",
+      "eligibility": "Students admitted to NIT Trichy who need an education loan; the scheme is a Government of India single-window portal for loans and linked interest support, and the institute's fee section points applicants to the official guidelines.",
+      "benefit": "Access to education loans from participating banks through one portal, with interest subsidy as laid down in the scheme guidelines; loan payments can be routed to the institute via the NEFT challan generated on the Samarth fee portal.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/",
+          "title": "Fees Section, Academic Office \u2014 Pradhan Mantri Vidyalaxmi (PM-Vidyalaxmi) Scheme description and link to the scheme guidelines",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/Institute%20Fee%20Circular_July%20Session_2026-2027.pdf",
+          "title": "Circular (Institute Fee) \u2014 Payment of Institute Fees for July Session 2026-2027: instructions for students availing bank loans and scholarships",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    }
+  ]
+}

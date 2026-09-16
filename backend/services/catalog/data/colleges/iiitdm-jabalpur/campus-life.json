@@ -1,0 +1,741 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "summary": {
+    "text": "Student life at IIITDM Jabalpur is organised through the Students Gymkhana, which oversees more than two dozen clubs spread across cultural, science-and-technology and sports wings, alongside a Cultural Council and Sports Council reconstituted every academic year. The cultural wing covers dance, music, dramatics, art and quizzing, while seven technical clubs run astronomy, robotics, CAD, campus racing and hackathon activity. The campus year builds toward three flagship fests — Abhikalpan for technology, Tarang for culture and Gusto for sports — alongside inter-hall contests, national-day celebrations and student exposure visits to Japan.",
+    "sources": [
+      {
+        "url": "https://www.iiitdmj.ac.in/students/gymkhana/gymkhana.php",
+        "title": "Students Gymkhana — IIITDM Jabalpur",
+        "publisher": "IIITDM Jabalpur",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iiitdmj.ac.in/students/activities.php",
+        "title": "Student Activities — IIITDM Jabalpur",
+        "publisher": "IIITDM Jabalpur",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "clubs": [
+    {
+      "name": "Aavartan",
+      "category": "cultural",
+      "note": "Dance club running classical, contemporary and group-performance training and competitions.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Abhivayakti",
+      "category": "cultural",
+      "note": "Arts and craft club for painting, sketching and hands-on craft-making sessions.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Shutterbox",
+      "category": "media",
+      "note": "Photography club documenting campus life, events and fests.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Aakriti",
+      "category": "media",
+      "note": "Film-making and photography club producing short films and event shoots.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/gymkhana.php",
+          "title": "Students Gymkhana — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Jazbaat",
+      "category": "cultural",
+      "note": "Dramatics society staging theatre productions, skits and stage plays.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Saaz",
+      "category": "cultural",
+      "note": "Music club for vocalists and instrumentalists; jam sessions and performances.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Samvaad",
+      "category": "literary",
+      "note": "Literature and quizzing society running debates, quizzes and writing events.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Astronomy and Physics Society",
+      "category": "technical",
+      "note": "Astro-enthusiasts' club running telescope observation nights, workshops and an annual exhibition at Abhikalpan.",
+      "url": "https://astronomy.iiitdmj.ac.in/",
+      "sources": [
+        {
+          "url": "https://astronomy.iiitdmj.ac.in/",
+          "title": "Astronomy and Physics Society — IIITDM Jabalpur",
+          "publisher": "Astronomy and Physics Society, IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Aero Fabrication Club",
+      "category": "technical",
+      "note": "Automotive and fabrication club; vehicle design, build projects and inter-institute competitions.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Business and Management Club",
+      "category": "entrepreneurship",
+      "note": "Runs alumni interactions and management/business talks for students.",
+      "url": "https://in.linkedin.com/company/business-and-management-iiitdm-jabalpur",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "CAD and 3D Printing Club",
+      "category": "technical",
+      "note": "Computer-aided design and 3D-printing club running project builds and workshops.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "IIITDMJ Racing Club",
+      "category": "technical",
+      "note": "Designs and builds a student race vehicle; competes in inter-institutional racing events.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "The Programming Club",
+      "category": "technical",
+      "note": "Competitive-programming and software club; runs HackByte, an MLH-accredited hackathon.",
+      "url": "https://www.iiitdmj.ac.in/webix.iiitdmj.ac.in/",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Electronics and Robotics Society",
+      "category": "technical",
+      "note": "Robotics and electronics community; guided workshops, project builds and competition teams.",
+      "url": "https://in.linkedin.com/company/robotics-electronics-club-iiitdmj",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://in.linkedin.com/company/robotics-electronics-club-iiitdmj",
+          "title": "Electronics and Robotics Society IIITDMJ — LinkedIn",
+          "publisher": "LinkedIn",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Athletics Club",
+      "category": "sports",
+      "note": "Track-and-field training and participation in inter-institute athletics meets.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Badminton Club",
+      "category": "sports",
+      "note": "Badminton coaching, practice sessions and inter-institute tournaments.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Basketball Club",
+      "category": "sports",
+      "note": "Basketball training and inter-hostel and inter-institute matches.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Carrom Club",
+      "category": "sports",
+      "note": "Indoor carrom practice and inter-hostel tournaments.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Chess Club",
+      "category": "sports",
+      "note": "Chess coaching, practice sessions and tournaments.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Cricket Club",
+      "category": "sports",
+      "note": "Cricket practice, nets and inter-institute matches.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Football Club",
+      "category": "sports",
+      "note": "Football training sessions and inter-institute matches.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Kabaddi Club",
+      "category": "sports",
+      "note": "Kabaddi practice sessions and inter-institute matches.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Lawn Tennis Club",
+      "category": "sports",
+      "note": "Lawn tennis coaching and practice on the campus courts.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Table Tennis Club",
+      "category": "sports",
+      "note": "Table-tennis practice sessions and inter-hostel tournaments.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Volleyball Club",
+      "category": "sports",
+      "note": "Volleyball training and inter-institute matches.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Yoga and Meditation Club",
+      "category": "sports",
+      "note": "Regular yoga and meditation sessions for student wellness.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/clubs.php",
+          "title": "Student Clubs — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "fests": [
+    {
+      "name": "Abhikalpan",
+      "type": "technical",
+      "month": "March",
+      "footfall": null,
+      "url": "https://www.iiitdmj.ac.in/others/events/abhikalpan-2018/",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/others/events/abhikalpan-2018/",
+          "title": "Abhikalpan Techfest — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2018",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiitdmj.ac.in/students/activities.php",
+          "title": "Student Activities — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Tarang",
+      "type": "cultural",
+      "month": "October",
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/activities.php",
+          "title": "Student Activities — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://noticebard.com/tarang-cultural-fest-iiit-design-manufacturing-jabalpur/",
+          "title": "Tarang Cultural Fest, IIIT Design & Manufacturing, Jabalpur",
+          "publisher": "NoticeBard",
+          "accessedOn": "2026-09-16",
+          "asOf": "2018",
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://www.knowafest.com/explore/college/Indian_Institute_of_Information_Technology_Design_and_Manufacturing_IIITDM_Jabalpur",
+          "title": "IIITDM Jabalpur — Fests & Symposiums",
+          "publisher": "KnowAFest",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Gusto",
+      "type": "sports",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/activities.php",
+          "title": "Student Activities — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.knowafest.com/explore/college/Indian_Institute_of_Information_Technology_Design_and_Manufacturing_IIITDM_Jabalpur",
+          "title": "IIITDM Jabalpur — Fests & Symposiums",
+          "publisher": "KnowAFest",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "sports": [
+    {
+      "facility": "Football ground",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/activities.php",
+          "title": "Student Activities — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Volleyball court",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/activities.php",
+          "title": "Student Activities — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Basketball court",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/activities.php",
+          "title": "Student Activities — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Lawn tennis court",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/activities.php",
+          "title": "Student Activities — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Cricket ground",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/gymkhana.php",
+          "title": "Students Gymkhana — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Badminton court",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/gymkhana.php",
+          "title": "Students Gymkhana — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Table tennis room",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/gymkhana.php",
+          "title": "Students Gymkhana — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Chess and carrom room",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/gymkhana/gymkhana.php",
+          "title": "Students Gymkhana — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Gymnasium",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/hostels.php",
+          "title": "Hostels — IIITDM Jabalpur",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

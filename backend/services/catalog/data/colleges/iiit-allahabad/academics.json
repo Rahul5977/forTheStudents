@@ -1,0 +1,396 @@
+{
+  "instituteId": "iiit-allahabad",
+  "departments": [
+    {
+      "name": "Information Technology",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Information Technology",
+          "durationYears": 4,
+          "intake": 242
+        },
+        {
+          "degree": "B.Tech",
+          "name": "Information Technology-Business Informatics",
+          "durationYears": 4,
+          "intake": 40
+        },
+        {
+          "degree": "Dual Degree",
+          "name": "B.Tech-M.Tech (Information Technology)",
+          "durationYears": 5,
+          "intake": 25
+        },
+        {
+          "degree": "Dual Degree",
+          "name": "B.Tech (IT-Business Informatics) - MBA",
+          "durationYears": 5,
+          "intake": 22
+        },
+        {
+          "degree": "M.Tech",
+          "name": "Information Technology",
+          "durationYears": 2,
+          "intake": null
+        },
+        {
+          "degree": "Ph.D",
+          "name": "Information Technology",
+          "durationYears": null,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/academics",
+          "title": "Academics - department list (Information Technology, ECE, Applied Sciences, Management Studies)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://it.iiita.ac.in/?pg=program",
+          "title": "Department of IT - Programs (B.Tech IT, B.Tech IT-Business Informatics, M.Tech IT incl. NEP-2023 curriculum, Ph.D IT)",
+          "publisher": "IIIT Allahabad, Dept. of IT",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiita.ac.in/how-apply",
+          "title": "How to Apply - B.Tech and dual degree seat table 2026 (CSAB/JoSAA column: 242 IT, 40 IT-BI, 25 IT-M.Tech, 22 IT-BI-MBA)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Electronics and Communication Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Electronics and Communication Engineering",
+          "durationYears": 4,
+          "intake": 121
+        },
+        {
+          "degree": "Dual Degree",
+          "name": "B.Tech-M.Tech (Electronics and Communication Engineering)",
+          "durationYears": 5,
+          "intake": 11
+        },
+        {
+          "degree": "M.Tech",
+          "name": "Electronics and Communication Engineering",
+          "durationYears": 2,
+          "intake": null
+        },
+        {
+          "degree": "Ph.D",
+          "name": "Electronics and Communication Engineering",
+          "durationYears": null,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://ece.iiita.ac.in/",
+          "title": "Department of ECE home - department established 2006; M.Tech(ECE) specializations in Communication Engineering and Microelectronics",
+          "publisher": "IIIT Allahabad, Dept. of ECE",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiita.ac.in/how-apply",
+          "title": "How to Apply - B.Tech and dual degree seat table 2026 (CSAB/JoSAA column: 121 ECE, 11 ECE-M.Tech)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Applied Sciences",
+      "programs": [
+        {
+          "degree": "M.Tech",
+          "name": "Bioinformatics",
+          "durationYears": 2,
+          "intake": null
+        },
+        {
+          "degree": "M.Tech",
+          "name": "Biomedical Engineering",
+          "durationYears": 2,
+          "intake": null
+        },
+        {
+          "degree": "M.Tech",
+          "name": "Data Science and Analytics",
+          "durationYears": 2,
+          "intake": null
+        },
+        {
+          "degree": "Ph.D",
+          "name": "Applied Sciences (Bioinformatics / Biomedical Engineering / Mathematics / Physics / Statistics)",
+          "durationYears": null,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://as.iiita.ac.in/index.php/academics/",
+          "title": "Department of Applied Sciences - Academics (M.Tech Bioinformatics/Biomedical Engineering/Data Science & Analytics; Ph.D in BI, BME, Mathematics, Physics, Statistics; UG minors for IT/ECE students)",
+          "publisher": "IIIT Allahabad, Dept. of Applied Sciences",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Management Studies",
+      "programs": [
+        {
+          "degree": "MBA",
+          "name": "Management Studies",
+          "durationYears": 2,
+          "intake": null
+        },
+        {
+          "degree": "Ph.D",
+          "name": "Management Studies",
+          "durationYears": null,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/department-management-studies/home",
+          "title": "Department of Management Studies - Home (established 2004; offers a 2-year full-time MBA and a full-time Ph.D. program)",
+          "publisher": "IIIT Allahabad, Dept. of Management Studies",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "facultyCount": {
+    "value": 86,
+    "sources": [
+      {
+        "url": "https://it.iiita.ac.in/?pg=faculty",
+        "title": "Department of IT - Faculty directory (33 faculty listed)",
+        "publisher": "IIIT Allahabad, Dept. of IT",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://ece.iiita.ac.in/faculty_a-h.html",
+        "title": "Department of ECE - Faculty A-H (4 faculty listed)",
+        "publisher": "IIIT Allahabad, Dept. of ECE",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://ece.iiita.ac.in/faculty_i-p.html",
+        "title": "Department of ECE - Faculty I-P (5 faculty listed)",
+        "publisher": "IIIT Allahabad, Dept. of ECE",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://ece.iiita.ac.in/faculty_q-z.html",
+        "title": "Department of ECE - Faculty Q-Z (10 faculty listed)",
+        "publisher": "IIIT Allahabad, Dept. of ECE",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://as.iiita.ac.in/index.php/faculty/",
+        "title": "Department of Applied Sciences - Faculty (22 faculty listed across Bioinformatics/BME, Mathematics, Physics and visiting faculty)",
+        "publisher": "IIIT Allahabad, Dept. of Applied Sciences",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iiita.ac.in/department-management-studies/faculty",
+        "title": "Department of Management Studies - Faculty Directory (12 faculty listed)",
+        "publisher": "IIIT Allahabad, Dept. of Management Studies",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "curriculumHighlights": [
+    {
+      "text": "IIITA's B.Tech Ordinance-2023 (NEP-aligned, effective AY 2023-24) sets a 160-credit, 8-semester degree that pairs a core Major with a mandatory 15-credit multidisciplinary Minor; a Double Major option is planned for a future rollout.",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/NEP%20BTech%20Ordinance.pdf",
+          "title": "IIIT-A: The Ordinance-2023 for B.Tech Program with NEP Aligned Curriculum - Sections 3(d)-(f), 4.0-4.11 (160 credits, Major + Mandatory Minor)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "text": "An optional B.Tech Honours needs 15 extra credits in the student's own branch, a minimum 8.0 CGPI with no backlog, an academic 8th-semester project, and at least one Tier-I/II or SCI publication (or a filed patent).",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/NEP%20BTech%20Ordinance.pdf",
+          "title": "IIIT-A: The Ordinance-2023 for B.Tech Program - Section 5(g) Honors eligibility",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "text": "NEP-style multiple exits let a student leave with a UG Certificate after year 1 (40 credits), a UG Diploma after year 2 (80 credits), or a B.Sc.(Engineering) after year 3 (120 credits), each needing a few additional prescribed credits.",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/NEP%20BTech%20Ordinance.pdf",
+          "title": "IIIT-A: The Ordinance-2023 for B.Tech Program - Section 4.21 Honorable Exit Options",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "text": "Grading is a 60:40 continuous-assessment split: a 35-mark formative Part-1 (quizzes/assignments/labs), a 25-mark mid-semester exam, and a 40-mark end-semester exam, converted to a relative A+-to-F letter grade on a 10-point scale.",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/NEP%20BTech%20Ordinance.pdf",
+          "title": "IIIT-A: The Ordinance-2023 for B.Tech Program - Sections 5 and 14.0 Marks Distribution and Grading System",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "text": "75% attendance is compulsory in every course or the student is deregistered from it; a student may register for at most 28 credits (backlog plus current courses) in a semester.",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/NEP%20BTech%20Ordinance.pdf",
+          "title": "IIIT-A: The Ordinance-2023 for B.Tech Program - Sections 9 and 14.6 Attendance Requirements",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "text": "A one-time branch change is allowed at the end of semester 1, open only to students who cleared every first-semester course with an SGPI of 7.50 or above; it depends on seats in the target branch and ignores category/reservation.",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/NEP%20BTech%20Ordinance.pdf",
+          "title": "IIIT-A: The Ordinance-2023 for B.Tech Program - Section 17 Branch Change",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "text": "Up to 40% of credits in a course type may come from NPTEL/SWAYAM online courses (up to 5% as self-study credit); the normal 4-year degree can extend via spill-over semesters 9-12, up to 6 years for General/OBC and 7 years for SC/ST/PwD students.",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/NEP%20BTech%20Ordinance.pdf",
+          "title": "IIIT-A: The Ordinance-2023 for B.Tech Program - Sections 6(l), 8 and 5(j) online courses, duration, spill-over semesters",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "text": "A CGPI of 8.50 or above earns the B.Tech degree 'with Distinction'; only students who finish all 160 credits within the first 8 successive semesters remain eligible for institute ranks, medals and merit-based fellowships.",
+      "sources": [
+        {
+          "url": "https://aaa.iiita.ac.in/PDF1/NEP%20BTech%20Ordinance.pdf",
+          "title": "IIIT-A: The Ordinance-2023 for B.Tech Program - Section 5(h) Distinction and 5(j) Ranks/Medals",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    }
+  ],
+  "research": {
+    "note": "Research runs through five institute centres alongside the four departments: the Center for Cognitive Computing, the Center for Intelligent Robotics, the Rekhi Center for Science of Happiness, the Center for Continuing Education and Outreach Program, and a NewGen IEDC innovation cell. Each department runs its own Ph.D. programme (IT; ECE; Applied Sciences, spanning Bioinformatics, Biomedical Engineering, Mathematics, Physics and Statistics; and Management Studies), and IT also offers a combined M.Tech-Ph.D. track. IIITA's own pages do not publish a current headcount of enrolled scholars.",
+    "phdCount": null,
+    "sources": [
+      {
+        "url": "https://www.iiita.ac.in/",
+        "title": "IIIT Allahabad home - Research & Innovation Centers list (CCC, CIR, RCSoH, CCEOP, NewGen IEDC)",
+        "publisher": "IIIT Allahabad",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://rds.iiita.ac.in/",
+        "title": "Research & Development Section (RDS) - Ph.D ordinances and admission batches, no scholar headcount published",
+        "publisher": "IIIT Allahabad",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://it.iiita.ac.in/?pg=program",
+        "title": "Department of IT - Ph.D(IT) specialisations and M.Tech-Ph.D dual degree (minimum 2.5 years / 5 semesters)",
+        "publisher": "IIIT Allahabad, Dept. of IT",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://as.iiita.ac.in/index.php/academics/",
+        "title": "Department of Applied Sciences - Ph.D in BI, BME, Mathematics, Physics and Statistics",
+        "publisher": "IIIT Allahabad, Dept. of Applied Sciences",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  }
+}

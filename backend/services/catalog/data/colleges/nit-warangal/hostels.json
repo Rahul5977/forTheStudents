@@ -1,0 +1,50 @@
+{
+  "instituteId": "nit-warangal",
+  "count": 22,
+  "capacity": 5163,
+  "occupancy": "Mega-blocks Kakatiya & Ramappa house most students on single/double sharing; older halls are single (Azad, Bose, Nehru, Patel) or double; girls range from triple (Priyadarshini) to single (New LH).",
+  "messNote": "Five Institute Food Courts (IFC-A, IFC-B, IFC-C, IFC-D for the boys' halls, plus Priyadarshini Mess for girls) run on contract under a faculty professor-in-charge each, with elected student mess representatives; menus cover North Indian, South Indian, mixed-veg and non-veg options.",
+  "hostels": [
+    { "name": "Azad Hall", "gender": "boys" },
+    { "name": "Bose Hall", "gender": "boys" },
+    { "name": "Ambedkar Hall", "gender": "boys" },
+    { "name": "Babha Hall", "gender": "boys" },
+    { "name": "Gandhi Hall", "gender": "boys" },
+    { "name": "Gokhale Hall", "gender": "boys" },
+    { "name": "Radhakrishnan Hall", "gender": "boys" },
+    { "name": "Raman Hall", "gender": "boys" },
+    { "name": "Nehru Hall", "gender": "boys" },
+    { "name": "Patel Hall", "gender": "boys" },
+    { "name": "Tagore Hall", "gender": "boys" },
+    { "name": "Viswesvraya Hall", "gender": "boys" },
+    { "name": "Rajendra Prasad Hall", "gender": "boys" },
+    { "name": "Vikram Sarabhai Hall", "gender": "boys" },
+    { "name": "Kakatiya Hall of Residence", "gender": "boys" },
+    { "name": "Ramappa Hall of Residence", "gender": "boys" },
+    { "name": "International Students Hall", "gender": "boys" },
+    { "name": "Priyadarshini Hall", "gender": "girls" },
+    { "name": "Sarojini Hall", "gender": "girls" },
+    { "name": "New LH-A", "gender": "girls" },
+    { "name": "New LH-B", "gender": "girls" },
+    { "name": "New LH-C", "gender": "girls" }
+  ],
+  "sources": [
+    {
+      "url": "https://nitw.ac.in/hostel",
+      "title": "Halls of Residence & Capacity (room counts, single/double/triple, total capacity per hall)",
+      "publisher": "NIT Warangal",
+      "accessedOn": "2026-09-16",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://nitw.ac.in/hostel",
+      "title": "Halls of Residence – About (institute food courts / mess, disability facilities)",
+      "publisher": "NIT Warangal",
+      "accessedOn": "2026-09-16",
+      "asOf": null,
+      "confidence": "official"
+    }
+  ],
+  "asOf": null
+}

@@ -1,0 +1,48 @@
+{
+  "instituteId": "iit-madras",
+  "count": 20,
+  "capacity": null,
+  "occupancy": "First-year UGs share rooms; single, double or triple rooms later depending on the hostel; PGs get shared or single rooms.",
+  "messNote": "Every hostel runs its own mess, overseen by an elected Mess Secretary together with a student Mess Committee and the mess staff; the institute page does not publish mess charges.",
+  "hostels": [
+    { "name": "Alakananda", "gender": "boys" },
+    { "name": "Brahmaputra", "gender": "boys" },
+    { "name": "Cauvery", "gender": "boys" },
+    { "name": "Ganga", "gender": "boys" },
+    { "name": "Godavari", "gender": "boys" },
+    { "name": "Jamuna", "gender": "boys" },
+    { "name": "Krishna", "gender": "boys" },
+    { "name": "Mahanadhi", "gender": "boys" },
+    { "name": "Mandakini", "gender": "boys" },
+    { "name": "Narmada", "gender": "boys" },
+    { "name": "Pampa", "gender": "boys" },
+    { "name": "Saraswathi", "gender": "boys" },
+    { "name": "Sindhu", "gender": "boys" },
+    { "name": "Tamiraparani", "gender": "boys" },
+    { "name": "Tapti", "gender": "boys" },
+    { "name": "Sabarmati", "gender": "girls" },
+    { "name": "Sarayu", "gender": "girls" },
+    { "name": "Sharavathi", "gender": "girls" },
+    { "name": "Swarnamukhi", "gender": "girls" },
+    { "name": "Tunga-Bhadra", "gender": "girls" }
+  ],
+  "sources": [
+    {
+      "url": "https://www.iitm.ac.in/campus-life/hostel-life",
+      "title": "Hostel Life | IIT Madras",
+      "publisher": "IIT Madras",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/IIT_Madras",
+      "title": "IIT Madras — Wikipedia (hostel names only)",
+      "publisher": "Wikipedia",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "secondary"
+    }
+  ],
+  "asOf": null
+}

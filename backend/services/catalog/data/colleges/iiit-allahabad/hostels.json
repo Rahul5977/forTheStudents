@@ -1,0 +1,36 @@
+{
+  "instituteId": "iiit-allahabad",
+  "count": 8,
+  "capacity": 2000,
+  "occupancy": "Rooms run single, double or triple depending on seniority: seniors and research scholars get single or double rooms where space allows, and most first-year undergraduates share triple rooms.",
+  "messNote": "Each hostel runs its own centralised, air-conditioned mess serving breakfast, lunch, evening snacks and dinner on a fixed daily schedule; the girls' hostels additionally have their own dedicated air-conditioned mess and gym.",
+  "hostels": [
+    { "name": "BH-1", "gender": "boys" },
+    { "name": "BH-2", "gender": "boys" },
+    { "name": "BH-3", "gender": "boys" },
+    { "name": "BH-4", "gender": "boys" },
+    { "name": "BH-5", "gender": "boys" },
+    { "name": "GH-1", "gender": "girls" },
+    { "name": "GH-2", "gender": "girls" },
+    { "name": "GH-3", "gender": "girls" }
+  ],
+  "sources": [
+    {
+      "url": "https://cow.iiita.ac.in/",
+      "title": "Council of Wardens, IIIT Allahabad - 8 hostels, 2,000+ residents, 5 boys + 3 girls hostels",
+      "publisher": "IIIT Allahabad Council of Wardens",
+      "accessedOn": "2026-09-16",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://cow.iiita.ac.in/hostels.html",
+      "title": "Hostels & Living - Council of Wardens, IIIT Allahabad - BH-1..BH-5, GH-1..GH-3, room types and mess timings",
+      "publisher": "IIIT Allahabad Council of Wardens",
+      "accessedOn": "2026-09-16",
+      "asOf": null,
+      "confidence": "official"
+    }
+  ],
+  "asOf": null
+}

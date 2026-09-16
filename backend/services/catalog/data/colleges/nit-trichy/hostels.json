@@ -1,0 +1,160 @@
+{
+  "instituteId": "nit-trichy",
+  "count": 29,
+  "capacity": 7472,
+  "occupancy": "First-year UG boys' hostels (Agate, Diamond, Coral) are mostly 3–4 sharing; Garnet triple; Zircon, Amber, Aquamarine double; Ruby, Emerald, Pearl, Sapphire, Topaz, Lapis, Jasper single.",
+  "messNote": "13 caterer-run messes (South, North, Andhra, Kerala, mixed-Indian, pure-veg menus), incl. two Mega Mess blocks and dedicated first-year and Opal messes. Mess membership is compulsory, registered per semester (monthly in boys' hostels); self-service.",
+  "hostels": [
+    {
+      "name": "Agate",
+      "gender": "boys"
+    },
+    {
+      "name": "Garnet A",
+      "gender": "boys"
+    },
+    {
+      "name": "Garnet B",
+      "gender": "boys"
+    },
+    {
+      "name": "Garnet C",
+      "gender": "boys"
+    },
+    {
+      "name": "Zircon A",
+      "gender": "boys"
+    },
+    {
+      "name": "Zircon B",
+      "gender": "boys"
+    },
+    {
+      "name": "Zircon C",
+      "gender": "boys"
+    },
+    {
+      "name": "Amber A",
+      "gender": "boys"
+    },
+    {
+      "name": "Amber B",
+      "gender": "boys"
+    },
+    {
+      "name": "Coral",
+      "gender": "boys"
+    },
+    {
+      "name": "Aquamarine A",
+      "gender": "boys"
+    },
+    {
+      "name": "Aquamarine B",
+      "gender": "boys"
+    },
+    {
+      "name": "Ruby",
+      "gender": "boys"
+    },
+    {
+      "name": "Emerald",
+      "gender": "boys"
+    },
+    {
+      "name": "Pearl",
+      "gender": "boys"
+    },
+    {
+      "name": "Sapphire",
+      "gender": "boys"
+    },
+    {
+      "name": "Topaz",
+      "gender": "boys"
+    },
+    {
+      "name": "Lapis",
+      "gender": "boys"
+    },
+    {
+      "name": "Diamond",
+      "gender": "boys"
+    },
+    {
+      "name": "Jade",
+      "gender": "boys"
+    },
+    {
+      "name": "Jasper",
+      "gender": "boys"
+    },
+    {
+      "name": "Amethyst",
+      "gender": "boys"
+    },
+    {
+      "name": "Opal A",
+      "gender": "girls"
+    },
+    {
+      "name": "Opal B",
+      "gender": "girls"
+    },
+    {
+      "name": "Opal C",
+      "gender": "girls"
+    },
+    {
+      "name": "Opal D",
+      "gender": "girls"
+    },
+    {
+      "name": "Opal E",
+      "gender": "girls"
+    },
+    {
+      "name": "Opal F",
+      "gender": "girls"
+    },
+    {
+      "name": "Beryl",
+      "gender": "girls"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/hostels/",
+      "title": "Hostels – Hostels and Mess (hostel details table)",
+      "publisher": "NIT Tiruchirappalli",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/messes/",
+      "title": "Messes – Hostels and Mess",
+      "publisher": "NIT Tiruchirappalli",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/NITT_HOSTEL_RESIDENTS_RULES_REGULATIONS_2026-27.pdf",
+      "title": "Hostel Rule Book for 2026–27 (Rules and Regulations for Hostel Residents)",
+      "publisher": "NIT Tiruchirappalli",
+      "accessedOn": "2026-09-13",
+      "asOf": "2026-27",
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/",
+      "title": "Hostels and Mess",
+      "publisher": "NIT Tiruchirappalli",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    }
+  ],
+  "asOf": "2026-27"
+}

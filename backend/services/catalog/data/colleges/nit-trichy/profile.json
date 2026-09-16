@@ -1,0 +1,146 @@
+{
+  "instituteId": "nit-trichy",
+  "officialName": "National Institute of Technology, Tiruchirappalli",
+  "short": "NIT Trichy",
+  "type": "NIT",
+  "established": 1964,
+  "website": "https://www.nitt.edu",
+  "about": "NIT Tiruchirappalli began in 1964 as Regional Engineering College Tiruchirappalli, a joint venture of the central and Tamil Nadu governments, became an NIT with deemed-university status in 2003 and an Institution of National Importance in 2007. It is consistently the top-ranked NIT in NIRF, placing 9th in Engineering and 30th Overall in 2025. The 800-acre campus at Thuvakudi houses 17 departments, nine B.Tech programmes plus B.Arch, and roughly 7,500 students across UG, PG and doctoral levels, with a strong core-engineering tradition alongside its large CSE and ECE cohorts.",
+  "location": {
+    "city": "Tiruchirappalli",
+    "state": "Tamil Nadu",
+    "campusAcres": 800,
+    "nearestAirport": "Tiruchirappalli International Airport",
+    "nearestRailway": "Tiruchirappalli Junction",
+    "connectivityNote": "The campus is at Thuvakudi on the Trichy-Thanjavur highway (NH 83) beside the BHEL township, about 17-22 km from Tiruchirappalli Junction and the central bus stand per the institute's own page; Thanjavur-bound buses take roughly 30 minutes. Trichy is a major Southern Railway junction and has an international airport with domestic and Gulf/Sri Lanka flights.",
+    "sources": [
+      {
+        "url": "https://www.nitt.edu/home/about/nitt/",
+        "title": "NIT Trichy - About NIT Tiruchirappalli (history, 800-acre campus, how to reach)",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nitt.edu/home/contact/",
+        "title": "NIT Trichy - Contact (location on Tanjore Main Road, NH 83, between BHEL and Thuvakudi)",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "admissionRoutes": [
+    {
+      "route": "josaa",
+      "programs": [
+        "B.Tech",
+        "B.Arch"
+      ],
+      "note": "JEE Main (B.E./B.Tech paper for B.Tech; B.Arch paper for Architecture) rank plus Class 12 performance; seats allotted through JoSAA counselling.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/about/ataglance/",
+          "title": "NITT at a Glance (programmes, admission routes, student strength)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/admission_procedure/",
+          "title": "NIT Trichy - Admission Procedure (JEE Main, JoSAA, CSAB, DASA)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "route": "csab",
+      "programs": [
+        "B.Tech",
+        "B.Arch"
+      ],
+      "note": "Seats left vacant after JoSAA rounds are filled through the CSAB special rounds.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/about/ataglance/",
+          "title": "NITT at a Glance (programmes, admission routes, student strength)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/admission_procedure/",
+          "title": "NIT Trichy - Admission Procedure (JEE Main, JoSAA, CSAB, DASA)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "route": "other",
+      "programs": [
+        "B.Tech",
+        "B.Arch"
+      ],
+      "note": "Foreign nationals, PIOs and NRIs are admitted under the DASA scheme; the institute also lists ICCR and Study in India (SII) channels in its admission notices.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/about/ataglance/",
+          "title": "NITT at a Glance (programmes, admission routes, student strength)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/admissions/btech/",
+          "title": "NIT Trichy - B.Tech./B.Arch. Admissions (JoSAA, CSAB, DASA, ICCR, SII notices)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.nitt.edu/home/about/nitt/",
+      "title": "NIT Trichy - About NIT Tiruchirappalli (history, 800-acre campus, how to reach)",
+      "publisher": "NIT Tiruchirappalli",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.nitt.edu/home/about/ataglance/",
+      "title": "NITT at a Glance (programmes, admission routes, student strength)",
+      "publisher": "NIT Tiruchirappalli",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+      "title": "NIRF India Rankings 2025: Engineering (NIT Tiruchirappalli rank 9, score 68.14)",
+      "publisher": "NIRF",
+      "accessedOn": "2026-09-13",
+      "asOf": "2025",
+      "confidence": "official"
+    }
+  ],
+  "asOf": null
+}

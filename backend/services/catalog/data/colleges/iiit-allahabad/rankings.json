@@ -1,0 +1,208 @@
+{
+  "instituteId": "iiit-allahabad",
+  "nirf": [
+    {
+      "year": 2020,
+      "overall": null,
+      "engineering": 103,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - NIRF Engineering rank history table (2020: 103)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2020",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2020"
+    },
+    {
+      "year": 2021,
+      "overall": null,
+      "engineering": 87,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - NIRF Engineering rank history table (2021: 87)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2021",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2021"
+    },
+    {
+      "year": 2022,
+      "overall": null,
+      "engineering": 93,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - NIRF Engineering rank history table (2022: 93)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2022",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2022"
+    },
+    {
+      "year": 2023,
+      "overall": null,
+      "engineering": 89,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - NIRF Engineering rank history table (2023: 89)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "year": 2024,
+      "overall": null,
+      "engineering": 87,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - NIRF Engineering rank history table (2024: 87)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "year": 2025,
+      "overall": null,
+      "engineering": 101,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - NIRF Engineering rank history table (2025: rank-band 101-150)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking150.html",
+          "title": "India Rankings 2025: Engineering (Rank-band 101-150) - includes IIIT Allahabad",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    }
+  ],
+  "qs": [
+    {
+      "year": 2020,
+      "world": 1001,
+      "asia": 351,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - QS WUR 2020 (1001+) and QS Asian University Rankings 2020 (351-400)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2020",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2020"
+    },
+    {
+      "year": 2021,
+      "world": null,
+      "asia": 451,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - QS Asian University Rankings 2021 (451-500); QS WUR 2021 not published on this table",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2021",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2021"
+    },
+    {
+      "year": 2022,
+      "world": 1001,
+      "asia": 451,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - QS WUR 2022 (1001-1200) and QS Asian University Rankings 2022 (451-500)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2022",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2022"
+    },
+    {
+      "year": 2023,
+      "world": null,
+      "asia": 551,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - QS Asian University Rankings 2023 (551-600); QS WUR 2023 not published on this table",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "year": 2024,
+      "world": null,
+      "asia": 601,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - QS Asian University Rankings 2024 (601-650); QS WUR 2024 not published on this table",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "year": 2025,
+      "world": 1401,
+      "asia": 581,
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/nirf-rankings",
+          "title": "IIITA Rankings page - QS WUR 2025 (1401+) and QS Asian University Rankings 2025 (581-600)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    }
+  ],
+  "naac": null
+}

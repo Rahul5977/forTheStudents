@@ -1,0 +1,1034 @@
+{
+  "instituteId": "iit-bombay",
+  "summary": {
+    "text": "Student life at IIT Bombay is run largely by the Students' Gymkhana through six councils covering hostels, sports, culture, technology and academics, with a wide spread of clubs and tech teams beneath them. The Powai campus hosts three flagship fests — Mood Indigo (cultural), Techfest (technical) and E-Summit (entrepreneurship) — plus the Aavhan sports fest, while inter-hostel General Championships keep hostel rivalries alive through the year.",
+    "sources": [
+      {
+        "url": "https://gymkhana.iitb.ac.in/councils/",
+        "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+        "publisher": "IIT Bombay Students' Gymkhana",
+        "accessedOn": "2026-09-13",
+        "asOf": "2026-27",
+        "confidence": "official"
+      },
+      {
+        "url": "https://gymkhana.iitb.ac.in/about/",
+        "title": "About — Students' Gymkhana, IIT Bombay",
+        "publisher": "IIT Bombay Students' Gymkhana",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2026-27"
+  },
+  "clubs": [
+    {
+      "name": "Insync (Dance Club)",
+      "category": "cultural",
+      "note": "ICC dance club spanning Bollywood, contemporary and street styles; runs the dance GC and workshops.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/insync",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Symphony (Music Club)",
+      "category": "cultural",
+      "note": "ICC music club for vocalists, instrumentalists and bands; hosts jam sessions and the music GC.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/symphony",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "FourthWall (Dramatics Club)",
+      "category": "cultural",
+      "note": "Theatre club; stages productions at LT-PCSA and Convocation Hall, runs the Dramatics GC and TheatreFest.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/fourthwall",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Roots",
+      "category": "cultural",
+      "note": "ICC club for Indian classical and folk performing arts.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/roots",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Vaani (Indian Languages Club)",
+      "category": "literary",
+      "note": "Club for Indian-language literature, poetry and expression.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/vaani",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Literati (Literary Arts Club)",
+      "category": "literary",
+      "note": "Quizzing, word games and writing; runs the quiz GCs, a WESPA-certified Scrabble open and Literarium.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/literati",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "WeSpeak (Speaking Arts / Debate Club)",
+      "category": "literary",
+      "note": "Debating, public speaking and MUN-style activity under the ICC.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/wespeak",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "SilverScreen (Film & Media Club)",
+      "category": "media",
+      "note": "Filmmaking club; workshops and a Filmfest flagship event.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/silverscreen",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Pixels (Photography Club)",
+      "category": "cultural",
+      "note": "Photography club for beginners to professionals; calendar shoots and photo events.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/pixel",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Rang (Fine Arts Club)",
+      "category": "cultural",
+      "note": "Painting, sketching and fine-arts club of the ICC.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/rang",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "The Design Club",
+      "category": "cultural",
+      "note": "Graphic and UI design workshops (Photoshop, Illustrator, Figma) and designer talks.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/design",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "StyleUp (Fashion Club)",
+      "category": "cultural",
+      "note": "Fashion and ramp-walk club; flagship Showstopper show at Convocation Hall.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/styleup",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "ComedyCons (Humour Club)",
+      "category": "cultural",
+      "note": "Stand-up and sketch comedy club with workshops and an open-mic circuit.",
+      "url": "https://gymkhana.iitb.ac.in/~culturals/comedycons",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Kava (Culinary Club)",
+      "category": "cultural",
+      "note": "ICC club for cooking and food events.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Web and Coding Club (WnCC)",
+      "category": "technical",
+      "note": "ITC's programming club: coding bootcamps, seasons-of-code projects and contests.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Electronics and Robotics Club (ERC)",
+      "category": "technical",
+      "note": "Electronics and robotics community; workshops, robotics competitions and build projects.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Aeromodelling Club",
+      "category": "technical",
+      "note": "Designs and flies RC aircraft, gliders and drones.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Krittika (Astronomy Club)",
+      "category": "technical",
+      "note": "Astronomy and astrophysics club; observation sessions and projects.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Quant Club",
+      "category": "technical",
+      "note": "Quantitative finance, probability and trading-strategy club.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Maths and Physics Club",
+      "category": "technical",
+      "note": "Basic-sciences club running talks, problem sessions and reading groups.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "BioX Club",
+      "category": "technical",
+      "note": "Biotech and life-sciences enthusiasts' club.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Energy and Sustainability Club",
+      "category": "technical",
+      "note": "Clean and affordable energy and climate-tech projects and talks.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Tinkerers' Laboratory (TL)",
+      "category": "technical",
+      "note": "Open hardware prototyping lab for students; part of the ITC ecosystem.",
+      "url": "https://tech-iitb.org/clubs",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/clubs",
+          "title": "Clubs — Institute Technical Council, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "IIT Bombay Racing",
+      "category": "technical",
+      "note": "Student Formula-style electric race-car team competing internationally.",
+      "url": "https://tech-iitb.org/",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/",
+          "title": "Institute Technical Council (ITC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Student Satellite Program (SSP)",
+      "category": "technical",
+      "note": "Student team building small satellites and space payloads.",
+      "url": "https://tech-iitb.org/",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/",
+          "title": "Institute Technical Council (ITC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Mars Rover Team",
+      "category": "technical",
+      "note": "Builds planetary-rover prototypes for rover challenges.",
+      "url": "https://tech-iitb.org/",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/",
+          "title": "Institute Technical Council (ITC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Entrepreneurship Cell (E-Cell)",
+      "category": "entrepreneurship",
+      "note": "Student body for startup mentoring, seed-funding access and competitions; organises E-Summit and Eureka!.",
+      "url": "https://www.ecell.in/",
+      "sources": [
+        {
+          "url": "https://www.ecell.in/",
+          "title": "E-Cell IIT Bombay — official site",
+          "publisher": "E-Cell IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Insight",
+      "category": "media",
+      "note": "Independent student media body publishing campus reporting and surveys.",
+      "url": "https://insightiitb.org/",
+      "sources": [
+        {
+          "url": "https://insightiitb.org/",
+          "title": "Insight — Student Media Body of IIT Bombay",
+          "publisher": "Insight, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Student Alumni Relations Cell (SARC)",
+      "category": "social",
+      "note": "Connects current students with the alumni network through mentorship and events.",
+      "url": "https://sarc-iitb.org/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "National Service Scheme (NSS)",
+      "category": "social",
+      "note": "Community-service body: tutoring, sustainability drives and rural outreach.",
+      "url": "https://nss.gymkhana.iitb.ac.in/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Group for Rural Activities (GRA)",
+      "category": "social",
+      "note": "Long-running voluntary group running rural immersion camps.",
+      "url": "https://gymkhana.iitb.ac.in/~gra/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Sustainability Cell",
+      "category": "social",
+      "note": "Student-led environmental body; runs the Green Cup inter-hostel challenge.",
+      "url": "https://gymkhana.iitb.ac.in/~sustainabilitycell/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "DevCom",
+      "category": "technical",
+      "note": "Student software team building the institute's official campus apps.",
+      "url": "https://devcom.gymkhana.iitb.ac.in/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Adventure Club",
+      "category": "sports",
+      "note": "Trekking, climbing and outdoor-adventure club under the sports council.",
+      "url": "https://gymkhana.iitb.ac.in/sports/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Dark Knight Chess Club (DKCC)",
+      "category": "sports",
+      "note": "Chess training and tournaments; based in the board-games room at New SAC.",
+      "url": "https://gymkhana.iitb.ac.in/sports/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Ultimate Frisbee Club",
+      "category": "sports",
+      "note": "Formally inaugurated in 2022; runs camps, GCs and the UFO tournament.",
+      "url": "https://gymkhana.iitb.ac.in/sports/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Yogastha",
+      "category": "sports",
+      "note": "Daily yoga sessions and wellness workshops.",
+      "url": "https://iitbyogastha.in/",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "fests": [
+    {
+      "name": "Mood Indigo",
+      "type": "cultural",
+      "month": "December",
+      "footfall": null,
+      "url": "https://moodi.org/",
+      "sources": [
+        {
+          "url": "https://moodi.org/",
+          "title": "Mood Indigo, IIT Bombay — official fest site",
+          "publisher": "Mood Indigo, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Techfest",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": "https://techfest.org/",
+      "sources": [
+        {
+          "url": "https://techfest.org/",
+          "title": "Techfest, IIT Bombay — official fest site",
+          "publisher": "Techfest, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "E-Summit",
+      "type": "entrepreneurship",
+      "month": null,
+      "footfall": null,
+      "url": "https://www.ecell.in/esummit/",
+      "sources": [
+        {
+          "url": "https://www.ecell.in/esummit/",
+          "title": "E-Summit 2026 — E-Cell IIT Bombay",
+          "publisher": "E-Cell IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Aavhan",
+      "type": "sports",
+      "month": "April",
+      "footfall": null,
+      "url": "https://aavhan.in/",
+      "sources": [
+        {
+          "url": "https://aavhan.in/",
+          "title": "Aavhan — IIT Bombay's annual sports festival",
+          "publisher": "Aavhan, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://gymkhana.iitb.ac.in/councils/",
+          "title": "Councils & Bodies — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "TheatreFest",
+      "type": "cultural",
+      "month": "November",
+      "footfall": null,
+      "url": "https://gymkhana.iitb.ac.in/~culturals/fourthwall",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Literarium",
+      "type": "literary",
+      "month": null,
+      "footfall": null,
+      "url": "https://gymkhana.iitb.ac.in/~culturals/literati",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "sports": [
+    {
+      "facility": "Swimming pool, 50 m x 25 m, with a 15 m x 10 m learners' pool",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Indoor badminton hall: 7 air-conditioned synthetic courts (Old Gymkhana)",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Full-size 11-a-side football ground plus a 6-a-side turf (app-bookable)",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "400 m grass athletics track, 100 m synthetic sprint track and field-event zones",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Main cricket ground with floodlights; 4 indoor practice pitches",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Hockey ground within the Gymkhana grounds",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Basketball: 2 indoor courts (Students' Gymkhana) and 2 outdoor courts",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Squash: 3 courts at the New SAC, a fourth under construction",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Table tennis: air-conditioned hall with 8 tables",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Lawn tennis: 6 courts (3 near Convocation Hall, 3 near the Staff Hostel)",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Volleyball: 3 indoor courts at the Gymkhana grounds and 2 floodlit outdoor courts at Old SAC",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Weightlifting room with platforms, plus Old SAC and New SAC gyms",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Indoor kho-kho / kabaddi court",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Board-games room (New SAC, 2nd floor): pool, snooker, foosball, carrom, chess",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Students' Activity Centre (SAC) — Old SAC and New SAC",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/about/",
+          "title": "About — Students' Gymkhana, IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

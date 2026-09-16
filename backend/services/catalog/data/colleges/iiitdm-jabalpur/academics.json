@@ -1,0 +1,248 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "departments": [
+    {
+      "name": "Computer Science & Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Computer Science & Engineering", "durationYears": 4, "intake": 275 },
+        { "degree": "M.Tech", "name": "Computer Science & Engineering", "durationYears": 2, "intake": null },
+        { "degree": "Ph.D", "name": "Computer Science & Engineering", "durationYears": null, "intake": null }
+      ],
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://cse.iiitdmj.ac.in/",
+          "title": "Computer Science & Engineering",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "name": "Electronics & Communication Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Electronics & Communication Engineering", "durationYears": 4, "intake": 140 },
+        { "degree": "M.Tech", "name": "Electronics & Communication Engineering", "durationYears": 2, "intake": null },
+        { "degree": "Ph.D", "name": "Electronics & Communication Engineering", "durationYears": null, "intake": null }
+      ],
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://ece.iiitdmj.ac.in/",
+          "title": "ECE Discipline",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "name": "Mechanical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Mechanical Engineering", "durationYears": 4, "intake": 73 },
+        { "degree": "M.Tech", "name": "Mechanical Engineering", "durationYears": 2, "intake": null },
+        { "degree": "Ph.D", "name": "Mechanical Engineering", "durationYears": null, "intake": null }
+      ],
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/academics/departments",
+          "title": "Academic Departments",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "name": "Smart Manufacturing",
+      "programs": [
+        { "degree": "B.Tech", "name": "Smart Manufacturing", "durationYears": 4, "intake": 70 },
+        { "degree": "M.Tech", "name": "Smart Manufacturing", "durationYears": 2, "intake": null },
+        { "degree": "Ph.D", "name": "Smart Manufacturing", "durationYears": null, "intake": null }
+      ],
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/academics/departments",
+          "title": "Academic Departments",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "name": "Design",
+      "programs": [
+        { "degree": "B.Des", "name": "Design", "durationYears": 4, "intake": 66 },
+        { "degree": "M.Des", "name": "Design", "durationYears": 2, "intake": null },
+        { "degree": "Ph.D", "name": "Design", "durationYears": null, "intake": null }
+      ],
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/academics/departments",
+          "title": "Academic Departments",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "name": "Natural Sciences",
+      "programs": [
+        { "degree": "Ph.D", "name": "Natural Sciences (Physics)", "durationYears": null, "intake": null },
+        { "degree": "Ph.D", "name": "Natural Sciences (Mathematics)", "durationYears": null, "intake": null }
+      ],
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://ns.iiitdmj.ac.in/",
+          "title": "Welcome to Natural Sciences",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Liberal Arts",
+      "programs": [
+        { "degree": "Ph.D", "name": "English", "durationYears": null, "intake": null }
+      ],
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://la.iiitdmj.ac.in/Course%20PhD.html",
+          "title": "Courses - Liberal Arts",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    }
+  ],
+  "facultyCount": {
+    "value": 79,
+    "sources": [
+      {
+        "url": "https://nirf.iiitdmj.ac.in/downloads/NIRF-2025/NIRF%202025%20Overall%20report.pdf",
+        "title": "NIRF 2025 Overall Data Submission",
+        "publisher": "PDPM IIITDM Jabalpur (NIRF Cell)",
+        "accessedOn": "2026-09-16",
+        "asOf": "2024-25",
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2024-25"
+  },
+  "curriculumHighlights": [
+    {
+      "text": "The institute reports having implemented multiple entry/exit into its programmes and having introduced dedicated Indian Knowledge System courses alongside instruction in Indian languages, as declared in its own NIRF 2025 data submission.",
+      "asOf": "2024-25",
+      "sources": [
+        {
+          "url": "https://nirf.iiitdmj.ac.in/downloads/NIRF-2025/NIRF%202025%20Overall%20report.pdf",
+          "title": "NIRF 2025 Overall Data Submission",
+          "publisher": "PDPM IIITDM Jabalpur (NIRF Cell)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "text": "Unlike a typical engineering-only IIIT, the curriculum runs a full Design discipline (B.Des/M.Des) alongside CSE, ECE, Mechanical and Smart Manufacturing, so design students and engineering students share a campus and, in places, coursework.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/academics/departments",
+          "title": "Academic Departments",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "text": "Natural Sciences and Liberal Arts run as supporting departments that teach foundation courses across every branch rather than awarding their own undergraduate degrees, while still running PhD programmes in physics, mathematics and English.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://ns.iiitdmj.ac.in/",
+          "title": "Welcome to Natural Sciences",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    }
+  ],
+  "research": {
+    "note": "The institute's own 2023-24 NIRF submission lists 43 sponsored research projects worth roughly Rs. 2.76 crore from 21 funding agencies, 5 consultancy projects, and 33 patents published with 24 granted that year, alongside a full-time PhD cohort spread across all seven departments.",
+    "phdCount": 165,
+    "sources": [
+      {
+        "url": "https://nirf.iiitdmj.ac.in/downloads/NIRF-2025/NIRF%202025%20Overall%20report.pdf",
+        "title": "NIRF 2025 Overall Data Submission",
+        "publisher": "PDPM IIITDM Jabalpur (NIRF Cell)",
+        "accessedOn": "2026-09-16",
+        "asOf": "2023-24",
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2023-24"
+  }
+}

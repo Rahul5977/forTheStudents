@@ -1,0 +1,113 @@
+{
+  "instituteId": "nit-warangal",
+  "years": [
+    {
+      "year": "2026-27",
+      "program": null,
+      "tuition": 125000,
+      "hostel": null,
+      "mess": null,
+      "other": 42500,
+      "totalYear": 167500,
+      "currency": "INR",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/ug_fee_2026_2026-6-9-13-10-13.pdf",
+          "title": "Total Fee Structure for UG Programs, Academic Year 2026-2027 — B.Tech row (Semester I: tuition Rs 62,500 + other Rs 42,500; Semester II: tuition Rs 62,500)",
+          "publisher": "NIT Warangal — Office of the Dean (Academic)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "year": "2024-25",
+      "program": null,
+      "tuition": null,
+      "hostel": 32000,
+      "mess": null,
+      "other": null,
+      "totalYear": null,
+      "currency": "INR",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/UG_Freshers_Hostel_fee_structure_2024-25_2024-7-11-12-45-21.pdf",
+          "title": "Odd Semester Hostel Fee (UG Students), AY 2024-25 — Boys, I Year, Double occupancy: Maintenance + Seat Rent + Water & Electricity per semester (excludes one-time admission deposit and mess advance)",
+          "publisher": "NIT Warangal Hostels — Office of the Chief Warden",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    }
+  ],
+  "scholarships": [
+    {
+      "name": "Full Tuition Fee Waiver — SC/ST/PwD category",
+      "eligibility": "UG B.Tech students (excluding DASA-General, DASA-CIWG, SII, ICCR seats and the 5-year Integrated M.Sc.) and B.Sc-B.Ed students admitted under SC, ST or PwD category, regardless of family income.",
+      "benefit": "The full per-semester tuition fee is waived for the entire programme duration; hostel, mess and other charges still apply.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/ug_fee_2026_2026-6-9-13-10-13.pdf",
+          "title": "Total Fee Structure for UG Programs, Academic Year 2026-2027 (Note 2)",
+          "publisher": "NIT Warangal — Office of the Dean (Academic)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Tuition Fee Concession by Family Income — Open/EWS/OBC category",
+      "eligibility": "UG B.Tech (same exclusions as above) and B.Sc-B.Ed students of Open, EWS or OBC category whose total family income from all sources is up to Rs 5 lakh a year.",
+      "benefit": "Full tuition fee waiver when annual family income is below Rs 1 lakh; two-thirds of the tuition fee waived when income is between Rs 1 lakh and Rs 5 lakh a year.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/ug_fee_2026_2026-6-9-13-10-13.pdf",
+          "title": "Total Fee Structure for UG Programs, Academic Year 2026-2027 (Notes 3 & 4)",
+          "publisher": "NIT Warangal — Office of the Dean (Academic)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "NSP Top Class Education Scholarship for SC Students",
+      "eligibility": "First-year SC B.Tech students admitted on institute CRL rank with family income up to Rs 8 lakh a year; NIT Warangal gets a fixed yearly quota of fresh slots (16 in 2023-24), 30% reserved for girls by merit; renewal is subject to satisfactory academic progress.",
+      "benefit": "Full tuition-fee waiver, plus (fresh year only) a one-time other-fee reimbursement and laptop allowance, and an annual living-expense plus books/stationery allowance every year. In 2023-24 this totalled about Rs 86,000 (fresh) or Rs 41,000/year (renewal).",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/NSP_SCHOLARSHIP_2023_2023-12-5-10-55-47.pdf",
+          "title": "Scheme-wise Guidelines for National Scholarship Portal (NSP) 2023-24 — Top Class Scholarship for SC Students (p. 3), Ministry of Social Justice & Empowerment",
+          "publisher": "NIT Warangal — Academic Section",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023-24"
+    },
+    {
+      "name": "Institute Merit-cum-Means (MCM) Scholarship",
+      "eligibility": "UG 1st, 2nd and 3rd year B.Tech students who are provisionally shortlisted by the Academic Section each year on a combined merit-and-means basis; awardees submit an acquittance roll confirming they hold no other scholarship or full tuition-fee waiver for the same year.",
+      "benefit": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/Merit_Cum_Means_Scholarship-2023-24_2024-6-12-10-6-26.pdf",
+          "title": "Institute Merit Cum Means Scholarship 2023-24 — Notice to UG 1st/2nd/3rd year students",
+          "publisher": "NIT Warangal — Academic Section",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023-24"
+    }
+  ]
+}

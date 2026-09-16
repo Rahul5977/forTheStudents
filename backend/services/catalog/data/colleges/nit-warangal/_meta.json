@@ -1,0 +1,15 @@
+{
+  "instituteId": "nit-warangal",
+  "collectedOn": "2026-09-16",
+  "packets": [
+    "B",
+    "C",
+    "D"
+  ],
+  "verifierReport": {
+    "checked": 13,
+    "confirmed": 13,
+    "nulled": [],
+    "notes": "Adversarial verification against live/cited sources for nit-warangal. Checked: (1) profile.json location.campusAcres 250 [Communication Handbook 2024 PDF, text-extracted: 'a self-contained campus spread over a land of 250 acres', also confirmed 400 faculty/~7000 students/13 departments/10 B.Tech programmes/foundation 10 Oct 1959/150km RGIA/2km Kazipet/14km Warangal station in the same PDF]; (2) academics.json full department intake table incl. CSE 134, CSE-AIDS 56, EEE 115+30, ME 129, ECE 99+40, MME 59+12, Chem 97+12, Biotech 71, Math&Computing 29, Integrated M.Sc. Math/Physics/Chem 19 each, total 1049 [nitw.ac.in/adm/ Bachelor's tab, rendered live in-browser, exact match on every row]; (3) academics.json facultyCount.value 398 [NIRF 2025 IR-O-U-0025.pdf, 'Faculty Details: Number of faculty members entered = 398', exact]; (4) academics.json research.phdCount 1075 [same NIRF PDF, Ph.D Student Details: Full Time 642 + Part Time 433 = 1075, exact]; (5) academics.json research.note figures - 125 PhDs awarded 2023-24 (101 FT + 24 PT), 161 sponsored projects/39 funding agencies/~Rs19.4cr (Rs 19,42,70,599 in words), 107 consultancy projects/84 client orgs/~Rs2.9cr (Rs 29,40,6499 in words) [same NIRF PDF, exact]; (6) rankings.json NIRF Engineering: 2023=21, 2024=21, 2025=28; NIRF Overall: 2023=53, 2024=53, 2025=63 [nirfindia.org live ranking tables for all three years, IR-E-U-0025/IR-O-U-0025 rows, exact rank and score match for every year]; (7) rankings.json qs.asia 771 (band 771-780, Southern Asia band 240) [topuniversities.com live profile page, 'Asian University Rankings #771-780', confirmed not listed in QS World Rankings]; (8) placements.json 2025-26 UG: avgLpa 18.6, medianLpa 15, highestLpa 127, pctPlaced 93.94, ppos 6, plus all 8 branch-wise avg/median/pctPlaced rows [CCPD placement-stats-2025-26 PDF 'Total (UG)' row and per-branch rows, exact match]; (9) placements.j... (truncated)"
+  }
+}

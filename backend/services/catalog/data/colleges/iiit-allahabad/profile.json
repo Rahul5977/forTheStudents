@@ -1,0 +1,150 @@
+{
+  "instituteId": "iiit-allahabad",
+  "officialName": "Indian Institute of Information Technology, Allahabad",
+  "short": "IIIT Allahabad",
+  "type": "IIIT",
+  "established": 1999,
+  "website": "https://www.iiita.ac.in",
+  "about": "IIIT Allahabad is a centrally funded IIIT set up in 1999 and declared an Institute of National Importance under the IIIT Act in 2014. It is a compact, fully residential campus of about 100 acres at Jhalwa on the edge of Prayagraj, laid out on a Penrose-geometry plan, with four departments: Information Technology, Electronics and Communication Engineering, Applied Sciences and Management Studies. Undergraduate intake is concentrated in three B.Tech streams (IT, ECE and IT with Business Informatics) plus five-year dual degrees, and the institute has held a NIRF Engineering rank in the 87-103 range in recent years. Its strengths lie in computing research areas such as AI, robotics, computer vision, cryptography and bioinformatics, run through dedicated centres alongside the departments.",
+  "location": {
+    "city": "Prayagraj",
+    "state": "Uttar Pradesh",
+    "campusAcres": 100,
+    "nearestAirport": null,
+    "nearestRailway": null,
+    "connectivityNote": "The campus sits at Devghat, Jhalwa (PIN 211015) on the western outskirts of Prayagraj. The institute's own reach-us page gives only the postal address and a Google Maps link, so confirm airport and railway distances with the institute or a map before travelling.",
+    "sources": [
+      {
+        "url": "https://www.iiita.ac.in/about-us",
+        "title": "About IIITA - 100-acre campus at Deoghat, Jhalwa; fully residential; Penrose geometry layout",
+        "publisher": "IIIT Allahabad",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iiita.ac.in/reach-us",
+        "title": "How to reach IIIT Allahabad - address Jhalwa, Prayagraj 211015 and map link only",
+        "publisher": "IIIT Allahabad",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "admissionRoutes": [
+    {
+      "route": "josaa",
+      "programs": [
+        "B.Tech (Information Technology)",
+        "B.Tech (Electronics and Communication Engineering)",
+        "B.Tech (Information Technology-Business Informatics)",
+        "Dual Degree B.Tech-M.Tech (IT)",
+        "Dual Degree B.Tech-M.Tech (ECE)",
+        "Dual Degree B.Tech (IT-BI)-MBA"
+      ],
+      "note": "JEE Main rank; seats are allotted through JoSAA counselling. The institute's 2026 seat table lists 242 IT, 121 ECE and 40 IT-BI seats for the JoSAA/CSAB pool, plus 25 (IT-M.Tech), 11 (ECE-M.Tech) and 22 (IT-BI-MBA) dual-degree seats.",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/how-apply",
+          "title": "How to Apply - B.Tech and dual degree seat table 2026 (CSAB/JoSAA, DASA, SII columns)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiita.ac.in/eligibility-criteria",
+          "title": "Eligibility Criteria - B.Tech admission on JEE Main merit through centralized allocation (CSAB/JoSAA)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "route": "csab",
+      "programs": [
+        "B.Tech (Information Technology)",
+        "B.Tech (Electronics and Communication Engineering)",
+        "B.Tech (Information Technology-Business Informatics)",
+        "Dual Degree B.Tech-M.Tech (IT)",
+        "Dual Degree B.Tech-M.Tech (ECE)",
+        "Dual Degree B.Tech (IT-BI)-MBA"
+      ],
+      "note": "Seats left vacant after the JoSAA rounds are filled through CSAB special rounds on JEE Main merit; the institute lists the JoSAA and CSAB seats as one pool.",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/how-apply",
+          "title": "How to Apply - 'Apply online through CSAB / JoSAA counseling based on JEE Main criteria'",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "route": "other",
+      "programs": [
+        "B.Tech (Information Technology)",
+        "B.Tech (Electronics and Communication Engineering)",
+        "B.Tech (Information Technology-Business Informatics)",
+        "Dual Degree B.Tech-M.Tech (IT)",
+        "Dual Degree B.Tech-M.Tech (ECE)",
+        "Dual Degree B.Tech (IT-BI)-MBA"
+      ],
+      "note": "Supernumerary seats for foreign nationals and NRIs under DASA and for Study in India (SII): the 2026 table shows 36 DASA + 29 SII seats in IT, 18 + 12 in ECE, 6 DASA in IT-BI, and 4, 2 and 3 DASA seats in the three dual degrees.",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/how-apply",
+          "title": "How to Apply - DASA and SII seat columns in the 2026 B.Tech seat table",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.iiita.ac.in/about-us",
+      "title": "About IIITA - established 1999; deemed university 2000; Institute of National Importance by Act of Parliament 2014; 100-acre campus",
+      "publisher": "IIIT Allahabad",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.iiita.ac.in",
+      "title": "IIIT Allahabad home - official name, four departments, address Devghat, Jhalwa, Prayagraj-211015",
+      "publisher": "IIIT Allahabad",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.iiita.ac.in/nirf-rankings",
+      "title": "IIITA rankings page - NIRF Engineering 103 (2020), 87 (2021), 93 (2022), 89 (2023), 87 (2024), 101-150 (2025)",
+      "publisher": "IIIT Allahabad",
+      "accessedOn": "2026-09-13",
+      "asOf": "2025",
+      "confidence": "official"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Allahabad",
+      "title": "Wikipedia infobox (facts cross-check): established 12 August 1999; 40 ha (100 acres); INI 2014",
+      "publisher": "Wikipedia",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "secondary"
+    }
+  ],
+  "asOf": "2026"
+}

@@ -1,0 +1,144 @@
+{
+  "instituteId": "iit-bombay",
+  "count": 21,
+  "capacity": null,
+  "occupancy": "Rooms are described as double occupancy with a bed, study table, chair and cupboard; sharing varies by hostel.",
+  "messNote": "Every hostel runs its own mess serving four meals a day; mess quality, guidelines and rebates are handled by hostel mess councillors and the Hostel Affairs Council.",
+  "hostels": [
+    {
+      "name": "Hostel 1",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 2",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 3",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 4",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 5",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 6",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 7",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 8",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 9",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 10",
+      "gender": "girls"
+    },
+    {
+      "name": "Hostel 11",
+      "gender": "girls"
+    },
+    {
+      "name": "Hostel 12",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 13",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 14",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 15",
+      "gender": "girls"
+    },
+    {
+      "name": "Hostel 16",
+      "gender": "mixed"
+    },
+    {
+      "name": "Hostel 17",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 18",
+      "gender": "boys"
+    },
+    {
+      "name": "Hostel 19",
+      "gender": "unknown"
+    },
+    {
+      "name": "Hostel 21",
+      "gender": "girls"
+    },
+    {
+      "name": "Tansa House",
+      "gender": "boys"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://gymkhana.iitb.ac.in/~hostelaffairs/",
+      "title": "Hostel Affairs Council (HAC), IIT Bombay",
+      "publisher": "IIT Bombay Students' Gymkhana",
+      "accessedOn": "2026-09-13",
+      "asOf": "2026-27",
+      "confidence": "official"
+    },
+    {
+      "url": "https://gymkhana.iitb.ac.in/~hostelaffairs/hostels/",
+      "title": "Hostels Directory — Hostel Affairs Council, IIT Bombay",
+      "publisher": "IIT Bombay Students' Gymkhana",
+      "accessedOn": "2026-09-13",
+      "asOf": "2026-27",
+      "confidence": "official"
+    },
+    {
+      "url": "https://gymkhana.iitb.ac.in/about/",
+      "title": "About — Students' Gymkhana, IIT Bombay",
+      "publisher": "IIT Bombay Students' Gymkhana",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://gymkhana.iitb.ac.in/students/housing.html",
+      "title": "Hostel accommodation — Dean of Student Affairs, IIT Bombay",
+      "publisher": "IIT Bombay",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.iitb.ac.in/students/students-affair-office",
+      "title": "Student Affairs Office — IIT Bombay",
+      "publisher": "IIT Bombay",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://gymkhana.iitb.ac.in/sports/",
+      "title": "Institute Sports Council — Boys' GC / Girls' GC hostel standings",
+      "publisher": "IIT Bombay Students' Gymkhana",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "inferred"
+    }
+  ],
+  "asOf": "2026-27"
+}

@@ -1,0 +1,943 @@
+{
+  "instituteId": "nit-trichy",
+  "summary": {
+    "text": "Campus life at NIT Trichy revolves around a large residential campus where nearly all students live in hostels. Student activity is organised under the Dean (Students' Welfare) into technical, cultural and social clubs, each with a faculty advisor, and the calendar is anchored by three student-run flagship events: Pragyan (techno-managerial fest, started 2005), Festember (cultural fest, started 1975, held in September) and NITTFEST, the inter-departmental cultural competition. Every department also runs its own two-day technical symposium, and the year in sports closes with Sportsfete. Facilities include a sports centre, a 400 m outdoor stadium and a 25 m pool.",
+    "sources": [
+      {
+        "url": "https://www.nitt.edu/home/students/clubsnassocs/",
+        "title": "Clubs and Associations – Students Welfare",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nitt.edu/home/students/events/",
+        "title": "Events – Students Welfare",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+        "title": "Physical Education / Sports Center / SAS Office",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/hostels/",
+        "title": "Hostels – Hostels and Mess (hostel details table)",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "clubs": [
+    {
+      "name": "Delta Force",
+      "category": "technical",
+      "note": "Official programming club and web cell; builds and runs the institute website and the web fronts of Pragyan and Festember.",
+      "url": "https://delta.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://delta.nitt.edu/",
+          "title": "Delta Force – the official programming club and web cell of NIT Trichy",
+          "publisher": "Delta Force, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Spider R&D",
+      "category": "technical",
+      "note": "Student research-and-development group for software and hardware projects; listed as a technical club in the faculty-advisor roster.",
+      "url": "https://spider.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://spider.nitt.edu/",
+          "title": "Spider R&D – official site",
+          "publisher": "Spider R&D, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "RMI (Robotics and Machine Intelligence)",
+      "category": "technical",
+      "note": "Robotics club that runs beginner workshops and events such as Genesis, RMI Hackathon and Robovigyan, plus the Pragyan exhibition.",
+      "url": "https://rmi.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://rmi.nitt.edu/",
+          "title": "RMI – Robotics and Machine Intelligence, NIT Trichy",
+          "publisher": "RMI, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Nakshatra",
+      "category": "technical",
+      "note": "Astronomy and science club: stargazing sessions, sky-mapping workshops, blogs and its flagship festival Stardust.",
+      "url": "https://nakshatra.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://nakshatra.nitt.edu/",
+          "title": "Nakshatra – the official astronomy and science club of NIT Trichy",
+          "publisher": "Nakshatra, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Sigma – The Business Club",
+      "category": "entrepreneurship",
+      "note": "Business club working across projects, data analytics, case studies and consulting; hosts guest lectures, workshops and competitions.",
+      "url": "https://sigma.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://sigma.nitt.edu/",
+          "title": "SIGMA – The Business Club of NITT",
+          "publisher": "Sigma, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2026-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2026–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "ProfNITT",
+      "category": "other",
+      "note": "Finance and investments club focused on financial literacy through panel discussions, guest lectures and finance events.",
+      "url": "https://profnitt.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://profnitt.nitt.edu/",
+          "title": "ProfNITT – the finance and investments club of NIT Trichy",
+          "publisher": "ProfNITT, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2026-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2026–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "E-Cell",
+      "category": "entrepreneurship",
+      "note": "Entrepreneurship cell of the institute; Listed under technical clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2026-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2026-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2026–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "180DC (180 Degrees Consulting)",
+      "category": "other",
+      "note": "Listed under technical clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "PSI Racing",
+      "category": "technical",
+      "note": "Listed under technical clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "3D Aeromodelling",
+      "category": "technical",
+      "note": "Listed under technical clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Designer's Consortium",
+      "category": "technical",
+      "note": "Listed under technical clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "EVER",
+      "category": "technical",
+      "note": "Listed under technical clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Graphique",
+      "category": "technical",
+      "note": "Design club; Listed under technical clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Maximus",
+      "category": "technical",
+      "note": "Listed under technical clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Music Troupe",
+      "category": "cultural",
+      "note": "Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Dance Troupe",
+      "category": "cultural",
+      "note": "Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "The Thespians' Society",
+      "category": "cultural",
+      "note": "Dramatics society; Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Fine Arts",
+      "category": "cultural",
+      "note": "Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Feeds",
+      "category": "cultural",
+      "note": "Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Tamil Mandram",
+      "category": "cultural",
+      "note": "Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Aayaam",
+      "category": "cultural",
+      "note": "Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Spic Macay",
+      "category": "cultural",
+      "note": "Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "TEDx NIT Trichy",
+      "category": "other",
+      "note": "Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Pixel Bug",
+      "category": "media",
+      "note": "Photography club; Listed under cultural clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Lakshya",
+      "category": "cultural",
+      "note": "NCC A-Flight cadets' club that runs the annual defence and civil-services festival of the same name; started in 2012.",
+      "url": "https://lakshya.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://lakshya.nitt.edu/",
+          "title": "Lakshya – Defence and Civil Services Festival of NIT Trichy",
+          "publisher": "Lakshya (NCC A-Flight), NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Akkara",
+      "category": "social",
+      "note": "Listed under social clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Ignitte",
+      "category": "social",
+      "note": "Listed under social clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Leap",
+      "category": "social",
+      "note": "Listed under social clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Prakruti",
+      "category": "social",
+      "note": "Listed under social clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    },
+    {
+      "name": "Pupil for Pupil Committee",
+      "category": "social",
+      "note": "Listed under social clubs in the Dean (Students' Welfare) faculty-advisor roster for AY 2025-27.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/clubsnassocs/Faculty_Advisors_Clubs_2025-27.pdf",
+          "title": "Faculty Advisors for Clubs (AY 2025–2027), Office of the Dean (Students' Welfare)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-27"
+    }
+  ],
+  "fests": [
+    {
+      "name": "Pragyan",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": "https://pragyan.org/",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/pragyan/",
+          "title": "Pragyan – Technical Festival (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://pragyan.org/",
+          "title": "Pragyan '26 – official fest site",
+          "publisher": "Pragyan, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Festember",
+      "type": "cultural",
+      "month": "September",
+      "footfall": 15000,
+      "url": "https://festember.com/",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/festember/",
+          "title": "Festember – Cultural Festival (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://festember.com/",
+          "title": "Festember '26 – official fest site (footer links)",
+          "publisher": "Festember, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "NITTFEST",
+      "type": "cultural",
+      "month": null,
+      "footfall": null,
+      "url": "https://www.nittfest.in/",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/nittfest/",
+          "title": "NITTFEST – Inter Departmental Cultural Festival (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nittfest.in/",
+          "title": "NITTFEST '26 – official fest site",
+          "publisher": "NITTFEST, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Sportsfete",
+      "type": "sports",
+      "month": null,
+      "footfall": null,
+      "url": "https://sportsfete.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/sportsfete/",
+          "title": "Sportsfete (institute events page)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://sportsfete.nitt.edu/",
+          "title": "Sportsfete '26 – official site",
+          "publisher": "Sportsfete, NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Lakshya (Defence and Civil Services Festival)",
+      "type": "other",
+      "month": null,
+      "footfall": null,
+      "url": "https://lakshya.nitt.edu/",
+      "sources": [
+        {
+          "url": "https://lakshya.nitt.edu/",
+          "title": "Lakshya – Defence and Civil Services Festival of NIT Trichy",
+          "publisher": "Lakshya (NCC A-Flight), NIT Trichy",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Department technical symposia (Vortex, Probe, Currents, Synergy, Sensors, Moments, Prodigy…)",
+      "type": "technical",
+      "month": null,
+      "footfall": null,
+      "url": "https://www.nitt.edu/home/students/events/symposiums/",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/events/symposiums/",
+          "title": "Symposiums (department technical symposia list)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "sports": [
+    {
+      "facility": "Sports Centre (1999) with indoor stadium – two shuttle (badminton) courts",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Fitness centre with wooden flooring (multi-station gym, treadmill, rowing machine, exercycle)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Outdoor stadium with 400 m track",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Cricket ground (hosts city-league matches)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Two football grounds",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "One hockey field",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Two volleyball courts",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Two basketball courts (plus two international-standard courts behind the pool)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Three tennis courts",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Two ball badminton courts",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Hostel playgrounds and indoor games (table tennis, carrom)",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "NSO (National Sports Organisation) credit activity for UG students",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Aqua Sports Complex (2003) – 25 m swimming pool with men's and women's coaches",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/",
+          "title": "Physical Education / Sports Center / SAS Office",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/sportscenter/swimmingpool/",
+          "title": "The Swimming Pool – Sports Center",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

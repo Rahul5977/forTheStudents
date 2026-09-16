@@ -1,0 +1,123 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "years": [
+    {
+      "year": "2026-27",
+      "program": null,
+      "tuition": 143500,
+      "hostel": 22000,
+      "mess": 30000,
+      "other": 30500,
+      "totalYear": 226000,
+      "currency": "INR",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/academics/download/fee-structure-2026-27/Fee%20Structure%202026%20Batch%20(UG).pdf",
+          "title": "Fee Structure for Session 2026-27 — B.Tech/B.Des 2026 Batch",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2027-28",
+      "program": null,
+      "tuition": 143500,
+      "hostel": 22000,
+      "mess": 30000,
+      "other": 15000,
+      "totalYear": 210500,
+      "currency": "INR",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/academics/download/fee-structure-2026-27/Fee%20Structure%202026%20Batch%20(UG).pdf",
+          "title": "Fee Structure for Session 2026-27 — B.Tech/B.Des 2026 Batch",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2028-29",
+      "program": null,
+      "tuition": 143500,
+      "hostel": 22000,
+      "mess": 30000,
+      "other": 15000,
+      "totalYear": 210500,
+      "currency": "INR",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/academics/download/fee-structure-2026-27/Fee%20Structure%202026%20Batch%20(UG).pdf",
+          "title": "Fee Structure for Session 2026-27 — B.Tech/B.Des 2026 Batch",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2029-30",
+      "program": null,
+      "tuition": 143500,
+      "hostel": 22000,
+      "mess": 30000,
+      "other": 15000,
+      "totalYear": 210500,
+      "currency": "INR",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/academics/download/fee-structure-2026-27/Fee%20Structure%202026%20Batch%20(UG).pdf",
+          "title": "Fee Structure for Session 2026-27 — B.Tech/B.Des 2026 Batch",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ]
+    }
+  ],
+  "scholarships": [
+    {
+      "name": "Merit Cum Means (MCM) Scholarship / Freeship",
+      "eligibility": "UG B.Tech/B.Des students in the top 10% of their discipline's batch by merit — JEE/UCEED rank in year one, then CPI 8.0 (General/OBC/EWS) or 7.0 (SC/ST) from year two — with family income up to Rs 8 lakh in the preceding financial year and a clean disciplinary record; reapplied for each session.",
+      "benefit": "A tuition-fee waiver ('freeship') for the academic session, granted to the merit-and-income-eligible share of each discipline's batch; the institute's notice does not publish a fixed rupee value for the waiver, and hostel, mess and other semester dues remain payable.",
+      "asOf": "2025-26",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/downloads/scholarship/Notice%20for%20MCM%20&%20Single%20Parent%20scholarship%20AY%202025-26.pdf",
+          "title": "Notice for Merit Cum Means (MCM) Scholarship & Single Parent Fee Waiver, AY 2025-26",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Single Parent Fee Waiver",
+      "eligibility": "UG B.Tech/B.Des students who lose the family's only earning member after joining the institute, maintain a CPI of at least 7.0 from the second year onward, and have a clean disciplinary record for the previous academic year; unlike the MCM scholarship, no family-income ceiling applies.",
+      "benefit": "Full waiver of the tuition-fee component of the semester fee, from the semester the loss occurs through graduation, subject to an affidavit declaring no earning family member and prompt reporting of any change in status; hostel, mess and other semester charges remain payable.",
+      "asOf": "2025-26",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/downloads/scholarship/Notice%20for%20MCM%20&%20Single%20Parent%20scholarship%20AY%202025-26.pdf",
+          "title": "Notice for Merit Cum Means (MCM) Scholarship & Single Parent Fee Waiver, AY 2025-26",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ]
+    }
+  ]
+}

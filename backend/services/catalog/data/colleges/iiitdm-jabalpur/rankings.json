@@ -1,0 +1,87 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "nirf": [
+    {
+      "year": 2022,
+      "overall": null,
+      "engineering": 82,
+      "asOf": "2022",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2022",
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "overall": null,
+      "engineering": 97,
+      "asOf": "2023",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "overall": null,
+      "engineering": null,
+      "asOf": "2024",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur (NIRF Engineering band 101-150)",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://nirf.iiitdmj.ac.in/downloads/NIRF%202024%20Overall.pdf",
+          "title": "NIRF 2024 Overall Data Submission",
+          "publisher": "PDPM IIITDM Jabalpur (NIRF Cell)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "overall": null,
+      "engineering": null,
+      "asOf": "2025",
+      "sources": [
+        {
+          "url": "https://www.shiksha.com/university/iiitdm-jabalpur-indian-institute-of-information-technology-design-and-manufacturing-54218/ranking",
+          "title": "IIITDM Jabalpur Ranking 2025: NIRF (Engineering band 101-150)",
+          "publisher": "Shiksha",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://nirf.iiitdmj.ac.in/downloads/NIRF-2025/NIRF%202025%20Overall%20report.pdf",
+          "title": "NIRF 2025 Overall Data Submission",
+          "publisher": "PDPM IIITDM Jabalpur (NIRF Cell)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "official"
+        }
+      ]
+    }
+  ],
+  "qs": [],
+  "naac": null
+}

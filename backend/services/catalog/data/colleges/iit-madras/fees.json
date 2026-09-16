@@ -1,0 +1,377 @@
+{
+  "instituteId": "iit-madras",
+  "years": [
+    {
+      "year": "2026-27",
+      "program": null,
+      "tuition": 200000,
+      "hostel": 31500,
+      "mess": 37758,
+      "other": 56902,
+      "totalYear": 326160,
+      "currency": "INR",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/fees_structure_2026_admission_ug_pg.pdf",
+          "title": "Fees Circular for the New Students (UG & PG) of 2026 Batch — Annexure I, B.Tech/B.S/Dual Degree fee structure 2026-27 (tuition Rs 1,00,000 per semester; one-time fees Rs 21,000)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/Hostel_fee_circular_for_jul_nov_2026.pdf",
+          "title": "Hostel Fees Circular for Jul–Nov 2026 Semester (new B.Tech/BS/DD admission Rs 28,250 incl. Rs 5,000 deposit; advance mess Rs 18,879 non-veg / Rs 18,026 veg for 116 days)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "Jul–Nov 2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/hostel_fee_circular_jan_may_2026.pdf",
+          "title": "Hostel Fees Circular for Jan–May 2026 Semester (advance mess Rs 19,693 non-veg / Rs 18,803 veg for 121 days at Rs 163 / Rs 155 per day incl. GST)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "Jan–May 2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/fees",
+          "title": "Fees — Academic Services, IIT Madras (semester fee payment through the Integrated Fee Payment Portal; late fee; dual-degree students pay M.Tech fees from the 9th semester)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "year": "2025-26",
+      "program": null,
+      "tuition": 200000,
+      "hostel": 31500,
+      "mess": null,
+      "other": 28402,
+      "totalYear": null,
+      "currency": "INR",
+      "asOf": "2025-26",
+      "sources": [
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/institute_fee_circular_jul_nov_2025.pdf",
+          "title": "Institute Fee Circular for Jul–Nov 2025 Semester — Annexure IA: B.Tech & B.S existing students (2024 batch total Rs 1,15,402 per semester for family income above Rs 5 lakh)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/hostel_fee_circular_jul_nov_2025.pdf",
+          "title": "Hostel Fees Circular for July–November 2025 Semester (Rs 15,750 per semester recurring; Rs 5,000 refundable deposit for new admission; mess advance to be finalised)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "Jul–Nov 2025",
+          "confidence": "official"
+        }
+      ]
+    }
+  ],
+  "scholarships": [
+    {
+      "name": "Full tuition fee remission (family income below Rs 1 lakh)",
+      "eligibility": "General, OBC-NCL and EWS B.Tech/BS/Dual Degree students whose family income is under Rs 1 lakh a year; a valid income certificate has to be uploaded through the institute's SSP portal.",
+      "benefit": "The entire tuition fee (Rs 1,00,000 per semester in 2026-27) is waived; only the other institute charges remain, so a 2026 entrant pays Rs 41,402 in the first semester instead of Rs 1,41,402.",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/fees_structure_2026_admission_ug_pg.pdf",
+          "title": "Fees Circular for the New Students (UG & PG) of 2026 Batch — notes on tuition remission by family income",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Two-thirds tuition fee remission (family income Rs 1–5 lakh)",
+      "eligibility": "General, OBC-NCL and EWS undergraduate students with family income between Rs 1 lakh and Rs 5 lakh a year, supported by a valid income certificate.",
+      "benefit": "Two-thirds of tuition is remitted, leaving about Rs 33,333 of tuition per semester; the circular puts first-semester payable for this band at Rs 74,735 versus Rs 1,41,402 at full fee.",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/fees_structure_2026_admission_ug_pg.pdf",
+          "title": "Fees Circular for the New Students (UG & PG) of 2026 Batch — notes on tuition remission by family income",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Tuition fee exemption for SC, ST and PwD students",
+      "eligibility": "Every Indian student admitted under the SC, ST or PwD categories, in all programmes.",
+      "benefit": "No tuition fee at all; the remaining institute charges for a 2026 UG entrant come to Rs 41,402 in the first semester. Those on the Institute SC/ST scholarship are also exempt from seat rent.",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/fees_structure_2026_admission_ug_pg.pdf",
+          "title": "Fees Circular for the New Students (UG & PG) of 2026 Batch — SC/ST/PwD tuition exemption",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/institute_fee_circular_jul_nov_2025.pdf",
+          "title": "Institute Fee Circular for Jul–Nov 2025 Semester — SC/ST scholarship holders exempt from seat rent",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Institute Merit-cum-Means Scholarship",
+      "eligibility": "Parents' annual income up to Rs 4,50,000; offered to up to 25% of the admitted students and renewed each semester only if the previous semester's GPA is at least 5.0.",
+      "benefit": "Exemption from 67% of the tuition fee.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Scholarships Offered by the Institute)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Institute Free Studentship",
+      "eligibility": "Same means test as the Merit-cum-Means scheme: parents' annual income up to Rs 4,50,000, available to up to 25% of admitted students, renewable each semester with a GPA of at least 5.0.",
+      "benefit": "Exemption from 67% of the tuition fee.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Scholarships Offered by the Institute)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Institute SC/ST Scholarship",
+      "eligibility": "SC/ST students whose parents' annual income does not exceed Rs 4,50,000; renewed every semester subject to a GPA of at least 5.0 in the previous semester.",
+      "benefit": "Free messing plus a pocket allowance of Rs 250 per month, on top of the tuition fee exemption; the hostel circular notes advance mess charges for these students are paid by the institute.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Institute SC/ST Scholarship)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/Hostel_fee_circular_for_jul_nov_2026.pdf",
+          "title": "Hostel Fees Circular for Jul–Nov 2026 Semester — note on advance mess charges for SC/ST scholarship students",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "Jul–Nov 2026",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Institute Notional Prize",
+      "eligibility": "Awarded on JEE rank to students whose parents' annual income is within Rs 4,50,000; reaches about 7% of the admitted batch.",
+      "benefit": "A one-time grant of Rs 1,000.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Institute Notional Prize)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Alumni / CSR-funded Merit-cum-Means Scholarship",
+      "eligibility": "B.Tech and Dual Degree students; Category A covers parental income of Rs 1–5 lakh a year, Category B covers Rs 5–8 lakh subject to merit and availability of donor funds.",
+      "benefit": "Category A: Rs 66,667 a year (one-third of tuition) for up to four years, paid half each semester; Category B: up to Rs 2,00,000 a year (full tuition), subject to funds.",
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://acr.iitm.ac.in/merit-cum-means-scholarship/",
+          "title": "Merit-cum-Means Scholarship — Office of Alumni and Corporate Relations, IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/all-eligible-btech-students-iit-madras-get-financial-aid",
+          "title": "All eligible BTech students at IIT Madras get financial aid to pursue studies, thanks to alumni and CSR partners (press release, 8 Feb 2024: 490 students in 2022-23, 495 in 2023-24, Rs 66,667 each)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-02-08",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Central Sector Scholarship for SC students (Ministry of Social Justice & Empowerment)",
+      "eligibility": "The top 10 SC entrants by JEE rank with parental income up to Rs 4.5 lakh; only B.Tech, Dual Degree and MBA students qualify.",
+      "benefit": "One-time Rs 45,000 towards a personal computer, Rs 2,200 a month for living expenses, Rs 3,000 a year for books and stationery, and reimbursement of fees.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Other Scholarships)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Central Sector Scholarship for ST students (Ministry of Tribal Affairs)",
+      "eligibility": "The top 5 ST entrants by JEE rank with parental income up to Rs 6 lakh; B.Tech, Dual Degree and MBA students only; renewed on passing each year's final examination.",
+      "benefit": "One-time Rs 45,000 for a personal computer, Rs 2,200 a month living expenses, Rs 3,000 a year for books and stationery, plus fee reimbursement.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Other Scholarships)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Merit-cum-Means Scholarship for minority communities (Ministry of Minority Affairs)",
+      "eligibility": "Students from Muslim, Christian, Sikh, Buddhist or Parsi communities with parental income up to Rs 2.5 lakh a year; 30% of awards are reserved for girls; renewed on passing each year.",
+      "benefit": "Maintenance allowance of Rs 10,000 a year for hostellers (Rs 5,000 for day scholars) plus course-fee reimbursement of up to Rs 20,000 or the actual fee, whichever is lower.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Other Scholarships)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Aditya Birla Scholarship",
+      "eligibility": "Chosen by the Aditya Birla Group from among the institute's top 20 entrants by JEE rank; renewal follows the group's own norms.",
+      "benefit": "Rs 60,000 a year, renewable annually.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Other Scholarships)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "OPJEMS (O.P. Jindal Engineering and Management Scholarship)",
+      "eligibility": "Selected from the top 20 by JEE rank in the first year; in later semesters selection is by CGPA among the top 20.",
+      "benefit": "Rs 65,000 a year for B.Tech students.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Other Scholarships)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "INSPIRE Scholarship (Department of Science and Technology)",
+      "eligibility": "All students admitted to the five-year BS-MS Dual Degree programmes.",
+      "benefit": "Rs 80,000 per student per year for the five years of the programme.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Other Scholarships)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Scholarship for single girl child (Ministry of Education)",
+      "eligibility": "Single girl children admitted to the institute, as per Government of India norms.",
+      "benefit": "Rs 40,000 a year.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance — IIT Madras (Other Scholarships)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "name": "Education loans (PM-Vidyalaxmi / Vidyalakshmi scheme)",
+      "eligibility": "Students who still have a tuition balance after remission and who meet the scheme's criteria; loan payments are reported through the institute's fee portal.",
+      "benefit": "Bank education loan for the payable tuition portion; the 2025 circular calls the Vidyalakshmi tuition loan interest-free, and the 2026 circular points entrants to the PM-Vidyalaxmi portal.",
+      "asOf": "2026-27",
+      "sources": [
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/fees_structure_2026_admission_ug_pg.pdf",
+          "title": "Fees Circular for the New Students (UG & PG) of 2026 Batch — Educational Loans note (PM-Vidyalaxmi)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/institute_fee_circular_jul_nov_2025.pdf",
+          "title": "Institute Fee Circular for Jul–Nov 2025 Semester — Educational Loans note (Vidyalakshmi scheme)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/tuition_fee_loan.pdf",
+          "title": "Payment of Institute Fees through Bank Loan — IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    }
+  ]
+}

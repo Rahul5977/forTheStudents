@@ -1,0 +1,120 @@
+{
+  "instituteId": "iit-bombay",
+  "nirf": [
+    {
+      "year": 2023,
+      "overall": 4,
+      "engineering": 3,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2023/OverallRanking.html",
+          "title": "India Rankings 2023: Overall",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2023/EngineeringRanking.html",
+          "title": "India Rankings 2023: Engineering",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "year": 2024,
+      "overall": 3,
+      "engineering": 3,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/OverallRanking.html",
+          "title": "India Rankings 2024: Overall",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/EngineeringRanking.html",
+          "title": "India Rankings 2024: Engineering",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "year": 2025,
+      "overall": 3,
+      "engineering": 3,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/OverallRanking.html",
+          "title": "India Rankings 2025: Overall",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+          "title": "India Rankings 2025: Engineering",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    }
+  ],
+  "qs": [
+    {
+      "year": 2027,
+      "world": 134,
+      "asia": null,
+      "sources": [
+        {
+          "url": "https://www.topuniversities.com/world-university-rankings/2027?search=Indian%20Institute%20of%20Technology%20Bombay",
+          "title": "QS World University Rankings 2027 - Indian Institute of Technology Bombay",
+          "publisher": "QS Quacquarelli Symonds",
+          "accessedOn": "2026-09-13",
+          "asOf": "2027",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2027"
+    },
+    {
+      "year": 2026,
+      "world": 129,
+      "asia": 71,
+      "sources": [
+        {
+          "url": "https://www.topuniversities.com/world-university-rankings/2026?search=Indian%20Institute%20of%20Technology%20Bombay",
+          "title": "QS World University Rankings 2026 - Indian Institute of Technology Bombay",
+          "publisher": "QS Quacquarelli Symonds",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.topuniversities.com/asia-university-rankings?search=Indian%20Institute%20of%20Technology%20Bombay",
+          "title": "QS Asia University Rankings 2026 - Indian Institute of Technology Bombay",
+          "publisher": "QS Quacquarelli Symonds",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    }
+  ],
+  "naac": null
+}

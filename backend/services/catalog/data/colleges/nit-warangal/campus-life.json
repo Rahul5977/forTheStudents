@@ -1,0 +1,746 @@
+{
+  "instituteId": "nit-warangal",
+  "summary": {
+    "text": "Campus life at NIT Warangal is coordinated by the Dean (Student Welfare) through the Student Activity Centre, which organises activity under three umbrella bodies on the Student Council: the Technical, Cultural, and Film & Music Societies, each running specialised clubs from robotics and ham radio to debating, photography, and dance-drama. The Centre for Sports Activities maintains a full stadium complex and runs freshers' tournaments feeding into the annual Inter-NIT Sports Meet. The calendar's two flagship festivals are Technozion, a technical fest held every October since 2006, and Spring Spree, a cultural fest tracing back to 1978 and held every February.",
+    "sources": [
+      {
+        "url": "https://nitw.ac.in/sw",
+        "title": "Dean (Student Welfare) – About / Student Council / Students Clubs",
+        "publisher": "NIT Warangal",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://nitw.ac.in/pe",
+        "title": "Centre for Sports Activities – About",
+        "publisher": "NIT Warangal",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Technozion",
+        "title": "Technozion",
+        "publisher": "Wikipedia",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/SpringSpree",
+        "title": "SpringSpree",
+        "publisher": "Wikipedia",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "secondary"
+      }
+    ],
+    "asOf": null
+  },
+  "clubs": [
+    {
+      "name": "Technical Society",
+      "category": "technical",
+      "note": "One of the three umbrella student societies under the Student Council; runs the technical clubs and elects yearly student representatives.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Student Council – composition & societies (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Cultural Society",
+      "category": "cultural",
+      "note": "One of the three umbrella student societies under the Student Council, covering the campus's cultural and literary clubs.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Student Council – composition & societies (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Film & Music Society",
+      "category": "cultural",
+      "note": "One of the three umbrella student societies under the Student Council, covering performance, media, and finance/entrepreneurship-oriented clubs.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Student Council – composition & societies (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Athletics Society",
+      "category": "sports",
+      "note": "The sports wing among the four society tracks named in the Student Council's secretary/representative structure (Technical, Cultural, Athletics, Film & Music).",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Student Council – composition & societies (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Science & Astronomy Club",
+      "category": "technical",
+      "note": "Technical Society club; runs under a Mechanical Engineering Department faculty coordinator per the students-clubs roster.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Software Development Club",
+      "category": "technical",
+      "note": "Technical Society club focused on student software projects.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "R & D Club",
+      "category": "technical",
+      "note": "Technical Society club for student research and development projects.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Robotics Club",
+      "category": "technical",
+      "note": "Technical Society club that designs and competes with robots; also maintains its own LinkedIn presence.",
+      "url": "https://in.linkedin.com/company/robotics-club-nit-warangal",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://in.linkedin.com/company/robotics-club-nit-warangal",
+          "title": "Robotics Club, NIT Warangal",
+          "publisher": "LinkedIn",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Innovation Garage Club",
+      "category": "technical",
+      "note": "Technical Society club associated with the campus's student prototyping/incubation space.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Models & Prototype Club",
+      "category": "technical",
+      "note": "Technical Society club for building models and prototypes.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Satellite & Electronic Amateurs Club",
+      "category": "technical",
+      "note": "Technical Society club for satellite and amateur-electronics projects.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Sustainability Club",
+      "category": "technical",
+      "note": "Technical Society club for campus sustainability and environmental projects.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "HAM ARC Club",
+      "category": "technical",
+      "note": "Technical Society's amateur (HAM) radio club.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Technical Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Literary & Debating Club",
+      "category": "literary",
+      "note": "Cultural Society club for debate, writing and literary events.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Cultural Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Painting & Animation Club",
+      "category": "cultural",
+      "note": "Cultural Society club for painting and animation.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Cultural Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Photographic Club",
+      "category": "media",
+      "note": "Cultural Society club for campus photography.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Cultural Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Media Club",
+      "category": "media",
+      "note": "Cultural Society club covering campus media and content coverage.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Cultural Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Nature & Value Education Club",
+      "category": "social",
+      "note": "Cultural Society club for nature awareness and value-education activities.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Cultural Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Health & Fitness Club",
+      "category": "sports",
+      "note": "Cultural Society club promoting student health and fitness.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Cultural Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Spic-Macay Heritage Club",
+      "category": "cultural",
+      "note": "Cultural Society chapter of the Spic Macay heritage/classical-arts movement.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Cultural Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Music & Film Club",
+      "category": "cultural",
+      "note": "Film & Music Society club for music and film activities.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Film & Music Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Dance & Dramatic Club",
+      "category": "cultural",
+      "note": "Film & Music Society club for dance and theatre.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Film & Music Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "TED X & Quiz Club",
+      "category": "other",
+      "note": "Film & Music Society club that runs the campus's TEDx chapter and quizzing events.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Film & Music Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Business & Finance Club",
+      "category": "entrepreneurship",
+      "note": "Film & Music Society club for business and finance case studies and events.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Film & Music Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Ek Bharat Shreshtha Bharat Club",
+      "category": "social",
+      "note": "Film & Music Society club running the Government of India's Ek Bharat Shreshtha Bharat cultural-exchange initiative on campus.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Film & Music Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Youth Red Cross Club",
+      "category": "social",
+      "note": "Film & Music Society's Youth Red Cross chapter for blood-donation and welfare drives.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Film & Music Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Entrepreneurship Club",
+      "category": "entrepreneurship",
+      "note": "Film & Music Society's entrepreneurship-focused club (the campus also has an E-Cell that goes by this remit).",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Students Clubs – Film & Music Society (Dean, Student Welfare)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "fests": [
+    {
+      "name": "Technozion",
+      "type": "technical",
+      "month": "October",
+      "footfall": 6000,
+      "url": "https://technozion.nitw.ac.in/",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/ac_26-27_2_r_2026-6-23-13-14-56.pdf",
+          "title": "Autumn Semester Academic Calendar 2026-2027 – Major Activities table (Technozion: Oct 30-31, 2026)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://nitw.ac.in/sw",
+          "title": "Technozion (Dean, Student Welfare page)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Technozion",
+          "title": "Technozion",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Spring Spree",
+      "type": "cultural",
+      "month": "February",
+      "footfall": 10000,
+      "url": "https://springspree.nitw.ac.in/",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/25_26_spring_all_ug_pg_2025-12-4-17-58-19.pdf",
+          "title": "Spring Semester Academic Calendar 2025-2026 – Major Activities table (Spring Spree: Feb 27-28, 2026)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/SpringSpree",
+          "title": "SpringSpree",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Sports Day",
+      "type": "sports",
+      "month": "March",
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/25_26_spring_all_ug_pg_2025-12-4-17-58-19.pdf",
+          "title": "Spring Semester Academic Calendar 2025-2026 – Major Activities table (Sports Day: Mar 13, 2026)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    }
+  ],
+  "sports": [
+    {
+      "facility": "Multipurpose floodlit ground with a standard 400 m track",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Kho-Kho, football and cricket fields, plus 2 floodlit artificial-turf net cricket practice pitches",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Stadium seating galleries and a walking track",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "2 synthetic-surface basketball courts with floodlights and seating galleries",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "2 volleyball courts and 5 tennis courts (2 synthetic, 1 concrete, 2 clay)",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "2 floodlit ball-badminton courts",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Ultra-Mega hostel: 2 shuttle-badminton courts, tennikoit, 2 clay volleyball courts, basketball court",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Gym halls in mega, ultra-mega and DASA hostel blocks; 15 table-tennis tables spread across hostels",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "5 badminton courts in the Chemical & Metallurgical building and 3 in the Science block",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Girls' hostels: concrete basketball & volleyball courts, 2 gym rooms, tennikoit, 2 TT tables",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Faculty Club: multi-gym, billiards, TT, chess, carrom, indoor badminton court, volleyball court",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/pe",
+          "title": "Infrastructure and Facilities – Centre for Sports Activities",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

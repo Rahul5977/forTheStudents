@@ -1,0 +1,522 @@
+{
+  "instituteId": "iiit-allahabad",
+  "summary": {
+    "text": "Student activity at IIIT Allahabad runs through the Gymkhana and about eight official clubs spanning literary, sports, drama, music, technical and audio-visual interests, alongside the separate technical society GeekHaven and the robotics club Robita. The year builds toward two flagship fests: Effervescence, a multi-day cultural gathering in October, and Aparoksha, the technical fest in April, with the sports meet Asmita rounding out the calendar. Sports infrastructure centres on a football ground with an athletics track, a swimming pool, and courts for basketball, tennis, squash and volleyball, plus indoor games at the Student Activity Centre.",
+    "sources": [
+      {
+        "url": "https://placement.iiita.ac.in/student_life.html",
+        "title": "Student Life - TPC | IIITA - fests, societies and clubs overview",
+        "publisher": "IIIT Allahabad",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iiita.ac.in/sports-council",
+        "title": "Sports Council - IIIT Allahabad",
+        "publisher": "IIIT Allahabad",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "clubs": [
+    {
+      "name": "GeekHaven",
+      "category": "technical",
+      "note": "Institute's technical society, organised into nine wings: web dev, app dev, AI/ML, blockchain, cybersecurity, competitive coding, FOSS, design and software dev.",
+      "url": "https://geekhaven.iiita.ac.in/",
+      "sources": [
+        {
+          "url": "https://geekhaven.iiita.ac.in/",
+          "title": "GeekHaven IIITA - official site (wings and description)",
+          "publisher": "GeekHaven, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - GeekHaven description",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Robita",
+      "category": "technical",
+      "note": "Robotics club housed in the Robotics and Machine Intelligence Laboratory; runs LEGO Mindstorm and ROS-based build sessions for beginners upward.",
+      "url": "https://robita.iiita.ac.in/",
+      "sources": [
+        {
+          "url": "https://robita.iiita.ac.in/",
+          "title": "IIITA-Robotics (Robita) - official club site",
+          "publisher": "Robita, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Spirit (Sports Society)",
+      "category": "sports",
+      "note": "Student sports society that runs under the Institute Sports Council, organising inter-hostel and Inter-IIIT sporting events.",
+      "url": "https://spirit.iiita.ac.in/",
+      "sources": [
+        {
+          "url": "https://spirit.iiita.ac.in/",
+          "title": "Spirit - Sports Society, IIIT Allahabad - official club domain",
+          "publisher": "Spirit, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.facebook.com/Spiritiiita/",
+          "title": "Spirit - Sports Society IIITA",
+          "publisher": "Spirit, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Virtuosi (Music Society)",
+      "category": "cultural",
+      "note": "Institute's music club; runs the campus band and stages performances through the year and at Effervescence.",
+      "url": "https://virtuosi.iiita.ac.in/",
+      "sources": [
+        {
+          "url": "https://virtuosi.iiita.ac.in/",
+          "title": "Virtuosi - The Music Society | IIIT-A - official club site",
+          "publisher": "Virtuosi, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Ushma (Dance Club)",
+      "category": "cultural",
+      "note": "Institute's dance club; choreographs and performs at Effervescence and other campus events.",
+      "url": "https://ushma.iiita.ac.in/",
+      "sources": [
+        {
+          "url": "https://ushma.iiita.ac.in/",
+          "title": "Ushma - official club domain, IIIT Allahabad",
+          "publisher": "Ushma, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.askiitians.com/blog/iiit-allahabad-join-avoid/",
+          "title": "IIIT Allahabad: Why to Join It and Why to Avoid It? - club list cross-check",
+          "publisher": "Askiitians",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Rang Tarangani (Dramatics Club)",
+      "category": "cultural",
+      "note": "Institute's theatre club; runs acting and scriptwriting workshops and stages productions in Hindi and English.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://www.askiitians.com/blog/iiit-allahabad-join-avoid/",
+          "title": "IIIT Allahabad: Why to Join It and Why to Avoid It? - dramatics club description",
+          "publisher": "Askiitians",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - Drama listed among the institute's 8 clubs",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "INDEM",
+      "category": "technical",
+      "note": "Student network-development and engineering team that manages campus web services and network resources, and runs periodic technical events.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://indem.iiita.ac.in/",
+          "title": "INDEM - official domain under IIIT Allahabad's network infrastructure",
+          "publisher": "INDEM, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.askiitians.com/blog/iiit-allahabad-join-avoid/",
+          "title": "IIIT Allahabad: Why to Join It and Why to Avoid It? - INDEM description",
+          "publisher": "Askiitians",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Thunderbolt",
+      "category": "other",
+      "note": "Student crew handling stage lighting and sound production for institute fests and events; one of the institute's official clubs.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://thunderbolt.iiita.ac.in/",
+          "title": "Thunderbolt - official club domain, IIIT Allahabad",
+          "publisher": "Thunderbolt, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - audio-lights club listed among the institute's 8 clubs",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Literary Club",
+      "category": "literary",
+      "note": "Listed among the institute's eight official student clubs under the literary category on the Students' Career Progression Office's student-life page.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - literary club listed among the institute's 8 clubs",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Prayaas",
+      "category": "social",
+      "note": "Student-run social-outreach initiative supporting underprivileged children in the surrounding community.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - Prayaas description",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "CodePlus",
+      "category": "technical",
+      "note": "Competitive-programming mentorship program where senior students act as TAs, running coding contests, training sessions and workshops for juniors.",
+      "url": null,
+      "sources": [
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - CodePlus description",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "fests": [
+    {
+      "name": "Effervescence",
+      "type": "cultural",
+      "month": "October",
+      "footfall": null,
+      "url": "https://effervescence.iiita.ac.in/",
+      "sources": [
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - Effervescence, a 5-day cultural and technical fest",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://noticebard.com/effervescence-fest-iiit-allahabad/",
+          "title": "Effervescence: Cultural Fest @ IIIT Allahabad - early October dates",
+          "publisher": "NoticeBard",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://youthincmag.com/effervescence-annual-cultural-fest-of-iiit-allahabad",
+          "title": "Effervescence - Annual Cultural Fest Of IIIT Allahabad - held mid-October",
+          "publisher": "Youth Inc Magazine",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Aparoksha",
+      "type": "technical",
+      "month": "April",
+      "footfall": null,
+      "url": "https://aparoksha.iiita.ac.in/",
+      "sources": [
+        {
+          "url": "https://aparoksha.iiita.ac.in/",
+          "title": "Aparoksha | The Ultimate Tech Fest - official site, Aparoksha 2026 event dates 1-3 April 2026",
+          "publisher": "Aparoksha, IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - Aparoksha, the annual technical festival",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Asmita",
+      "type": "sports",
+      "month": null,
+      "footfall": null,
+      "url": null,
+      "sources": [
+        {
+          "url": "https://placement.iiita.ac.in/student_life.html",
+          "title": "Student Life - TPC | IIITA - Asmita, the annual sports meet",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiita.ac.in/sports-council",
+          "title": "Sports Council - IIIT Allahabad - Inter-IIIT Sports Meet participation",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "sports": [
+    {
+      "facility": "Football ground with spectator stands, used as the primary sports-events venue",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-recreation",
+          "title": "Sports & Recreation - IIIT Allahabad",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Athletics track surrounding the football ground, marked for track events and jogging",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-recreation",
+          "title": "Sports & Recreation - IIIT Allahabad",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Semi-Olympic swimming pool, approx. 25m x 12m",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-recreation",
+          "title": "Sports & Recreation - IIIT Allahabad - pool dimensions",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiita.ac.in/sports-council",
+          "title": "Sports Council - IIIT Allahabad - semi-Olympic swimming pool",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Flood-lit outdoor basketball courts",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-recreation",
+          "title": "Sports & Recreation - IIIT Allahabad",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Flood-lit outdoor tennis courts",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-recreation",
+          "title": "Sports & Recreation - IIIT Allahabad",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Squash courts",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-recreation",
+          "title": "Sports & Recreation - IIIT Allahabad - flood-lit squash courts",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iiita.ac.in/sports-council",
+          "title": "Sports Council - IIIT Allahabad - indoor squash courts",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Cricket ground",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-council",
+          "title": "Sports Council - IIIT Allahabad",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Volleyball courts",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-council",
+          "title": "Sports Council - IIIT Allahabad",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Student Activity Centre (SAC): air-conditioned indoor table-tennis and billiards rooms",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-recreation",
+          "title": "Sports & Recreation - IIIT Allahabad - SAC indoor facilities",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Indoor chess and carrom facilities",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-council",
+          "title": "Sports Council - IIIT Allahabad",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "facility": "Gymnasiums at multiple hostels, plus a sports pavilion with seating",
+      "sources": [
+        {
+          "url": "https://www.iiita.ac.in/sports-council",
+          "title": "Sports Council - IIIT Allahabad - hostel gyms and pavilion",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

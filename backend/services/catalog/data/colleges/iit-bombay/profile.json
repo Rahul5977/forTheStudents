@@ -1,0 +1,129 @@
+{
+  "instituteId": "iit-bombay",
+  "officialName": "Indian Institute of Technology Bombay",
+  "short": "IIT Bombay",
+  "type": "IIT",
+  "established": 1958,
+  "website": "https://www.iitb.ac.in",
+  "about": "IIT Bombay is the second IIT, set up in Powai, Mumbai in 1958 with UNESCO and Soviet assistance and made an institution of national importance by Parliament in 1961. It runs 17 departments, 10 academic centres and 3 schools, has roughly 13,000 students and close to 800 regular faculty, and admits about 1,400 undergraduates a year through JEE (Advanced). It has placed third in NIRF overall and engineering in the last two editions and is among the top Indian institutions in the QS World University Rankings, with particular depth in computing, electrical engineering and sponsored research.",
+  "location": {
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "campusAcres": 494,
+    "nearestAirport": "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+    "nearestRailway": "Kanjurmarg (Central line suburban), about 3 km",
+    "connectivityNote": "The campus is in Powai, next to Powai Lake. Kanjurmarg and Vikhroli on the Central suburban line are the closest stations (Kanjurmarg about 3 km); Andheri on the Western line is about 10 km. Saki Naka (Metro Line 1) and Aarey JVLR (Aqua line) are about 4 km away, and BEST buses stop at IIT Main Gate and Market Gate.",
+    "sources": [
+      {
+        "url": "https://www.iitb.ac.in/about",
+        "title": "About IIT Bombay",
+        "publisher": "IIT Bombay",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iitb.ac.in/contact-us",
+        "title": "Contact Us / How to reach IIT Bombay",
+        "publisher": "IIT Bombay",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "admissionRoutes": [
+    {
+      "route": "josaa",
+      "programs": ["B.Tech", "Dual Degree (B.Tech + M.Tech)", "B.S."],
+      "note": "JEE Advanced rank, seats via JoSAA",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/admissions/bachelors",
+          "title": "Bachelor's programmes - Admissions",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "route": "other",
+      "programs": ["B.Des"],
+      "note": "Four-year B.Des at the IDC School of Design is filled through UCEED, not through JoSAA.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/admissions/bachelors",
+          "title": "Bachelor's programmes - Admissions",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "route": "other",
+      "programs": ["B.S. Mathematics (Olympiad channel)"],
+      "note": "A separate channel into B.S. Mathematics based on INMO (Mathematics Olympiad) performance, alongside the regular JEE Advanced seats.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/admissions/bachelors",
+          "title": "Bachelor's programmes - Admissions",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.iitb.ac.in/about",
+      "title": "About IIT Bombay",
+      "publisher": "IIT Bombay",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.iitb.ac.in/divisions",
+      "title": "Academic Divisions - Departments, Centres and Schools",
+      "publisher": "IIT Bombay",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.iitb.ac.in/",
+      "title": "IIT Bombay home page (students, faculty, patents at a glance)",
+      "publisher": "IIT Bombay",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+      "title": "Rules & Regulations for Undergraduate Programmes (updated August 2026)",
+      "publisher": "IIT Bombay",
+      "accessedOn": "2026-09-13",
+      "asOf": "2026-08",
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.nirfindia.org/Rankings/2025/OverallRanking.html",
+      "title": "India Rankings 2025: Overall",
+      "publisher": "NIRF",
+      "accessedOn": "2026-09-13",
+      "asOf": "2025",
+      "confidence": "official"
+    }
+  ],
+  "asOf": "2025-26"
+}

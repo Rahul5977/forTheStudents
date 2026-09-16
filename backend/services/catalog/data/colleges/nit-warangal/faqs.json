@@ -1,0 +1,257 @@
+{
+  "instituteId": "nit-warangal",
+  "items": [
+    {
+      "q": "When was NIT Warangal founded and what is its institutional status?",
+      "a": "The institute opened in 1959 as one of the country's first Regional Engineering Colleges, a joint venture of the central government and the state of Andhra Pradesh (now Telangana). It was renamed National Institute of Technology in 2002 and, in 2007, Parliament declared it an Institute of National Importance, putting it on the same statutory footing as the other NITs and funded directly by the Ministry of Education.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+          "title": "NIT Warangal Communication Handbook 2024 - A Brief Introduction (foundation 10 Oct 1959)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/National_Institute_of_Technology,_Warangal",
+          "title": "National Institute of Technology, Warangal",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "q": "Where is the NIT Warangal campus and how large is it?",
+      "a": "The residential campus sits just outside Kazipet on the Hyderabad-Warangal highway (NH-202), in Hanamkonda, Telangana, and spreads across roughly 250 acres. Most students reach it by train to Kazipet Junction, which many long-distance trains serve directly, or to Warangal railway station a little further away; the nearest commercial airport is Rajiv Gandhi International Airport in Hyderabad, about a two-and-a-half-hour drive.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+          "title": "NIT Warangal Communication Handbook 2024 - A Brief Introduction (campus 250 acres, distances to Kazipet, Warangal, RGIA Hyderabad)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitw.ac.in/page/?url=/nitwVisiting/update",
+          "title": "Visiting NIT Warangal - Mode of Travel (air, rail, road)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "q": "How do I get admission into the B.Tech program at NIT Warangal?",
+      "a": "Admission to the B.Tech, dual-degree (B.Tech + M.Tech) and five-year Integrated M.Sc. programmes runs on a candidate's JEE Main rank, with seats allotted through the JoSAA counselling rounds; any seats still open afterwards are filled through CSAB's special rounds, again by JEE Main rank.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG: JoSAA/CSAB, department-wise intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - Seat Information (National Institute of Technology, Warangal)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "Is there a way into NIT Warangal besides the regular JoSAA counselling?",
+      "a": "Yes. Foreign nationals, NRIs and PIOs can enter B.Tech through separate schemes -- DASA, Study in India, ICCR sponsorship and the Nepal COMPEX quota -- each with its own eligibility and fee slab listed on the admissions site. The institute also runs a four-year B.Sc. B.Ed. under the national Integrated Teacher Education Programme as a standalone admission stream outside JoSAA.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG tabs: SII, ICCR, DASA, Nepal COMPEX, ITEP B.Sc. B.Ed., fee structure",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG (B.Tech. and B.Sc. B.Ed.) Programs, effective 2024-25 - section 2.3 (DASA, SII, ICCR, COMPEX)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "q": "Can I switch branches after joining NIT Warangal?",
+      "a": "No. Under the 2024-25 undergraduate regulations there is no provision to change branch after the first year, so the programme a student is allotted through JoSAA or CSAB is the one the degree is awarded in.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - rule 2.8 (no branch change)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "q": "Where does NIT Warangal stand in the NIRF rankings?",
+      "a": "In the government's 2025 NIRF list, NIT Warangal was placed 28th among engineering institutes and 63rd in the overall category, a step down from 21st (engineering) and 53rd (overall) in both 2023 and 2024, though it has stayed inside the top 30 engineering institutes every year since the category was tracked here.",
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2025 - Engineering (National Institute of Technology Warangal, IR-E-U-0025, rank 28)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/OverallRanking.html",
+          "title": "NIRF India Rankings 2025 - Overall (National Institute of Technology Warangal, IR-O-U-0025, rank 63)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2024 - Engineering (National Institute of Technology Warangal, IR-E-U-0025, rank 21)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    },
+    {
+      "q": "Does NIT Warangal feature in any international rankings?",
+      "a": "It appears in the QS Asia University Rankings 2026 in the 771-780 world band, but it is not currently listed in the QS World University Rankings' main table.",
+      "sources": [
+        {
+          "url": "https://www.topuniversities.com/universities/national-institute-technology-warangal",
+          "title": "QS - National Institute of Technology Warangal profile: QS Asia University Rankings 2026 band 771-780",
+          "publisher": "QS Quacquarelli Symonds",
+          "accessedOn": "2026-09-16",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "What undergraduate branches and programmes does NIT Warangal offer?",
+      "a": "Across its 14 academic departments, B.Tech is offered in Civil, Electrical and Electronics (plus an Electric Mobility variant), Mechanical, Electronics and Communication (plus VLSI Design and Technology), Metallurgical and Materials, Chemical, Computer Science (plus an Artificial Intelligence and Data Science variant), Biotechnology and Mathematics and Computing engineering. The Mathematics, Physics and Chemistry departments each run a five-year Integrated M.Sc., and the Mathematics department also coordinates a four-year ITEP B.Sc. B.Ed.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+          "title": "NIT Warangal Communication Handbook 2024 - A Brief Introduction (13 departments, 10 B.Tech programmes)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG: department-wise intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "q": "How many students and faculty does NIT Warangal have?",
+      "a": "The institute's own 2024 handbook puts total enrolment at roughly 7,000 students, while its NIRF 2025 submission lists 398 faculty members as of 2023-24 -- a comfortable core-engineering faculty base for a single-campus NIT of this size.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+          "title": "NIT Warangal Communication Handbook 2024 - A Brief Introduction (400 faculty, ~7000 students)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Overall/IR-O-U-0025.pdf",
+          "title": "NIRF 2025 data submitted by National Institute of Technology Warangal (Overall, IR-O-U-0025) - Faculty Details",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023-24"
+    },
+    {
+      "q": "Does NIT Warangal offer dual-degree or integrated master's options alongside the four-year B.Tech?",
+      "a": "Yes. Students can enter directly through JoSAA into a five-year B.Tech + M.Tech dual degree in Metallurgical and Materials Engineering or in Chemical Engineering, and separately into a five-year Integrated M.Sc. in Mathematics, Physics or Chemistry -- all allotted the same way as the four-year B.Tech, by JEE Main rank.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG: JoSAA/CSAB, department-wise intake table (dual degree and Integrated M.Sc. programmes)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "How research-active is NIT Warangal at the doctoral level?",
+      "a": "It runs an unusually large PhD programme for an NIT: its own NIRF 2025 submission reports 1,075 scholars enrolled (642 full-time, 433 part-time) as of 2023-24, with 125 doctorates awarded that year, alongside 161 externally sponsored research projects and 107 consultancy assignments in the same period. The institute also houses dedicated centres for additive manufacturing and for teaching and learning.",
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Overall/IR-O-U-0025.pdf",
+          "title": "NIRF 2025 data submitted by National Institute of Technology Warangal (Overall, IR-O-U-0025) - Ph.D student details, sponsored research and consultancy",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "official"
+        },
+        {
+          "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+          "title": "NIT Warangal Communication Handbook 2024 - A Brief Introduction (Centre of Excellence in Additive Manufacturing, Centre for Teaching and Learning)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023-24"
+    },
+    {
+      "q": "Who are some well-known people who studied at NIT Warangal?",
+      "a": "Its alumni span several fields: Pushmeet Kohli leads research at Google DeepMind, Sudhir Kumar Mishra heads DRDO and the BrahMos missile programme, Sujatha Gidla is a published author, and Shreya Dhanwanthary and Kartikeya Gummakonda are known from Hindi and Telugu film and streaming work. Others have gone into Parliament, the civil services and academic leadership at other institutes.",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/National_Institute_of_Technology,_Warangal",
+          "title": "National Institute of Technology, Warangal (Notable alumni)",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

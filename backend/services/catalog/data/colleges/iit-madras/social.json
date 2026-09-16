@@ -1,0 +1,448 @@
+{
+  "instituteId": "iit-madras",
+  "official": [
+    {
+      "platform": "instagram",
+      "handle": "reachiitm",
+      "url": "https://www.instagram.com/reachiitm/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/",
+          "title": "IIT Madras — home page footer",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "iitmadras",
+      "url": "https://twitter.com/iitmadras",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/",
+          "title": "IIT Madras — home page footer",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "ReachIITM",
+      "url": "https://www.facebook.com/ReachIITM",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/",
+          "title": "IIT Madras — home page footer",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "ReachIITM",
+      "url": "https://youtube.com/user/ReachIITM",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/",
+          "title": "IIT Madras — home page footer",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "reachiitm",
+      "url": "https://www.linkedin.com/school/reachiitm/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/",
+          "title": "IIT Madras — home page footer",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "shaastra_iitm",
+      "url": "https://www.instagram.com/shaastra_iitm/",
+      "owner": "Shaastra (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.shaastra.org/",
+          "title": "Shaastra 2026 | IIT Madras",
+          "publisher": "Shaastra, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "youtube",
+      "handle": "@iitmshaastra",
+      "url": "https://www.youtube.com/@iitmshaastra",
+      "owner": "Shaastra (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.shaastra.org/",
+          "title": "Shaastra 2026 | IIT Madras",
+          "publisher": "Shaastra, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "linkedin",
+      "handle": "shaastra-iit-madras",
+      "url": "https://www.linkedin.com/company/shaastra-iit-madras/",
+      "owner": "Shaastra (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.shaastra.org/",
+          "title": "Shaastra 2026 | IIT Madras",
+          "publisher": "Shaastra, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "x",
+      "handle": "ShaastraIITM",
+      "url": "https://x.com/ShaastraIITM",
+      "owner": "Shaastra (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.shaastra.org/",
+          "title": "Shaastra 2026 | IIT Madras",
+          "publisher": "Shaastra, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "facebook",
+      "handle": "Shaastra",
+      "url": "https://www.facebook.com/Shaastra/",
+      "owner": "Shaastra (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.shaastra.org/",
+          "title": "Shaastra 2026 | IIT Madras",
+          "publisher": "Shaastra, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "instagram",
+      "handle": "cfi_iitm_",
+      "url": "https://www.instagram.com/cfi_iitm_/",
+      "owner": "Centre for Innovation",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "cfi_iitm",
+      "url": "https://twitter.com/cfi_iitm",
+      "owner": "Centre for Innovation",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "CFIIITMadras",
+      "url": "https://www.youtube.com/c/CFIIITMadras",
+      "owner": "Centre for Innovation",
+      "sources": [
+        {
+          "url": "https://cfi.iitm.ac.in/",
+          "title": "Centre For Innovation | IIT Madras",
+          "publisher": "IIT Madras (CFI)",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "iitmsports",
+      "url": "https://www.instagram.com/iitmsports",
+      "owner": "Sports Committee",
+      "sources": [
+        {
+          "url": "https://sports.iitm.ac.in/",
+          "title": "IIT Madras Sports Committee",
+          "publisher": "IIT Madras Sports Committee",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "facebook",
+      "handle": "SportsIITM",
+      "url": "https://www.facebook.com/SportsIITM/",
+      "owner": "Sports Committee",
+      "sources": [
+        {
+          "url": "https://sports.iitm.ac.in/",
+          "title": "IIT Madras Sports Committee",
+          "publisher": "IIT Madras Sports Committee",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "linkedin",
+      "handle": "sociitm",
+      "url": "https://www.linkedin.com/company/sociitm/",
+      "owner": "Sports Committee",
+      "sources": [
+        {
+          "url": "https://sports.iitm.ac.in/",
+          "title": "IIT Madras Sports Committee",
+          "publisher": "IIT Madras Sports Committee",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "youtube",
+      "handle": "@sportsorganisingcommitteei113",
+      "url": "https://www.youtube.com/@sportsorganisingcommitteei113",
+      "owner": "Sports Committee",
+      "sources": [
+        {
+          "url": "https://sports.iitm.ac.in/",
+          "title": "IIT Madras Sports Committee",
+          "publisher": "IIT Madras Sports Committee",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "platform": "instagram",
+      "handle": "t5e.iitm",
+      "url": "https://www.instagram.com/t5e.iitm",
+      "owner": "The Fifth Estate (student media)",
+      "sources": [
+        {
+          "url": "https://www.t5eiitm.org/",
+          "title": "The Fifth Estate — IIT Madras student media",
+          "publisher": "The Fifth Estate, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "t5e_iitm",
+      "url": "https://twitter.com/t5e_iitm",
+      "owner": "The Fifth Estate (student media)",
+      "sources": [
+        {
+          "url": "https://www.t5eiitm.org/",
+          "title": "The Fifth Estate — IIT Madras student media",
+          "publisher": "The Fifth Estate, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "t5e.iitm",
+      "url": "https://www.facebook.com/t5e.iitm",
+      "owner": "The Fifth Estate (student media)",
+      "sources": [
+        {
+          "url": "https://www.t5eiitm.org/",
+          "title": "The Fifth Estate — IIT Madras student media",
+          "publisher": "The Fifth Estate, IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "iit_maa",
+      "url": "https://www.instagram.com/iit_maa/",
+      "owner": "IIT Madras Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitmaa.org/",
+          "title": "Indian Institute of Technology Madras Alumni Association",
+          "publisher": "IIT Madras Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "IITMAA",
+      "url": "https://twitter.com/IITMAA",
+      "owner": "IIT Madras Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitmaa.org/",
+          "title": "Indian Institute of Technology Madras Alumni Association",
+          "publisher": "IIT Madras Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "iit-madras-alumni-association-28791021",
+      "url": "https://www.linkedin.com/in/iit-madras-alumni-association-28791021",
+      "owner": "IIT Madras Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitmaa.org/",
+          "title": "Indian Institute of Technology Madras Alumni Association",
+          "publisher": "IIT Madras Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "UCtRG-b6_QVQ4sI1l5xVHCPA",
+      "url": "https://www.youtube.com/channel/UCtRG-b6_QVQ4sI1l5xVHCPA",
+      "owner": "IIT Madras Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitmaa.org/",
+          "title": "Indian Institute of Technology Madras Alumni Association",
+          "publisher": "IIT Madras Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "IITMAA-202249686800991",
+      "url": "https://www.facebook.com/IITMAA-202249686800991",
+      "owner": "IIT Madras Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitmaa.org/",
+          "title": "Indian Institute of Technology Madras Alumni Association",
+          "publisher": "IIT Madras Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "alumni-corporate-iitm",
+      "url": "https://www.linkedin.com/company/alumni-corporate-iitm/",
+      "owner": "Office of Alumni & Corporate Relations",
+      "sources": [
+        {
+          "url": "https://acr.iitm.ac.in/",
+          "title": "Office of Alumni & Corporate Relations | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "creators": []
+}

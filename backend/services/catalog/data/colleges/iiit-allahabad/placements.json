@@ -1,0 +1,59 @@
+{
+  "instituteId": "iiit-allahabad",
+  "years": [
+    {
+      "year": "2025",
+      "avgLpa": 33,
+      "medianLpa": null,
+      "highestLpa": 120,
+      "pctPlaced": 97.91,
+      "offers": null,
+      "ppos": null,
+      "higherStudiesPct": null,
+      "topRecruiters": [
+        { "name": "Microsoft", "sector": "software" },
+        { "name": "Amazon", "sector": "software" },
+        { "name": "Google", "sector": "software" },
+        { "name": "Adobe", "sector": "software" },
+        { "name": "Uber", "sector": "software" },
+        { "name": "Oracle", "sector": "software" },
+        { "name": "Walmart Labs", "sector": "software" },
+        { "name": "Goldman Sachs", "sector": "finance" },
+        { "name": "Morgan Stanley", "sector": "finance" },
+        { "name": "Deutsche Bank", "sector": "finance" },
+        { "name": "D.E. Shaw", "sector": "finance" },
+        { "name": "UBS", "sector": "finance" },
+        { "name": "BCG", "sector": "consulting" },
+        { "name": "Deloitte", "sector": "consulting" },
+        { "name": "Qualcomm", "sector": "core" },
+        { "name": "NVIDIA", "sector": "core" },
+        { "name": "Intel", "sector": "core" },
+        { "name": "Texas Instruments", "sector": "core" },
+        { "name": "GAIL", "sector": "psu" },
+        { "name": "CRED", "sector": "startup" },
+        { "name": "Dream11", "sector": "startup" },
+        { "name": "Meesho", "sector": "startup" }
+      ],
+      "branchWise": null,
+      "asOf": "2025",
+      "sources": [
+        {
+          "url": "https://placements.iiita.ac.in/assets/Placement_Brochure_2025-26.pdf",
+          "title": "IIIT Allahabad Placement Brochure 2025-26 – Our Placement Stats (UG Batch of 2025)",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placements.iiita.ac.in/assets/Placement_Brochure_2025-26.pdf",
+          "title": "IIIT Allahabad Placement Brochure 2025-26 – Past Recruiters",
+          "publisher": "IIIT Allahabad",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    }
+  ]
+}

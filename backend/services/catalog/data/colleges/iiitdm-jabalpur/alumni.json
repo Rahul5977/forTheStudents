@@ -1,0 +1,81 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "notable": [
+    {
+      "name": "Surbhi Namdeo",
+      "knownFor": "Thermal engineer at ISRO; worked on Chandrayaan-3 Rover thermal analysis.",
+      "program": "B.Tech, Mechanical Engineering",
+      "batch": 2015,
+      "asOf": "2023",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "name": "Satyam Jayashawal",
+      "knownFor": "Thermal engineer at ISRO; part of the team behind Chandrayaan-3's thermal analysis.",
+      "program": "B.Tech, Mechanical Engineering",
+      "batch": 2015,
+      "asOf": "2023",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "name": "Abhishek Patel",
+      "knownFor": "Engineer at ISRO's ISTRAC; supported launch-vehicle tracking for Chandrayaan-3.",
+      "program": "B.Tech, Mechanical Engineering",
+      "batch": 2019,
+      "asOf": "2023",
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "name": "Abhinav Shekhar Vashistha",
+      "knownFor": "Co-founder and CTO, WeVOIS Labs (smart waste-management tech); Forbes India 30 Under 30 (2025).",
+      "program": "B.Tech, Mechanical Engineering",
+      "batch": null,
+      "asOf": "2025",
+      "sources": [
+        {
+          "url": "https://www.forbesindia.com/article/30-under-30-2025/forbes-india-30-under-30-2025-how-a-29yearold-built-a-scalable-profitable-waste-management-biz/95283/1",
+          "title": "Forbes India 30 Under 30 2025: How a 29-year-old built a scalable, profitable waste management biz",
+          "publisher": "Forbes India",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://acumenacademy.org/meet-the-foundry/abhinav-shekhar-vashistha/",
+          "title": "Abhinav Shekhar Vashistha",
+          "publisher": "Acumen Academy",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ]
+    }
+  ]
+}

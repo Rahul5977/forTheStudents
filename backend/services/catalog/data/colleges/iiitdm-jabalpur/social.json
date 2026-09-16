@@ -1,0 +1,244 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "official": [
+    {
+      "platform": "x",
+      "handle": "iiitdmjbp",
+      "url": "https://twitter.com/iiitdmjbp",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/",
+          "title": "IIITDM Jabalpur — official website (footer)",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "iiitdm.jbp",
+      "url": "https://www.facebook.com/iiitdm.jbp/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/",
+          "title": "IIITDM Jabalpur — official website (footer)",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "iiitdm_jabalpur",
+      "url": "https://www.instagram.com/iiitdm_jabalpur/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/",
+          "title": "IIITDM Jabalpur — official website (footer)",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "iiitdm-jabalpur",
+      "url": "https://www.linkedin.com/in/iiitdm-jabalpur/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/",
+          "title": "IIITDM Jabalpur — official website (footer)",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "UCODKL--xMCqXIK31cRdOWOw",
+      "url": "https://www.youtube.com/channel/UCODKL--xMCqXIK31cRdOWOw",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/",
+          "title": "IIITDM Jabalpur — official website (footer)",
+          "publisher": "IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "aps_iiitdmj",
+      "url": "https://www.instagram.com/aps_iiitdmj/",
+      "owner": "Astronomy and Physics Society",
+      "sources": [
+        {
+          "url": "https://astronomy.iiitdmj.ac.in/",
+          "title": "Astronomy and Physics Society — IIITDM Jabalpur",
+          "publisher": "Astronomy and Physics Society, IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "astronomy-and-physics-society",
+      "url": "https://www.linkedin.com/company/astronomy-and-physics-society/",
+      "owner": "Astronomy and Physics Society",
+      "sources": [
+        {
+          "url": "https://astronomy.iiitdmj.ac.in/",
+          "title": "Astronomy and Physics Society — IIITDM Jabalpur",
+          "publisher": "Astronomy and Physics Society, IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "iiitdmj_fests",
+      "url": "https://www.instagram.com/iiitdmj_fests/",
+      "owner": "Fests (Tarang / Abhikalpan / Gusto)",
+      "sources": [
+        {
+          "url": "https://www.instagram.com/iiitdmj_fests/",
+          "title": "IIITDM Jabalpur fests — Instagram",
+          "publisher": "Instagram",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "tarang.iiitdmj",
+      "url": "https://www.instagram.com/tarang.iiitdmj/",
+      "owner": "Tarang (Cultural Fest)",
+      "sources": [
+        {
+          "url": "https://www.instagram.com/tarang.iiitdmj/",
+          "title": "Tarang, IIITDM Jabalpur — Instagram",
+          "publisher": "Instagram",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "abhikalpan_iiitdmj",
+      "url": "https://www.instagram.com/abhikalpan_iiitdmj/",
+      "owner": "Abhikalpan (Technical Fest)",
+      "sources": [
+        {
+          "url": "https://www.instagram.com/abhikalpan_iiitdmj/",
+          "title": "Abhikalpan, IIITDM Jabalpur — Instagram",
+          "publisher": "Instagram",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "iiitdmj.gusto",
+      "url": "https://www.facebook.com/iiitdmj.gusto/",
+      "owner": "Gusto (Sports Fest)",
+      "sources": [
+        {
+          "url": "https://www.facebook.com/iiitdmj.gusto/",
+          "title": "Gusto, IIITDM Jabalpur — Facebook",
+          "publisher": "Facebook",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "robotics-electronics-club-iiitdmj",
+      "url": "https://in.linkedin.com/company/robotics-electronics-club-iiitdmj",
+      "owner": "Electronics and Robotics Society",
+      "sources": [
+        {
+          "url": "https://in.linkedin.com/company/robotics-electronics-club-iiitdmj",
+          "title": "Electronics and Robotics Society IIITDMJ — LinkedIn",
+          "publisher": "LinkedIn",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "ers.iiitdmj",
+      "url": "https://www.facebook.com/ers.iiitdmj/",
+      "owner": "Electronics and Robotics Society",
+      "sources": [
+        {
+          "url": "https://www.facebook.com/ers.iiitdmj/",
+          "title": "Robotics Club IIITDM Jabalpur — Facebook",
+          "publisher": "Facebook",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "business-and-management-iiitdm-jabalpur",
+      "url": "https://in.linkedin.com/company/business-and-management-iiitdm-jabalpur",
+      "owner": "Business and Management Club",
+      "sources": [
+        {
+          "url": "https://in.linkedin.com/company/business-and-management-iiitdm-jabalpur",
+          "title": "Business and Management Club IIITDM Jabalpur — LinkedIn",
+          "publisher": "LinkedIn",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "creators": []
+}

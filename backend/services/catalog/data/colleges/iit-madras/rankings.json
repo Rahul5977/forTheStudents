@@ -1,0 +1,152 @@
+{
+  "instituteId": "iit-madras",
+  "nirf": [
+    {
+      "year": 2023,
+      "overall": 1,
+      "engineering": 1,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2023/OverallRanking.html",
+          "title": "NIRF India Rankings 2023: Overall (IIT Madras rank 1, score 86.69)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2023/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2023: Engineering (IIT Madras rank 1, score 89.79)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "year": 2024,
+      "overall": 1,
+      "engineering": 1,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/OverallRanking.html",
+          "title": "NIRF India Rankings 2024: Overall (IIT Madras rank 1, score 86.42)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2024: Engineering (IIT Madras rank 1, score 89.46)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "year": 2025,
+      "overall": 1,
+      "engineering": 1,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/OverallRanking.html",
+          "title": "NIRF India Rankings 2025: Overall (IIT Madras rank 1, score 87.31)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2025: Engineering (IIT Madras rank 1, score 88.72, ID IR-E-U-0456)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/celebrating-decade-excellence-iit-madras-tops-nirf-once",
+          "title": "Celebrating a decade of excellence: IIT Madras tops NIRF once again (Engineering #1 for 10th year, Overall #1 for 7th year, Innovation #1, Research #2)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-09-04",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    }
+  ],
+  "qs": [
+    {
+      "year": 2027,
+      "world": 170,
+      "asia": null,
+      "sources": [
+        {
+          "url": "https://x.com/iitmadras/status/2067604192035037277",
+          "title": "IIT Madras (official X account): ranked 170 globally in QS World University Rankings 2027, up from 180",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-06",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IIT_Madras",
+          "title": "IIT Madras - Wikipedia (rankings table: QS World University Rankings 2027, 170th)",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://inshorts.com/en/news/52-indian-institutions-listed-in-qs-world-university-rankings-2027-1781756856964",
+          "title": "52 Indian institutions listed in QS World University Rankings 2027 (IIT Delhi 118, IIT Bombay 134, IIT Madras 170)",
+          "publisher": "Inshorts",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-06-18",
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2026-06"
+    },
+    {
+      "year": 2026,
+      "world": 180,
+      "asia": 70,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/celebrating-decade-excellence-iit-madras-tops-nirf-once",
+          "title": "IIT Madras press release, 4 Sep 2025 (QS World University Rankings 2026: position improved from 227 to 180)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-09-04",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.freepressjournal.in/education/qs-asia-university-rankings-2026-out-iit-delhi-iisc-and-iit-madras-among-top-indian-institutions-check-top-universities-list",
+          "title": "QS Asia University Rankings 2026 out: IIT Madras ranked 70th in Asia",
+          "publisher": "Free Press Journal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-11-04",
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://www.drishtiias.com/state-pcs-current-affairs/137-indian-institutions-in-qs-rankings-asia-2026",
+          "title": "137 Indian institutions in QS Rankings Asia 2026 (IIT Madras 70th)",
+          "publisher": "Drishti IAS",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-11-05",
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2025-11"
+    }
+  ],
+  "naac": null
+}

@@ -1,0 +1,44 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "count": 6,
+  "capacity": null,
+  "occupancy": "Sharing varies by hall: Vasishtha is single-seater, Aryabhatta and Vivekananda are triple-seater, Panini (PG) is single/twin-seater, Maa Saraswati (girls) offers triple and single rooms.",
+  "messNote": "Each hall runs its own mess overseen by wardens and a student mess committee; a separate campus cafeteria serves food from 2 pm to midnight for students wanting options outside mess hours.",
+  "hostels": [
+    {
+      "name": "Vasishtha Hostel",
+      "gender": "boys"
+    },
+    {
+      "name": "Aryabhatta Hostel",
+      "gender": "boys"
+    },
+    {
+      "name": "Vivekananda Hostel",
+      "gender": "boys"
+    },
+    {
+      "name": "Panini Hostel",
+      "gender": "unknown"
+    },
+    {
+      "name": "Maa Saraswati Girls Hostel",
+      "gender": "girls"
+    },
+    {
+      "name": "Nagarjuna Hostel",
+      "gender": "mixed"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.iiitdmj.ac.in/students/hostels.php",
+      "title": "Hostels — IIITDM Jabalpur",
+      "publisher": "IIITDM Jabalpur",
+      "accessedOn": "2026-09-16",
+      "asOf": null,
+      "confidence": "official"
+    }
+  ],
+  "asOf": null
+}

@@ -1,0 +1,371 @@
+{
+  "instituteId": "iit-bombay",
+  "years": [
+    {
+      "year": "2024-25",
+      "avgLpa": 26.45,
+      "medianLpa": 20.0,
+      "highestLpa": null,
+      "pctPlaced": 69.7,
+      "offers": 1422,
+      "ppos": 260,
+      "higherStudiesPct": 28.22,
+      "topRecruiters": [],
+      "branchWise": [
+        {
+          "program": "Computer Science & Engineering (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 93.14
+        },
+        {
+          "program": "Electrical Engineering (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 83.28
+        },
+        {
+          "program": "Mechanical Engineering (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 73.7
+        },
+        {
+          "program": "Civil Engineering (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 74.72
+        },
+        {
+          "program": "Chemical Engineering (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 72.06
+        },
+        {
+          "program": "Metallurgical Engg & Materials Science (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 58.43
+        },
+        {
+          "program": "Aerospace Engineering (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 60.0
+        },
+        {
+          "program": "Energy Science & Engineering (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 64.29
+        },
+        {
+          "program": "Engineering Physics (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 61.54
+        },
+        {
+          "program": "Economics (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 60.0
+        },
+        {
+          "program": "Chemistry (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 51.06
+        },
+        {
+          "program": "Mathematics (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 55.88
+        },
+        {
+          "program": "Environmental Science & Engineering (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 67.5
+        },
+        {
+          "program": "Industrial Design Centre (all programs, dept-wide)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 54.29
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.iitb.ac.in/sites/default/files/2026-02/Annual%20Report%202024-25.pdf",
+          "title": "IIT Bombay Annual Report 2024-25 — Placement chapter (pp. 82-90: Tables 1, 3, 4, 6, 7, 8)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitb.ac.in/sites/default/files/2026-04/NIRF_IITBombay_2026_Engineering_Category.pdf",
+          "title": "NIRF 2026 data submitted by IIT Bombay (IR-E-U-0306), Engineering — UG 4-year placement & higher studies 2024-25",
+          "publisher": "IIT Bombay (NIRF submission)",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://campus.placements.iitb.ac.in/",
+          "title": "Placement Office, IIT Bombay (campus.placements.iitb.ac.in)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "year": "2023-24",
+      "avgLpa": 23.5,
+      "medianLpa": 17.92,
+      "highestLpa": null,
+      "pctPlaced": 74.53,
+      "offers": 1475,
+      "ppos": 258,
+      "higherStudiesPct": 26.16,
+      "topRecruiters": [],
+      "branchWise": [
+        {
+          "program": "B.Tech Computer Science & Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90.74
+        },
+        {
+          "program": "B.Tech Electrical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90.8
+        },
+        {
+          "program": "B.Tech Mechanical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90.9
+        },
+        {
+          "program": "B.Tech Civil Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 82.47
+        },
+        {
+          "program": "B.Tech Chemical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 82.03
+        },
+        {
+          "program": "B.Tech Metallurgical Engg & Materials Science",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 70.37
+        },
+        {
+          "program": "B.Tech Engineering Physics",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 71.05
+        },
+        {
+          "program": "B.Tech Aerospace Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 66.67
+        },
+        {
+          "program": "B.Tech (all departments)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 83.39
+        },
+        {
+          "program": "Dual Degree B.Tech + M.Tech (all departments)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 79.16
+        },
+        {
+          "program": "B.S. (4-year, all departments)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 65.0
+        },
+        {
+          "program": "B.Des",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 52.94
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://campus.placements.iitb.ac.in/static/docs/placement_report_2023_24.pdf",
+          "title": "Placement and Internship Report, Academic Year 2023-24 — Placement Office, IIT Bombay (Tables 1, 3, 8, 10; Annexure 1)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0306.pdf",
+          "title": "NIRF 2025 data submitted by IIT Bombay (IR-E-U-0306), Engineering — UG 4-year placement & higher studies 2023-24",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitb.ac.in/sites/default/files/2026-02/Annual%20Report%202024-25.pdf",
+          "title": "IIT Bombay Annual Report 2024-25 — Table 7 (three-year comparison of median, average, international offers, PPOs)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023-24"
+    },
+    {
+      "year": "2022-23",
+      "avgLpa": 21.82,
+      "medianLpa": 16.66,
+      "highestLpa": 168,
+      "pctPlaced": 82.16,
+      "offers": 1516,
+      "ppos": 194,
+      "higherStudiesPct": 19.3,
+      "topRecruiters": [],
+      "branchWise": [
+        {
+          "program": "B.Tech Computer Science & Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 97.7
+        },
+        {
+          "program": "B.Tech Electrical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 86.67
+        },
+        {
+          "program": "B.Tech Mechanical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 89.6
+        },
+        {
+          "program": "B.Tech Civil Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 83.33
+        },
+        {
+          "program": "B.Tech Chemical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 84.0
+        },
+        {
+          "program": "B.Tech Metallurgical Engg & Materials Science",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 94.12
+        },
+        {
+          "program": "B.Tech Engineering Physics",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 84.0
+        },
+        {
+          "program": "B.Tech Aerospace Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 85.41
+        },
+        {
+          "program": "B.S. Economics",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 95.65
+        },
+        {
+          "program": "B.S. Chemistry",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 78.57
+        },
+        {
+          "program": "B.S. Mathematics",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 100
+        },
+        {
+          "program": "B.Tech (all departments)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 88
+        },
+        {
+          "program": "Dual Degree B.Tech + M.Tech (all departments)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 95
+        },
+        {
+          "program": "B.S. (all departments)",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90
+        },
+        {
+          "program": "B.Des",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 58
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://campus.placements.iitb.ac.in/static/docs/placement_report_2022_23.pdf",
+          "title": "Placement and Internship Report, Academic Year 2022-23 — Placement Office, IIT Bombay (Tables 1, 4, 7; Annexure 1)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2022-23",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0306.pdf",
+          "title": "NIRF 2025 data submitted by IIT Bombay (IR-E-U-0306), Engineering — UG 4-year placement & higher studies 2022-23",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2022-23",
+          "confidence": "official"
+        },
+        {
+          "url": "https://campus.placements.iitb.ac.in/static/docs/placement_report_2023_24.pdf",
+          "title": "Placement and Internship Report 2023-24 — Table 10 (2022-23 median salary 16.66 LPA, average 21.82 LPA)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2022-23"
+    }
+  ]
+}

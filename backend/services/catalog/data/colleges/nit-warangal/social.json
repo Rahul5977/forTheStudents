@@ -1,0 +1,261 @@
+{
+  "instituteId": "nit-warangal",
+  "official": [
+    {
+      "platform": "facebook",
+      "handle": "NITWarangalOfficial",
+      "url": "https://www.facebook.com/NITWarangalOfficial/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/",
+          "title": "NIT Warangal – home page header social icons",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "warangal_nit",
+      "url": "https://x.com/warangal_nit",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/",
+          "title": "NIT Warangal – home page header social icons",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "nitwarangalofficial",
+      "url": "https://www.instagram.com/nitwarangalofficial/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/",
+          "title": "NIT Warangal – home page header social icons",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "@nitwarangalofficial",
+      "url": "https://www.youtube.com/@nitwarangalofficial",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/",
+          "title": "NIT Warangal – home page header social icons",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "national-institute-of-technology-warangal",
+      "url": "https://www.linkedin.com/school/national-institute-of-technology-warangal/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/",
+          "title": "NIT Warangal – home page header social icons",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "nitwalumni",
+      "url": "https://x.com/nitwalumni",
+      "owner": "Alumni Association",
+      "sources": [
+        {
+          "url": "https://x.com/nitwalumni",
+          "title": "NIT Warangal Alumni (@nitwalumni)",
+          "publisher": "X",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "technozion_nitw_official",
+      "url": "https://www.instagram.com/technozion_nitw_official/",
+      "owner": "Technozion (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.instagram.com/technozion_nitw_official/",
+          "title": "Technozion - NITW (@technozion_nitw_official)",
+          "publisher": "Instagram",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "technozion.nitw",
+      "url": "https://www.facebook.com/technozion.nitw/",
+      "owner": "Technozion (technical fest)",
+      "sources": [
+        {
+          "url": "https://www.facebook.com/technozion.nitw/",
+          "title": "Technozion, NIT Warangal | Facebook",
+          "publisher": "Facebook",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "technozion-nit-warangal",
+      "url": "https://in.linkedin.com/company/technozion-nit-warangal",
+      "owner": "Technozion (technical fest)",
+      "sources": [
+        {
+          "url": "https://in.linkedin.com/company/technozion-nit-warangal",
+          "title": "Technozion, NIT Warangal | LinkedIn",
+          "publisher": "LinkedIn",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "springspree_nitw",
+      "url": "https://www.instagram.com/springspree_nitw/",
+      "owner": "Spring Spree (cultural fest)",
+      "sources": [
+        {
+          "url": "https://www.instagram.com/springspree_nitw/",
+          "title": "SpringSpree, NIT Warangal (@springspree_nitw)",
+          "publisher": "Instagram",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "nitw.springspree",
+      "url": "https://www.facebook.com/nitw.springspree/",
+      "owner": "Spring Spree (cultural fest)",
+      "sources": [
+        {
+          "url": "https://www.facebook.com/nitw.springspree/",
+          "title": "SpringSpree NIT Warangal | Facebook",
+          "publisher": "Facebook",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "ss_nitw",
+      "url": "https://x.com/ss_nitw",
+      "owner": "Spring Spree (cultural fest)",
+      "sources": [
+        {
+          "url": "https://x.com/ss_nitw",
+          "title": "SpringSpree NIT Warangal (@ss_nitw)",
+          "publisher": "X",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "robotics-club-nit-warangal",
+      "url": "https://in.linkedin.com/company/robotics-club-nit-warangal",
+      "owner": "Robotics Club",
+      "sources": [
+        {
+          "url": "https://in.linkedin.com/company/robotics-club-nit-warangal",
+          "title": "Robotics Club, NIT Warangal | LinkedIn",
+          "publisher": "LinkedIn",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "ECellNITWarangal",
+      "url": "https://www.facebook.com/ECellNITWarangal/",
+      "owner": "E-Cell / Entrepreneurship Club",
+      "sources": [
+        {
+          "url": "https://www.facebook.com/ECellNITWarangal/",
+          "title": "E-Cell, NIT Warangal (@ECellNITWarangal) | Facebook",
+          "publisher": "Facebook",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "sports_nitw",
+      "url": "https://www.instagram.com/sports_nitw/",
+      "owner": "Centre for Sports Activities",
+      "sources": [
+        {
+          "url": "https://www.instagram.com/sports_nitw/",
+          "title": "Centre for Sports Activities (@sports_nitw)",
+          "publisher": "Instagram",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "creators": []
+}

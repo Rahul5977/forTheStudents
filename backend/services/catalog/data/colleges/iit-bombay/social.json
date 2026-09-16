@@ -1,0 +1,601 @@
+{
+  "instituteId": "iit-bombay",
+  "official": [
+    {
+      "platform": "x",
+      "handle": "iitbombay",
+      "url": "https://x.com/iitbombay",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitb.ac.in/",
+          "title": "IIT Bombay — official website (footer)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "iitbombay",
+      "url": "https://www.facebook.com/iitbombay",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitb.ac.in/",
+          "title": "IIT Bombay — official website (footer)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "indian-institute-of-technology-bombay",
+      "url": "https://www.linkedin.com/school/indian-institute-of-technology-bombay/",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitb.ac.in/",
+          "title": "IIT Bombay — official website (footer)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "IITBombayOfficialChannel",
+      "url": "https://www.youtube.com/c/IITBombayOfficialChannel",
+      "owner": "Institute",
+      "sources": [
+        {
+          "url": "https://www.iitb.ac.in/",
+          "title": "IIT Bombay — official website (footer)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "techfest_iitbombay",
+      "url": "https://www.instagram.com/techfest_iitbombay/",
+      "owner": "Techfest",
+      "sources": [
+        {
+          "url": "https://techfest.org/",
+          "title": "Techfest, IIT Bombay — official fest site",
+          "publisher": "Techfest, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "iitbombaytechfest",
+      "url": "https://www.facebook.com/iitbombaytechfest/",
+      "owner": "Techfest",
+      "sources": [
+        {
+          "url": "https://techfest.org/",
+          "title": "Techfest, IIT Bombay — official fest site",
+          "publisher": "Techfest, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "techfestiitbombay",
+      "url": "https://www.youtube.com/user/techfestiitbombay",
+      "owner": "Techfest",
+      "sources": [
+        {
+          "url": "https://techfest.org/",
+          "title": "Techfest, IIT Bombay — official fest site",
+          "publisher": "Techfest, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "Techfest_IITB",
+      "url": "https://x.com/Techfest_IITB",
+      "owner": "Techfest",
+      "sources": [
+        {
+          "url": "https://techfest.org/",
+          "title": "Techfest, IIT Bombay — official fest site",
+          "publisher": "Techfest, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "iitbombay_ecell",
+      "url": "https://www.instagram.com/iitbombay_ecell/",
+      "owner": "E-Cell",
+      "sources": [
+        {
+          "url": "https://www.ecell.in/",
+          "title": "E-Cell IIT Bombay — official site",
+          "publisher": "E-Cell IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "ecell_iitb",
+      "url": "https://twitter.com/ecell_iitb",
+      "owner": "E-Cell",
+      "sources": [
+        {
+          "url": "https://www.ecell.in/",
+          "title": "E-Cell IIT Bombay — official site",
+          "publisher": "E-Cell IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "ecell.in",
+      "url": "https://www.facebook.com/ecell.in/",
+      "owner": "E-Cell",
+      "sources": [
+        {
+          "url": "https://www.ecell.in/",
+          "title": "E-Cell IIT Bombay — official site",
+          "publisher": "E-Cell IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "ecell_iitb",
+      "url": "https://www.linkedin.com/company/ecell_iitb/",
+      "owner": "E-Cell",
+      "sources": [
+        {
+          "url": "https://www.ecell.in/",
+          "title": "E-Cell IIT Bombay — official site",
+          "publisher": "E-Cell IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "entrepreneurshipcellIITB",
+      "url": "https://www.youtube.com/@entrepreneurshipcellIITB",
+      "owner": "E-Cell",
+      "sources": [
+        {
+          "url": "https://www.ecell.in/",
+          "title": "E-Cell IIT Bombay — official site",
+          "publisher": "E-Cell IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "tech.iitb",
+      "url": "https://www.instagram.com/tech.iitb",
+      "owner": "Institute Technical Council",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/",
+          "title": "Institute Technical Council (ITC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "tech.iitb",
+      "url": "https://www.facebook.com/tech.iitb",
+      "owner": "Institute Technical Council",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/",
+          "title": "Institute Technical Council (ITC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "tech_iitb",
+      "url": "https://twitter.com/tech_iitb",
+      "owner": "Institute Technical Council",
+      "sources": [
+        {
+          "url": "https://tech-iitb.org/",
+          "title": "Institute Technical Council (ITC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "culturals.iitb",
+      "url": "https://www.instagram.com/culturals.iitb",
+      "owner": "Institute Cultural Council",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "IITBCult",
+      "url": "https://www.facebook.com/IITBCult/",
+      "owner": "Institute Cultural Council",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "Cult_IITB",
+      "url": "https://x.com/Cult_IITB/",
+      "owner": "Institute Cultural Council",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "culturals-iit-bombay",
+      "url": "https://linkedin.com/company/culturals-iit-bombay",
+      "owner": "Institute Cultural Council",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/~culturals/",
+          "title": "Institute Cultural Council (ICC), IIT Bombay",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "iitbombaysports",
+      "url": "https://www.instagram.com/iitbombaysports/",
+      "owner": "Institute Sports Council",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "iitbombaysports",
+      "url": "https://www.facebook.com/iitbombaysports/",
+      "owner": "Institute Sports Council",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "iit-bombay-sports",
+      "url": "https://www.linkedin.com/company/iit-bombay-sports",
+      "owner": "Institute Sports Council",
+      "sources": [
+        {
+          "url": "https://gymkhana.iitb.ac.in/sports/",
+          "title": "Institute Sports Council (ISC), IIT Bombay — sports & facilities",
+          "publisher": "IIT Bombay Students' Gymkhana",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "insight.iitb",
+      "url": "https://www.instagram.com/insight.iitb/",
+      "owner": "Insight (student media)",
+      "sources": [
+        {
+          "url": "https://insightiitb.org/",
+          "title": "Insight — Student Media Body of IIT Bombay",
+          "publisher": "Insight, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "insight.iitbombay",
+      "url": "https://www.facebook.com/insight.iitbombay/",
+      "owner": "Insight (student media)",
+      "sources": [
+        {
+          "url": "https://insightiitb.org/",
+          "title": "Insight — Student Media Body of IIT Bombay",
+          "publisher": "Insight, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "insightiitb",
+      "url": "https://twitter.com/insightiitb",
+      "owner": "Insight (student media)",
+      "sources": [
+        {
+          "url": "https://insightiitb.org/",
+          "title": "Insight — Student Media Body of IIT Bombay",
+          "publisher": "Insight, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "IITBBC",
+      "url": "https://www.youtube.com/user/IITBBC",
+      "owner": "Insight (student media)",
+      "sources": [
+        {
+          "url": "https://insightiitb.org/",
+          "title": "Insight — Student Media Body of IIT Bombay",
+          "publisher": "Insight, IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "instagram",
+      "handle": "iitbaa1",
+      "url": "https://instagram.com/iitbaa1",
+      "owner": "IIT Bombay Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitbombay.org/",
+          "title": "IIT Bombay Alumni Association — official site",
+          "publisher": "IIT Bombay Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "IITBAA1",
+      "url": "https://twitter.com/IITBAA1",
+      "owner": "IIT Bombay Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitbombay.org/",
+          "title": "IIT Bombay Alumni Association — official site",
+          "publisher": "IIT Bombay Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "iitbaa1",
+      "url": "https://www.facebook.com/iitbaa1",
+      "owner": "IIT Bombay Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitbombay.org/",
+          "title": "IIT Bombay Alumni Association — official site",
+          "publisher": "IIT Bombay Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "iit-bombay-alumni-association",
+      "url": "https://www.linkedin.com/company/iit-bombay-alumni-association/",
+      "owner": "IIT Bombay Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitbombay.org/",
+          "title": "IIT Bombay Alumni Association — official site",
+          "publisher": "IIT Bombay Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "youtube",
+      "handle": "iitbombayalumniassociation2910",
+      "url": "https://www.youtube.com/@iitbombayalumniassociation2910",
+      "owner": "IIT Bombay Alumni Association",
+      "sources": [
+        {
+          "url": "https://www.iitbombay.org/",
+          "title": "IIT Bombay Alumni Association — official site",
+          "publisher": "IIT Bombay Alumni Association",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "facebook",
+      "handle": "deanacriitbombay",
+      "url": "https://www.facebook.com/deanacriitbombay",
+      "owner": "Dean ACR (Alumni & Corporate Relations)",
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/",
+          "title": "Dean ACR (Alumni & Corporate Relations) — IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "x",
+      "handle": "DeanACRIITB",
+      "url": "https://x.com/DeanACRIITB",
+      "owner": "Dean ACR (Alumni & Corporate Relations)",
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/",
+          "title": "Dean ACR (Alumni & Corporate Relations) — IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "platform": "linkedin",
+      "handle": "dean-acr-iit-bombay",
+      "url": "https://www.linkedin.com/company/dean-acr-iit-bombay/",
+      "owner": "Dean ACR (Alumni & Corporate Relations)",
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/",
+          "title": "Dean ACR (Alumni & Corporate Relations) — IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "creators": []
+}

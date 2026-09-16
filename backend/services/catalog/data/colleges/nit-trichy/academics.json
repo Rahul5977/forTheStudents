@@ -1,0 +1,472 @@
+{
+  "instituteId": "nit-trichy",
+  "departments": [
+    {
+      "name": "Chemical Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Chemical Engineering",
+          "durationYears": 4,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/chem/",
+          "title": "NIT Trichy - Chemical Engineering (established 1967)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Civil Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Civil Engineering",
+          "durationYears": 4,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/civil/",
+          "title": "NIT Trichy - Civil Engineering (B.Tech since 1964)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Computer Science and Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Computer Science and Engineering",
+          "durationYears": 4,
+          "intake": 115
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/cse/",
+          "title": "NIT Trichy - Computer Science and Engineering (B.Tech intake increased to 115 in 2019)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2019",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Electrical and Electronics Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Electrical and Electronics Engineering",
+          "durationYears": 4,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/eee/",
+          "title": "NIT Trichy - Electrical and Electronics Engineering (started 1964)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Electronics and Communication Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Electronics and Communication Engineering",
+          "durationYears": 4,
+          "intake": 145
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/ece/",
+          "title": "NIT Trichy - Electronics and Communication Engineering (UG intake increased to 145 in 2019)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2019",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Instrumentation and Control Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Instrumentation and Control Engineering",
+          "durationYears": 4,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/ice/",
+          "title": "NIT Trichy - Instrumentation and Control Engineering (established 1993)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Mechanical Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Mechanical Engineering",
+          "durationYears": 4,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/mech/",
+          "title": "NIT Trichy - Mechanical Engineering (one of the three founding departments, 1964)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Metallurgical and Materials Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Metallurgical and Materials Engineering",
+          "durationYears": 4,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/meta/",
+          "title": "NIT Trichy - Metallurgical and Materials Engineering",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Production Engineering",
+      "programs": [
+        {
+          "degree": "B.Tech",
+          "name": "Production Engineering",
+          "durationYears": 4,
+          "intake": null
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/prod/",
+          "title": "NIT Trichy - Production Engineering",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Architecture",
+      "programs": [
+        {
+          "degree": "B.Arch",
+          "name": "Architecture",
+          "durationYears": 5,
+          "intake": 60
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/departments/architecture/",
+          "title": "NIT Trichy - Architecture (milestones: B.Arch intake increased to 60 in 2015)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "facultyCount": {
+    "value": 353,
+    "sources": [
+      {
+        "url": "https://www.nitt.edu/",
+        "title": "NIT Trichy home page - key figures (Faculty 353, UG & PG students 6347, Ph.D students 881, Departments 17)",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0467.pdf",
+        "title": "NIRF 2025 data submitted by NIT Tiruchirappalli (IR-E-U-0467): number of faculty members entered 320",
+        "publisher": "NIRF",
+        "accessedOn": "2026-09-13",
+        "asOf": "2023-24",
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "curriculumHighlights": [
+    {
+      "text": "B.Tech Regulations 2024 set a 160-credit (plus 3) degree over 58 courses: 56 credits of General Institute Requirements common to all branches, 52-55 credits of programme core, 36 credits of programme/open electives and 16 credits of essential laboratory work.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations 2024, B.2.2 credit distribution table",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "text": "An optional B.Tech (Honours) requires 15 extra credits from the department's honours basket starting in semester 5, with a minimum SGPA of 8.5 in every semester and at least a B grade in each honours course.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations 2024, B.3.0(5) and B.20.3 Honours eligibility",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "text": "A Minor is earned with 15 additional credits (at least five courses) from a single other department, available from semester 3; the minor certificate is issued separately alongside the degree.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations 2024, B.3.0(6) and B.20.4 Minor eligibility",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "text": "A compulsory summer internship or industrial training of at least six weeks after semester 6 carries 2 credits, assessed through a report and viva; final-year project work may also be done through Training & Placement internships or outside the institute.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations 2024, B.8.6 Internship / Industrial Training Evaluation",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "text": "Students can spend semester 7 or 8 at an approved foreign or Indian institution under exchange, study-abroad or academic-attachment programmes, provided courses already completed at NITT are not repeated.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations 2024, B.8.7 Study Abroad / Exchange Program",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "text": "NEP-style exit option: a student may leave after three years with a B.Sc. in the engineering discipline and return within the 12-semester maximum duration to finish the B.Tech.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations 2024, B.2.12 Exit and Re-Entry Provision",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "text": "Online (NPTEL/SWAYAM-type) courses of at least 12 weeks and short microcredit courses can be counted for credit; a student may register up to 28 credits a semester excluding honours, minor and online courses, and up to 25% of a course can be delivered by industry experts.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations 2024, B.2.11 industry experts, B.4.0(c) credit cap, online courses",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "text": "The 2024 regulations contain no branch-change (change of programme) clause; students should assume the branch allotted at admission is final unless the institute notifies otherwise.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations 2024 (full text; no change-of-branch provision)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    }
+  ],
+  "research": {
+    "note": "NIT Trichy runs Ph.D. programmes in all 17 departments and M.S. (by Research) in the engineering departments. Per its NIRF 2025 submission it had 649 full-time and 172 part-time doctoral scholars in 2023-24 and graduated 185 Ph.D.s that year; sponsored research brought in about Rs 9.1 crore from 35 projects and consultancy about Rs 6.9 crore in FY 2023-24. The institute also hosts a Param Porul supercomputing facility, a Centre of Excellence in Manufacturing and a Sophisticated Instrumentation Facility.",
+    "phdCount": 821,
+    "sources": [
+      {
+        "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0467.pdf",
+        "title": "NIRF 2025 data (IR-E-U-0467): Ph.D. pursuing till 2023-24 - full time 649, part time 172; graduated 2023-24 136 FT + 49 PT; sponsored research and consultancy tables",
+        "publisher": "NIRF",
+        "accessedOn": "2026-09-13",
+        "asOf": "2023-24",
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nitt.edu/home/academics/programmes/",
+        "title": "NIT Trichy - Academic Programmes (UG: 9 B.Tech, B.Arch, B.Sc. B.Ed.)",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nitt.edu/",
+        "title": "NIT Trichy home page - Ph.D students 881; centres list (Super Computing ParamPorul, CoE in Manufacturing, SIF)",
+        "publisher": "NIT Tiruchirappalli",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2023-24"
+  }
+}

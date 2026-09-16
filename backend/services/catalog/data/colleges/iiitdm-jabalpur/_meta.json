@@ -1,0 +1,16 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "collectedOn": "2026-09-16",
+  "packets": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "verifierReport": {
+    "checked": 10,
+    "confirmed": 10,
+    "nulled": [],
+    "notes": "Verified 10 numeric facts against their cited sources: profile.location.campusAcres=260 (official Campus Tour page + Wikipedia, both say 260 acres); academics.departments[CSE].programs[B.Tech].intake=275 (Wikipedia 2023-24 UG seat matrix; also cross-checked ECE=140, ME=73, SM=70, B.Des=66, all matched); academics.facultyCount.value=79 (NIRF 2025 PDF faculty roster \u2014 manually counted 79 rows marked 'Currently working with institution: Yes', exact match); academics.research.phdCount=165 (NIRF 2025 PDF: Full Time 156 + Part Time 9 = 165, exact); rankings.nirf[2022].engineering=82 and rankings.nirf[2023].engineering=97 (Wikipedia NIRF engineering table, exact); placements.years[2023-24].avgLpa=21.63, highestLpa=82 (Placement Brochure 2023-2024 PDF p.21 'Placement Statistics': Avg. UG Package 21.63 LPA, Highest CTC Offered 82 LPA, both exact; bonus-checked offers=350 also matched '350+ Offers'); placements.years[2025-26].avgLpa=18.69 (official Placement Statistics 2025-26 infographic: 'Avg UG Package 18.69 LPA', exact; bonus-checked highestLpa=75 matched 'Highest Domestic Package 75 LPA'); fees.years[2026-27].tuition=143500 (official Fee Structure 2026-27 PDF: tuition fee Rs 71,750/semester x 2 = 143,500, exact; bonus-checked hostel, mess, other and totalYear all reconciled against the PDF's semester-wise Grand Total table). All 10 confirmed with no discrepancies; nothing was nulled. Also spot-checked alumni batch years (Surbhi Namdeo, Satyam Jayashawal, Abhishek Patel) against Wikipedia's Notable Alumni section \u2014 matched. Scanned prose fields (profile.about, location.connectivityNote, admissionRoutes notes, campus-life.summary.text, hostels.messNote, faqs answers, curriculumHighlights, research.note) against the Wikipedia article and official Gymkhana/Activities/Hostels/About pages for 12+ word verbatim runs \u2014 none found; all prose is originally worded paraphrase, not cop... (truncated)"
+  }
+}

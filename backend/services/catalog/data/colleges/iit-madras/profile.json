@@ -1,0 +1,201 @@
+{
+  "instituteId": "iit-madras",
+  "officialName": "Indian Institute of Technology Madras",
+  "short": "IIT Madras",
+  "type": "IIT",
+  "established": 1959,
+  "website": "https://www.iitm.ac.in",
+  "about": "IIT Madras was set up in 1959 under an Indo-German agreement, declared an Institute of National Importance in 1961 and later named an Institute of Eminence. It has held the top spot in NIRF's engineering ranking every year since the framework began and the overall ranking for seven straight years. Eighteen departments span engineering, sciences, humanities, management and medical science, and doctoral scholars outnumber undergraduates on a wooded campus that also houses the IITM Research Park and incubation cell.",
+  "location": {
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "campusAcres": 617,
+    "nearestAirport": "Chennai International Airport (MAA), about 10-15 km",
+    "nearestRailway": "Chennai Central, about 12-13 km; Kasturba Nagar MRTS adjoins the campus",
+    "connectivityNote": "The main gate is on Sardar Patel Road between Adyar and Velachery in south Chennai. Kasturba Nagar on the MRTS line is the closest station; Guindy metro plus a short bus or auto ride is the other rail option. The airport is a 30-45 minute cab ride and Chennai Central about 45-60 minutes by road.",
+    "sources": [
+      {
+        "url": "https://www.iitm.ac.in/campus-life/overview",
+        "title": "Campus Life at IIT Madras - Overview (2.5 km2 / 617 acre campus; 10 km from airport, 12 km from Chennai Central; Kasturba Nagar MRTS)",
+        "publisher": "IIT Madras",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://doe.iitm.ac.in/coastlab26/how-to-reach.html",
+        "title": "How to Reach IIT Madras (Coastlab 2026, Department of Ocean Engineering) - airport ~15 km, Chennai Central ~13 km, metro and bus routes",
+        "publisher": "IIT Madras",
+        "accessedOn": "2026-09-13",
+        "asOf": "2026",
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  },
+  "admissionRoutes": [
+    {
+      "route": "josaa",
+      "programs": ["B.Tech", "Dual Degree (B.Tech + M.Tech)", "BS (4-year)"],
+      "note": "JEE Advanced rank, seats via JoSAA",
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras: 13 B.Tech, 3 BS and 2 Dual Degree programmes)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/academics/study-at-iitm/undergraduate-programmes",
+          "title": "Undergraduate Programmes | IIT Madras (entry through JEE Advanced; branch decided by the Joint Admission Committee)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://ugadmissions.iitm.ac.in/",
+          "title": "IIT Madras UG Admissions portal (routes: JEE Advanced/JoSAA, SEA, FACE, SCOPE, BS Mathematics OAM, IAT)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "route": "other",
+      "programs": ["B.Tech", "Dual Degree (B.Tech + M.Tech)", "BS (4-year)"],
+      "note": "Supernumerary channels for JEE Advanced-qualified candidates: Sports Excellence (SEA), Fine Arts and Culture Excellence (FACE) and Science Olympiad Excellence (SCOPE), each adding two seats per programme (one gender-neutral, one female-only).",
+      "sources": [
+        {
+          "url": "https://ugadmissions.iitm.ac.in/sea/",
+          "title": "Sports Excellence Admission 2026 - IIT Madras (two seats per programme: one Gender-Neutral, one Female-Only)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://ugadmissions.iitm.ac.in/face/",
+          "title": "Fine Arts and Culture Excellence Admission 2026 - IIT Madras (qualified in JEE Advanced 2026; two seats per programme)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://ugadmissions.iitm.ac.in/scope/",
+          "title": "Science Olympiad Excellence Admission 2026 - IIT Madras (two seats per programme)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "route": "other",
+      "programs": ["BS Mathematics (Olympiad Admission Mode)"],
+      "note": "Olympiad Admission Mode fills 13 seats (4 OPEN, 1 OPEN-PwD, 1 GEN-EWS, 4 OBC-NCL, 2 SC, 1 ST) in the new four-year BS Mathematics for 2026-27 on Mathematics Olympiad performance; the remaining seats go through JoSAA.",
+      "sources": [
+        {
+          "url": "https://ugadmissions.iitm.ac.in/bsmath/pdf/OAM_2026_BR_V1_30April.pdf",
+          "title": "Business Rules: Admission to B.S. (Mathematics) through Olympiad Admission Mode 2026-27 (Table 1 seat matrix; JEE mode via JoSAA)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "route": "other",
+      "programs": ["BS Medical Sciences and Engineering", "BS Chemistry"],
+      "note": "Two on-campus four-year BS programmes are admitted through the IISER Aptitude Test (IAT) instead of JoSAA; candidates register on the IISER portal and then apply on the IIT Madras admission portal.",
+      "sources": [
+        {
+          "url": "https://ugadmissions.iitm.ac.in/bsiat/",
+          "title": "B.S. (MSE) and B.S. (Chemistry) 2026 admission through IISER Aptitude Test (IAT) - IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://mst.iitm.ac.in/bs-in-medical-sciences-engineering/",
+          "title": "Four Year BS Programme in Medical Sciences & Engineering - admissions 2026 through IISER Aptitude Test (IAT)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "route": "own-entrance",
+      "programs": ["BS Data Science and Applications (non-campus)", "BS Electronic Systems (non-campus)", "BS Aeronautics and Space Technology (non-campus)", "BS Management and Data Science (non-campus)"],
+      "note": "Online, non-campus BS degrees run by IIT Madras with their own qualifier process rather than JEE; multiple exit levels. These are not JoSAA seats and are not residential programmes.",
+      "sources": [
+        {
+          "url": "https://study.iitm.ac.in/",
+          "title": "IIT Madras Non-Campus Undergraduate Programs (BS Data Science and Applications, BS Electronic Systems, BS Aeronautics and Space Technology, BS Management and Data Science)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://study.iitm.ac.in/ds/",
+          "title": "IIT Madras BS Degree in Data Science and Applications (qualifier-based admission, no JEE)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.iitm.ac.in/the-institute/about-iit-madras/history",
+      "title": "History | IIT Madras (Indo-German agreement and inauguration 1959; Institute of National Importance 1961)",
+      "publisher": "IIT Madras",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.iitm.ac.in/the-institute/about-iit-madras/overview",
+      "title": "About IIT Madras - Overview (inaugurated 1959; Institute of Eminence; departments and research centres)",
+      "publisher": "IIT Madras",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.iitm.ac.in/",
+      "title": "IIT Madras home page (statistics block: 2,105 UG, 4,112 PG, 746 MS and 2,963 PhD scholars, 591 faculty; 18 departments listed)",
+      "publisher": "IIT Madras",
+      "accessedOn": "2026-09-13",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/celebrating-decade-excellence-iit-madras-tops-nirf-once",
+      "title": "Celebrating a decade of excellence: IIT Madras tops NIRF once again (Engineering #1 for 10th year, Overall #1 for 7th year)",
+      "publisher": "IIT Madras",
+      "accessedOn": "2026-09-13",
+      "asOf": "2025-09-04",
+      "confidence": "official"
+    }
+  ],
+  "asOf": "2026"
+}

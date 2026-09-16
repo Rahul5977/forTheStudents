@@ -1,0 +1,630 @@
+{
+  "instituteId": "iit-madras",
+  "notable": [
+    {
+      "name": "Kris Gopalakrishnan",
+      "knownFor": "Co-founder of Infosys; its CEO and managing director 2007-2011; Padma Bhushan (2011)",
+      "program": "M.Tech Computer Science",
+      "batch": 1979,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "1998",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Kris_Gopalakrishnan",
+          "title": "Kris Gopalakrishnan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1998"
+    },
+    {
+      "name": "Prem Watsa",
+      "knownFor": "Founder, chairman and CEO of Fairfax Financial Holdings (Canada)",
+      "program": "B.Tech Chemical Engineering",
+      "batch": 1971,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "1999",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1999"
+    },
+    {
+      "name": "Sridhar Vembu",
+      "knownFor": "Co-founder and former CEO of Zoho Corporation",
+      "program": "B.Tech Electrical Engineering",
+      "batch": 1989,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2016",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2016"
+    },
+    {
+      "name": "Krishna Bharat",
+      "knownFor": "Creator of Google News; distinguished research scientist at Google",
+      "program": "B.Tech Computer Science",
+      "batch": 1991,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2015"
+    },
+    {
+      "name": "Prabhakar Raghavan",
+      "knownFor": "Senior engineering executive at Google; earlier head of Yahoo! Labs",
+      "program": "B.Tech Electrical Engineering",
+      "batch": 1981,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2012",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2012"
+    },
+    {
+      "name": "Anant Agarwal",
+      "knownFor": "MIT professor; founding CEO of the online-learning platform edX",
+      "program": "B.Tech Electrical Engineering",
+      "batch": 1982,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2014",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2014"
+    },
+    {
+      "name": "Gururaj (Desh) Deshpande",
+      "knownFor": "Co-founder of Sycamore Networks and Cascade Communications; chairman of Tejas Networks",
+      "program": "B.Tech Electrical Engineering",
+      "batch": 1973,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "1998",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Gururaj_Deshpande",
+          "title": "Gururaj Deshpande",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1998"
+    },
+    {
+      "name": "B. Jayant Baliga",
+      "knownFor": "Inventor of the insulated-gate bipolar transistor (IGBT)",
+      "program": "B.Tech Electrical Engineering",
+      "batch": 1969,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "1999",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1999"
+    },
+    {
+      "name": "Subra Suresh",
+      "knownFor": "Former president of Carnegie Mellon University; former director of the US National Science Foundation",
+      "program": "B.Tech Mechanical Engineering",
+      "batch": 1977,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "1997",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1997"
+    },
+    {
+      "name": "B. Muthuraman",
+      "knownFor": "Former managing director of Tata Steel; Padma Bhushan awardee",
+      "program": "B.Tech Metallurgical and Materials Engineering",
+      "batch": 1966,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "1997",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1997"
+    },
+    {
+      "name": "S. Somanath",
+      "knownFor": "Chairman of ISRO (January 2022 - January 2025); earlier director of VSSC and LPSC",
+      "program": "Ph.D Mechanical Engineering",
+      "batch": 2024,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/S._Somanath",
+          "title": "S. Somanath",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2025"
+    },
+    {
+      "name": "Anima Anandkumar",
+      "knownFor": "Bren Professor of Computing at Caltech; former senior director of machine-learning research at NVIDIA",
+      "program": "B.Tech Electrical Engineering",
+      "batch": 2004,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Anima_Anandkumar",
+          "title": "Anima Anandkumar",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "name": "Venkatesan Guruswami",
+      "knownFor": "Theoretical computer scientist and professor, known for work on error-correcting codes",
+      "program": "B.Tech Computer Science",
+      "batch": 1997,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "name": "Sridhar Ramaswamy",
+      "knownFor": "CEO of Snowflake since 2024; co-founder of Neeva; earlier ran Google's advertising business",
+      "program": "B.Tech Computer Science",
+      "batch": 1989,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2014",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Sridhar_Ramaswamy",
+          "title": "Sridhar Ramaswamy",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2014"
+    },
+    {
+      "name": "Sethuraman Panchanathan",
+      "knownFor": "15th director of the US National Science Foundation (2020-2025)",
+      "program": "M.Tech Electrical Engineering",
+      "batch": 1986,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2017",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Sethuraman_Panchanathan",
+          "title": "Sethuraman Panchanathan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2017"
+    },
+    {
+      "name": "Bob Balaram",
+      "knownFor": "Chief engineer of NASA JPL's Ingenuity Mars helicopter, the first aircraft flown on another planet",
+      "program": "B.Tech Mechanical Engineering",
+      "batch": 1980,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2022",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Bob_Balaram",
+          "title": "Bob Balaram",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2022"
+    },
+    {
+      "name": "Anand Rajaraman",
+      "knownFor": "Co-founder of Junglee and Kosmix",
+      "program": "B.Tech Computer Science",
+      "batch": 1993,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2013",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2013"
+    },
+    {
+      "name": "Suresh Garimella",
+      "knownFor": "President of the University of Arizona since 2024",
+      "program": "B.Tech Mechanical Engineering",
+      "batch": 1985,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2010",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Suresh_Garimella",
+          "title": "Suresh Garimella",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2010"
+    },
+    {
+      "name": "Hari Balakrishnan",
+      "knownFor": "Fujitsu Professor at MIT; Marconi Prize (2023); co-founder of Cambridge Mobile Telematics",
+      "program": "B.Tech Computer Science",
+      "batch": 1993,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2013",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Hari_Balakrishnan",
+          "title": "Hari Balakrishnan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2013"
+    },
+    {
+      "name": "Vellayan Subbiah",
+      "knownFor": "Chairman and non-executive director of Cholamandalam Investment and Finance Company",
+      "program": "B.Tech Civil Engineering",
+      "batch": 1990,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Cholamandalam_Investment_and_Finance_Company",
+          "title": "Cholamandalam Investment and Finance Company",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2025"
+    },
+    {
+      "name": "Vinod Vaikuntanathan",
+      "knownFor": "MIT computer science professor; 2022 Godel Prize for work on homomorphic encryption",
+      "program": "B.Tech Computer Science",
+      "batch": 2003,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Vinod_Vaikuntanathan",
+          "title": "Vinod Vaikuntanathan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "name": "L. Mahadevan",
+      "knownFor": "Harvard professor of applied mathematics, physics and evolutionary biology; MacArthur Fellow (2009)",
+      "program": "B.Tech Mechanical Engineering",
+      "batch": 1986,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2009",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/L._Mahadevan",
+          "title": "L. Mahadevan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2009"
+    },
+    {
+      "name": "K. Mani Chandy",
+      "knownFor": "Simon Ramo Professor of Computer Science at Caltech; US National Academy of Engineering member",
+      "program": "B.Tech Electrical Engineering",
+      "batch": 1965,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2018",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/K._Mani_Chandy",
+          "title": "K. Mani Chandy",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2018"
+    },
+    {
+      "name": "Palanivel Veeramuthuvel",
+      "knownFor": "Project director of ISRO's Chandrayaan-3 lunar mission",
+      "program": "Ph.D Mechanical Engineering",
+      "batch": 2016,
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/recognitions/distinguished-alum-awards",
+          "title": "Distinguished Alumnus Awards",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/P._Veeramuthuvel",
+          "title": "P. Veeramuthuvel",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "name": "Aravind Srinivas",
+      "knownFor": "Co-founder and CEO of Perplexity AI",
+      "program": "B.Tech",
+      "batch": 2017,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Madras_alumni",
+          "title": "List of Indian Institute of Technology Madras alumni",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Aravind_Srinivas",
+          "title": "Aravind Srinivas",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

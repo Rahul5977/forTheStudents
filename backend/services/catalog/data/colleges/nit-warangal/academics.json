@@ -1,0 +1,494 @@
+{
+  "instituteId": "nit-warangal",
+  "departments": [
+    {
+      "name": "Civil Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Civil Engineering", "durationYears": 4, "intake": 109 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Electrical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Electrical and Electronics Engineering", "durationYears": 4, "intake": 115 },
+        { "degree": "B.Tech", "name": "Electrical and Electronics Engineering (Electric Mobility)", "durationYears": 4, "intake": 30 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Mechanical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Mechanical Engineering", "durationYears": 4, "intake": 129 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Electronics and Communication Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Electronics and Communication Engineering", "durationYears": 4, "intake": 99 },
+        { "degree": "B.Tech", "name": "Electronics and Communication Engineering (VLSI Design and Technology)", "durationYears": 4, "intake": 40 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Metallurgical and Materials Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Metallurgical and Materials Engineering", "durationYears": 4, "intake": 59 },
+        { "degree": "Dual Degree", "name": "Metallurgical and Materials Engineering (B.Tech + M.Tech)", "durationYears": 5, "intake": 12 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Chemical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Chemical Engineering", "durationYears": 4, "intake": 97 },
+        { "degree": "Dual Degree", "name": "Chemical Engineering (B.Tech + M.Tech)", "durationYears": 5, "intake": 12 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Computer Science and Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Computer Science and Engineering", "durationYears": 4, "intake": 134 },
+        { "degree": "B.Tech", "name": "Computer Science and Engineering (Artificial Intelligence & Data Science)", "durationYears": 4, "intake": 56 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Biotechnology",
+      "programs": [
+        { "degree": "B.Tech", "name": "Biotechnology", "durationYears": 4, "intake": 71 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Computational and Data Science",
+      "programs": [
+        { "degree": "B.Tech", "name": "Mathematics and Computing", "durationYears": 4, "intake": 29 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - section 1.1 (department-wise B.Tech programmes)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Mathematics",
+      "programs": [
+        { "degree": "Integrated M.Sc.", "name": "Mathematics (5-year Integrated Master of Science)", "durationYears": 5, "intake": 19 },
+        { "degree": "B.Sc. B.Ed.", "name": "Integrated Teacher Education Programme (ITEP), coordinated by the Department of Mathematics", "durationYears": 4, "intake": null }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG intake table and ITEP B.Sc. B.Ed. tab",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - section 1.2 (B.Sc. B.Ed. coordinated by Department of Mathematics)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Physics",
+      "programs": [
+        { "degree": "Integrated M.Sc.", "name": "Physics (5-year Integrated Master of Science)", "durationYears": 5, "intake": 19 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Chemistry",
+      "programs": [
+        { "degree": "Integrated M.Sc.", "name": "Chemistry (5-year Integrated Master of Science)", "durationYears": 5, "intake": 19 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG department/program/intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - National Institute of Technology, Warangal",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Humanities and Social Sciences",
+      "programs": [],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+          "title": "NIT Warangal Communication Handbook 2024 - department directory",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "name": "Management Studies",
+      "programs": [],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+          "title": "NIT Warangal Communication Handbook 2024 - department directory",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    }
+  ],
+  "facultyCount": {
+    "value": 398,
+    "sources": [
+      {
+        "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Overall/IR-O-U-0025.pdf",
+        "title": "NIRF 2025 data submitted by National Institute of Technology Warangal (Overall, IR-O-U-0025) - Faculty Details: number of faculty members entered",
+        "publisher": "NIRF",
+        "accessedOn": "2026-09-13",
+        "asOf": "2023-24",
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2023-24"
+  },
+  "curriculumHighlights": [
+    {
+      "text": "There is no branch change at the end of the first year: the 2024-25 UG regulations state this explicitly, so the JoSAA/CSAB allotment is the branch a student graduates in.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - rule 2.8 (no branch change)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "text": "The B.Tech needs a minimum of 150-160 credits (as fixed by each department) with a CGPA of at least 5.00, plus mandatory non-credit courses; the degree takes at least four years and must be completed within eight. One lecture hour a week over a 14-week semester earns one credit, a lab hour half a credit.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - rules 3.4-3.5 (credits, degree requirements)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "text": "Minor programmes: 15 extra credits (five courses, or four plus a project) in a discipline offered by another department, from the 3rd semester, for a one-time fee. A student may take one minor, two minors, or a minor plus honours; an NCC minor with relaxed CGPA eligibility is open to school-level NCC cadets.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - section 16 (Minor Program)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "text": "Honours: 15 additional credits within the student's own department from the 5th semester, finishing by the 8th; the degree is awarded as the discipline 'with Honors'. Honours credits can be carried into an M.Tech in the relevant specialisation at the institute.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - section 17 (Honors Program) and M.Tech credit transfer note",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "text": "Every student must complete either a 6-8 week summer internship (industry, research organisation or a premier academic institute, NIT Warangal included) or an EPICS community-service project under a faculty guide, and present the work to a departmental evaluation committee.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - rule 9.8 (Summer/research internship / EPICS)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "text": "An optional 8th-semester internship arranged through the placement centre (CCPD) is open to students with CGPA above 6.50 and no backlogs up to the 7th semester; the remaining 8th-semester courses are done by self-study or SWAYAM/NPTEL, and the internship project counts as the final-year project.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - section 18 (Semester Internship)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "text": "The curriculum mixes basic-science, engineering-science and humanities cores with programme-core and elective courses, open electives (sciences, engineering, humanities or management), minor/major projects and mandatory non-credit courses. Students below 5.00 CGPA after the 2nd semester are flagged via the ERP.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG Programs 2024-25 - section 3.1 (course structure) and rule 9.9 (slow learners)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    }
+  ],
+  "research": {
+    "note": "NIT Warangal runs a large doctoral programme for an NIT: its NIRF 2025 submission lists 642 full-time and 433 part-time PhD scholars enrolled up to 2023-24, with 125 PhDs (101 full-time, 24 part-time) awarded in 2023-24 alone. Externally funded work in FY 2023-24 comprised 161 sponsored projects from 39 agencies worth about Rs 19.4 crore, plus 107 consultancy projects for 84 client organisations worth about Rs 2.9 crore. The institute also hosts a Centre of Excellence in Additive Manufacturing and a Centre for Teaching and Learning.",
+    "phdCount": 1075,
+    "sources": [
+      {
+        "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Overall/IR-O-U-0025.pdf",
+        "title": "NIRF 2025 data submitted by National Institute of Technology Warangal (Overall, IR-O-U-0025) - Ph.D student details, sponsored research and consultancy",
+        "publisher": "NIRF",
+        "accessedOn": "2026-09-13",
+        "asOf": "2023-24",
+        "confidence": "official"
+      },
+      {
+        "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+        "title": "NIT Warangal Communication Handbook 2024 - A Brief Introduction (Centre of Excellence in Additive Manufacturing, Centre for Teaching and Learning)",
+        "publisher": "NIT Warangal",
+        "accessedOn": "2026-09-13",
+        "asOf": "2024",
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2023-24"
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "instituteId": "nit-warangal",
+  "years": [
+    {
+      "year": "2025-26",
+      "avgLpa": 18.6,
+      "medianLpa": 15,
+      "highestLpa": 127,
+      "pctPlaced": 93.94,
+      "offers": null,
+      "ppos": 6,
+      "higherStudiesPct": null,
+      "topRecruiters": [],
+      "branchWise": [
+        { "program": "Computer Science and Engineering", "avgLpa": 30.21, "medianLpa": 24.4, "pctPlaced": 99.15 },
+        { "program": "Electronics and Communication Engineering", "avgLpa": 22.6, "medianLpa": 19.61, "pctPlaced": 97.32 },
+        { "program": "Electrical and Electronics Engineering", "avgLpa": 23.27, "medianLpa": 17.71, "pctPlaced": 87.04 },
+        { "program": "Mechanical Engineering", "avgLpa": 12.42, "medianLpa": 11, "pctPlaced": 95.19 },
+        { "program": "Civil Engineering", "avgLpa": 11.61, "medianLpa": 10, "pctPlaced": 92.42 },
+        { "program": "Chemical Engineering", "avgLpa": 12.13, "medianLpa": 10, "pctPlaced": 89.01 },
+        { "program": "Metallurgical and Materials Engineering", "avgLpa": 12.08, "medianLpa": 9.66, "pctPlaced": 100 },
+        { "program": "Biotechnology", "avgLpa": 11.83, "medianLpa": 10, "pctPlaced": 80.36 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/plamenets_stats2026-2026_2026-6-30-19-22-14.pdf",
+          "title": "On-Campus Placement Statistics for the Placement Year 2025-26 — UG (B.Tech) summary and branch-wise table; \"Expected PPO Conversions\" row gives UG PPOs",
+          "publisher": "NIT Warangal — Centre for Career Planning and Development (CCPD)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "year": "2024-25",
+      "avgLpa": null,
+      "medianLpa": null,
+      "highestLpa": 64.3,
+      "pctPlaced": 86.48,
+      "offers": null,
+      "ppos": null,
+      "higherStudiesPct": null,
+      "topRecruiters": [
+        { "name": "Amazon", "sector": "software" },
+        { "name": "Microsoft", "sector": "software" },
+        { "name": "Adobe", "sector": "software" },
+        { "name": "Oracle", "sector": "software" },
+        { "name": "Salesforce", "sector": "software" },
+        { "name": "SAP Labs", "sector": "software" },
+        { "name": "ServiceNow", "sector": "software" },
+        { "name": "Synopsys", "sector": "software" },
+        { "name": "Cadence", "sector": "software" },
+        { "name": "TCS", "sector": "software" },
+        { "name": "Wipro", "sector": "software" },
+        { "name": "HCL Tech", "sector": "software" },
+        { "name": "Texas Instruments", "sector": "core" },
+        { "name": "Qualcomm", "sector": "core" },
+        { "name": "Samsung", "sector": "core" },
+        { "name": "Micron", "sector": "core" },
+        { "name": "L&T", "sector": "core" },
+        { "name": "Deloitte", "sector": "consulting" },
+        { "name": "EY India", "sector": "consulting" },
+        { "name": "PWC India", "sector": "consulting" },
+        { "name": "Goldman Sachs", "sector": "finance" },
+        { "name": "Morgan Stanley", "sector": "finance" },
+        { "name": "JPMC", "sector": "finance" },
+        { "name": "Deutsche Bank", "sector": "finance" },
+        { "name": "American Express", "sector": "finance" },
+        { "name": "GAIL", "sector": "psu" }
+      ],
+      "branchWise": [
+        { "program": "Computer Science and Engineering", "avgLpa": 22.63, "medianLpa": 20, "pctPlaced": 94.89 },
+        { "program": "Electronics and Communication Engineering", "avgLpa": 20.8, "medianLpa": 18, "pctPlaced": 85.38 },
+        { "program": "Electrical and Electronics Engineering", "avgLpa": 17.59, "medianLpa": 16, "pctPlaced": 95.9 },
+        { "program": "Mechanical Engineering", "avgLpa": 12.57, "medianLpa": 12.46, "pctPlaced": 85.84 },
+        { "program": "Chemical Engineering", "avgLpa": 11.25, "medianLpa": 10, "pctPlaced": 83 },
+        { "program": "Civil Engineering", "avgLpa": 9.75, "medianLpa": 8, "pctPlaced": 80.68 },
+        { "program": "Metallurgical and Materials Engineering", "avgLpa": 9.82, "medianLpa": 8, "pctPlaced": 87.3 },
+        { "program": "Biotechnology", "avgLpa": 9.26, "medianLpa": 8, "pctPlaced": 62.26 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/plamenets2024-2025_2025-7-24-15-44-52.pdf",
+          "title": "On-Campus Placement Statistics for the Placement Year 2024-25 — UG (B.Tech) branch-wise table (806 eligible, 697 placed = 86.48%)",
+          "publisher": "NIT Warangal — Centre for Career Planning and Development (CCPD)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://nitw.ac.in/api/static/files/ccpd2024_2024-7-30-11-0-22.pdf",
+          "title": "Campus Placement Brochure 2024-25 — \"Past Recruiters\" A-Z list (pp. 20-22)",
+          "publisher": "NIT Warangal — Centre for Career Planning and Development (CCPD)",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "year": "2023-24",
+      "avgLpa": 15.6,
+      "medianLpa": 12.5,
+      "highestLpa": 88,
+      "pctPlaced": 76,
+      "offers": 1120,
+      "ppos": null,
+      "higherStudiesPct": null,
+      "topRecruiters": [],
+      "branchWise": null,
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/ccpd2024_2024-7-30-11-0-22.pdf",
+          "title": "Campus Placement Brochure 2024-25 — \"Placement Records 2023-24\" overall-statistics slide (p. 19): average 15.6 LPA, median 12.5 LPA, highest 88 LPA, 76% placed, 1120+ students placed",
+          "publisher": "NIT Warangal — Centre for Career Planning and Development (CCPD)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023-24"
+    },
+    {
+      "year": "2021-22",
+      "avgLpa": null,
+      "medianLpa": null,
+      "highestLpa": 62.5,
+      "pctPlaced": 92.15,
+      "offers": null,
+      "ppos": null,
+      "higherStudiesPct": null,
+      "topRecruiters": [],
+      "branchWise": [
+        { "program": "Civil Engineering", "avgLpa": 8.93, "medianLpa": 8.1, "pctPlaced": 82.2 },
+        { "program": "Electrical and Electronics Engineering", "avgLpa": 14.94, "medianLpa": 12, "pctPlaced": 91.2 },
+        { "program": "Mechanical Engineering", "avgLpa": 11.05, "medianLpa": 10, "pctPlaced": 95.8 },
+        { "program": "Electronics and Communication Engineering", "avgLpa": 18.96, "medianLpa": 17.73, "pctPlaced": 94.7 },
+        { "program": "Metallurgical and Materials Engineering", "avgLpa": 12.83, "medianLpa": 10.5, "pctPlaced": 78.9 },
+        { "program": "Chemical Engineering", "avgLpa": 10.09, "medianLpa": 9.02, "pctPlaced": 94.6 },
+        { "program": "Computer Science and Engineering", "avgLpa": 25.5, "medianLpa": 25.4, "pctPlaced": 99.2 },
+        { "program": "Biotechnology", "avgLpa": 10.62, "medianLpa": 9.02, "pctPlaced": 81 }
+      ],
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/api/static/files/AY_2021-22_2024-3-19-9-49-45_2025-3-25-11-23-17.pdf",
+          "title": "Placement Statistics for the Placement Year 2021-22 (as on 30.05.2022) — B.Tech branch-wise table (701 eligible, 646 placed = 92.15%)",
+          "publisher": "NIT Warangal — Centre for Career Planning and Development (CCPD)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2021-22",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2021-22"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "instituteId": "nit-warangal",
+  "nirf": [
+    {
+      "year": 2023,
+      "overall": 53,
+      "engineering": 21,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2023/OverallRanking.html",
+          "title": "NIRF India Rankings 2023 - Overall (National Institute of Technology Warangal, IR-O-U-0025, rank 53)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2023/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2023 - Engineering (National Institute of Technology Warangal, IR-E-U-0025, rank 21)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "year": 2024,
+      "overall": 53,
+      "engineering": 21,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/OverallRanking.html",
+          "title": "NIRF India Rankings 2024 - Overall (National Institute of Technology Warangal, IR-O-U-0025, rank 53)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2024 - Engineering (National Institute of Technology Warangal, IR-E-U-0025, rank 21)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "year": 2025,
+      "overall": 63,
+      "engineering": 28,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/OverallRanking.html",
+          "title": "NIRF India Rankings 2025 - Overall (National Institute of Technology Warangal, IR-O-U-0025, rank 63)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2025 - Engineering (National Institute of Technology Warangal, IR-E-U-0025, rank 28)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    }
+  ],
+  "qs": [
+    {
+      "year": 2026,
+      "world": null,
+      "asia": 771,
+      "sources": [
+        {
+          "url": "https://www.topuniversities.com/universities/national-institute-technology-warangal",
+          "title": "QS - National Institute of Technology Warangal profile: QS Asia University Rankings 2026 band 771-780 (=240 in Southern Asia); not listed in QS World University Rankings",
+          "publisher": "QS Quacquarelli Symonds",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    }
+  ],
+  "naac": null
+}

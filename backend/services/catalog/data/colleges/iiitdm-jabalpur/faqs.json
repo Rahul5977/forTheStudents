@@ -1,0 +1,201 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "items": [
+    {
+      "q": "What does IIITDM Jabalpur actually stand for, and is it a full-fledged IIIT?",
+      "a": "The full name is Pt. Dwarka Prasad Mishra Indian Institute of Information Technology, Design and Manufacturing, Jabalpur. Set up in 2005, it was later declared an Institute of National Importance by Parliament under the IIIT Act, putting it on the same statutory footing as the other government-funded IIITs rather than a state or private institute.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/about-pdpm-iiitdm",
+          "title": "About PDPM IIITDM Jabalpur",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "Which B.Tech branches can I get into through JoSAA at IIITDM Jabalpur?",
+      "a": "JoSAA counselling fills B.Tech seats in Computer Science & Engineering, Electronics & Communication Engineering, Mechanical Engineering and Smart Manufacturing. These four engineering branches run alongside a separate Design discipline that isn't part of JoSAA's seat pool.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/academics/departments",
+          "title": "Academic Departments",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "Does IIITDM Jabalpur offer a design degree, and how do I get admission to it?",
+      "a": "Yes. Its Design discipline runs a four-year B.Des programme, which is unusual for an IIIT and sets it apart from the mostly-engineering-only IIITs. Admission to B.Des goes through UCEED scores rather than JEE Main and JoSAA, and the M.Des programme similarly uses CEED, the exam IITs use for their own design master's.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "q": "How do M.Tech and PhD admissions work here?",
+      "a": "Postgraduate M.Tech seats are filled using GATE scores through CCMT, the same centralised counselling that NITs and other IIITs use for their master's programmes. PhD admission runs separately through the institute's own research-scholar selection process across its engineering, sciences and liberal-arts departments.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/admissions",
+          "title": "Admissions",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "Where exactly is the campus, and is it easy to reach?",
+      "a": "The campus sits in Dumna on the eastern edge of Jabalpur, right next to Dumna Nature Reserve Park and Jabalpur (Dumna) Airport, which has regular flights to Delhi, Mumbai and Bengaluru among other cities. Jabalpur Junction, a major stop on the Delhi-Chennai and Mumbai-Howrah rail lines, is about 20 km away in the city centre, so both flying and taking a train in work reasonably well.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/college_tour.html",
+          "title": "Campus Tour",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "How big is the IIITDM Jabalpur campus?",
+      "a": "The campus spans about 260 acres, giving it considerably more room than several other IIITs, with academic blocks, hostels, sports facilities and the Dumna forest boundary all on the same stretch of land.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/college_tour.html",
+          "title": "Campus Tour",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "What is IIITDM Jabalpur's NIRF ranking?",
+      "a": "In the NIRF 2025 engineering ranking, the institute placed in the 101-150 band rather than getting a single numbered rank, a banding NIRF uses once a list crosses a certain length. In earlier cycles it held rank 82 in 2022 and rank 97 in 2023 in the engineering category; it does not appear in NIRF's overall-institute ranking.",
+      "asOf": "2025",
+      "sources": [
+        {
+          "url": "https://nirf.iiitdmj.ac.in/downloads/NIRF-2025/NIRF%202025%20Overall%20report.pdf",
+          "title": "NIRF 2025 Overall Data Submission",
+          "publisher": "PDPM IIITDM Jabalpur (NIRF Cell)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023",
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "q": "How many faculty members does the institute have?",
+      "a": "The institute's own NIRF 2025 submission reports 79 faculty members for that cycle, spread across the engineering departments, Design, Natural Sciences and Liberal Arts.",
+      "asOf": "2024-25",
+      "sources": [
+        {
+          "url": "https://nirf.iiitdmj.ac.in/downloads/NIRF-2025/NIRF%202025%20Overall%20report.pdf",
+          "title": "NIRF 2025 Overall Data Submission",
+          "publisher": "PDPM IIITDM Jabalpur (NIRF Cell)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "Does IIITDM Jabalpur have a serious research output, or is it mainly a teaching institute?",
+      "a": "It reports a real research pipeline for its size: its 2023-24 NIRF submission lists 43 sponsored research projects worth roughly Rs. 2.76 crore across 21 funding agencies, 5 consultancy projects, and 33 patents published with 24 granted that year, backed by a full-time PhD cohort across all its departments.",
+      "asOf": "2023-24",
+      "sources": [
+        {
+          "url": "https://nirf.iiitdmj.ac.in/downloads/NIRF-2025/NIRF%202025%20Overall%20report.pdf",
+          "title": "NIRF 2025 Overall Data Submission",
+          "publisher": "PDPM IIITDM Jabalpur (NIRF Cell)",
+          "accessedOn": "2026-09-16",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "What are the hostel arrangements like for boys and girls?",
+      "a": "The institute runs six hostels: Vasishtha, Aryabhatta, Vivekananda and Panini house male students (occupancy ranges from single to triple sharing depending on the block), Maa Saraswati Girls Hostel is the dedicated hostel for women, and Nagarjuna plus some flats in Rewa Residency house married postgraduate students. A central mess and a cafeteria running into the night serve all the hostels.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/students/hostels.php",
+          "title": "Hostels @ IIITDM Jabalpur",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "Are there non-engineering departments like sciences or humanities on campus?",
+      "a": "Yes, but they support rather than run their own undergraduate degrees. Natural Sciences (physics and mathematics) and Liberal Arts (English) teach foundation courses across every branch and each run their own PhD programme, so research happens there even though undergraduates don't enrol directly into those departments.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://ns.iiitdmj.ac.in/",
+          "title": "Welcome to Natural Sciences",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://la.iiitdmj.ac.in/Course%20PhD.html",
+          "title": "Courses - Liberal Arts",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "q": "What makes IIITDM Jabalpur different from a typical IIIT?",
+      "a": "Most IIITs are pure information-technology institutes, but IIITDM Jabalpur was built specifically around IT-enabled design and manufacturing. That shows up in its curriculum: alongside CSE and ECE it runs Mechanical Engineering and a dedicated Smart Manufacturing branch, plus a full Design discipline offering B.Des and M.Des, a combination few sister IIITs offer.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/about-pdpm-iiitdm",
+          "title": "About PDPM IIITDM Jabalpur",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    }
+  ]
+}

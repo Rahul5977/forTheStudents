@@ -1,0 +1,606 @@
+{
+  "instituteId": "nit-trichy",
+  "notable": [
+    {
+      "name": "Natarajan Chandrasekaran",
+      "knownFor": "Chairman, Tata Sons and Tata Group; earlier CEO & MD of TCS",
+      "program": null,
+      "batch": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/daa/",
+          "title": "Distinguished Alumni Award - 2013",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2013",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Natarajan_Chandrasekaran",
+          "title": "Natarajan Chandrasekaran",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2013"
+    },
+    {
+      "name": "T. V. Narendran",
+      "knownFor": "CEO & Managing Director, Tata Steel",
+      "program": "B.Tech, Mechanical Engineering",
+      "batch": null,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/T._V._Narendran",
+          "title": "T. V. Narendran",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_National_Institute_of_Technology_Tiruchirappalli_people",
+          "title": "List of National Institute of Technology Tiruchirappalli people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Rajesh Gopinathan",
+      "knownFor": "Former CEO & Managing Director, Tata Consultancy Services",
+      "program": "B.Tech, Electrical and Electronics Engineering",
+      "batch": 1994,
+      "sources": [
+        {
+          "url": "https://alumni.nitt.edu/wp-content/uploads/2021/02/DAA-YAA-Awardees-2020.pdf",
+          "title": "Distinguished Alumni and Young Achiever Alumni Awardees 2020",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2020",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rajesh_Gopinathan",
+          "title": "Rajesh Gopinathan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2020"
+    },
+    {
+      "name": "K. R. Sridhar",
+      "knownFor": "Founder, Chairman & CEO, Bloom Energy (fuel cells)",
+      "program": "B.E. (Hons), Mechanical Engineering",
+      "batch": 1982,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2007-08/",
+          "title": "NIT Trichy - DAA Recipients for 2007-08",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2007-08",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/K._R._Sridhar",
+          "title": "K. R. Sridhar",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2007-08"
+    },
+    {
+      "name": "Shyam Srinivasan",
+      "knownFor": "Former MD & CEO, Federal Bank",
+      "program": "B.E., Production Engineering",
+      "batch": 1984,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/DAA-2014-v5.pdf",
+          "title": "Distinguished Alumni Awards 2014 - recipients",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2014",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Shyam_Srinivasan",
+          "title": "Shyam Srinivasan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2014"
+    },
+    {
+      "name": "R. Ravimohan",
+      "knownFor": "Former MD & CEO of CRISIL; later Executive Director, Reliance Industries",
+      "program": "B.Tech, Chemical Engineering",
+      "batch": 1978,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2006-07/",
+          "title": "NIT Trichy - DAA Recipients for 2006-07",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2006-07",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_National_Institute_of_Technology_Tiruchirappalli_people",
+          "title": "List of National Institute of Technology Tiruchirappalli people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2006-07"
+    },
+    {
+      "name": "Mahesh Amalean",
+      "knownFor": "Chairman and co-founder, MAS Holdings (Sri Lankan apparel group)",
+      "program": "B.Tech, Chemical Engineering",
+      "batch": 1978,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2006-07/",
+          "title": "NIT Trichy - DAA Recipients for 2006-07",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2006-07",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Mahesh_Amalean",
+          "title": "Mahesh Amalean",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2006-07"
+    },
+    {
+      "name": "T. Sankaralingam",
+      "knownFor": "Chairman & Managing Director of NTPC Limited at the time of the 2006-07 award",
+      "program": "B.E., Electrical Engineering",
+      "batch": 1969,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2006-07/",
+          "title": "NIT Trichy - DAA Recipients for 2006-07",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2006-07",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2006-07"
+    },
+    {
+      "name": "Palanivel Thiaga Rajan",
+      "knownFor": "Tamil Nadu cabinet minister (Finance; later IT & Digital Services), 2021-2026",
+      "program": "B.Tech (Hons), Chemical Engineering",
+      "batch": null,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Palanivel_Thiaga_Rajan",
+          "title": "Palanivel Thiaga Rajan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_National_Institute_of_Technology_Tiruchirappalli_people",
+          "title": "List of National Institute of Technology Tiruchirappalli people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Anantha Radhakrishnan",
+      "knownFor": "CEO & Managing Director, Infosys BPM (as listed at the 2019 award)",
+      "program": "B.E., Mechanical Engineering",
+      "batch": 1988,
+      "sources": [
+        {
+          "url": "https://alumni.nitt.edu/wp-content/uploads/2019/07/DAA-2019-Awardees-version-3.0.pdf",
+          "title": "Distinguished Alumni Awardees 2019",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2019",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2019"
+    },
+    {
+      "name": "Guruswami Ravichandran",
+      "knownFor": "Caltech professor; chaired its Division of Engineering and Applied Science",
+      "program": "B.E. (Hons), Mechanical Engineering",
+      "batch": 1981,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2007-08/",
+          "title": "NIT Trichy - DAA Recipients for 2007-08",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2007-08",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Guruswami_Ravichandran",
+          "title": "Guruswami Ravichandran",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2007-08"
+    },
+    {
+      "name": "Ramesh R. Rao",
+      "knownFor": "Director of Calit2 and ECE professor, UC San Diego",
+      "program": "B.E. (Hons), Electronics and Communication Engineering",
+      "batch": 1980,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2007-08/",
+          "title": "NIT Trichy - DAA Recipients for 2007-08",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2007-08",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ramesh_R._Rao",
+          "title": "Ramesh R. Rao",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2007-08"
+    },
+    {
+      "name": "Krishna V. Palem",
+      "knownFor": "Professor of Computing, Rice University; ACM and IEEE Fellow",
+      "program": "B.E., Electronics and Communication Engineering",
+      "batch": 1979,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2007-08/",
+          "title": "NIT Trichy - DAA Recipients for 2007-08",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2007-08",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Krishna_Palem",
+          "title": "Krishna Palem",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2007-08"
+    },
+    {
+      "name": "Nambirajan Seshadri",
+      "knownFor": "ECE professor at UC San Diego; member, US National Academy of Engineering",
+      "program": "B.E., Electronics and Communication Engineering",
+      "batch": 1982,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2009/",
+          "title": "NIT Trichy - DAA Recipients for 2008-09",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2008-09",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nambirajan_Seshadri",
+          "title": "Nambirajan Seshadri",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2008-09"
+    },
+    {
+      "name": "Vallabh Sambamurthy",
+      "knownFor": "Dean, Wisconsin School of Business, University of Wisconsin-Madison",
+      "program": "B.E., Mechanical Engineering",
+      "batch": 1981,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2009/",
+          "title": "NIT Trichy - DAA Recipients for 2008-09",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2008-09",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Vallabh_Sambamurthy",
+          "title": "Vallabh Sambamurthy",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2008-09"
+    },
+    {
+      "name": "Krishnaswamy Nandakumar",
+      "knownFor": "Professor of Chemical Engineering, Louisiana State University",
+      "program": "B.E., Chemical Engineering",
+      "batch": 1973,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2009/",
+          "title": "NIT Trichy - DAA Recipients for 2008-09",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2008-09",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_National_Institute_of_Technology_Tiruchirappalli_people",
+          "title": "List of National Institute of Technology Tiruchirappalli people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2008-09"
+    },
+    {
+      "name": "Venkat Selvamanickam",
+      "knownFor": "M.D. Anderson Chair Professor, University of Houston; superconducting-wire researcher",
+      "program": "B.E., Mechanical Engineering",
+      "batch": 1986,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/DAA-2014-v5.pdf",
+          "title": "Distinguished Alumni Awards 2014 - recipients",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2014",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Venkat_Selvamanickam",
+          "title": "Venkat Selvamanickam",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2014"
+    },
+    {
+      "name": "Madhavan Swaminathan",
+      "knownFor": "Professor of Electrical & Computer Engineering, Georgia Tech (electronic packaging)",
+      "program": "B.E., Electronics and Communication Engineering",
+      "batch": 1985,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/DAA-2014-v5.pdf",
+          "title": "Distinguished Alumni Awards 2014 - recipients",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2014",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Madhavan_Swaminathan",
+          "title": "Madhavan Swaminathan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2014"
+    },
+    {
+      "name": "Suresh K. Sitaraman",
+      "knownFor": "Professor of Mechanical Engineering, Georgia Tech",
+      "program": "B.E., Mechanical Engineering",
+      "batch": 1982,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/DAA-2014-v5.pdf",
+          "title": "Distinguished Alumni Awards 2014 - recipients",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2014",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_National_Institute_of_Technology_Tiruchirappalli_people",
+          "title": "List of National Institute of Technology Tiruchirappalli people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2014"
+    },
+    {
+      "name": "Sethu Vijayakumar",
+      "knownFor": "Professor of Robotics, University of Edinburgh; Programme Director, Alan Turing Institute",
+      "program": "B.E., Computer Science and Engineering",
+      "batch": 1992,
+      "sources": [
+        {
+          "url": "https://alumni.nitt.edu/wp-content/uploads/2021/02/DAA-YAA-Awardees-2020.pdf",
+          "title": "Distinguished Alumni and Young Achiever Alumni Awardees 2020",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2020",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Sethu_Vijayakumar",
+          "title": "Sethu Vijayakumar",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2020"
+    },
+    {
+      "name": "Meyya Meyyappan",
+      "knownFor": "Chief Scientist, NASA Ames Research Center (nanotechnology)",
+      "program": "B.Tech, Chemical Engineering",
+      "batch": 1976,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/icsr/alumni/daa2006-07/",
+          "title": "NIT Trichy - DAA Recipients for 2006-07",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2006-07",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2006-07"
+    },
+    {
+      "name": "Rajkumar Chellaraj",
+      "knownFor": "CFO and Associate Dean, Stanford Graduate School of Business",
+      "program": "B.Tech, Chemical Engineering",
+      "batch": null,
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/daa/",
+          "title": "Distinguished Alumni Award - 2013",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2013",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rajkumar_Chellaraj",
+          "title": "Rajkumar Chellaraj",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2013"
+    },
+    {
+      "name": "Nagi Naganathan",
+      "knownFor": "President, Oregon Institute of Technology; earlier interim president, University of Toledo",
+      "program": "B.E., Mechanical Engineering",
+      "batch": null,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nagi_Naganathan",
+          "title": "Nagi Naganathan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_National_Institute_of_Technology_Tiruchirappalli_people",
+          "title": "List of National Institute of Technology Tiruchirappalli people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Vanitha Rangaraju",
+      "knownFor": "DreamWorks animator; technical lighting director on the Oscar-winning Shrek",
+      "program": "B.Arch",
+      "batch": null,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Vanitha_Rangaraju",
+          "title": "Vanitha Rangaraju",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_National_Institute_of_Technology_Tiruchirappalli_people",
+          "title": "List of National Institute of Technology Tiruchirappalli people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Satish Chakravarthy",
+      "knownFor": "Film music composer in Tamil cinema; Berklee-trained, worked with A. R. Rahman",
+      "program": null,
+      "batch": null,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Satish_Chakravarthy",
+          "title": "Satish Chakravarthy",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_National_Institute_of_Technology_Tiruchirappalli_people",
+          "title": "List of National Institute of Technology Tiruchirappalli people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "instituteId": "iit-madras",
+  "items": [
+    {
+      "q": "Can I change my branch after the first year at IIT Madras?",
+      "a": "Branch change is considered only once, at the end of the first semester, purely on first-semester performance. Everyone who clears the first-semester courses is eligible except Engineering Design dual-degree students, subject to vacancies: a branch may not shrink or grow by more than 10% of its strength, though at least one student per discipline is always considered. Dual-degree students cannot switch to a 4-year B.Tech, and the Senate may revise these rules (Regs R.5.1-R.5.8).",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/b.tech-2015.pdf",
+          "title": "B.Tech / B.Tech (Honours) Ordinances and Regulations (2015 batch onwards), R.5.0 Change of Branch",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2015"
+    },
+    {
+      "q": "Which hostel do first-year B.Tech students get, and are rooms shared?",
+      "a": "For the 2026 batch, first-year boys are housed in Mandakini-B (5th to 9th floors) and first-year girls in Swarnamukhi; only shared rooms are given to freshers. Senior students get single, double or triple rooms depending on the hostel. Room allotment happens at the hostel office on the admission days after the hostel fee is paid online, with a signed biodata form, the JEE (Advanced) welcome letter and declarations; mess registration and biometric/face registration are done at the same time.",
+      "sources": [
+        {
+          "url": "https://ccw.iitm.ac.in/common/images/nicUpload/B.Tech_DD_BS2026-InstructionsforHostelAllotment.pdf",
+          "title": "Instructions for Hostel Allotment and Mess Registration for First-year B.Tech/DD/BS Students (2026 batch)",
+          "publisher": "IIT Madras Council of Wardens",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/campus-life/hostel-life",
+          "title": "Hostel Life",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "Do I get a tuition fee waiver at IIT Madras, and what do I actually pay in the first semester?",
+      "a": "Tuition is Rs 1,00,000 per semester for the 2026-27 UG batch. SC/ST/PwD Indian students pay no tuition; General/OBC-NCL/EWS students with family income below Rs 1 lakh get full remission and those between Rs 1 lakh and Rs 5 lakh get two-thirds off. With one-time fees (Rs 21,000), other semester charges and a Rs 5,000 caution deposit, the first-semester institute payment is Rs 1,41,402 (income above 5 lakh), Rs 74,735 (1-5 lakh) or Rs 41,402 (below 1 lakh, or SC/ST/PwD). Hostel fees are separate.",
+      "sources": [
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/fees_structure_2026_admission_ug_pg.pdf",
+          "title": "Fees Circular for the New Students (UG & PG) of 2026 Batch - Annexure I, UG fee structure 2026-27",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "Is there a scholarship that covers the remaining one-third tuition for the Rs 1-5 lakh income group?",
+      "a": "Yes. The institute's Merit-cum-Means scholarship goes to up to 25% of admitted UG students with parental income up to Rs 4.5 lakh a year who keep a GPA of 5.0 or more each semester; it exempts 67% of tuition. In February 2024 IIT Madras said MCM plus the government's two-thirds remission covered the full tuition of every eligible B.Tech/Dual Degree student in 2022-23 (490 students) and 2023-24 (495). SC/ST students under the income limit also get free messing and a Rs 250 monthly allowance.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/all-eligible-btech-students-iit-madras-get-financial-aid",
+          "title": "All eligible B.Tech students of IIT Madras get financial aid (press release)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-02-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-02-08"
+    },
+    {
+      "q": "How much are hostel and mess charges, and how does the mess work?",
+      "a": "The July-November 2025 circular lists Rs 20,750 in mandatory hostel fees per semester for a new UG entrant: Rs 500 admission, Rs 8,000 Establishment-A, Rs 1,500 Establishment-B, Rs 500 RO water, Rs 250 waste disposal, Rs 5,000 utilities and a Rs 5,000 refundable deposit, plus an optional Rs 7,500 for Saarang, Shaastra and E-Summit. Advance mess charges are fixed after each mess tender and billed from registration. There are three messes (Himalaya, Nilgiri, Vindhya) with veg and non-veg options.",
+      "sources": [
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/hostel_fee_circular_jul_nov_2025.pdf",
+          "title": "Hostel Fees Circular (for July - November 2025 Semester)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://ccw.iitm.ac.in/",
+          "title": "Council of Wardens - Hostel Management",
+          "publisher": "IIT Madras Council of Wardens",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://ccw.iitm.ac.in/common/images/nicUpload/B.Tech_DD_BS2026-InstructionsforHostelAllotment.pdf",
+          "title": "Instructions for Hostel Allotment and Mess Registration for First-year B.Tech/DD/BS Students (2026 batch)",
+          "publisher": "IIT Madras Council of Wardens",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "q": "What comes with the hostel room, and do I need to bring a laptop?",
+      "a": "Freshers' rooms come with a cot, chair, table, LAN port, fan and light; you must bring your own mattress, pillow, bedsheets, bucket, mug and a lock. The Council of Wardens publishes a hostel LAN manual, so a laptop is practical, but the 2026 allotment instructions do not list one as compulsory. Top-ranked SC/ST students under central government schemes get a one-time Rs 45,000 personal-computer grant (see the scholarships page). Parents cannot stay in the hostel during admission.",
+      "sources": [
+        {
+          "url": "https://ccw.iitm.ac.in/common/images/nicUpload/B.Tech_DD_BS2026-InstructionsforHostelAllotment.pdf",
+          "title": "Instructions for Hostel Allotment and Mess Registration for First-year B.Tech/DD/BS Students (2026 batch)",
+          "publisher": "IIT Madras Council of Wardens",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://ccw.iitm.ac.in/",
+          "title": "Council of Wardens - Hostel Management (Hostel LAN Manual link)",
+          "publisher": "IIT Madras Council of Wardens",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/academics/academic-services/scholarships-and-financial-assistance",
+          "title": "Scholarships and Financial Assistance",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "Is there a compulsory internship semester in the B.Tech programme?",
+      "a": "Not for regular B.Tech programmes. The 5-year Engineering Design dual degree is the exception: it builds in a semester-long industry internship (the Design Project in Industry, usually in the 8th semester). Other students take summer internships arranged through the Placement and Internship Office, and good internships can turn into pre-placement offers: in the 2026-27 cycle a closed PPO must be issued by September 12 and accepted within 72 hours, while open PPOs may be issued until November 30.",
+      "sources": [
+        {
+          "url": "https://ed.iitm.ac.in/prosdd.html",
+          "title": "Engineering Design - Dual Degree Programme",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iitm.ac.in/students",
+          "title": "Placement and Internship Office - Students (registration and PPO rules, 2026-27)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "Is there a CGPA cutoff to sit for campus placements?",
+      "a": "The Placement and Internship Office does not publish a CGPA cutoff. Any student expected to graduate by the end of the academic year (2026-27 in the current cycle) can register in August for one year on paying Rs 500 (including GST), but students with four or more backlog courses cannot register. Each student may accept only one job offer and leaves the process once selected; if several offers arrive on the same day the student has 24 hours to choose. Interviews start on December 1.",
+      "sources": [
+        {
+          "url": "https://placement.iitm.ac.in/students",
+          "title": "Placement and Internship Office - Students (registration and PPO rules, 2026-27)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://placement.iitm.ac.in/",
+          "title": "Placement and Internship Office - Placement process timeline 2026-27",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "Where exactly is the IIT Madras campus, and how do I reach it from the airport or railway station?",
+      "a": "The campus is roughly 250 hectares of wooded land inside Chennai; the main (Adyar) gate is on Sardar Patel Road with Adyar and Velachery on either side, and there is also a Velachery gate. Chennai International Airport is about 15 km away (30-45 minutes by taxi), Chennai Central about 13 km and Egmore about 10 km; Guindy is the nearest metro station and city buses 5C, 21G, 21L, 23C, 47A and 49C serve the campus. Postal address: IIT P.O., Chennai 600 036.",
+      "sources": [
+        {
+          "url": "https://doe.iitm.ac.in/coastlab26/how-to-reach.html",
+          "title": "How to reach IIT Madras (Department of Ocean Engineering, CoastLab 2026)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/about",
+          "title": "About IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/contact",
+          "title": "Contact - IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IIT_Madras",
+          "title": "IIT Madras",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "What is the medium of instruction?",
+      "a": "English. The B.Tech regulations state that instruction, examinations and project reports are all in English (R.2.8), so a comfortable working command of English is expected from day one.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/b.tech-2015.pdf",
+          "title": "B.Tech / B.Tech (Honours) Ordinances and Regulations (2015 batch onwards), R.2.8",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2015"
+    },
+    {
+      "q": "What dual-degree and interdisciplinary dual-degree (IDDD) options exist?",
+      "a": "The B.Tech + M.Tech dual degree runs 10 semesters and is allotted directly through JoSAA in select branches; you pay B.Tech fees for the first 8 semesters. B.Tech students with CGPA 8.5 or higher after the 3rd semester and no U/W grades can opt for the Honours track during the 4th semester. IDDDs (12 as of December 2022, e.g. AI/ML, data science, robotics, electric vehicles, quantitative finance) are open to UG students of all engineering branches and typically start around the 6th semester.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/dual-degree-ordiance-regulations-from-2015-batch.pdf",
+          "title": "Dual Degree Ordinances and Regulations (2015 batch onwards), O.3 and O.7",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/b.tech-2015.pdf",
+          "title": "B.Tech / B.Tech (Honours) Ordinances and Regulations (2015 batch onwards), R.1.12",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-launches-new-interdisciplinary-dual-degree",
+          "title": "IIT Madras launches new Interdisciplinary Dual Degree in Quantitative Finance (press release)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2022-12-13",
+          "confidence": "official"
+        },
+        {
+          "url": "https://fees.iitm.ac.in/assets/circular/fees_structure_2026_admission_ug_pg.pdf",
+          "title": "Fees Circular for the New Students (UG & PG) of 2026 Batch - notes on Dual Degree fees",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2022-12-13"
+    },
+    {
+      "q": "Which newer or unusual programmes should I know about?",
+      "a": "Three stand out. A B.Tech in Artificial Intelligence and Data Analytics from the Wadhwani School of Data Science and AI started in 2024-25 with 50 seats, filled through JEE (Advanced) and JoSAA. The online BS in Data Science and Applications needs no JEE score, has no age limit, and lets learners exit at foundation, diploma, BSc or BS level, with fee waivers of up to 75% for family income under Rs 5 lakh. A BS in Electronic Systems was added in 2023.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-launches-btech-ai-and-data-analytics",
+          "title": "IIT Madras launches B.Tech in AI and Data Analytics (press release)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-06-14",
+          "confidence": "official"
+        },
+        {
+          "url": "https://study.iitm.ac.in/ds/",
+          "title": "BS Degree in Data Science and Applications",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IIT_Madras",
+          "title": "IIT Madras",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "q": "Can I spend a semester abroad during my B.Tech?",
+      "a": "Yes, through the Office of Global Engagement's semester exchange. UG, PG and dual-degree students who have finished at least three to four semesters with no backlogs can be nominated; a CGPA of 7.5 or higher is preferred when several students compete. Exchanges last five to six months, you may apply to only one partner university at a time, and the office estimates Rs 4-6 lakh per semester in costs depending on the country. Credit transfer is settled with the Academic Courses office.",
+      "sources": [
+        {
+          "url": "https://ge.iitm.ac.in/programs/student-outbound/semester-exchange",
+          "title": "Semester Exchange - Office of Global Engagement",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "What academic minimums must I maintain to stay on track?",
+      "a": "The B.Tech rules set a minimum CGPA of 5.0 over successfully completed courses at the end of each semester (R.10.3). An 'n minus 4' rule applies: to register for the 5th semester you must have cleared every 1st-semester course, and so on (R.6.5), which also applies to the 10-semester dual degree. Students with no backlog and a CGPA of 7.0 or above may take extra courses from the 4th semester onwards (R.6.4).",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/b.tech-2015.pdf",
+          "title": "B.Tech / B.Tech (Honours) Ordinances and Regulations (2015 batch onwards), R.6.4, R.6.5, R.10.3",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2015"
+    },
+    {
+      "q": "How do I get around inside the campus, and what facilities are there?",
+      "a": "The campus is fully residential and large enough to need its own transport: four buses and ten battery-powered vehicles run between the main zones every 20-30 minutes. There is an institute hospital with visiting specialists, X-ray and ambulance, SBI and Canara Bank branches with ATMs, two shopping complexes (one at the Student Facility Centre near Narmada hostel), a post office and several canteens open till late. The grounds are shared with blackbuck and spotted deer.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/campus-life/campus-amenities",
+          "title": "Campus Amenities",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/IIT_Madras",
+          "title": "IIT Madras",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    }
+  ]
+}

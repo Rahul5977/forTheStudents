@@ -1,0 +1,136 @@
+{
+  "instituteId": "nit-trichy",
+  "nirf": [
+    {
+      "year": 2023,
+      "overall": 21,
+      "engineering": 9,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2023/OverallRanking.html",
+          "title": "NIRF India Rankings 2023: Overall (NIT Tiruchirappalli rank 21, score 60.43)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2023/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2023: Engineering (NIT Tiruchirappalli rank 9, score 69.71)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "year": 2024,
+      "overall": 31,
+      "engineering": 9,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/OverallRanking.html",
+          "title": "NIRF India Rankings 2024: Overall (NIT Tiruchirappalli rank 31, score 58.60)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2024/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2024: Engineering (NIT Tiruchirappalli rank 9, score 66.88)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "year": 2025,
+      "overall": 30,
+      "engineering": 9,
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/OverallRanking.html",
+          "title": "NIRF India Rankings 2025: Overall (NIT Tiruchirappalli rank 30, score 60.05)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+          "title": "NIRF India Rankings 2025: Engineering (NIT Tiruchirappalli rank 9, score 68.14)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    }
+  ],
+  "qs": [
+    {
+      "year": 2027,
+      "world": 721,
+      "asia": null,
+      "sources": [
+        {
+          "url": "https://www.topuniversities.com/universities/national-institute-technology-tiruchirappalli",
+          "title": "QS profile: NIT Tiruchirappalli ranked #721-730 in QS World University Rankings 2027",
+          "publisher": "QS Quacquarelli Symonds",
+          "accessedOn": "2026-09-13",
+          "asOf": "2027",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2027"
+    },
+    {
+      "year": 2026,
+      "world": 731,
+      "asia": 393,
+      "sources": [
+        {
+          "url": "https://www.topuniversities.com/universities/national-institute-technology-tiruchirappalli",
+          "title": "QS profile rank history: 2026 #731-740 (World); Asian University Rankings #=393 shown as the latest (2026) edition",
+          "publisher": "QS Quacquarelli Symonds",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "year": 2025,
+      "world": 701,
+      "asia": 308,
+      "sources": [
+        {
+          "url": "https://www.topuniversities.com/universities/national-institute-technology-tiruchirappalli",
+          "title": "QS profile rank history: 2025 #701-710 (World)",
+          "publisher": "QS Quacquarelli Symonds",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/National_Institute_of_Technology,_Tiruchirappalli",
+          "title": "Wikipedia infobox: QS Asia 2025 =308 (cites topuniversities.com Asia rankings 2025)",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2025"
+    }
+  ],
+  "naac": null
+}

@@ -1,0 +1,574 @@
+{
+  "instituteId": "iit-bombay",
+  "notable": [
+    {
+      "name": "Nandan Nilekani",
+      "knownFor": "Co-founder of Infosys; led the Aadhaar programme as founding chairman of UIDAI",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1978,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "1999",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1999"
+    },
+    {
+      "name": "Manohar Parrikar",
+      "knownFor": "Former Chief Minister of Goa and Union Minister of Defence",
+      "program": "B.Tech, Metallurgical Engineering & Materials Science",
+      "batch": 1978,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2001",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2001"
+    },
+    {
+      "name": "Jairam Ramesh",
+      "knownFor": "Member of Parliament; former Union Minister for Rural Development and for Environment",
+      "program": "B.Tech, Mechanical Engineering",
+      "batch": 1975,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2001",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2001"
+    },
+    {
+      "name": "Bhavish Aggarwal",
+      "knownFor": "Co-founder and CEO of Ola",
+      "program": "B.Tech, Computer Science and Engineering",
+      "batch": 2008,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Parag Agrawal",
+      "knownFor": "Former CEO of Twitter (now X)",
+      "program": "B.Tech, Computer Science and Engineering",
+      "batch": 2005,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Kanwal Rekhi",
+      "knownFor": "Silicon Valley venture capitalist; co-founder of Excelan",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1967,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2000",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2000"
+    },
+    {
+      "name": "Bharat Desai",
+      "knownFor": "Founder of Syntel (IT services)",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1975,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2005",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2005"
+    },
+    {
+      "name": "Victor Menezes",
+      "knownFor": "Banker; former Senior Vice Chairman of Citigroup",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1970,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Salil Parekh",
+      "knownFor": "CEO and Managing Director of Infosys",
+      "program": "B.Tech, Aerospace Engineering",
+      "batch": 1986,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "name": "Raj Subramaniam",
+      "knownFor": "President and CEO of FedEx Corporation",
+      "program": "B.Tech, Chemical Engineering",
+      "batch": 1987,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2017",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Raj_Subramaniam",
+          "title": "Raj Subramaniam",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2017"
+    },
+    {
+      "name": "Raghu Raghuram",
+      "knownFor": "CEO of VMware from 2021",
+      "program": "M.Tech, Electrical Engineering",
+      "batch": 1986,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Raghu_Raghuram",
+          "title": "Raghu Raghuram",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "name": "Viral Acharya",
+      "knownFor": "Economist; Deputy Governor of RBI (2017-19); professor at NYU Stern",
+      "program": "B.Tech, Computer Science and Engineering",
+      "batch": 1995,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2018",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Viral_Acharya",
+          "title": "Viral Acharya",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2018"
+    },
+    {
+      "name": "K. Sivan",
+      "knownFor": "Chairman of ISRO (2018-22)",
+      "program": "Ph.D., Aerospace Engineering",
+      "batch": 2006,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2017",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/K._Sivan",
+          "title": "K. Sivan",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2017"
+    },
+    {
+      "name": "Narendra Karmarkar",
+      "knownFor": "Mathematician; known for Karmarkar's algorithm in linear programming",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1978,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Shankar Sastry",
+      "knownFor": "Former Dean of Engineering, UC Berkeley; founding chancellor of Plaksha University",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1977,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "1999",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1999"
+    },
+    {
+      "name": "Subhash Khot",
+      "knownFor": "Theoretical computer scientist",
+      "program": "B.Tech, Computer Science and Engineering",
+      "batch": 1999,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2015"
+    },
+    {
+      "name": "Ravindran Kannan",
+      "knownFor": "Mathematician and computer scientist; Fulkerson Prize and Knuth Prize recipient",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1974,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "1999",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "1999"
+    },
+    {
+      "name": "Sarita Adve",
+      "knownFor": "Professor of Computer Science, University of Illinois Urbana-Champaign",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1987,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2023"
+    },
+    {
+      "name": "Nitesh Tiwari",
+      "knownFor": "Film director and screenwriter (Dangal, Chhichhore)",
+      "program": "B.Tech, Metallurgical Engineering",
+      "batch": 1996,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2018",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2018"
+    },
+    {
+      "name": "Colin Gonsalves",
+      "knownFor": "Senior Advocate, Supreme Court of India; human-rights lawyer",
+      "program": "B.Tech, Civil Engineering",
+      "batch": 1975,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2010",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2010"
+    },
+    {
+      "name": "Ashish Chauhan",
+      "knownFor": "MD and CEO of the National Stock Exchange of India; earlier headed BSE",
+      "program": "B.Tech, Mechanical Engineering",
+      "batch": 1989,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2014",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2014"
+    },
+    {
+      "name": "Nitin Nohria",
+      "knownFor": "Former Dean of Harvard Business School",
+      "program": "B.Tech, Chemical Engineering",
+      "batch": 1984,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2007",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2007"
+    },
+    {
+      "name": "Lalit Keshre",
+      "knownFor": "Co-founder and CEO of Groww",
+      "program": "Dual Degree (B.Tech + M.Tech), Electrical Engineering",
+      "batch": 2004,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    },
+    {
+      "name": "Romesh Wadhwani",
+      "knownFor": "Founder of Symphony Technology Group; philanthropist",
+      "program": "B.Tech, Electrical Engineering",
+      "batch": 1969,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Satyendra Pakhalé",
+      "knownFor": "Industrial designer and architect",
+      "program": "M.Des, Industrial Design Centre",
+      "batch": 1991,
+      "sources": [
+        {
+          "url": "https://acr.iitbombay.org/distinguished-alumnus/",
+          "title": "Distinguished Alumnus Awards - IIT Bombay Alumni & Corporate Relations",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2013",
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/List_of_Indian_Institute_of_Technology_Bombay_people",
+          "title": "List of Indian Institute of Technology Bombay people",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ],
+      "asOf": "2013"
+    }
+  ]
+}

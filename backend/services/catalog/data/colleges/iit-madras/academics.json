@@ -1,0 +1,574 @@
+{
+  "instituteId": "iit-madras",
+  "departments": [
+    {
+      "name": "Aerospace Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Aerospace Engineering", "durationYears": 4, "intake": 53 },
+        { "degree": "Dual Degree", "name": "Aerospace Engineering (B.Tech + M.Tech)", "durationYears": 5, "intake": 9 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/academics/study-at-iitm/undergraduate-programmes",
+          "title": "Undergraduate Programmes | IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Applied Mechanics and Biomedical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Computational Engineering and Mechanics", "durationYears": 4, "intake": 40 },
+        { "degree": "B.Tech", "name": "Instrumentation and Biomedical Engineering", "durationYears": 4, "intake": 40 }
+      ],
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-launches-two-new-btech-programs-focused-latest",
+          "title": "IIT Madras launches two new B.Tech programs (CEM 412U and iBME 412V, intake 40 each, via JoSAA)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-05-19",
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Biotechnology (Bhupat and Jyoti Mehta School of Biosciences)",
+      "programs": [
+        { "degree": "B.Tech", "name": "Biological Engineering", "durationYears": 4, "intake": 30 },
+        { "degree": "BS", "name": "Biological Sciences", "durationYears": 4, "intake": 30 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://biotech.iitm.ac.in/",
+          "title": "Department of Biotechnology, Bhupat and Jyoti Mehta School of Biosciences (BS/MS Biological Sciences and B.Tech/M.Tech Biological Engineering tracks)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Chemical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Chemical Engineering", "durationYears": 4, "intake": 102 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Chemistry",
+      "programs": [
+        { "degree": "BS", "name": "Chemistry (admitted via IISER Aptitude Test, not JoSAA; upgrade option to MS)", "durationYears": 4, "intake": null }
+      ],
+      "sources": [
+        {
+          "url": "https://chem.iitm.ac.in/bs-program.php",
+          "title": "BS Program in Chemistry (with an upgrade option to MS) - Department of Chemistry, IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://ugadmissions.iitm.ac.in/bsiat/",
+          "title": "B.S. (MSE) and B.S. (Chemistry) 2026 admission through IISER Aptitude Test (IAT) - IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Civil Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Civil Engineering", "durationYears": 4, "intake": 106 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Computer Science and Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Computer Science and Engineering", "durationYears": 4, "intake": 81 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Wadhwani School of Data Science and Artificial Intelligence",
+      "programs": [
+        { "degree": "B.Tech", "name": "Artificial Intelligence and Data Analytics", "durationYears": 4, "intake": 50 }
+      ],
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-launches-btech-ai-and-data-analytics",
+          "title": "IIT Madras launches B.Tech in AI and Data Analytics (course code 412L; 50 seats through JEE Advanced/JoSAA from 2024-25)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-06-14",
+          "confidence": "official"
+        },
+        {
+          "url": "https://wsai.iitm.ac.in/admissions/btech-ai-data-analytics/",
+          "title": "BTech in AI & Data Analytics | Wadhwani School of Data Science and AI (8-semester curriculum; apply via JoSAA)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Electrical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Electrical Engineering", "durationYears": 4, "intake": 148 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Engineering Design",
+      "programs": [
+        { "degree": "Dual Degree", "name": "Engineering Design (B.Tech + M.Tech)", "durationYears": 5, "intake": 61 }
+      ],
+      "sources": [
+        {
+          "url": "https://ed.iitm.ac.in/prosdd.html",
+          "title": "Dual Degree Programme | Department of Engineering Design, IIT Madras (5-year B.Tech + M.Tech)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Humanities and Social Sciences",
+      "programs": [],
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/",
+          "title": "IIT Madras home page (academic departments list)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Management Studies",
+      "programs": [],
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/",
+          "title": "IIT Madras home page (academic departments list)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Mathematics",
+      "programs": [
+        { "degree": "BS", "name": "Mathematics (option of a fifth year for a BS-MS dual degree)", "durationYears": 4, "intake": 20 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (BS in Mathematics: 20 seats via JoSAA; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://ugadmissions.iitm.ac.in/bsmath/pdf/OAM_2026_BR_V1_30April.pdf",
+          "title": "Business Rules: B.S. (Mathematics) Olympiad Admission Mode 2026-27 (four-year programme; 13 further seats via Olympiad mode)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-launches-new-ug-pg-and-non-campus-programmes",
+          "title": "IIT Madras launches new UG, PG and non-campus programmes for 2026-27 (B.S. Programme in Mathematics)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-05-14",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Mechanical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Mechanical Engineering", "durationYears": 4, "intake": 122 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Medical Science and Technology",
+      "programs": [
+        { "degree": "BS", "name": "Medical Sciences and Engineering (admitted via IISER Aptitude Test, not JoSAA)", "durationYears": 4, "intake": null }
+      ],
+      "sources": [
+        {
+          "url": "https://mst.iitm.ac.in/bs-in-medical-sciences-engineering/",
+          "title": "Four Year BS Programme in Medical Sciences & Engineering - Department of Medical Sciences & Technology (2026 admissions through IAT)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        },
+        {
+          "url": "https://ugadmissions.iitm.ac.in/bsiat/",
+          "title": "B.S. (MSE) and B.S. (Chemistry) 2026 admission through IISER Aptitude Test (IAT) - IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "name": "Metallurgical and Materials Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Metallurgical and Materials Engineering", "durationYears": 4, "intake": 49 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Ocean Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Naval Architecture and Ocean Engineering", "durationYears": 4, "intake": 65 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "name": "Physics",
+      "programs": [
+        { "degree": "B.Tech", "name": "Engineering Physics", "durationYears": 4, "intake": 37 },
+        { "degree": "BS", "name": "Physics", "durationYears": 4, "intake": 11 }
+      ],
+      "sources": [
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - IITs (IIT Madras rows; Program-Total includes female supernumerary seats)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    }
+  ],
+  "facultyCount": {
+    "value": 686,
+    "sources": [
+      {
+        "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0456.pdf",
+        "title": "Data Submitted by Institution for India Rankings 2025 - IIT Madras [IR-E-U-0456] (Faculty Details: number of faculty members entered 686)",
+        "publisher": "NIRF",
+        "accessedOn": "2026-09-13",
+        "asOf": "NIRF 2025",
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iitm.ac.in/sites/default/files/NIRF/IITM_Engineering_2025_NIRF.pdf",
+        "title": "NIRF 2025 Engineering data submission hosted by IIT Madras",
+        "publisher": "IIT Madras",
+        "accessedOn": "2026-09-13",
+        "asOf": "NIRF 2025",
+        "confidence": "official"
+      }
+    ],
+    "asOf": "NIRF 2025"
+  },
+  "curriculumHighlights": [
+    {
+      "text": "Branch change happens once, at the end of the first semester, on first-semester performance alone. A branch may lose or gain at most 10% of its strength, at least one student per discipline is always considered, and Engineering Design dual-degree students are excluded.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/b.tech-b.tech-hons-ordinances-and-regulations1.pdf",
+          "title": "Ordinances and Regulations: B.Tech / B.Tech (Honours), IIT Madras (R.5.0 Change of Branch, clauses R.5.2-R.5.5)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "text": "B.Tech (Honours) is opted into during the fourth semester by students with CGPA 8.5 or above after the third semester and every course cleared at first attempt; it needs at least 12 extra professional-major credits plus a compulsory project.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/b.tech-b.tech-hons-ordinances-and-regulations1.pdf",
+          "title": "Ordinances and Regulations: B.Tech / B.Tech (Honours), IIT Madras (R.1.12 and R.2.8)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "text": "Minor streams start in the fifth semester: a package of at least three courses coordinated by one department (others may participate), so a student can add a second discipline alongside the professional major.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/b.tech-b.tech-hons-ordinances-and-regulations1.pdf",
+          "title": "Ordinances and Regulations: B.Tech / B.Tech (Honours), IIT Madras (R.2.2 Minor Stream)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "text": "A 4-year B.Tech can convert to the 5-year B.Tech + M.Tech dual degree within the same department during the sixth semester, provided CGPA is at least 8.0 after the fifth semester and there are no backlogs; dual-degree students cannot move back to the 4-year track.",
+      "sources": [
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/b.tech-b.tech-hons-ordinances-and-regulations1.pdf",
+          "title": "Ordinances and Regulations: B.Tech / B.Tech (Honours), IIT Madras (R.5.7 and R.5.8)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/sites/default/files/Ordinances/dual-degree-ordiance-regulations-from-2015-batch.pdf",
+          "title": "Ordinances and Regulations: Dual Degree (B.Tech and M.Tech), applicable from the 2015 batch",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2015 batch onwards",
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "text": "Interdisciplinary Dual Degrees (IDDD) let a B.Tech student of any branch with CGPA 8.0 or more after the fifth semester add an M.Tech from the sixth semester in areas such as Quantum Science and Technology, Advanced Materials, Complex Systems or Quantitative Finance; 12 IDDDs existed by December 2022.",
+      "sources": [
+        {
+          "url": "https://physics.iitm.ac.in/academics/interdisciplinarydualdegreeprograms.html",
+          "title": "Interdisciplinary Dual Degree Program - Department of Physics, IIT Madras (minimum 8 CGPA at end of 5th semester)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitm.ac.in/happenings/press-releases-and-coverages/iit-madras-launches-new-interdisciplinary-dual-degree",
+          "title": "IIT Madras launches new Interdisciplinary Dual Degree on Quantitative Finance (12 IDDDs as of December 2022; entry from sixth semester)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2022-12-13",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2022-12"
+    },
+    {
+      "text": "Semester exchange through the Office of Global Engagement: apply after three to four semesters with no backlogs and preferably a CGPA of 7.5 or more, spend five to six months at a partner university, and budget roughly Rs 4-6 lakh depending on the country.",
+      "sources": [
+        {
+          "url": "https://ge.iitm.ac.in/programs/student-outbound/semester-exchange",
+          "title": "Semester Exchange - Office of Global Engagement, IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "text": "Credit-based curriculum with elective baskets: B.Tech and dual-degree students may earn up to 36 credits through NPTEL or approved online courses (never for core courses), and from the fifth semester a CGPA-linked cap limits how many credits can be registered per semester.",
+      "sources": [
+        {
+          "url": "https://www.ee.iitm.ac.in/assets/documents/2026-curriculum-faqs.pdf",
+          "title": "Curriculum FAQs 2026 - Department of Electrical Engineering, IIT Madras (NPTEL credits; CGPA-based credit limit)",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "text": "The 5-year Engineering Design dual degree includes a semester-long industry internship on a live project, with specialisations in Automotive Engineering, Biomedical Design, Robotics and Electric Vehicles.",
+      "sources": [
+        {
+          "url": "https://ed.iitm.ac.in/prosdd.html",
+          "title": "Dual Degree Programme | Department of Engineering Design, IIT Madras",
+          "publisher": "IIT Madras",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "research": {
+    "note": "Research dominates the campus profile: the institute counts 2,963 PhD and 746 MS research scholars against about 2,100 undergraduates. The NIRF 2025 return lists 1,798 full-time and 200 part-time doctoral students on roll to 2023-24, 314 PhDs awarded that year, and 794 sponsored projects worth about Rs 956 crore in 2023-24. The IITM Research Park and incubation cell sit next to campus.",
+    "phdCount": 2963,
+    "sources": [
+      {
+        "url": "https://www.iitm.ac.in/",
+        "title": "IIT Madras home page (statistics block: 2,963 PhD Research Scholars, 746 MS Research Scholars, 2,105 UG students)",
+        "publisher": "IIT Madras",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0456.pdf",
+        "title": "Data Submitted by Institution for India Rankings 2025 - IIT Madras [IR-E-U-0456] (Ph.D Student Details; Sponsored Research Details 2023-24)",
+        "publisher": "NIRF",
+        "accessedOn": "2026-09-13",
+        "asOf": "2023-24",
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iitm.ac.in/the-institute/about-iit-madras/overview",
+        "title": "About IIT Madras - Overview (research centres and laboratories)",
+        "publisher": "IIT Madras",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": null
+  }
+}

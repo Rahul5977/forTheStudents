@@ -1,0 +1,16 @@
+{
+  "instituteId": "iiit-allahabad",
+  "collectedOn": "2026-09-16",
+  "packets": [
+    "A2-academics-rankings",
+    "B",
+    "C",
+    "D"
+  ],
+  "verifierReport": {
+    "checked": 14,
+    "confirmed": 14,
+    "nulled": [],
+    "notes": "Adversarial verification against live/cited sources for iiit-allahabad. Checked: (1) established 1999 and (2) 100-acre campus [about-us page, verbatim]; (3-5) B.Tech intake IT 242 / ECE 121 / IT-BI 40 [how-apply page + cross-checked by summing seat-matrix.json's JoSAA-2026 rows, exact match]; (6) dual-degree intakes 25/11/22 [cross-checked against seat-matrix.json row sums, exact match]; (7) DASA/SII seats (36/18 DASA, 29/12 SII for IT/ECE) [how-apply page]; (8) facultyCount 86 [re-summed live department faculty directories: IT 33 + ECE 19 (4+5+10) + Applied Sciences 22 + Management 12 = 86, exact match]; (9) placements.json 2025 avgLpa 33 / highestLpa 120 / pctPlaced 97.91 [Placement Brochure 2025-26 PDF, 'Our Placement Stats' page, UG Batch of 2025 figures, exact match]; (10) fees.json tuition/hostel/other/totalYear for all 4 years 2026-27..2029-30 [Fee Structure PDF, Gen/OBC/EWS category, double-sharing room basis; every figure independently re-derived from the per-semester table and matched exactly]; (11) hostels.json capacity 2000 / count 8 [cow.iiita.ac.in, '8 Hostels', '2,000+ Residents']; (12) rankings.json NIRF Engineering 2024=87 / 2025=101(band 101-150) [nirf-rankings page table]; (13) faqs.json placement-statistics answer (615/535 overall ~87%, B.Tech 470/433 ~92% avg 33.35 LPA / highest 150 LPA, PG 145/102 ~70% avg 18.24 LPA / highest 47 LPA) [live placement-statistics page, exact match]; (14) campus-life.json GeekHaven 'nine wings' claim [placement.iiita.ac.in/student_life.html: 'GeekHaven consists of 9 different wings... Software Development... Design Wing and Competitive Coding Wing', exact match - note the live geekhaven.iiita.ac.in site currently shows only 8 wings, but the cited official TPC source supports 9, so left as-is]. All 14 facts confirmed exactly against their cited sources; nothing was nulled. Prose scan: compared profile.about, all faqs.... (truncated)"
+  }
+}

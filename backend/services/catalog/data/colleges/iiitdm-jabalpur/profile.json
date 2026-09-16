@@ -1,0 +1,129 @@
+{
+  "instituteId": "iiitdm-jabalpur",
+  "officialName": "Pt. Dwarka Prasad Mishra Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+  "short": "IIITDM Jabalpur",
+  "type": "IIIT",
+  "established": 2005,
+  "website": "https://www.iiitdmj.ac.in",
+  "about": "IIITDM Jabalpur was set up in 2005 as India's first IIIT built specifically around design and manufacturing rather than pure IT, and Parliament later named it an Institute of National Importance under the IIIT Act. Its Dumna campus, on the eastern edge of Jabalpur next to the city's nature reserve, houses engineering departments (CSE, ECE, Mechanical, Smart Manufacturing) alongside a dedicated Design discipline that runs B.Des and M.Des programs, a combination few other IIITs offer. Undergraduate entry to the B.Tech branches runs through JEE Main and JoSAA counselling, while the design programs use UCEED/CEED scores.",
+  "location": {
+    "city": "Jabalpur",
+    "state": "Madhya Pradesh",
+    "campusAcres": 260,
+    "nearestAirport": "Jabalpur Airport (Dumna), adjoining the campus",
+    "nearestRailway": "Jabalpur Junction",
+    "connectivityNote": "The campus borders Dumna Nature Reserve Park on Jabalpur's eastern edge, a short drive from Jabalpur (Dumna) Airport, which has regular flights to Delhi, Mumbai, Bengaluru and other metros. Jabalpur Junction, a major stop on the Delhi-Chennai and Mumbai-Howrah lines, is roughly 20 km from campus in the city centre.",
+    "asOf": null,
+    "sources": [
+      {
+        "url": "https://www.iiitdmj.ac.in/college_tour.html",
+        "title": "Campus Tour",
+        "publisher": "PDPM IIITDM Jabalpur",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "official"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+        "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+        "publisher": "Wikipedia",
+        "accessedOn": "2026-09-16",
+        "asOf": null,
+        "confidence": "secondary"
+      }
+    ]
+  },
+  "admissionRoutes": [
+    {
+      "route": "josaa",
+      "programs": ["B.Tech"],
+      "note": "B.Tech seats across CSE, ECE, Mechanical Engineering and Smart Manufacturing are filled through JEE Main rank and JoSAA's central counselling rounds, the same process used for NITs and other IIITs.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/admissions",
+          "title": "Admissions",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "route": "gate",
+      "programs": ["M.Tech"],
+      "note": "M.Tech admission runs on GATE scores through CCMT, the centralized counselling that NITs and IIITs jointly use for postgraduate engineering seats.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://www.iiitdmj.ac.in/index.php/admissions",
+          "title": "Admissions",
+          "publisher": "PDPM IIITDM Jabalpur",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ]
+    },
+    {
+      "route": "other",
+      "programs": ["B.Des"],
+      "note": "The B.Des programme in the Design discipline admits candidates on UCEED scores rather than through JoSAA, which does not carry design seats for this institute.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ]
+    },
+    {
+      "route": "other",
+      "programs": ["M.Des"],
+      "note": "M.Des admission is based on CEED scores, the same design aptitude exam IITs use for their own master's design programmes.",
+      "asOf": null,
+      "sources": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Indian_Institute_of_Information_Technology,_Design_and_Manufacturing,_Jabalpur",
+          "title": "Indian Institute of Information Technology, Design and Manufacturing, Jabalpur",
+          "publisher": "Wikipedia",
+          "accessedOn": "2026-09-16",
+          "asOf": null,
+          "confidence": "secondary"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.iiitdmj.ac.in/index.php/about-pdpm-iiitdm",
+      "title": "About PDPM IIITDM Jabalpur",
+      "publisher": "PDPM IIITDM Jabalpur",
+      "accessedOn": "2026-09-16",
+      "asOf": null,
+      "confidence": "official"
+    },
+    {
+      "url": "https://x.com/EduMinOfIndia/status/1796778360804450373",
+      "title": "Know about the HEIs of India! PDPM IIITDM Jabalpur",
+      "publisher": "Ministry of Education, India",
+      "accessedOn": "2026-09-16",
+      "asOf": null,
+      "confidence": "official"
+    }
+  ],
+  "asOf": null
+}

@@ -1,0 +1,410 @@
+{
+  "instituteId": "nit-trichy",
+  "years": [
+    {
+      "year": "2025-26",
+      "avgLpa": null,
+      "medianLpa": null,
+      "highestLpa": null,
+      "pctPlaced": 80.4,
+      "offers": null,
+      "ppos": null,
+      "higherStudiesPct": null,
+      "topRecruiters": [
+        {
+          "name": "Microsoft",
+          "sector": "software"
+        },
+        {
+          "name": "Amazon",
+          "sector": "software"
+        },
+        {
+          "name": "Cisco",
+          "sector": "software"
+        },
+        {
+          "name": "PayPal",
+          "sector": "software"
+        },
+        {
+          "name": "Visa",
+          "sector": "software"
+        },
+        {
+          "name": "ServiceNow",
+          "sector": "software"
+        },
+        {
+          "name": "Nutanix",
+          "sector": "software"
+        },
+        {
+          "name": "Uber",
+          "sector": "software"
+        },
+        {
+          "name": "Walmart",
+          "sector": "software"
+        },
+        {
+          "name": "Capgemini",
+          "sector": "software"
+        },
+        {
+          "name": "Cognizant",
+          "sector": "software"
+        },
+        {
+          "name": "Qualcomm",
+          "sector": "core"
+        },
+        {
+          "name": "Marvell",
+          "sector": "core"
+        },
+        {
+          "name": "Infineon",
+          "sector": "core"
+        },
+        {
+          "name": "Samsung",
+          "sector": "core"
+        },
+        {
+          "name": "Toshiba",
+          "sector": "core"
+        },
+        {
+          "name": "Siemens",
+          "sector": "core"
+        },
+        {
+          "name": "Alstom",
+          "sector": "core"
+        },
+        {
+          "name": "Honda",
+          "sector": "core"
+        },
+        {
+          "name": "Hyundai Mobis",
+          "sector": "core"
+        },
+        {
+          "name": "John Deere",
+          "sector": "core"
+        },
+        {
+          "name": "ExxonMobil",
+          "sector": "core"
+        },
+        {
+          "name": "Dr. Reddy's",
+          "sector": "core"
+        },
+        {
+          "name": "ITC Limited",
+          "sector": "core"
+        },
+        {
+          "name": "Morgan Stanley",
+          "sector": "finance"
+        },
+        {
+          "name": "J.P. Morgan",
+          "sector": "finance"
+        },
+        {
+          "name": "ICICI Bank",
+          "sector": "finance"
+        },
+        {
+          "name": "Deloitte",
+          "sector": "consulting"
+        },
+        {
+          "name": "TransUnion",
+          "sector": "analytics"
+        },
+        {
+          "name": "Mu Sigma",
+          "sector": "analytics"
+        }
+      ],
+      "branchWise": [
+        {
+          "program": "B.Tech Civil Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 70.7
+        },
+        {
+          "program": "B.Tech Computer Science and Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 88.1
+        },
+        {
+          "program": "B.Tech Electrical and Electronics Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 75.7
+        },
+        {
+          "program": "B.Tech Electronics and Communication Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 85.5
+        },
+        {
+          "program": "B.Tech Mechanical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 75.2
+        },
+        {
+          "program": "B.Tech Metallurgical and Materials Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 70.9
+        },
+        {
+          "program": "B.Tech Production Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 78.7
+        },
+        {
+          "program": "B.Tech Instrumentation and Control Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 81.7
+        },
+        {
+          "program": "B.Tech Chemical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 86.6
+        },
+        {
+          "program": "B.Arch Architecture",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 100
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/tp/",
+          "title": "Training and Placement, NIT Trichy \u2014 Placement percentage of registered students, Under Graduate (branch-wise table, 2016-17 to 2025-26; Overall UG 2025-26 = 80.4)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/tp/download/UG-Brochure-2025-26.pdf",
+          "title": "UG Placement Brochure 2025-2026, Department of Training & Placement \u2014 'Our Esteemed Recruiters' logo pages (recruiter names read from the logos)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "year": "2024-25",
+      "avgLpa": null,
+      "medianLpa": null,
+      "highestLpa": null,
+      "pctPlaced": 86.2,
+      "offers": null,
+      "ppos": null,
+      "higherStudiesPct": null,
+      "topRecruiters": [],
+      "branchWise": [
+        {
+          "program": "B.Tech Civil Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 71.1
+        },
+        {
+          "program": "B.Tech Computer Science and Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 97.3
+        },
+        {
+          "program": "B.Tech Electrical and Electronics Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 95.7
+        },
+        {
+          "program": "B.Tech Electronics and Communication Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90
+        },
+        {
+          "program": "B.Tech Mechanical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 88.3
+        },
+        {
+          "program": "B.Tech Metallurgical and Materials Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 78.6
+        },
+        {
+          "program": "B.Tech Production Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 75.8
+        },
+        {
+          "program": "B.Tech Instrumentation and Control Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90.3
+        },
+        {
+          "program": "B.Tech Chemical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 84.9
+        },
+        {
+          "program": "B.Arch Architecture",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 100
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/tp/",
+          "title": "Training and Placement, NIT Trichy \u2014 Placement percentage of registered students, Under Graduate (branch-wise table; Overall UG 2024-25 = 86.2)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/righttoinfoact/Annual_Report_2024-25.pdf",
+          "title": "Annual Report 2024-25, \u00a77.18 Department of Training and Placement \u2014 interim status: close to 1150 students placed, 80% of registered students as on 19-03-2025 (process still in progress)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "year": "2023-24",
+      "avgLpa": null,
+      "medianLpa": 14.35,
+      "highestLpa": null,
+      "pctPlaced": 88.9,
+      "offers": null,
+      "ppos": null,
+      "higherStudiesPct": 15.4,
+      "topRecruiters": [],
+      "branchWise": [
+        {
+          "program": "B.Tech Civil Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 76.2
+        },
+        {
+          "program": "B.Tech Computer Science and Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 96.9
+        },
+        {
+          "program": "B.Tech Electrical and Electronics Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 92.9
+        },
+        {
+          "program": "B.Tech Electronics and Communication Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 87.7
+        },
+        {
+          "program": "B.Tech Mechanical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90.6
+        },
+        {
+          "program": "B.Tech Metallurgical and Materials Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 79
+        },
+        {
+          "program": "B.Tech Production Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 87.2
+        },
+        {
+          "program": "B.Tech Instrumentation and Control Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90.7
+        },
+        {
+          "program": "B.Tech Chemical Engineering",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 92
+        },
+        {
+          "program": "B.Arch Architecture",
+          "avgLpa": null,
+          "medianLpa": null,
+          "pctPlaced": 90
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/tp/",
+          "title": "Training and Placement, NIT Trichy \u2014 Placement percentage of registered students, Under Graduate (branch-wise table; Overall UG 2023-24 = 88.9)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0467.pdf",
+          "title": "NIRF India Rankings 2025 data submitted by NIT Tiruchirappalli [IR-E-U-0467] \u2014 UG 4-year programmes graduating 2023-24: 1029 graduated, 791 placed, median salary Rs 14,35,000, 158 selected for higher",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/administration/annualreports/Annual_Report_2023-24.pdf",
+          "title": "Annual Report 2023-24, \u00a77.18 Training and Placement \u2014 interim status: over 1300 students placed, 85% of registered students as on 21-04-2024 (process still in progress)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023-24"
+    }
+  ]
+}

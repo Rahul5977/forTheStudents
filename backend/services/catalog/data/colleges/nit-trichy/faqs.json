@@ -1,0 +1,294 @@
+{
+  "instituteId": "nit-trichy",
+  "items": [
+    {
+      "q": "How do I get a B.Tech seat at NIT Trichy?",
+      "a": "Through JEE (Main) followed by JoSAA counselling; leftover seats are filled by CSAB special rounds. Your Class 12 marks matter for eligibility, but the seat itself is decided by your JEE Main rank and category. Foreign nationals, PIOs and NRIs come in through DASA instead. There is no separate NIT Trichy entrance test for B.Tech or B.Arch.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/admission_procedure/",
+          "title": "NIT Trichy - Admission Procedure",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/about/ataglance/",
+          "title": "NITT at a Glance",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "Which undergraduate branches does NIT Trichy offer?",
+      "a": "Nine four-year B.Tech programmes: Chemical, Civil, Computer Science and Engineering, Electrical and Electronics, Electronics and Communication, Instrumentation and Control, Mechanical, Metallurgical and Materials, and Production Engineering. There is also a five-year B.Arch and a four-year B.Sc. B.Ed. (admitted via NCET, not JoSAA). The JoSAA seat list carries only the 4-year B.Tech and 5-year B.Arch options; NIT Trichy does not offer B.Tech+M.Tech dual degrees through JoSAA.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/programmes/",
+          "title": "NIT Trichy - Academic Programmes",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/about/ataglance/",
+          "title": "NITT at a Glance",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "Can I change my branch after first year?",
+      "a": "Do not count on it. The B.Tech Regulations 2024 published on the institute site contain no branch-change (change of discipline) clause, so the branch allotted through JoSAA is effectively the one you graduate in. What the regulations do offer is a Minor (15 extra credits from one other department, starting in semester 3) and an Honours in your own branch, which is the institute's route to depth outside your allotted programme.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations (applicable from 2024 batch onwards)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "q": "Where exactly is the campus and how do I reach it?",
+      "a": "The 800-acre campus sits on the Trichy-Thanjavur highway (NH 83, Tanjore Main Road) between the BHEL township and Thuvakudi, about 22 km from Tiruchirappalli Junction and the Central Bus Stand. The institute recommends taking any city bus from the junction to the central bus stand and then a Thanjavur-bound bus, roughly a 30-minute ride; taxis and autos also run from the city. Trichy has its own international airport and is a major Southern Railway junction with trains from Chennai, Bengaluru, Madurai and Coimbatore.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/about/nitt/",
+          "title": "NIT Trichy - NIT Tiruchirappalli (About / How to get to NIT-T)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/contact/",
+          "title": "NIT Trichy - Contact",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "Where do first-year students stay, and what are the hostel rules for freshers?",
+      "a": "First-year UG students are housed in separate, fenced first-year hostels (the hostels page lists Agate, Diamond and Coral as first-year boys' hostels); seniors may not enter them and freshers may not visit senior hostels. The 2026-27 rule book sets a 9:00 PM entry deadline for first-year hostels with roll call 9:00-9:30 PM on weekdays (9:30-10:00 PM on weekends) and fines for late entry. Good attendance in first year earns preference in second-year room allotment. Rooms are shared in first year; single rooms exist mainly in senior hostels such as Ruby, Emerald and Pearl.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/NITT_HOSTEL_RESIDENTS_RULES_REGULATIONS_2026-27.pdf",
+          "title": "Hostel Rules & Regulations for Hostel Residents 2026-27",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/hostels/",
+          "title": "NIT Trichy - Hostels",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "What is the hostel fee for a newly admitted UG student?",
+      "a": "For the odd semester 2026-27 a newly admitted UG (B.Tech/B.Arch/B.Sc.B.Ed.) student pays Rs 59,950 to the hostel account: Rs 3,600 admission fee, Rs 4,000 refundable caution deposit, Rs 10,650 establishment fee, Rs 17,700 rent/electricity/water/service charges and a Rs 24,000 mess advance covering five months. Payment is only through SBI Collect, and the receipt plus the hostel application form (with two Rs 100 stamp papers) are needed at hostel admission.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/HOSTEL_FEES_ODD_SEM_2026-27_UG_FY.pdf",
+          "title": "Hostel Fees for Odd Semester 2026-27 (UG newly admitted students)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "How much is the institute fee for the 2026 B.Tech batch?",
+      "a": "Tuition is Rs 62,500 per semester for Open, EWS and OBC-NCL students. On top of that there is an annual fee paid in odd semesters (Rs 27,750 in year 1, rising to Rs 36,800 in year 4) and a one-time fee of Rs 35,300 that includes refundable institute and library deposits. So the first semester bill is Rs 1,25,550, the second semester Rs 62,500. SC, ST and PwD students pay no tuition, making their first semester Rs 63,050.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/ug_courses_fee_structure/B.Tech%202026.pdf",
+          "title": "Institute Fees Structure for 2026 Admission Batch - B.Tech.",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "Is there a tuition fee waiver based on family income?",
+      "a": "Yes. Open, EWS and OBC-NCL students with family income below Rs 1 lakh a year get full remission of the Rs 62,500 tuition; those with income between Rs 1 lakh and Rs 5 lakh get two-thirds off (Rs 41,667). SC/ST/PwD students are exempt from tuition regardless of income. You must submit a parental income certificate for the previous financial year and file the income-based Tuition Fee Remission form available on the Fees Section page, which also posts the annual remission notice for the newly admitted batch.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/ug_courses_fee_structure/B.Tech%202026.pdf",
+          "title": "Institute Fees Structure for 2026 Admission Batch - B.Tech.",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/academics/fees_section/",
+          "title": "NIT Trichy - Fees Section",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "What is the medium of instruction?",
+      "a": "English. The B.Tech regulations state that instruction, examinations and project reports are all in English. Exchange or study-abroad semesters are also allowed only at institutions that teach in English.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations (applicable from 2024 batch onwards)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "q": "Is there a compulsory internship in the B.Tech programme?",
+      "a": "Yes. Every B.Tech student must complete an internship or industrial training of at least six weeks in the summer after the 6th semester. It is registered along with 7th-semester courses, carries 2 credits and is graded on a report plus a viva conducted by the HoD and programme coordinator. Internships arranged through the Training and Placement office can also be turned into the final-year project with departmental approval.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations (applicable from 2024 batch onwards)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "q": "What are the Honours, Minor and early-exit options?",
+      "a": "Honours: earn 15 extra credits from your own department's honours basket from semester 5 onward, keep an SGPA of at least 8.5 in every semester and at least a B in each honours course to graduate with B.Tech (Honours). Minor: 15 extra credits from a single other department starting semester 3, certified separately alongside the degree. Exit option: a student may leave after three years with a B.Sc. in the engineering discipline and return within the 12-semester limit to finish the B.Tech.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations (applicable from 2024 batch onwards)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "q": "Is there a CGPA cutoff for campus placements?",
+      "a": "The institute itself does not set a CGPA bar; each recruiter fixes its own eligibility (branches, academic cutoff, degree level), and the T&P office negotiates to widen the pool. NIT Trichy follows a one-job policy so that offers spread across branches, and students who plan higher studies, GATE/PSU or UPSC may opt out of the placement preparation series. Everyone who wants placements must take part in that series. For reference, the T&P page reports 80.4% of registered UG students placed in 2025-26 (CSE 88.1%, ECE 85.5%), down from 86.2% in 2024-25.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/tp/guidance/",
+          "title": "NIT Trichy - Guidance for students (placement conventions)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/tp/",
+          "title": "NIT Trichy - Training and Placement (placement percentage of registered students)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "q": "What are the rules on laptops, appliances, vehicles and mess in the hostels?",
+      "a": "Laptops and phones are allowed but are your own responsibility: keep them locked away and lock the room when you step out. Immersion heaters, kettles, irons, air coolers, personal Wi-Fi extenders and routers are banned in rooms, private cooking is prohibited, and powered vehicles (bikes, scooters) are not permitted for students on campus; cycles are fine. Food is served in 13 messes with South Indian, North Indian, Andhra, Kerala and mixed menus, including dedicated first-year messes; taking food or utensils out of the mess is not allowed.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/NITT_HOSTEL_RESIDENTS_RULES_REGULATIONS_2026-27.pdf",
+          "title": "Hostel Rules & Regulations for Hostel Residents 2026-27",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/students/facilitiesnservices/hostelsnmess/messes/",
+          "title": "NIT Trichy - Messes",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "How strict are attendance and degree requirements?",
+      "a": "A B.Tech needs 160-163 credits over eight semesters, and you cannot take more than twelve semesters in total. At least 75% attendance is required in every course to sit the final assessment, and first-year students must also complete NCC, NSO or NSS (45 hours a semester) within the first four semesters. First class with distinction goes to those finishing in eight semesters with CGPA 8.5 or above and no failed courses; first class needs CGPA 6.5 or more.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/academics/rules/Regulations_B.Tech._2024.pdf",
+          "title": "B.Tech. Regulations (applicable from 2024 batch onwards)",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024"
+    },
+    {
+      "q": "What happens after I get a JoSAA allotment: when do I report and when do classes start?",
+      "a": "For the 2026-27 batch the institute ran online reporting on 15-17 August 2026 (no campus visit needed for this step), followed by physical reporting department-wise at Barn Hall in the Administrative Block on 18-20 August, an orientation programme on 21-25 August and the start of classes on 27 August 2026. The B.Tech admissions page carries the registration link, balance-fee payment details and the list of documents to upload, so keep checking it after your allotment.",
+      "sources": [
+        {
+          "url": "https://www.nitt.edu/home/admissions/btech/Important_instructions_to_candidates_(through_JoSAA,_DASA,_CSAB-Special,_ICCR,_SII)_2026.pdf",
+          "title": "Important Instructions to Candidates (JoSAA / DASA / CSAB-Special / ICCR / SII) 2026",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.nitt.edu/home/admissions/btech/",
+          "title": "NIT Trichy - B.Tech. / B.Arch. admissions",
+          "publisher": "NIT Tiruchirappalli",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    }
+  ]
+}

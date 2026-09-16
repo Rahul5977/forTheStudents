@@ -1,0 +1,499 @@
+{
+  "instituteId": "iit-bombay",
+  "departments": [
+    {
+      "name": "Aerospace Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Aerospace Engineering", "durationYears": 4, "intake": 66 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Chemical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Chemical Engineering", "durationYears": 4, "intake": 113 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Civil Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Civil Engineering", "durationYears": 4, "intake": 130 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Computer Science & Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Computer Science and Engineering", "durationYears": 4, "intake": 170 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Electrical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Electrical Engineering", "durationYears": 4, "intake": 90 },
+        { "degree": "Dual Degree", "name": "Electrical Engineering (B.Tech + M.Tech with specialization)", "durationYears": 5, "intake": 80 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-DD-FinalForWeb.pdf",
+          "title": "Sanctioned Strength for Dual Degree (B.Tech. + M.Tech.) for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Energy Science and Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Energy Science and Engineering", "durationYears": 4, "intake": 41 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Physics",
+      "programs": [
+        { "degree": "B.Tech", "name": "Engineering Physics", "durationYears": 4, "intake": 52 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitb.ac.in/divisions",
+          "title": "Academic Divisions - Departments, Centres and Schools",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Environmental Science and Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Environmental Science and Engineering", "durationYears": 4, "intake": 37 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Industrial Engineering and Operations Research",
+      "programs": [
+        { "degree": "B.Tech", "name": "Industrial Engineering and Operations Research", "durationYears": 4, "intake": 36 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Mechanical Engineering",
+      "programs": [
+        { "degree": "B.Tech", "name": "Mechanical Engineering", "durationYears": 4, "intake": 169 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Metallurgical Engineering & Materials Science",
+      "programs": [
+        { "degree": "B.Tech", "name": "Metallurgical Engineering and Materials Science", "durationYears": 4, "intake": 102 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech. for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Chemistry",
+      "programs": [
+        { "degree": "BS", "name": "Chemistry", "durationYears": 4, "intake": 35 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BS-FinalForWeb.pdf",
+          "title": "Sanctioned Strength for Bachelor of Science (B.S.) for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Economics",
+      "programs": [
+        { "degree": "BS", "name": "Economics", "durationYears": 4, "intake": 40 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BS-FinalForWeb.pdf",
+          "title": "Sanctioned Strength for Bachelor of Science (B.S.) for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Mathematics",
+      "programs": [
+        { "degree": "BS", "name": "Mathematics", "durationYears": 4, "intake": 18 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BS-FinalForWeb.pdf",
+          "title": "Sanctioned Strength for Bachelor of Science (B.S.) for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Earth Sciences",
+      "programs": [
+        { "degree": "BS", "name": "Applied Geophysics", "durationYears": 4, "intake": 25 }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BS-FinalForWeb.pdf",
+          "title": "Sanctioned Strength for Bachelor of Science (B.S.) for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitb.ac.in/divisions",
+          "title": "Academic Divisions - Departments, Centres and Schools",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "IDC School of Design",
+      "programs": [
+        { "degree": "B.Des", "name": "Design (admission through UCEED, not JoSAA)", "durationYears": 4, "intake": null }
+      ],
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/admissions/bachelors",
+          "title": "Bachelor's programmes - Admissions",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "name": "Biosciences and Bioengineering",
+      "programs": [],
+      "sources": [
+        {
+          "url": "https://www.iitb.ac.in/divisions",
+          "title": "Academic Divisions - Departments, Centres and Schools",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "name": "Humanities and Social Sciences",
+      "programs": [],
+      "sources": [
+        {
+          "url": "https://www.iitb.ac.in/divisions",
+          "title": "Academic Divisions - Departments, Centres and Schools",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    }
+  ],
+  "facultyCount": {
+    "value": 792,
+    "sources": [
+      {
+        "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0306.pdf",
+        "title": "NIRF India Rankings 2025 - data submitted by IIT Bombay (Engineering, IR-E-U-0306)",
+        "publisher": "NIRF",
+        "accessedOn": "2026-09-13",
+        "asOf": "2023-24",
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2023-24"
+  },
+  "curriculumHighlights": [
+    {
+      "text": "Credit-based semester system: two regular semesters (Autumn Jul-Nov, Spring Jan-Apr) plus a summer term. A B.Tech/B.S. needs roughly 266-282 credits depending on the discipline.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (updated August 2026)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "text": "No branch change into JoSAA-admitted branches for students admitted from JEE (Advanced) 2023 onwards; the only post-first-year switch is into the LASE (Liberal Arts, Sciences, Engineering) B.S. track.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (updated August 2026)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "text": "Minor: 30 extra credits in another department, pre-registered and allotted by CPI, printed on the degree as 'with Minor in ...'. More than one minor is allowed if the timetable permits.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (updated August 2026)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "text": "Honours: 24 additional credits of department-prescribed courses/project earns 'B.Tech ... with Honours'. Dual Degree students must complete the honours requirement as part of their programme.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (updated August 2026)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "text": "B.Tech students may convert to the 5-year Dual Degree in their own department after the 6th semester (department CPI cut-off applies); the DD project carries 72 credits over about 14 months.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (updated August 2026)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "text": "IDDDP lets B.Tech/B.S. students add an M.Tech, MBA or M.Sc. specialisation from another department in a 5th year: apply after semester 6 with CPI of at least 7.5; at most 2 seats per specialisation.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/IDDDP_Guidelines_2025.pdf",
+          "title": "Guidelines for Interdisciplinary Dual Degree Programme (IDDDP)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025"
+    },
+    {
+      "text": "Semester exchange abroad through the International Relations office, which lists 250 MoUs with global institutions; courses taken at the partner are registered and graded on return with DUGC approval.",
+      "sources": [
+        {
+          "url": "https://www.ir.iitb.ac.in/",
+          "title": "International Relations, IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (updated August 2026)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "text": "After the first year, students in good standing get about 6 credits of headroom per semester for extra courses; that is how minors, honours, a 12-credit B.Tech Project or NPTEL/SWAYAM credits fit in.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (updated August 2026)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    }
+  ],
+  "research": {
+    "note": "IIT Bombay's NIRF 2026 submission reports 3,290 full-time and 241 part-time PhD scholars enrolled up to 2024-25, with 463 full-time and 36 part-time doctorates awarded that year. Sponsored research stood at 1,707 projects worth about Rs 795 crore in 2024-25, consultancy at 1,368 projects worth about Rs 157 crore, and 298 patents were granted in 2024. The campus also hosts a Research Park.",
+    "phdCount": 3531,
+    "sources": [
+      {
+        "url": "https://www.iitb.ac.in/sites/default/files/2026-04/NIRF_IITBombay_2026_Engineering_Category.pdf",
+        "title": "NIRF 2026 Engineering category - data submitted by IIT Bombay",
+        "publisher": "IIT Bombay",
+        "accessedOn": "2026-09-13",
+        "asOf": "2024-25",
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0306.pdf",
+        "title": "NIRF India Rankings 2025 - data submitted by IIT Bombay (Engineering, IR-E-U-0306)",
+        "publisher": "NIRF",
+        "accessedOn": "2026-09-13",
+        "asOf": "2023-24",
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.iitb.ac.in/research",
+        "title": "Research at IIT Bombay",
+        "publisher": "IIT Bombay",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2024-25"
+  }
+}

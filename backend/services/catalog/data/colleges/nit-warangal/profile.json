@@ -1,0 +1,121 @@
+{
+  "instituteId": "nit-warangal",
+  "officialName": "National Institute of Technology Warangal",
+  "short": "NIT Warangal",
+  "type": "NIT",
+  "established": 1959,
+  "website": "https://www.nitw.ac.in",
+  "about": "NIT Warangal began in 1959 as the first of the Regional Engineering Colleges, with its foundation stone laid by Jawaharlal Nehru, and is today an Institute of National Importance funded by the Ministry of Education. It is a fully residential campus of about 250 acres with roughly 7,000 students and 400 faculty across 13 academic departments, offering B.Tech in ten specialisations alongside dual-degree, integrated M.Sc., M.Tech, MBA and PhD programmes. Its reputation rests on strong core-engineering departments, a large doctoral programme, an active sponsored-research and consultancy portfolio, and a consistent place among the top 25–30 engineering institutes in NIRF.",
+  "location": {
+    "city": "Warangal",
+    "state": "Telangana",
+    "campusAcres": 250,
+    "nearestAirport": "Rajiv Gandhi International Airport, Hyderabad (about 150 km)",
+    "nearestRailway": "Kazipet Junction (about 2-3 km); Warangal station (about 12-14 km)",
+    "connectivityNote": "The campus sits on the Hyderabad-Warangal highway (NH-202) just outside Kazipet, so most students arrive by train at Kazipet Junction, which many long-distance trains stop at, or at Warangal station a little further away. From Hyderabad the road trip is about two and a half hours by cab or bus, and roughly two hours by train; there is no commercial airport at Warangal itself.",
+    "sources": [
+      {
+        "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+        "title": "NIT Warangal Communication Handbook 2024 - A Brief Introduction (campus 250 acres, distances to Kazipet, Warangal, RGIA Hyderabad)",
+        "publisher": "NIT Warangal",
+        "accessedOn": "2026-09-13",
+        "asOf": "2024",
+        "confidence": "official"
+      },
+      {
+        "url": "https://www.nitw.ac.in/page/?url=/nitwVisiting/update",
+        "title": "Visiting NIT Warangal - Mode of Travel (air, rail, road)",
+        "publisher": "NIT Warangal",
+        "accessedOn": "2026-09-13",
+        "asOf": null,
+        "confidence": "official"
+      }
+    ],
+    "asOf": "2024"
+  },
+  "admissionRoutes": [
+    {
+      "route": "josaa",
+      "programs": ["B.Tech", "B.Tech + M.Tech Dual Degree", "Integrated M.Sc. (5-year)"],
+      "note": "JEE Main rank; seats allotted through JoSAA counselling. The institute's admissions site lists JoSAA/CSAB as the route for all B.Tech, dual-degree and integrated M.Sc. seats.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG: JoSAA/CSAB, department-wise intake table",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://josaa.admissions.nic.in/applicant/seatmatrix/seatmatrixinfo.aspx",
+          "title": "JoSAA 2026 Seat Matrix - Seat Information (National Institute of Technology, Warangal)",
+          "publisher": "JoSAA",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026"
+    },
+    {
+      "route": "csab",
+      "programs": ["B.Tech", "B.Tech + M.Tech Dual Degree", "Integrated M.Sc. (5-year)"],
+      "note": "CSAB special rounds fill seats left vacant after JoSAA, again on JEE Main rank. The admissions site links CSAB's opening and closing ranks for reference.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG: JoSAA/CSAB counselling",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "route": "other",
+      "programs": ["B.Tech (DASA / SII / ICCR / Nepal COMPEX)", "B.Sc. B.Ed. (ITEP)"],
+      "note": "Foreign nationals, NRIs and PIOs are admitted to B.Tech through DASA, Study in India (SII), ICCR and the Nepal COMPEX scheme, each with its own fee slab on the admissions site. The 4-year ITEP B.Sc. B.Ed. (School of Education) is listed as a separate admission stream outside JoSAA.",
+      "sources": [
+        {
+          "url": "https://nitw.ac.in/adm/",
+          "title": "NIT Warangal Admission Guidelines - UG tabs: SII, ICCR, DASA, Nepal COMPEX, ITEP B.Sc. B.Ed., fee structure",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        },
+        {
+          "url": "https://nitw.ac.in/api/static/files/2024_25_UG_Regulations_2026-6-24-15-55-3.pdf",
+          "title": "Academic Regulations of UG (B.Tech. and B.Sc. B.Ed.) Programs, effective 2024-25 - section 2.3 (DASA, SII, ICCR, COMPEX)",
+          "publisher": "NIT Warangal",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://nitw.ac.in/api/static/files/newcommunicationbook_2024-8-3-9-33-15.pdf",
+      "title": "NIT Warangal Communication Handbook 2024 - A Brief Introduction (foundation 10 Oct 1959, 400 faculty, ~7000 students, 13 departments, 10 B.Tech programmes)",
+      "publisher": "NIT Warangal",
+      "accessedOn": "2026-09-13",
+      "asOf": "2024",
+      "confidence": "official"
+    },
+    {
+      "url": "https://www.nirfindia.org/Rankings/2025/EngineeringRanking.html",
+      "title": "NIRF India Rankings 2025 - Engineering (National Institute of Technology Warangal, rank 28)",
+      "publisher": "NIRF",
+      "accessedOn": "2026-09-13",
+      "asOf": "2025",
+      "confidence": "official"
+    }
+  ],
+  "asOf": "2024"
+}

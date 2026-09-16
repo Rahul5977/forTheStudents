@@ -1,0 +1,294 @@
+{
+  "instituteId": "iit-bombay",
+  "items": [
+    {
+      "q": "How do I get into IIT Bombay's B.Tech, Dual Degree, B.S. or B.Des programmes?",
+      "a": "B.Tech, the 5-year Dual Degree and the B.S. programmes take students only through JEE (Advanced) followed by JoSAA seat allocation. B.Des at the IDC School of Design is filled through UCEED. A small number of B.S. (Mathematics) seats go to students who qualify the Indian National Mathematical Olympiad (INMO). There is no separate institute-level entrance test for these programmes.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/admissions/bachelors",
+          "title": "Bachelors Admissions - Academic Office, IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "q": "Which B.Tech branches does IIT Bombay offer through JoSAA, and how many seats are there?",
+      "a": "For 2025-26 the institute sanctioned 1,006 B.Tech seats across 11 branches: Aerospace (66), Chemical (113), Civil (130), Computer Science (170), Electrical (90), Energy Science (41), Engineering Physics (52), Environmental Science (37), Industrial Engineering & OR (36), Mechanical (169) and Metallurgical Engineering & Materials Science (102). Female supernumerary seats are added on top to reach 20% women enrolment, and PwBD reservation is 5% horizontal.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/JEE-2025-26-BTech-FinalPreparedForWeb.pdf",
+          "title": "Sanctioned Strength for B.Tech for the Academic Year 2025-26",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        },
+        {
+          "url": "https://acad.iitb.ac.in/admissions/bachelors",
+          "title": "Bachelors Admissions - Academic Office, IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2025-26",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2025-26"
+    },
+    {
+      "q": "Can I change my branch after the first year at IIT Bombay?",
+      "a": "No, not into another JoSAA branch. The Senate (256th meeting) removed branch change into JoSAA-administered branches for students admitted through JEE (Advanced) 2023 onwards. The only remaining route is conversion into the Liberal Arts, Sciences and Engineering (LASE) B.S. programme after the first two semesters, which needs an eligibility CPI of at least 7.0 in specified first-year courses plus a test and/or interview. The branch you get through JoSAA is the branch you graduate in.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (Updated August 2026), Section 8 Change of Branch",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "q": "Can a B.Tech student convert to a Dual Degree (B.Tech + M.Tech) at IIT Bombay?",
+      "a": "Yes. A B.Tech, B.S. or B.Des student may apply to convert to the 5-year Dual Degree in the same department after the 6th semester and up to a week before the 7th semester starts. Each department's DUGC sets its own conditions, typically a CPI cut-off, a plan for the extra courses and a faculty recommendation. There is also an Interdisciplinary Dual Degree (IDDDP) into another department, open at the end of the 6th semester to students with CPI of 7.5 or more and no FR/DR/DX grades.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (Updated August 2026), Sections 13-14",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "q": "What are Minors and Honours at IIT Bombay, and can a CSE Minor substitute for a branch change?",
+      "a": "A Minor is 30 extra credits of courses in a discipline other than your own; every academic unit offers one and the degree reads 'B.Tech in X with Minor in Y'. Honours is 24 extra credits of advanced courses in your own department. Minor course seats are allotted by CPI after pre-registration, so popular minors are competitive. A Minor gives you a credential on the degree certificate and transcript, but it does not change your major.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (Updated August 2026), Section 2.5 Minor and Honours",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "q": "How much are the academic fees for a new B.Tech entrant at IIT Bombay?",
+      "a": "For Autumn Semester 2026-27 the tuition fee is Rs 1,00,000 per semester for Indian nationals. With registration/examination, gymkhana, benevolent fund, insurance and medical fees, the per-semester academic total is Rs 1,08,150. The first semester adds one-time charges of Rs 16,000 (admission, alumni life membership, welfare fund) and refundable deposits of Rs 10,000, making the first bill Rs 1,34,150. Hostel and mess charges are billed separately by the Hostel Coordinating Unit.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/New_Entrants_fee_structure_2026.pdf",
+          "title": "Fee Structure for UG New Entrants, Autumn Semester 2026-27",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://acad.iitb.ac.in/fees-structure-prospective-students",
+          "title": "Fees Structure for Prospective Students - Academic Office, IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "Is there a tuition fee waiver at IIT Bombay for SC/ST/PwD students or low-income families?",
+      "a": "Yes. SC, ST and PwD students pay no tuition fee at all. For other UG students, family gross income below Rs 1 lakh a year gives full tuition remission and income between Rs 1 lakh and Rs 5 lakh gives two-thirds remission; a parental income certificate must be submitted with the application every year. SC/ST students with family income up to Rs 5 lakh can also get free basic messing, hostel room-rent exemption and a pocket allowance of Rs 500 a month for 10 months.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/Remission_Fees_UG.pdf",
+          "title": "Remission of Fees (UG)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/Free_Messing_UG.pdf",
+          "title": "Facilities of Free Messing for SC/ST Category Students (UG)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/New_Entrants_fee_structure_2026.pdf",
+          "title": "Fee Structure for UG New Entrants, Autumn Semester 2026-27",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "q": "What is the Merit-cum-Means (MCM) scholarship at IIT Bombay?",
+      "a": "MCM is the institute's own scholarship for at most 25% of the sanctioned UG intake, open to students with family income up to Rs 5 lakh a year. It waives tuition and pays Rs 40,000 a year (income up to Rs 1 lakh), Rs 30,000 (Rs 1-3 lakh) or Rs 20,000 (Rs 3-5 lakh); women students get a further Rs 10,000 Women Merit Scholarship. First-year merit is the JEE (Advanced) rank (UCEED for B.Des); later years use academic performance. It cannot be clubbed with other scholarships.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/MCM_UG.pdf",
+          "title": "Merit-cum-Means (MCM) Scholarship (UG)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2024-25",
+          "confidence": "official"
+        },
+        {
+          "url": "https://acad.iitb.ac.in/academics/scholarship",
+          "title": "Scholarships - Academic Office, IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2024-25"
+    },
+    {
+      "q": "How does hostel allotment work for first-year students at IIT Bombay?",
+      "a": "Every UG entrant gets a hostel room; the campus has 21 residence halls run by the Hostel Coordinating Unit with the student Hostel Affairs Council. For the 2026 batch the room number came in the welcome email around 17 July, check-in opened on 20 July at a common registration desk near Hostel 1, and orientation ran 21-25 July before classes on 27 July. Parents are not allowed inside hostels. A Semester Mess Advance is paid on the ASC portal beforehand; hostel fees follow a separate HCU circular.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/information-ug-new-entrants-2026-27",
+          "title": "Information for UG New Entrants 2026-27 - Academic Office, IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        },
+        {
+          "url": "https://gymkhana.iitb.ac.in/~hostelaffairs/",
+          "title": "Hostel Affairs Council - IIT Bombay Students' Gymkhana",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "Where is IIT Bombay and how do I reach the campus from the station or airport?",
+      "a": "The campus is in Powai, north-east Mumbai (PIN 400076), between Powai and Vihar lakes. On the Central suburban line, Kanjurmarg (about 3 km) and Vikhroli are the closest stations; on the Western line, Andheri is about 10 km away. Saki Naka on Metro Line 1 is roughly 4 km from campus and Aarey JVLR on the Aqua Line also works; take an auto-rickshaw from either. BEST buses stop at IIT Main Gate and IIT Market Gate. From the international airport it is a short taxi or metro-plus-auto ride.",
+      "sources": [
+        {
+          "url": "https://www.iitb.ac.in/contact-us",
+          "title": "Contact Us / How to Reach - IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": null
+    },
+    {
+      "q": "What is the medium of instruction and grading system at IIT Bombay?",
+      "a": "All teaching and examinations are in English. Performance is reported as a CPI on a 10-point scale; the institute awards no class or division and states that the CPI cannot simply be converted to a percentage by a fixed factor, though notionally CPI x 10 is used where a percentage is demanded. B.Tech, B.S. and B.Des are 4-year (8-semester) programmes and the Dual Degree is 5 years (10 semesters).",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (Updated August 2026), Section 18 Utility",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        },
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/New_Entrants_fee_structure_2026.pdf",
+          "title": "Fee Structure for UG New Entrants, Autumn Semester 2026-27",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "q": "What do IIT Bombay's placement numbers look like for B.Tech graduates?",
+      "a": "In the institute's NIRF 2025 submission, 990 students of the 4-year UG programmes graduated on time in 2023-24; 731 were placed at a median salary of Rs 19.61 lakh per annum and 259 went on to higher studies. For the 5-year programmes, 156 of 182 graduates were placed at a median of Rs 19.25 lakh. Campus placements are run by the student-managed Placement Office through the portal at campus.placements.iitb.ac.in; the institute has not published a public branch-wise CPI cut-off for registration.",
+      "sources": [
+        {
+          "url": "https://www.nirfindia.org/nirfpdfcdn/2025/pdf/Engineering/IR-E-U-0306.pdf",
+          "title": "NIRF 2025 data submitted by IIT Bombay (IR-E-U-0306)",
+          "publisher": "NIRF",
+          "accessedOn": "2026-09-13",
+          "asOf": "2023-24",
+          "confidence": "official"
+        },
+        {
+          "url": "https://www.iitb.ac.in/",
+          "title": "IIT Bombay home page (Placements Portal link)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": null,
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2023-24"
+    },
+    {
+      "q": "If I withdraw after paying fees at IIT Bombay, how much do I get back?",
+      "a": "If you withdraw before the last date for paying the semester fee, the semester fee is refunded after deducting Rs 5,000 as seat-acceptance fee and processing charges. If you withdraw after that date, only the refundable caution deposits (institute, library and hostel) are returned, subject to no-dues, and mess charges are collected pro-rata for the days used.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/New_Entrants_fee_structure_2026.pdf",
+          "title": "Schedule for Payment of Academic Fees by UG New Entrants, Autumn Semester 2026-27 (Fee Refund Policy)",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    },
+    {
+      "q": "Can I finish B.Tech early or leave with an exit degree at IIT Bombay?",
+      "a": "B.Tech and B.S. students who complete all credit requirements can apply to leave at the end of a semester after at least three years in the institute; the degree is still conferred at the batch's regular convocation and recorded as a 4-year programme. Such students may register for placements but get no hostel accommodation during placement activities. The rulebook also provides an exit-degree option for undergraduates and an early-exit route for Dual Degree students.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/sites/default/files/UG_RULE%20BOOK_14.08.2026.pdf",
+          "title": "Rules & Regulations for Undergraduate Programmes (Updated August 2026), Sections 9.4-9.5 and 12",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-08",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-08"
+    },
+    {
+      "q": "What should I do before arriving at IIT Bombay as a fresher?",
+      "a": "Before reporting, set up your institute IT account via the Computer Centre page, fill personal details on the ASC portal, pay the Semester Mess Advance, and print the pre-filled Student/Parent Declaration, Hostel Registration and Medical Record forms. Carry your JoSAA/UCEED/INMO allotment letter, originals plus copies of certificates, and immunisation records (MMR, chickenpox, typhoid, hepatitis A recommended). The Gymkhana's Student Mentor Programme and NewBee portal help freshers settle in.",
+      "sources": [
+        {
+          "url": "https://acad.iitb.ac.in/information-ug-new-entrants-2026-27",
+          "title": "Information for UG New Entrants 2026-27 - Academic Office, IIT Bombay",
+          "publisher": "IIT Bombay",
+          "accessedOn": "2026-09-13",
+          "asOf": "2026-27",
+          "confidence": "official"
+        }
+      ],
+      "asOf": "2026-27"
+    }
+  ]
+}
